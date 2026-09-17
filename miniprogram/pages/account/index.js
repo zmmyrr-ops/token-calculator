@@ -5,6 +5,7 @@ Page({
     nickname: "",
     avatar: null,
     avatarDirty: false,
+    avatarLoading: false,
     avatarUrl: "",
     loading: false,
     error: "",
@@ -73,15 +74,17 @@ Page({
       this.setData({ loading: false });
     }
   },
-  async submit() {
-    if (this.data.loading || !this.data.user) return;
-    if (!this.data.nickname.trim()) {
+  async submit(e) {
+    if (this.data.loading || this.data.avatarLoading || !this.data.user) return;
+    // Read the form value after the native nickname component has validated it.
+    const nickname = String(e?.detail?.value?.nickname ?? this.data.nickname).trim();
+    if (!nickname) {
       this.setData({ error: "请填写昵称" });
       return;
     }
     this.setData({ loading: true, error: "" });
     try {
-      const data = { nickname: this.data.nickname };
+      const data = { nickname };
       if (this.data.avatarDirty) data.avatar = this.data.avatar;
       const r = await api.request("/api/mini/community/profile", data, "PUT");
       this.setData({
@@ -98,19 +101,14 @@ Page({
       this.setData({ loading: false });
     }
   },
-  chooseAvatar() {
-    wx.chooseMedia({
-      count: 1,
-      mediaType: ["image"],
-      sourceType: ["album", "camera"],
-      success: (r) => this.convertAvatar(r.tempFiles[0].tempFilePath),
-      fail: (e) => {
-        if (!/cancel/.test(e.errMsg))
-          api.toast(new Error("无法选择图片，请检查相册权限"));
-      },
-    });
+  chooseAvatar(e) {
+    if (this.data.loading || this.data.avatarLoading) return;
+    const path = e.detail && e.detail.avatarUrl;
+    if (path) this.convertAvatar(path);
   },
   convertAvatar(path) {
+    this.setData({ avatarLoading: true, error: "" });
+    const fail = (message) => this.setData({ avatarLoading: false, error: message });
     wx.getImageInfo({
       src: path,
       success: (info) => {
@@ -147,21 +145,23 @@ Page({
                     this.setData({
                       avatar: "data:image/png;base64," + f.data,
                       avatarDirty: true,
+                      avatarLoading: false,
                       avatarUrl: r.tempFilePath,
                     }),
-                  fail: () => api.toast(new Error("读取头像失败")),
+                  fail: () => fail("读取头像失败，请重新选择"),
                 });
               },
-              fail: () => api.toast(new Error("头像转换失败，请换一张图片")),
+              fail: () => fail("头像转换失败，请换一张图片"),
             },
             this,
           ),
         );
       },
-      fail: () => api.toast(new Error("无法读取这张图片")),
+      fail: () => fail("无法读取这张图片，请重新选择"),
     });
   },
   defaultAvatar() {
+    if (this.data.loading || this.data.avatarLoading) return;
     this.setData({ avatar: null, avatarUrl: "", avatarDirty: true });
   },
 });

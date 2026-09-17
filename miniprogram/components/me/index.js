@@ -1,11 +1,11 @@
 const api = require("../../utils/api");
 const saved = require("../../utils/saved");
 const nav = require("../../utils/navigation");
-Page({
+require("../../utils/panel")({
   data: { user: null, items: [], error: "", forumEnabled: false },
   onLoad() {
     this._unwatch = getApp().watchSettings((modules) =>
-      this.setData({ forumEnabled: modules.forum }),
+      this.setData({ forumEnabled: modules.forum, items: saved.all().filter((x) => nav.allowed(x.kind)) }),
     );
   },
   onUnload() {
@@ -13,7 +13,7 @@ Page({
   },
   async onShow() {
     getApp().refreshSettings();
-    this.setData({ items: saved.all(), error: "", user: null });
+    this.setData({ items: saved.all().filter((x) => nav.allowed(x.kind)), error: "", user: null });
     if (api.token())
       try {
         const r = await api.request("/api/mini/community/session");
@@ -42,7 +42,7 @@ Page({
   },
   remove(e) {
     saved.toggle(this.data.items[e.currentTarget.dataset.index]);
-    this.setData({ items: saved.all() });
+    this.setData({ items: saved.all().filter((x) => nav.allowed(x.kind)) });
   },
   async logout() {
     try {

@@ -1,5 +1,10 @@
 const nav = require("../../utils/navigation");
-Page({
+require("../../utils/panel")({
+  data: { modelsEnabled: false, platformsEnabled: false },
+  onLoad() {
+    this._unwatch = getApp().watchSettings((m) => this.setData({ modelsEnabled: m.models, platformsEnabled: m.platforms }));
+  },
+  onUnload() { if (this._unwatch) this._unwatch(); },
   list(e) {
     nav.list(e.currentTarget.dataset.kind);
   },

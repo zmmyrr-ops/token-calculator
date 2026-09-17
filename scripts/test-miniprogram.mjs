@@ -6,6 +6,9 @@ import { mkdir, cp, writeFile, readFile } from "node:fs/promises";
 import { randomUUID, randomBytes } from "node:crypto";
 import path from "node:path";
 import assert from "node:assert/strict";
+const canonicalProject = path.resolve("miniprogram");
+const cliPath = process.env.WECHAT_CLI ||
+  "/Applications/wechatwebdevtools.app/Contents/MacOS/cli";
 const dir = path.resolve(
   "test-results/miniprogram-integration-" + randomUUID(),
 );
@@ -31,6 +34,7 @@ const config = JSON.parse(
   await readFile(path.join(project, "project.config.json"), "utf8"),
 );
 config.setting.urlCheck = false;
+config.projectname = "AI门道·临时自动化测试";
 await writeFile(
   path.join(project, "project.config.json"),
   JSON.stringify(config),
@@ -65,8 +69,7 @@ try {
     }
   });
   const opened = spawnSync(
-    process.env.WECHAT_CLI ||
-      "/Applications/wechatwebdevtools.app/Contents/MacOS/cli",
+    cliPath,
     ["open", "--project", project],
     { encoding: "utf8", timeout: 15000 },
   );
@@ -74,9 +77,7 @@ try {
   await new Promise((resolve) => setTimeout(resolve, 3000));
   const launch = () =>
     automator.launch({
-      cliPath:
-        process.env.WECHAT_CLI ||
-        "/Applications/wechatwebdevtools.app/Contents/MacOS/cli",
+      cliPath,
       projectPath: project,
       timeout: 60000,
       trustProject: true,
@@ -105,7 +106,13 @@ try {
     assert.equal((await p.data("error")) || "", "");
     return p;
   };
-  let p = await ready(await mini.switchTab("/pages/learn/index"));
+  async function homeTab(tab) {
+    const home = await mini.reLaunch("/pages/home/index?tab=" + tab);
+    await waitFor(async () => await home.data("ready"));
+    await home.waitFor(200);
+    return home.$("#active-panel");
+  }
+  let p = await ready(await homeTab("learn"));
   assert.ok((await p.data("items")).length > 0);
   const article = (await p.data("items"))[0];
   const before = (await p.data("items")).length;
@@ -191,8 +198,8 @@ try {
   assert.equal(await p.data("error"), "");
   assert.equal(await p.data("total"), 1);
   console.log("PASS: create discussion and reply");
-  p = await mini.switchTab("/pages/me/index");
-  await p.waitFor(400);
+  p = await homeTab("me");
+  await new Promise((resolve) => setTimeout(resolve, 400));
   assert.ok((await p.data("items")).length);
   await mini.screenshot({ path: path.join(dir, "me.png") });
   await p.callMethod("logout");
@@ -201,20 +208,20 @@ try {
     !(await mini.callWxMethod("getStorageSync", "mendao-session:" + origin)),
   );
   const settingsDb = new DatabaseSync(path.join(dir, "test.sqlite"));
-  const setModules = (news, forum) =>
+  const setModules = (news, forum, minimalMode = false) =>
     settingsDb
       .prepare(
         "INSERT INTO meta VALUES('miniModules',?) ON CONFLICT(key) DO UPDATE SET value=excluded.value",
       )
-      .run(JSON.stringify({ news, forum }));
+      .run(JSON.stringify({ news, forum, models: true, platforms: true, minimalMode }));
   try {
-    setModules(false, false);
+    setModules(true, true, true);
     await mini.evaluate(() => getApp().refreshSettings());
-    p = await mini.switchTab("/pages/me/index");
+    p = await homeTab("me");
     assert.ok(!(await p.data("forumEnabled")));
     const tabs = await mini.evaluate(() => {
       const pages = getCurrentPages();
-      return pages[pages.length - 1].getTabBar().data.tabs.map((x) => x.id);
+      return pages[pages.length - 1].data.tabs.map((x) => x.id);
     });
     assert.deepEqual(tabs, ["learn", "tools", "me"]);
     assert.equal(
@@ -223,6 +230,14 @@ try {
     );
     assert.equal((await fetch(origin + "/api/v1/mini/news")).status, 403);
     assert.equal((await fetch(origin + "/api/community/posts")).status, 200);
+    assert.equal((await fetch(origin + "/api/v1/mini/models")).status, 403);
+    assert.equal((await fetch(origin + "/api/v1/mini/tools")).status, 403);
+    assert.equal((await fetch(origin + "/api/v1/catalog?support=price")).status, 200);
+    p = await homeTab("tools");
+    assert.ok(!(await p.data("modelsEnabled")));
+    assert.ok(!(await p.data("platformsEnabled")));
+    const deep = await mini.reLaunch("/pages/detail/index?kind=models&id=test");
+    await waitFor(async () => (await mini.currentPage()).path === "pages/home/index");
     setModules(true, true);
     await mini.evaluate(() => getApp().refreshSettings());
     assert.equal(
@@ -240,6 +255,24 @@ try {
   console.log("PASS: logout, about, no runtime exceptions");
   console.log("Screenshots: " + dir);
 } finally {
-  if (mini) mini.disconnect();
-  server.kill("SIGTERM");
+  try {
+    if (mini) await mini.disconnect();
+  } finally {
+    server.kill("SIGTERM");
+    // Disconnecting the SDK does not close the IDE project. Never leave a
+    // temporary app visible after its isolated backend has been stopped.
+    for (const [command, target] of [
+      ["close", project],
+      ["open", canonicalProject],
+    ]) {
+      const result = spawnSync(cliPath, [command, "--project", target], {
+        encoding: "utf8",
+        timeout: 20000,
+      });
+      if (result.status !== 0) {
+        console.error(`WeChat cleanup failed: ${command} ${target}`);
+        process.exitCode = 1;
+      }
+    }
+  }
 }

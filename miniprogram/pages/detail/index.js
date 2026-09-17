@@ -9,19 +9,25 @@ Page({
     error: "",
     loading: true,
     saved: false,
+    modelsEnabled: false,
+    platformsEnabled: false,
     completed: false,
   },
-  onLoad(o) {
+  async onLoad(o) {
     this.setData({ kind: o.kind, id: o.id });
+    this._unwatch = getApp().watchSettings((m) => this.setData({ modelsEnabled: m.models, platformsEnabled: m.platforms }));
+    await getApp().refreshSettings();
+    if (!nav.allowed(o.kind)) { getApp().enforceModules(); return; }
     this.load();
   },
+  onUnload() { if (this._unwatch) this._unwatch(); },
   async load() {
     this.setData({ loading: true, error: "" });
     try {
       const k = this.data.kind;
       let path =
         k === "models"
-          ? "/api/v1/catalog/"
+          ? "/api/v1/mini/models/"
           : k === "news"
             ? "/api/v1/mini/news/"
             : "/api/v1/mini/" + k + "/";

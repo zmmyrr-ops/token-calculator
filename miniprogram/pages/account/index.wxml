@@ -1,1 +1,27 @@
-<view class="page"><view class="title">{{user ? '我的微信账号' : '欢迎来到 AI 门道。'}}</view><view class="muted">微信登录后自动创建或关联本站用户。</view><view wx:if="{{!user}}" class="card"><image src="/assets/logo.png" class="logo"/><view class="heading">微信一键登录</view><view class="muted">无需填写账号和密码。首次登录使用默认昵称、头像，你可以随后修改。</view><checkbox-group bindchange="agree"><label class="tiny"><checkbox value="yes" checked="{{agreed}}"/>已阅读并同意隐私说明</label></checkbox-group><view class="link" bindtap="privacy">查看隐私说明</view><button class="primary" bindtap="login" loading="{{loading}}" disabled="{{loading}}">微信登录</button></view><view wx:else class="card"><image wx:if="{{avatarUrl}}" src="{{avatarUrl}}" class="avatar"/><view wx:else class="avatar">我</view><view wx:if="{{created}}" class="notice">已为你创建账号，可在下面完善个人资料。</view><text class="label">昵称</text><input type="nickname" value="{{nickname}}" data-field="nickname" bindinput="field" maxlength="24" placeholder="填写公开昵称"/><button bindtap="chooseAvatar">选择头像</button><button bindtap="defaultAvatar">使用默认头像</button><button class="primary" bindtap="submit" loading="{{loading}}" disabled="{{loading}}">保存资料</button></view><view wx:if="{{error}}" class="notice">{{error}}</view><canvas class="hidden-canvas" canvas-id="avatar" style="width:256px;height:256px"/></view>
+<view class="page">
+  <view class="title">{{user ? '我的微信账号' : '欢迎来到 AI 门道。'}}</view>
+  <view class="muted">微信登录后自动创建或关联本站用户。</view>
+  <view wx:if="{{!user}}" class="card">
+    <image src="/assets/logo.png" class="logo"/>
+    <view class="heading">微信一键登录</view>
+    <view class="muted">无需填写账号和密码。登录后可选用微信头像和昵称，完善个人资料。</view>
+    <checkbox-group bindchange="agree"><label class="tiny"><checkbox value="yes" checked="{{agreed}}"/>已阅读并同意隐私说明</label></checkbox-group>
+    <view class="link" bindtap="privacy">查看隐私说明</view>
+    <button class="primary" bindtap="login" loading="{{loading}}" disabled="{{loading}}">微信登录</button>
+  </view>
+  <form wx:else class="card" bindsubmit="submit">
+    <view wx:if="{{created}}" class="notice">账号已创建，点选微信头像和昵称后即可保存。</view>
+    <button open-type="chooseAvatar" bindchooseavatar="chooseAvatar" disabled="{{loading || avatarLoading}}" loading="{{avatarLoading}}">
+      <image wx:if="{{avatarUrl}}" src="{{avatarUrl}}" class="avatar" mode="aspectFill"/>
+      <view wx:else class="avatar">我</view>
+      <text>选择微信头像</text>
+    </button>
+    <text class="label">昵称</text>
+    <input type="nickname" name="nickname" value="{{nickname}}" data-field="nickname" bindinput="field" bindblur="field" maxlength="24" placeholder="点击填写微信昵称" disabled="{{loading}}"/>
+    <view class="tiny">点击昵称输入框，可使用键盘上方的微信昵称。头像和昵称将在保存后展示于本站。</view>
+    <button bindtap="defaultAvatar" disabled="{{loading || avatarLoading}}">使用默认头像</button>
+    <button class="primary" form-type="submit" loading="{{loading}}" disabled="{{loading || avatarLoading}}">保存资料</button>
+  </form>
+  <view wx:if="{{error}}" class="notice">{{error}}</view>
+  <canvas class="hidden-canvas" canvas-id="avatar" style="width:256px;height:256px"/>
+</view>

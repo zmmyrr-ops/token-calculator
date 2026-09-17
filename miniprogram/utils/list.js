@@ -20,9 +20,9 @@ module.exports = function (kind) {
     },
     async onLoad(options) {
       if (options && options.kind) this.setData({ kind: options.kind });
-      if (this.data.kind === "news" || this.data.kind === "forum") {
+      if (["news", "forum", "models", "tools"].includes(this.data.kind)) {
         const modules = await getApp().refreshSettings();
-        if (!modules[this.data.kind === "news" ? "news" : "forum"]) {
+        if (!modules[this.data.kind === "tools" ? "platforms" : this.data.kind]) {
           getApp().enforceModules();
           return;
         }
@@ -66,10 +66,10 @@ module.exports = function (kind) {
           k === "news"
             ? "/api/v1/mini/news"
             : k === "models"
-              ? "/api/v1/catalog"
+              ? "/api/v1/mini/models"
               : k === "forum"
                 ? "/api/mini/community/posts"
-                : "/api/v1/library/" + k;
+                : k === "tools" ? "/api/v1/mini/tools" : "/api/v1/library/" + k;
         const data = { page, pageSize: 18, q: this.data.q };
         if (k === "news" && this.data.filter !== "全部")
           data.category = this.data.filter;
@@ -129,14 +129,7 @@ module.exports = function (kind) {
     onShareAppMessage() {
       return {
         title: "AI 门道 · 看懂 AI，用出门道。",
-        path:
-          "/pages/" +
-          (this.data.kind === "news"
-            ? "news"
-            : this.data.kind === "learn"
-              ? "learn"
-              : "tools") +
-          "/index",
+        path: "/pages/home/index?tab=" + (this.data.kind === "news" ? "news" : this.data.kind === "learn" ? "learn" : "tools"),
       };
     },
   };

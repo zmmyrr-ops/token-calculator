@@ -1,0 +1,10 @@
+{
+  "navigationBarTitleText": "AI 门道",
+  "enablePullDownRefresh": true,
+  "usingComponents": {
+    "news-panel": "/components/news/index",
+    "learn-panel": "/components/learn/index",
+    "tools-panel": "/components/tools/index",
+    "me-panel": "/components/me/index"
+  }
+}

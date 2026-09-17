@@ -239,3 +239,15 @@ it("exchanges code with fixed WeChat endpoint and never exposes session_key or p
     db.close();
   }
 });
+
+it("minimal mode consistently closes browsing modules while preserving configured switches", () => {
+  const db = new ContentDatabase(":memory:");
+  try {
+    db.setMeta("miniModules", { news: true, forum: true, models: true, platforms: true, minimalMode: true });
+    expect(miniSettings(db)).toMatchObject({ news: false, forum: false, models: false, platforms: false });
+    for (const key of ["news", "forum", "models", "platforms"] as const)
+      expect(() => requireMiniModule(db, key)).toThrow("暂未开放");
+    db.setMeta("miniModules", { news: true, forum: true, models: true, platforms: true, minimalMode: false });
+    expect(miniSettings(db)).toMatchObject({ news: true, forum: true, models: true, platforms: true });
+  } finally { db.close(); }
+});

@@ -28,14 +28,14 @@ mini.on("exception", (e) => console.error("Mini program exception:", e));
 await mkdir("test-results/miniprogram", { recursive: true });
 try {
   const page = await mini.reLaunch(
-    personal ? "/pages/tools/index" : "/pages/news/index",
+    personal ? "/pages/home/index?tab=tools" : "/pages/home/index?tab=news",
   );
   await page.waitFor(3000);
   console.log(
     JSON.stringify({
       page: page.path,
-      items: ((await page.data("items")) || []).length,
-      error: await page.data("error"),
+      items: ((await (await page.$("#active-panel")).data("items")) || []).length,
+      error: await (await page.$("#active-panel")).data("error"),
     }),
   );
   await mini.screenshot({

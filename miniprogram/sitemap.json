@@ -7,7 +7,7 @@
     },
     {
       "action": "disallow",
-      "page": "pages/me/index"
+      "page": "pages/home/index"
     },
     {
       "action": "disallow",

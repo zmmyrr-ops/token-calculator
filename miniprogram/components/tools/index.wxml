@@ -3,11 +3,11 @@
     ><view class="eyebrow">YOUR AI TOOLKIT</view
     ><view class="title">找到趁手的 AI。</view
     ><view class="muted">了解能力边界，再决定用什么。</view></view
-  ><view class="grid"
-    ><view class="card" data-kind="models" bindtap="list"
+  ><view class="grid" wx:if="{{modelsEnabled || platformsEnabled}}"
+    ><view class="card" wx:if="{{modelsEnabled}}" data-kind="models" bindtap="list"
       ><view class="tag">01 / MODELS</view><view class="card-title">模型库</view
       ><view class="muted">能力、上下文与价格</view></view
-    ><view class="card" data-kind="tools" bindtap="list"
+    ><view class="card" wx:if="{{platformsEnabled}}" data-kind="tools" bindtap="list"
       ><view class="tag">02 / PLATFORMS</view
       ><view class="card-title">平台导航</view
       ><view class="muted">游戏、3D、视频与效率</view></view

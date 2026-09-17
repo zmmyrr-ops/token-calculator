@@ -2,7 +2,7 @@ const api = require("./utils/api");
 App({
   globalData: {
     name: "AI 门道",
-    modules: { news: false, forum: false },
+    modules: { news: false, forum: false, models: false, platforms: false },
     settingsReady: false,
   },
   onLaunch() {
@@ -29,17 +29,18 @@ App({
     const route = page.route;
     const modules = this.globalData.modules;
     if (
+      ((!modules.models && page.data.kind === "models") ||
+       (!modules.platforms && page.data.kind === "tools")) ||
       (!modules.news &&
-        (route === "pages/news/index" ||
-          (route === "pages/detail/index" && page.data.kind === "news"))) ||
+        page.data.kind === "news") ||
       (!modules.forum &&
-        [
+        (page.data.kind === "forum" || [
           "pages/forum/index",
           "pages/post/index",
           "pages/compose/index",
-        ].includes(route))
+        ].includes(route)))
     )
-      wx.switchTab({ url: "/pages/tools/index" });
+      wx.reLaunch({ url: "/pages/home/index?tab=tools" });
   },
   refreshSettings() {
     if (this._settingsPromise) return this._settingsPromise;
@@ -49,6 +50,8 @@ App({
         this.globalData.modules = {
           news: data.news === true,
           forum: data.forum === true,
+          models: data.models === true,
+          platforms: data.platforms === true,
         };
         this.globalData.settingsReady = true;
         this._listeners.forEach((fn) => fn(this.globalData.modules));

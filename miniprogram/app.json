@@ -1,9 +1,6 @@
 {
   "pages": [
-    "pages/news/index",
-    "pages/learn/index",
-    "pages/tools/index",
-    "pages/me/index",
+    "pages/home/index",
     "pages/list/index",
     "pages/detail/index",
     "pages/calculator/index",
@@ -19,39 +16,6 @@
     "navigationBarTextStyle": "black",
     "backgroundColor": "#f4f7f8",
     "enablePullDownRefresh": false
-  },
-  "tabBar": {
-    "color": "#74838a",
-    "selectedColor": "#0a8c78",
-    "backgroundColor": "#ffffff",
-    "borderStyle": "white",
-    "list": [
-      {
-        "pagePath": "pages/news/index",
-        "text": "资讯",
-        "iconPath": "assets/news.png",
-        "selectedIconPath": "assets/news-active.png"
-      },
-      {
-        "pagePath": "pages/learn/index",
-        "text": "学习",
-        "iconPath": "assets/learn.png",
-        "selectedIconPath": "assets/learn-active.png"
-      },
-      {
-        "pagePath": "pages/tools/index",
-        "text": "工具",
-        "iconPath": "assets/tools.png",
-        "selectedIconPath": "assets/tools-active.png"
-      },
-      {
-        "pagePath": "pages/me/index",
-        "text": "我的",
-        "iconPath": "assets/me.png",
-        "selectedIconPath": "assets/me-active.png"
-      }
-    ],
-    "custom": true
   },
   "style": "v2",
   "sitemapLocation": "sitemap.json",

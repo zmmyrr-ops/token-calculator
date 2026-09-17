@@ -124,7 +124,8 @@ function pagination(p: Record<string, string>, defaultSize = 20) {
     throw Error("INVALID_QUERY");
   return { page, pageSize };
 }
-app.get("/api/v1/catalog", (req, res) => {
+app.get(["/api/v1/catalog", "/api/v1/mini/models"], (req, res) => {
+  if (req.path === "/api/v1/mini/models") requireMiniModule(store, "models");
   const p = query(req),
     { page, pageSize } = pagination(p);
   const data = store.publicContent().catalog;
@@ -218,11 +219,12 @@ app.get("/api/v1/search", (req, res) => {
     items: filtered.slice((page - 1) * pageSize, page * pageSize),
   });
 });
-app.get("/api/v1/library/:kind", (req, res) => {
+app.get(["/api/v1/library/:kind", "/api/v1/mini/tools"], (req, res) => {
+  if (req.path === "/api/v1/mini/tools") requireMiniModule(store, "platforms");
   const p = query(req),
     { page, pageSize } = pagination(p, 18);
   const data = store.publicContent();
-  const kind = req.params.kind;
+  const kind = req.path === "/api/v1/mini/tools" ? "tools" : req.params.kind;
   if (kind !== "tools" && kind !== "learn")
     return res.status(404).json({ error: "NOT_FOUND" });
   const entries =
@@ -280,6 +282,12 @@ app.get("/api/v1/mini/news/:id", (req, res) => {
   res.status(item ? 200 : 404).json(item || { error: "资讯不存在或已归档" });
 });
 app.get("/api/v1/mini/:kind/:id", (req, res) => {
+  if (req.params.kind === "tools") requireMiniModule(store, "platforms");
+  if (req.params.kind === "models") {
+    requireMiniModule(store, "models");
+    const model = store.publicContent().catalog.models.find((m) => m.id === req.params.id);
+    return res.status(model ? 200 : 404).json(model || { error: "模型不存在或已下架" });
+  }
   const data = store.publicContent();
   const item =
     req.params.kind === "learn"

@@ -1,0 +1,8 @@
+<view class="home-content" wx:if="{{ready}}">
+  <news-panel wx:if="{{active === 'news'}}" id="active-panel"/>
+  <learn-panel wx:elif="{{active === 'learn'}}" id="active-panel"/>
+  <tools-panel wx:elif="{{active === 'tools'}}" id="active-panel"/>
+  <me-panel wx:elif="{{active === 'me'}}" id="active-panel"/>
+</view>
+<view wx:else class="state">正在加载…</view>
+<view class="tabs"><view wx:for="{{tabs}}" wx:key="id" class="tab {{active === item.id ? 'active' : ''}}" data-id="{{item.id}}" bindtap="selectTab"><image src="/assets/{{item.id}}{{active === item.id ? '-active' : ''}}.png"/><text>{{item.text}}</text></view></view>

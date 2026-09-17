@@ -90,6 +90,7 @@
         阅读教程 {{index + 1}} →</button
       ><view class="heading">相关平台</view
       ><button
+        wx:if="{{platformsEnabled}}"
         wx:for="{{item.tools}}"
         wx:key="*this"
         data-kind="tools"

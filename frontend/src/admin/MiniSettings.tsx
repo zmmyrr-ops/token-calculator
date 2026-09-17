@@ -3,6 +3,9 @@ import { appPath } from "@/base";
 type Settings = {
   news: boolean;
   forum: boolean;
+  models: boolean;
+  platforms: boolean;
+  minimalMode: boolean;
   updatedAt?: string;
   wechat: { configured: boolean; appId: string };
 };
@@ -34,7 +37,7 @@ export default function MiniSettings() {
       const r = await fetch(appPath("/api/admin/mini-settings"), {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ news: data.news, forum: data.forum }),
+        body: JSON.stringify({ news: data.news, forum: data.forum, models: data.models, platforms: data.platforms, minimalMode: data.minimalMode }),
       });
       const d = await r.json();
       if (!r.ok) throw Error(d.error);
@@ -63,9 +66,16 @@ export default function MiniSettings() {
         <>
           <div className="panel">
             <h2>模块开放</h2>
+            <label><input type="checkbox" checked={data.minimalMode} onChange={(e) => setData({ ...data, minimalMode: e.target.checked })} /> 精简模式</label>
+            <p>统一关闭资讯、社区、模型库和平台导航；保留学习、我的，工具区只保留 Token 费用计算。对所有用户生效，需点击保存。取消精简模式后按下方各项开关开放。</p>
+            <label><input type="checkbox" disabled={data.minimalMode} checked={data.models} onChange={(e) => setData({ ...data, models: e.target.checked })} /> 开放小程序模型库</label>
+            <p>控制模型浏览列表、详情和相关入口，不影响费用计算所需的模型价格查询。</p>
+            <label><input type="checkbox" disabled={data.minimalMode} checked={data.platforms} onChange={(e) => setData({ ...data, platforms: e.target.checked })} /> 开放小程序平台导航</label>
+            <p>控制平台导航、平台详情和相关入口。</p>
             <label>
               <input
                 type="checkbox"
+                disabled={data.minimalMode}
                 checked={data.news}
                 onChange={(e) => setData({ ...data, news: e.target.checked })}
               />{" "}
@@ -75,6 +85,7 @@ export default function MiniSettings() {
             <label>
               <input
                 type="checkbox"
+                disabled={data.minimalMode}
                 checked={data.forum}
                 onChange={(e) => setData({ ...data, forum: e.target.checked })}
               />{" "}
