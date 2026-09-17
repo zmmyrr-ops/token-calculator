@@ -1,0 +1,11 @@
+[Unit]
+Description=AI Mendao verified SQLite backups
+After=docker.service
+Requires=docker.service
+
+[Service]
+Type=oneshot
+ExecStart=/opt/mendao/backup.sh production
+ExecStart=/opt/mendao/backup.sh staging
+User=root
+Nice=10

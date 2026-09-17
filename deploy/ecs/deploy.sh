@@ -26,10 +26,16 @@ STORAGE_DIR=$root/$app_env/storage
 FRONTEND_PORT=$port
 CONFIG
 compose=(docker compose -p "mendao-$app_env" --env-file "$config" -f "$root/compose.yaml")
-if "${compose[@]}" up -d --wait --wait-timeout 120 && curl -fsS "http://127.0.0.1:$port/api/health/ready" > /dev/null && curl -fsS "http://127.0.0.1:$port/" > /dev/null; then
+healthy() {
+  curl -fsS "http://127.0.0.1:$port/api/health/ready" > /dev/null &&
+  curl -fsS "http://127.0.0.1:$port/" > /dev/null || return 1
   if [[ "$app_env" == staging ]]; then
-    curl -fsS "http://127.0.0.1:$port/staging/api/health/ready" > /dev/null
-    curl -fsS "http://127.0.0.1:$port/staging/" > /dev/null
+    curl -fsS "http://127.0.0.1:$port/staging/api/health/ready" > /dev/null &&
+    curl -fsS "http://127.0.0.1:$port/staging/" > /dev/null || return 1
+  fi
+}
+if "${compose[@]}" up -d --wait --wait-timeout 120 && healthy; then
+  if [[ "$app_env" == staging ]]; then
     mkdir -p "$root/verified"
     touch "$root/verified/$release"
   fi
@@ -38,6 +44,8 @@ else
   if [[ -n "$previous" ]]; then
     cp "$config.previous" "$config"
     "${compose[@]}" up -d --wait --wait-timeout 120
+  else
+    rm -f "$config"
   fi
   echo 'Deployment failed; prior application version restored when available. Database is not automatically restored.' >&2
   exit 1
