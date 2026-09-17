@@ -208,6 +208,8 @@ test("live news API, filters, source provenance and home entry", async ({
     "读懂 AI 的下一步。",
   );
   await expect(page.locator(".news-result-count")).toBeVisible();
+  await expect(page.getByText(/来源每.*分钟检查/)).toHaveCount(0);
+  await expect(page.locator(".news-card").getByText(/本站收录/)).toHaveCount(0);
   if (data.total) {
     await expect(page.locator(".news-cover").first()).toBeVisible();
     await expect(page.locator(".news-card").first()).toHaveAttribute(

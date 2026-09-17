@@ -1,3 +1,4 @@
+import { fetchQbitImage } from "./news-images";
 import type { ContentDatabase } from "./database";
 import Parser from "rss-parser";
 import { createHash } from "node:crypto";
@@ -178,6 +179,7 @@ export class NewsService {
   constructor(private database?: ContentDatabase) {}
   private store: Store = { version: 1, updatedAt: null, items: [], states: {} };
   private task: Promise<void> | null = null;
+  private imageAttempts = new Map<string, number>();
   private timer: ReturnType<typeof setInterval> | null = null;
   readonly file = path.resolve(
     process.env.NEWS_DATA_FILE || "./storage/news.json",
@@ -295,6 +297,7 @@ export class NewsService {
             const existing = map.get(item.id);
             map.set(item.id, {
               ...item,
+              imageUrl: item.imageUrl || existing?.imageUrl || null,
               collectedAt: existing?.collectedAt || now,
             });
           }
@@ -307,6 +310,30 @@ export class NewsService {
         }
       }),
     );
+    // Runs even when RSS returns 304, including already collected title-only items.
+    const pending = this.store.items
+      .filter(
+        (item) =>
+          item.sourceId === "qbitai" &&
+          !item.imageUrl &&
+          Date.now() - (this.imageAttempts.get(item.id) || 0) >= 3600000,
+      )
+      .slice(0, 20);
+    const queue = [...pending];
+    await Promise.all(
+      [0, 1].map(async () => {
+        for (let item = queue.shift(); item; item = queue.shift()) {
+          this.imageAttempts.set(item.id, Date.now());
+          try {
+            item.imageUrl = await fetchQbitImage(item.url);
+          } catch {
+            /* Image errors must not discard the article or fail the RSS source. */
+          }
+        }
+      }),
+    );
+    for (const [id, at] of this.imageAttempts)
+      if (Date.now() - at > 3600000) this.imageAttempts.delete(id);
     this.store.items.sort((a, b) =>
       (b.publishedAt || b.collectedAt).localeCompare(
         a.publishedAt || a.collectedAt,

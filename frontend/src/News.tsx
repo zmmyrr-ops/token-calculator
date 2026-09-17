@@ -148,7 +148,6 @@ export function News({ compact = false }: { compact?: boolean }) {
               : "来源未提供有效发布时间"}
           </span>
         </div>
-        <small>本站收录 {date(item.collectedAt)}</small>
       </div>
     </a>
   ));
@@ -191,11 +190,6 @@ export function News({ compact = false }: { compact?: boolean }) {
         <Cpu size={76} strokeWidth={1} />
       </header>
       <div className="news-status">
-        <span className="dot" />
-        <span>
-          来源每 {data?.pollMinutes || 15} 分钟检查 · 页面每分钟获取最新收录
-        </span>
-        <span>最近检查：{date(data?.updatedAt || null)}</span>
         <button
           className="button"
           disabled={loading}
