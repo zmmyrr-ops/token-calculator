@@ -1,3 +1,4 @@
+import { AccountLink } from "./Community";
 import { isStaging } from "./base";
 import Link from "./Link";
 import { useLocation } from "react-router-dom";
@@ -38,11 +39,10 @@ export default function RootLayout({
             <Link href="/scenarios">应用场景</Link>
             <Link href="/tutorials">教程实践</Link>
             <Link href="/calculators">实用工具</Link>
+            <Link href="/forum">社区论坛</Link>
             <Link href="/saved">我的收藏</Link>
           </nav>
-          <span className="header-status">
-            <span className="dot" /> 知识 · 方法 · 工具
-          </span>
+          <AccountLink />
         </div>
       </header>
       <main id="main" className="container">

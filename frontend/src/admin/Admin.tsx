@@ -1,3 +1,4 @@
+import CommunityModeration from "./CommunityModeration";
 import AnalyticsDashboard from "./AnalyticsDashboard";
 import { appPath } from "@/base";
 import { useEffect, useState } from "react";
@@ -21,6 +22,7 @@ async function api(path: string, method = "GET", body?: unknown) {
 }
 export default function Admin() {
   const [analytics, setAnalytics] = useState(false);
+  const [community, setCommunity] = useState(false);
   const [user, setUser] = useState<User | null>(null),
     [loading, setLoading] = useState(true),
     [message, setMessage] = useState(""),
@@ -308,22 +310,38 @@ export default function Admin() {
       </header>
       <nav className="analytics-switch" aria-label="后台模块">
         <button
-          className={!analytics ? "button primary" : "button"}
-          onClick={() => setAnalytics(false)}
+          className={!analytics && !community ? "button primary" : "button"}
+          onClick={() => {
+            setAnalytics(false);
+            setCommunity(false);
+          }}
         >
           内容管理
         </button>
         <button
           className={analytics ? "button primary" : "button"}
-          onClick={() => setAnalytics(true)}
+          onClick={() => {
+            setAnalytics(true);
+            setCommunity(false);
+          }}
         >
           数据埋点
         </button>
+        <button
+          className={community ? "button primary" : "button"}
+          onClick={() => {
+            setCommunity(true);
+            setAnalytics(false);
+          }}
+        >
+          社区管理
+        </button>
       </nav>
+      {community && <CommunityModeration />}
       {analytics && <AnalyticsDashboard />}
       <div
         className="admin-workspace"
-        style={analytics ? { display: "none" } : undefined}
+        style={analytics || community ? { display: "none" } : undefined}
       >
         <aside className="admin-sidebar">
           <div className="admin-tabs">

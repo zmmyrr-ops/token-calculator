@@ -1,0 +1,151 @@
+import { useEffect, useState } from "react";
+import { appPath } from "@/base";
+import { Avatar } from "@/Community";
+import type { CommunityUser, ForumPost, ForumReply } from "@shared/community";
+type Item = Partial<ForumPost & ForumReply & CommunityUser> & {
+  id: string;
+  disabled?: boolean;
+};
+export default function CommunityModeration() {
+  const [kind, setKind] = useState("posts"),
+    [page, setPage] = useState(1),
+    [version, setVersion] = useState(0),
+    [busy, setBusy] = useState(false),
+    [data, setData] = useState<{ items: Item[]; total: number } | null>(null),
+    [error, setError] = useState("");
+  useEffect(() => {
+    let active = true;
+    setData(null);
+    setError("");
+    fetch(appPath(`/api/admin/community/${kind}?page=${page}`))
+      .then(async (r) => {
+        const d = await r.json();
+        if (!r.ok) throw Error(d.error);
+        if (active) setData(d);
+      })
+      .catch((e) => {
+        if (active) setError(e.message);
+      });
+    return () => {
+      active = false;
+    };
+  }, [kind, page, version]);
+  async function toggle(item: Item) {
+    const enabled =
+      kind === "users" ? !!item.disabled : item.status !== "visible";
+    if (!confirm((enabled ? "恢复" : "停用/下架") + "这条记录？")) return;
+    setBusy(true);
+    try {
+      const r = await fetch(
+        appPath(`/api/admin/community/${kind}/${item.id}/status`),
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ enabled }),
+        },
+      );
+      const d = await r.json();
+      if (!r.ok) throw Error(d.error);
+      setVersion((v) => v + 1);
+    } catch (e) {
+      setError((e as Error).message);
+    } finally {
+      setBusy(false);
+    }
+  }
+  return (
+    <section className="community-moderation">
+      <h1>社区管理</h1>
+      <p>
+        管理帖子、回复和账号；示例数据与真实注册用户均保存在数据库，标记分别显示。禁用用户会撤销其登录会话，已发布内容可单独下架。
+      </p>
+      <div className="action-row">
+        {[
+          ["posts", "帖子"],
+          ["replies", "回复"],
+          ["users", "用户"],
+        ].map(([id, label]) => (
+          <button
+            className={kind === id ? "button primary" : "button"}
+            key={id}
+            onClick={() => {
+              setData(null);
+              setKind(id);
+              setPage(1);
+            }}
+          >
+            {label}
+          </button>
+        ))}
+        <button className="button" onClick={() => setVersion((v) => v + 1)}>
+          刷新
+        </button>
+      </div>
+      {error && <p role="alert">{error}</p>}
+      {!data && !error && <p role="status">正在加载社区数据…</p>}
+      {data && (
+        <>
+          <p>共 {data.total} 条记录</p>
+          {data.items.map((item) => (
+            <article className="panel" key={item.id}>
+              {kind === "users" ? (
+                <>
+                  <Avatar
+                    user={{
+                      nickname: item.nickname!,
+                      avatar: item.avatar ?? null,
+                    }}
+                  />
+                  <strong> {item.nickname}</strong>
+                  <p>
+                    账号：{item.username} · {item.disabled ? "已禁用" : "正常"}
+                  </p>
+                </>
+              ) : (
+                <>
+                  <h2>{item.title || "回复"}</h2>
+                  <p>
+                    作者：{item.author?.nickname} · 状态：{item.status}
+                  </p>
+                  <div className="forum-body">{item.body}</div>
+                </>
+              )}
+              <p>{item.demo ? "示例账号/内容" : "用户注册/发布"}</p>
+              {(!item.demo && kind === "users") || kind !== "users" ? (
+                <button
+                  className="button"
+                  disabled={busy || item.status === "deleted"}
+                  onClick={() => void toggle(item)}
+                >
+                  {kind === "users"
+                    ? item.disabled
+                      ? "恢复账号"
+                      : "禁用账号"
+                    : item.status === "visible"
+                      ? "下架"
+                      : "恢复展示"}
+                </button>
+              ) : (
+                <small>示例账号不开放登录</small>
+              )}
+            </article>
+          ))}
+          {!data.items.length && <p>暂无记录</p>}
+          <nav className="pagination">
+            {page > 1 && (
+              <button className="button" onClick={() => setPage((p) => p - 1)}>
+                上一页
+              </button>
+            )}
+            <span>第 {page} 页</span>
+            {page * 20 < data.total && (
+              <button className="button" onClick={() => setPage((p) => p + 1)}>
+                下一页
+              </button>
+            )}
+          </nav>
+        </>
+      )}
+    </section>
+  );
+}

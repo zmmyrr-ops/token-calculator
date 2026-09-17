@@ -19,7 +19,12 @@ export function track(
   target: AnalyticsEvent["target"] = "none",
 ) {
   const path = pathWithoutBase(location.pathname);
-  if (path.startsWith("/admin") || !analyticsEnabled()) return;
+  if (
+    path.startsWith("/admin") ||
+    ["/login", "/register", "/account"].includes(path) ||
+    !analyticsEnabled()
+  )
+    return;
   try {
     void fetch(appPath("/api/v1/events"), {
       method: "POST",

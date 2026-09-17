@@ -1,3 +1,5 @@
+import { initCommunity } from "../../backend/src/community";
+import { seedCommunity } from "../../backend/src/community-seed";
 import { recordEvent } from "../../backend/src/analytics";
 import { randomUUID } from "node:crypto";
 import { test, expect } from "@playwright/test";
@@ -13,6 +15,8 @@ test("isolated admin: change password, save, publish and download backup", async
 }) => {
   const dir = mkdtempSync(path.join(tmpdir(), "mendao-admin-test-"));
   const db = new ContentDatabase(path.join(dir, "test.sqlite"));
+  initCommunity(db);
+  seedCommunity(db);
   db.seed(await (await fetch("http://127.0.0.1:3000/api/v1/bootstrap")).json());
   await db.db
     .prepare("INSERT INTO admins VALUES(?,?,1)")
@@ -121,6 +125,27 @@ test("isolated admin: change password, save, publish and download backup", async
     await expect(
       page.locator(".analytics-metrics article").first().locator("strong"),
     ).toHaveText("1");
+    await page.getByRole("button", { name: "社区管理", exact: true }).click();
+    await expect(
+      page.getByRole("heading", { name: "社区管理", exact: true }),
+    ).toBeVisible();
+    await expect(page.getByText("共 48 条记录", { exact: true })).toBeVisible();
+    await page
+      .getByRole("button", { name: "下架", exact: true })
+      .first()
+      .click();
+    await expect(
+      page.getByRole("button", { name: "恢复展示", exact: true }).first(),
+    ).toBeVisible();
+    await page.getByRole("button", { name: "用户", exact: true }).click();
+    await expect(
+      page.getByText("共 120 条记录", { exact: true }),
+    ).toBeVisible();
+    expect(
+      await page.evaluate(
+        () => document.documentElement.scrollWidth <= innerWidth,
+      ),
+    ).toBe(true);
     await page.screenshot({
       path: `docs/screenshots/admin-${test.info().project.name}.png`,
     });

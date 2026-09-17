@@ -1,3 +1,4 @@
+import { communityAdminRouter, initCommunity } from "./community";
 import { analyticsSummary, pruneEvents } from "./analytics";
 import {
   Router,
@@ -46,6 +47,7 @@ export async function initializeAdmin(store: ContentDatabase) {
   store.db.prepare("INSERT INTO admins VALUES(?,?,1)").run(username, hashed);
 }
 export function adminRouter(store: ContentDatabase) {
+  initCommunity(store);
   const cookieName =
     process.env.APP_ENV === "staging" ? "mendao_staging_admin" : "mendao_admin";
   const router = Router();
@@ -189,6 +191,14 @@ export function adminRouter(store: ContentDatabase) {
     res.json({ ok: true });
   });
   router.use(auth);
+  router.use(
+    "/community",
+    (req, res, next) => {
+      res.locals.adminUsername = session(req)!.username;
+      next();
+    },
+    communityAdminRouter(store),
+  );
   router.get("/analytics", (req, res) => {
     const days = z.enum(["7", "30", "90"]).parse(req.query.days ?? "7");
     pruneEvents(store);

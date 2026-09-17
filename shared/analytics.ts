@@ -39,12 +39,22 @@ export const pageNames = [
   "/about",
   "/privacy",
   "/how-it-works",
+  "/forum",
+  "/forum/new",
+  "/forum/:id",
+  "/community-rules",
   "/404",
 ] as const;
 export function analyticsPage(path: string): (typeof pageNames)[number] {
   if ((pageNames as readonly string[]).includes(path))
     return path as (typeof pageNames)[number];
-  for (const prefix of ["models", "tools", "learn", "scenarios"] as const)
+  for (const prefix of [
+    "models",
+    "tools",
+    "learn",
+    "scenarios",
+    "forum",
+  ] as const)
     if (path.startsWith(`/${prefix}/`)) return `/${prefix}/:id`;
   return "/404";
 }

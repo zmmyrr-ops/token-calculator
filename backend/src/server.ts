@@ -1,3 +1,5 @@
+import { initCommunity, communityRouter } from "./community";
+import { seedCommunity } from "./community-seed";
 import { eventsRouter } from "./analytics";
 import express from "express";
 import { ZodError } from "zod";
@@ -34,8 +36,11 @@ store.seed({
   coverage,
 });
 await initializeAdmin(store);
+initCommunity(store);
+seedCommunity(store);
 app.use("/api/v1/events", express.json({ limit: "2kb" }), eventsRouter(store));
 app.use(express.json({ limit: "512kb" }));
+app.use("/api/community", communityRouter(store));
 app.use("/api/admin", adminRouter(store));
 const news = new NewsService(store);
 await news.init();

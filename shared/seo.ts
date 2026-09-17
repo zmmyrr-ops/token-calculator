@@ -8,6 +8,14 @@ export const publicPages: Record<
     description:
       "面向独立创作者的 AI 门道，了解大模型与工具，学习游戏、3D、视频创作方法，计算词元与素材预算。",
   },
+  "/forum": {
+    title: "社区论坛｜AI 创作与工具讨论",
+    description: "交流游戏、3D、视频、模型与提示词，分享问题与方法。",
+  },
+  "/community-rules": {
+    title: "社区规则",
+    description: "AI 门道社区内容、账号及讨论规则。",
+  },
   "/news": {
     title: "AI 资讯｜大模型、应用与硬件动态",
     description:
@@ -74,6 +82,10 @@ export const publicPages: Record<
   },
 };
 const privatePages: Record<string, string> = {
+  "/login": "用户登录",
+  "/register": "注册账号",
+  "/account": "个人账号",
+  "/forum/new": "发起讨论",
   "/search": "搜索 AI 门道",
   "/saved": "我的收藏",
   "/compare": "工具比较",
@@ -134,16 +146,20 @@ export function resolveSeo(pathname: string, search: string, data: Content) {
       known = true;
     }
   }
-  const excluded = !!privatePages[path];
+  if (path.startsWith("/forum/") && path !== "/forum/new") {
+    page = { title: "社区讨论", description: "AI 门道用户讨论内容。" };
+    known = true;
+  }
+  const excluded = !!privatePages[path] || path.startsWith("/forum/");
   if (excluded) {
     page = {
-      title: privatePages[path],
+      title: privatePages[path] || "社区讨论",
       description: "在 AI 门道查找、保存与比较相关内容。",
     };
     known = true;
   }
   const pageNumber = Number(query.get("page") || 1);
-  const paginated = ["/models", "/news"].includes(path);
+  const paginated = ["/models", "/news", "/forum"].includes(path);
   const invalidPage =
     query.has("page") &&
     (!paginated ||

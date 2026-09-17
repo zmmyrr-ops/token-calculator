@@ -1,3 +1,12 @@
+import {
+  CommunityProvider,
+  Forum,
+  UserAuth,
+  Account,
+  NewPost,
+  PostDetail,
+  CommunityRules,
+} from "./Community";
 import Analytics from "./Analytics";
 import { basePath } from "./base";
 import { Component, useEffect, type ReactNode } from "react";
@@ -75,6 +84,13 @@ function App() {
         }
       >
         <Routes>
+          <Route path="/forum" element={<Forum />} />
+          <Route path="/forum/new" element={<NewPost />} />
+          <Route path="/forum/:id" element={<PostDetail />} />
+          <Route path="/login" element={<UserAuth />} />
+          <Route path="/register" element={<UserAuth register />} />
+          <Route path="/account" element={<Account />} />
+          <Route path="/community-rules" element={<CommunityRules />} />
           <Route path="/about" element={<Page0 />} />
           <Route path="/calculators/media" element={<Page1 />} />
           <Route path="/calculators" element={<Page2 />} />
@@ -122,12 +138,12 @@ function Entry() {
   return pathname.startsWith("/admin") ? (
     <Admin />
   ) : (
-    <>
+    <CommunityProvider>
       <Analytics />
       <ContentProvider key={pathname}>
         <App />
       </ContentProvider>
-    </>
+    </CommunityProvider>
   );
 }
 createRoot(document.getElementById("root")!).render(
