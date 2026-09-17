@@ -25,7 +25,7 @@ export default function RootLayout({
           <Link href="/" className="brand">
             <img
               className="site-mark"
-              src={appPath("/brand/ai-door-v4.png")}
+              src={appPath("/brand/ai-door-v5.png")}
               alt=""
               width="36"
               height="36"

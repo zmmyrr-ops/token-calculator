@@ -195,7 +195,7 @@ export function News({ compact = false }: { compact?: boolean }) {
           <div className="news-brand-beam" />
           <div className="news-brand-core">
             <img
-              src={appPath("/brand/ai-door-v4.png")}
+              src={appPath("/brand/ai-door-v5.png")}
               alt=""
               width="88"
               height="88"

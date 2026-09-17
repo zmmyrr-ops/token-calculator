@@ -1917,3 +1917,6 @@ h3 {
 .baidu-dashboard .action-row { display:flex; flex-wrap:wrap; gap:12px; align-items:center; }
 @media(max-width:600px) { .baidu-dashboard { padding:16px; } .baidu-settings { grid-template-columns:1fr; gap:0; } }
 .orb-core img { width: 74px; height: 74px; border-radius: 20px; }
+
+/* Transparent artwork sits directly on the page, with no backing tile. */
+.orb-core, .news-brand-core { background: transparent; border: 0; box-shadow: none; }

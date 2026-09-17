@@ -316,5 +316,5 @@ test("Baidu verification file and brand assets are served as static files", asyn
     "用出门道",
   );
   await expect(page.locator(".site-mark")).toBeVisible();
-  expect((await request.get("/favicon.svg?v=4")).status()).toBe(200);
+  expect((await request.get("/favicon.svg?v=5")).status()).toBe(200);
 });
