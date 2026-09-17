@@ -50,6 +50,19 @@ export default function Tools({
           重置
         </Link>
       </form>
+      {data && (
+        <nav className="learning-tabs" aria-label="平台分类">
+          {data.categories.map((c) => (
+            <Link
+              className={category === c ? "button primary" : "button"}
+              key={c}
+              href={"/tools?category=" + encodeURIComponent(c)}
+            >
+              {c}
+            </Link>
+          ))}
+        </nav>
+      )}
       {status}
       {data && <p className="muted">{data.total} 个工具</p>}
       <div className="resource-grid">

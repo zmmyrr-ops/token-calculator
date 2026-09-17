@@ -1,3 +1,7 @@
+import {
+  expandContent,
+  simplifyStarterPresentation,
+} from "./content-expansion";
 import { initCommunity, communityRouter } from "./community";
 import { seedCommunity } from "./community-seed";
 import { eventsRouter } from "./analytics";
@@ -35,9 +39,11 @@ store.seed({
   site,
   coverage,
 });
+expandContent(store);
 await initializeAdmin(store);
 initCommunity(store);
 seedCommunity(store);
+simplifyStarterPresentation(store);
 app.use("/api/v1/events", express.json({ limit: "2kb" }), eventsRouter(store));
 app.use(express.json({ limit: "512kb" }));
 app.use("/api/community", communityRouter(store));
@@ -231,9 +237,14 @@ app.get("/api/v1/library/:kind", (req, res) => {
           summary: a.summary,
           category: a.category,
           search: a.title + a.keywords,
+          format: a.video ? "video" : a.practice ? "practice" : "article",
+          video: a.video,
         }));
   const filtered = entries.filter(
     (a) =>
+      (!p.format ||
+        p.format === "scenarios" ||
+        ("format" in a && a.format === p.format)) &&
       (!p.category || a.category === p.category) &&
       a.search.toLowerCase().includes((p.q || "").toLowerCase()),
   );

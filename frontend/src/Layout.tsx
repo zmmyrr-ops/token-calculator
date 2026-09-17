@@ -34,10 +34,18 @@ export default function RootLayout({
             >
               AI 实时资讯
             </Link>
-            <Link href="/learn">AI 知识</Link>
+            <Link
+              href="/learn"
+              aria-current={
+                pathname.startsWith("/learn") ||
+                pathname.startsWith("/scenarios")
+                  ? "page"
+                  : undefined
+              }
+            >
+              学习中心
+            </Link>
             <Link href="/tools">模型与平台</Link>
-            <Link href="/scenarios">应用场景</Link>
-            <Link href="/tutorials">教程实践</Link>
             <Link href="/calculators">实用工具</Link>
             <Link href="/forum">社区论坛</Link>
             <Link href="/saved">我的收藏</Link>

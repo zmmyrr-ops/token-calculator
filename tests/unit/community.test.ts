@@ -129,6 +129,42 @@ describe("community", () => {
       const owner = (await register.json()).user;
       expect(owner.username).toBe("reader_one");
       expect(owner.password).toBeUndefined();
+      const adminBase = base.replace("/api/community", "/test-moderator");
+      const listUsers = async (query: string) =>
+        (
+          await fetch(adminBase + "/users?" + query, {
+            headers: { authorization: "test-only" },
+          })
+        ).json();
+      expect((await fetch(adminBase + "/users")).status).toBe(401);
+      const registered = await listUsers(
+        "type=registered&q=reader_one&state=active",
+      );
+      expect(registered.total).toBe(1);
+      expect(registered.items[0].password).toBeUndefined();
+      expect((await listUsers("type=preset&state=disabled")).total).toBe(120);
+      expect((await listUsers("q=%25")).total).toBe(0);
+      expect(
+        (
+          await fetch(adminBase + "/users?type=bad", {
+            headers: { authorization: "test-only" },
+          })
+        ).status,
+      ).toBe(400);
+      const presetId = (await listUsers("type=preset")).items[0].id;
+      expect(
+        (
+          await fetch(adminBase + "/users/" + presetId + "/status", {
+            method: "POST",
+            headers: {
+              authorization: "test-only",
+              "content-type": "application/json",
+            },
+            body: JSON.stringify({ enabled: true }),
+          })
+        ).status,
+      ).toBe(400);
+
       expect(register.headers.get("set-cookie")).toContain("HttpOnly");
       const hash = store.db
         .prepare("SELECT password FROM community_users WHERE id=?")

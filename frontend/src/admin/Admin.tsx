@@ -22,7 +22,7 @@ async function api(path: string, method = "GET", body?: unknown) {
 }
 export default function Admin() {
   const [analytics, setAnalytics] = useState(false);
-  const [community, setCommunity] = useState(false);
+  const [community, setCommunity] = useState<false | "posts" | "users">(false);
   const [user, setUser] = useState<User | null>(null),
     [loading, setLoading] = useState(true),
     [message, setMessage] = useState(""),
@@ -328,16 +328,30 @@ export default function Admin() {
           数据埋点
         </button>
         <button
-          className={community ? "button primary" : "button"}
+          className={community === "posts" ? "button primary" : "button"}
           onClick={() => {
-            setCommunity(true);
+            setCommunity("posts");
             setAnalytics(false);
           }}
         >
           社区管理
         </button>
+        <button
+          className={community === "users" ? "button primary" : "button"}
+          onClick={() => {
+            setCommunity("users");
+            setAnalytics(false);
+          }}
+        >
+          用户管理
+        </button>
       </nav>
-      {community && <CommunityModeration />}
+      {community && (
+        <CommunityModeration
+          key={community}
+          usersOnly={community === "users"}
+        />
+      )}
       {analytics && <AnalyticsDashboard />}
       <div
         className="admin-workspace"
@@ -528,6 +542,29 @@ export default function Admin() {
                       }}
                     >
                       {draft.practice ? "移除实践教程模块" : "添加实践教程模块"}
+                    </button>
+                  )}
+                  {kind === "knowledge" && (
+                    <button
+                      type="button"
+                      className="button"
+                      onClick={() => {
+                        const next = { ...draft };
+                        if (next.video) delete next.video;
+                        else
+                          next.video = {
+                            url: "",
+                            publisher: "",
+                            language: "",
+                            version: "",
+                            audience: "",
+                            checkedAt: new Date().toISOString().slice(0, 10),
+                          };
+                        setDraft(next);
+                        setDirty(true);
+                      }}
+                    >
+                      {draft.video ? "移除视频课程模块" : "添加视频课程模块"}
                     </button>
                   )}
                   {kind === "model" && draft.price !== null && (

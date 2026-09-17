@@ -104,10 +104,7 @@ function author(user: CommunityUser) {
   return (
     <span className="community-author">
       <Avatar user={user} />
-      <span>
-        {user.nickname}
-        {user.demo && <small className="badge neutral">示例账号</small>}
-      </span>
+      <span>{user.nickname}</span>
     </span>
   );
 }
@@ -495,7 +492,7 @@ export function Forum() {
         </Link>
       </header>
       <p className="community-notice">
-        带“示例讨论”的话题由站点预置，用于展示讨论方式；示例账号不能登录，不代表真实用户经历。
+        分享具体问题、制作过程和可复现的方法。
         <Link href="/community-rules">社区规则 →</Link>
       </p>
       <form className="hub-filter" action={appPath("/forum")}>
@@ -536,7 +533,6 @@ export function Forum() {
               <article className="forum-card panel" key={p.id}>
                 <div className="forum-meta">
                   <span className="badge neutral">{p.category}</span>
-                  {p.demo && <span className="badge neutral">示例讨论</span>}
                   <span>{date(p.createdAt)}</span>
                 </div>
                 <h2>
@@ -683,9 +679,6 @@ export function PostDetail() {
       <article className="panel forum-card">
         <div className="forum-meta">
           <span>{p.category}</span>
-          {p.demo && (
-            <span className="badge neutral">示例讨论 · 非真实用户经历</span>
-          )}
         </div>
         <h1>{p.title}</h1>
         <div className="forum-meta">
@@ -762,7 +755,6 @@ export function PostDetail() {
             <div className="forum-meta">
               {author(r.author)}
               <span>{date(r.createdAt)}</span>
-              {r.demo && <small className="badge neutral">示例回复</small>}
             </div>
             <p className="forum-body">{r.body}</p>
             {user?.id === r.author.id && (
@@ -854,7 +846,7 @@ export function CommunityRules() {
       </p>
       <h2>管理与示例</h2>
       <p>
-        管理员可以下架帖子和回复、禁用违规账号。被标记为“示例”的账号和讨论由站点预置，不能作为真实用户体验或活跃人数证明。
+        管理员可以下架帖子和回复、禁用违规账号。部分账号和话题由站点预置，用于提供讨论起点；预置账号不开放登录，这些内容不代表真实用户经历或活跃人数。
       </p>
       <h2>账号与数据</h2>
       <p>

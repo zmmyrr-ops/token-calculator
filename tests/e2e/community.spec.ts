@@ -10,9 +10,10 @@ test("user registration, avatar, profile, discussion and session lifecycle", asy
   page.on("dialog", (d) => d.accept());
   await page.goto("/forum");
   await expect(page.locator(".forum-card")).toHaveCount(12);
+  await expect(page.getByText("示例讨论", { exact: true })).toHaveCount(0);
   await expect(
-    page.getByText("示例讨论", { exact: true }).first(),
-  ).toBeVisible();
+    page.locator('meta[name="baidu-site-verification"]'),
+  ).toHaveAttribute("content", "codeva-dNjacCJLDs");
   await page.getByRole("link", { name: "下一页", exact: true }).click();
   await expect(page).toHaveURL(/page=2/);
   await expect(page.locator(".forum-card")).toHaveCount(12);
@@ -30,13 +31,11 @@ test("user registration, avatar, profile, discussion and session lifecycle", asy
     ctx.fillRect(0, 0, 128, 128);
     return c.toDataURL("image/png").split(",")[1];
   });
-  await page
-    .locator('input[type="file"]')
-    .setInputFiles({
-      name: "avatar.png",
-      mimeType: "image/png",
-      buffer: Buffer.from(png, "base64"),
-    });
+  await page.locator('input[type="file"]').setInputFiles({
+    name: "avatar.png",
+    mimeType: "image/png",
+    buffer: Buffer.from(png, "base64"),
+  });
   await expect(page.getByAltText("头像预览")).toBeVisible();
   await page.getByRole("checkbox").check();
   await page.getByRole("button", { name: "注册并登录" }).click();

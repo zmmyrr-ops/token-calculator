@@ -465,17 +465,39 @@ export function communityAdminRouter(store: ContentDatabase) {
   });
   router.get("/users", (req, res) => {
     const p = paging(req, 20);
+    const q = z
+      .string()
+      .max(100)
+      .parse(req.query.q ?? "");
+    const type = z
+      .enum(["", "preset", "registered"])
+      .parse(req.query.type ?? "");
+    const state = z
+      .enum(["", "active", "disabled"])
+      .parse(req.query.state ?? "");
+    const where =
+      "WHERE (instr(lower(username),lower(?))>0 OR instr(lower(nickname),lower(?))>0) AND (?='' OR demo=?) AND (?='' OR disabled=?)";
+    const args = [
+      q,
+      q,
+      type,
+      type === "preset" ? 1 : 0,
+      state,
+      state === "disabled" ? 1 : 0,
+    ];
     res.json({
       ...p,
       total: Number(
-        store.db.prepare("SELECT count(*) n FROM community_users").get()?.n,
+        store.db
+          .prepare(`SELECT count(*) n FROM community_users ${where}`)
+          .get(...args)?.n,
       ),
       items: (
         store.db
           .prepare(
-            "SELECT * FROM community_users ORDER BY created_at DESC LIMIT ? OFFSET ?",
+            `SELECT * FROM community_users ${where} ORDER BY created_at DESC,id LIMIT ? OFFSET ?`,
           )
-          .all(p.pageSize, p.offset) as UserRow[]
+          .all(...args, p.pageSize, p.offset) as UserRow[]
       ).map((u) => ({ ...publicUser(u), disabled: !!u.disabled })),
     });
   });
@@ -491,6 +513,7 @@ export function communityAdminRouter(store: ContentDatabase) {
         .get(id);
       if (!row) throw new CmsError(404, "记录不存在");
       if (kind === "users") {
+        if (enabled && row.demo) throw new CmsError(400, "预置账号不开放登录");
         store.db
           .prepare("UPDATE community_users SET disabled=? WHERE id=?")
           .run(enabled ? 0 : 1, id);

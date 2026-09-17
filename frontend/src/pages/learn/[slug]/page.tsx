@@ -25,6 +25,27 @@ export default function Article({ params }: { params: { slug: string } }) {
           kind: tutorialSlugs.includes(entry.slug) ? "教程" : "知识",
         }}
       />
+      {entry.video && (
+        <section className="learning-note video-detail">
+          <div className="eyebrow">官方课程 · 原站观看</div>
+          <h2>{entry.video.publisher}</h2>
+          <p>适合：{entry.video.audience}</p>
+          <p>语言：{entry.video.language}</p>
+          <p>{entry.video.version}</p>
+          <a
+            className="button primary"
+            href={entry.video.url}
+            target="_blank"
+            rel="noreferrer"
+          >
+            前往原站观看视频 ↗
+          </a>
+          <p className="muted">
+            收录核验：{entry.video.checkedAt} ·
+            本站不转载视频，原站可能要求登录；字幕、费用及可访问性以原站为准。
+          </p>
+        </section>
+      )}
       {entry.practice && (
         <>
           <PracticeBrief practice={entry.practice} />

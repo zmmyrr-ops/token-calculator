@@ -1,3 +1,4 @@
+import { expandContent } from "../../backend/src/content-expansion";
 import { describe, it, expect } from "vitest";
 import { ContentDatabase } from "../../backend/src/database";
 import { catalog } from "../../backend/src/content/catalog";
@@ -159,4 +160,49 @@ describe("database publication boundaries", () => {
       db.close();
     }
   });
+});
+
+it("adds sourced learning content once without overwriting CMS edits", () => {
+  const db = open();
+  try {
+    const original = db.get("scenario", "games");
+    db.save(
+      "scenario",
+      "games",
+      { ...original.draft, name: "保留的编辑" },
+      original.revision,
+      "test",
+    );
+    expandContent(db);
+    const content = db.publicContent();
+    expect(content.knowledge).toHaveLength(23);
+    expect(content.knowledge.filter((a) => a.video)).toHaveLength(6);
+    expect(content.resources).toHaveLength(32);
+    expect(db.get("scenario", "games").draft).toMatchObject({
+      name: "保留的编辑",
+    });
+    for (const r of content.resources)
+      expect(content.knowledge.some((a) => a.slug === r.article)).toBe(true);
+    for (const route of content.scenarios) {
+      for (const id of route.articles)
+        expect(content.knowledge.some((a) => a.slug === id)).toBe(true);
+      for (const id of route.tools)
+        expect(content.resources.some((a) => a.id === id)).toBe(true);
+    }
+    const entry = db.get("knowledge", "rag-starter");
+    db.save(
+      "knowledge",
+      entry.id,
+      { ...entry.draft, title: "保留后续编辑" },
+      entry.revision,
+      "test",
+    );
+    expandContent(db);
+    expect(db.get("knowledge", entry.id).draft).toMatchObject({
+      title: "保留后续编辑",
+    });
+    expect(db.publicContent().knowledge).toHaveLength(23);
+  } finally {
+    db.close();
+  }
 });

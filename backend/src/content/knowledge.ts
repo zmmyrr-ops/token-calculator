@@ -1,6 +1,14 @@
 import { practices } from "./practices";
 import type { Practice } from "../../../shared/practice";
 export type KnowledgeEntry = {
+  video?: {
+    url: string;
+    publisher: string;
+    language: string;
+    version: string;
+    audience: string;
+    checkedAt: string;
+  };
   slug: string;
   title: string;
   category: string;

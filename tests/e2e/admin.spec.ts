@@ -137,7 +137,16 @@ test("isolated admin: change password, save, publish and download backup", async
     await expect(
       page.getByRole("button", { name: "恢复展示", exact: true }).first(),
     ).toBeVisible();
-    await page.getByRole("button", { name: "用户", exact: true }).click();
+    await page.getByRole("button", { name: "用户管理", exact: true }).click();
+    await expect(
+      page.getByText("共 120 条记录", { exact: true }),
+    ).toBeVisible();
+    await page.getByLabel("搜索用户").fill("example_v2_001");
+    await page.getByRole("button", { name: "搜索", exact: true }).click();
+    await expect(page.getByText("共 1 条记录", { exact: true })).toBeVisible();
+    await page.getByLabel("账号类型").selectOption("registered");
+    await expect(page.getByText("共 0 条记录", { exact: true })).toBeVisible();
+    await page.getByRole("button", { name: "重置", exact: true }).click();
     await expect(
       page.getByText("共 120 条记录", { exact: true }),
     ).toBeVisible();

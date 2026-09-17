@@ -6,8 +6,16 @@ type Item = Partial<ForumPost & ForumReply & CommunityUser> & {
   id: string;
   disabled?: boolean;
 };
-export default function CommunityModeration() {
-  const [kind, setKind] = useState("posts"),
+export default function CommunityModeration({
+  usersOnly = false,
+}: {
+  usersOnly?: boolean;
+}) {
+  const [q, setQ] = useState(""),
+    [search, setSearch] = useState(""),
+    [type, setType] = useState(""),
+    [state, setState] = useState("");
+  const [kind, setKind] = useState(usersOnly ? "users" : "posts"),
     [page, setPage] = useState(1),
     [version, setVersion] = useState(0),
     [busy, setBusy] = useState(false),
@@ -17,7 +25,11 @@ export default function CommunityModeration() {
     let active = true;
     setData(null);
     setError("");
-    fetch(appPath(`/api/admin/community/${kind}?page=${page}`))
+    fetch(
+      appPath(
+        `/api/admin/community/${kind}?${new URLSearchParams({ page: String(page), q: search, type, state })}`,
+      ),
+    )
       .then(async (r) => {
         const d = await r.json();
         if (!r.ok) throw Error(d.error);
@@ -29,7 +41,7 @@ export default function CommunityModeration() {
     return () => {
       active = false;
     };
-  }, [kind, page, version]);
+  }, [kind, page, version, search, type, state]);
   async function toggle(item: Item) {
     const enabled =
       kind === "users" ? !!item.disabled : item.status !== "visible";
@@ -55,32 +67,88 @@ export default function CommunityModeration() {
   }
   return (
     <section className="community-moderation">
-      <h1>社区管理</h1>
+      <h1>{usersOnly ? "用户管理" : "社区管理"}</h1>
       <p>
         管理帖子、回复和账号；示例数据与真实注册用户均保存在数据库，标记分别显示。禁用用户会撤销其登录会话，已发布内容可单独下架。
       </p>
       <div className="action-row">
-        {[
-          ["posts", "帖子"],
-          ["replies", "回复"],
-          ["users", "用户"],
-        ].map(([id, label]) => (
-          <button
-            className={kind === id ? "button primary" : "button"}
-            key={id}
-            onClick={() => {
-              setData(null);
-              setKind(id);
-              setPage(1);
-            }}
-          >
-            {label}
-          </button>
-        ))}
+        {!usersOnly &&
+          [
+            ["posts", "帖子"],
+            ["replies", "回复"],
+          ].map(([id, label]) => (
+            <button
+              className={kind === id ? "button primary" : "button"}
+              key={id}
+              onClick={() => {
+                setData(null);
+                setKind(id);
+                setPage(1);
+              }}
+            >
+              {label}
+            </button>
+          ))}
         <button className="button" onClick={() => setVersion((v) => v + 1)}>
           刷新
         </button>
       </div>
+      {usersOnly && (
+        <form
+          className="hub-filter"
+          onSubmit={(e) => {
+            e.preventDefault();
+            setSearch(q);
+            setPage(1);
+          }}
+        >
+          <input
+            aria-label="搜索用户"
+            placeholder="搜索账号或昵称"
+            value={q}
+            maxLength={100}
+            onChange={(e) => setQ(e.target.value)}
+          />
+          <select
+            aria-label="账号类型"
+            value={type}
+            onChange={(e) => {
+              setType(e.target.value);
+              setPage(1);
+            }}
+          >
+            <option value="">全部账号</option>
+            <option value="registered">注册用户</option>
+            <option value="preset">预置账号</option>
+          </select>
+          <select
+            aria-label="账号状态"
+            value={state}
+            onChange={(e) => {
+              setState(e.target.value);
+              setPage(1);
+            }}
+          >
+            <option value="">全部状态</option>
+            <option value="active">正常</option>
+            <option value="disabled">已禁用</option>
+          </select>
+          <button className="button primary">搜索</button>
+          <button
+            type="button"
+            className="button"
+            onClick={() => {
+              setQ("");
+              setSearch("");
+              setType("");
+              setState("");
+              setPage(1);
+            }}
+          >
+            重置
+          </button>
+        </form>
+      )}
       {error && <p role="alert">{error}</p>}
       {!data && !error && <p role="status">正在加载社区数据…</p>}
       {data && (
@@ -99,6 +167,9 @@ export default function CommunityModeration() {
                   <strong> {item.nickname}</strong>
                   <p>
                     账号：{item.username} · {item.disabled ? "已禁用" : "正常"}
+                    <br />
+                    注册时间：
+                    {new Date(item.createdAt!).toLocaleString("zh-CN")}
                   </p>
                 </>
               ) : (

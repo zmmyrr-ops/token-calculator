@@ -32,11 +32,11 @@ import Page10 from "./pages/page";
 import Page11 from "./pages/privacy/page";
 import Page12 from "./pages/saved/page";
 import Page13 from "./pages/scenarios/[slug]/page";
-import Page14 from "./pages/scenarios/page";
+import { Navigate } from "react-router-dom";
 import Page15 from "./pages/search/page";
 import Page16 from "./pages/tools/[slug]/page";
 import Page17 from "./pages/tools/page";
-import Page18 from "./pages/tutorials/page";
+
 import Page19 from "./pages/updates/page";
 class ErrorBoundary extends Component<
   { children: ReactNode },
@@ -114,7 +114,10 @@ function App() {
           <Route path="/privacy" element={<Page11 />} />
           <Route path="/saved" element={<Page12 />} />
           <Route path="/scenarios/:slug" element={<Page13 params={params} />} />
-          <Route path="/scenarios" element={<Page14 />} />
+          <Route
+            path="/scenarios"
+            element={<Navigate replace to="/learn?format=scenarios" />}
+          />
           <Route
             path="/search"
             element={<Page15 searchParams={searchParams} />}
@@ -124,7 +127,10 @@ function App() {
             path="/tools"
             element={<Page17 searchParams={searchParams} />}
           />
-          <Route path="/tutorials" element={<Page18 />} />
+          <Route
+            path="/tutorials"
+            element={<Navigate replace to="/learn?format=practice" />}
+          />
           <Route path="/updates" element={<Page19 />} />
           <Route path="/news" element={<News />} />
           <Route path="*" element={<NotFound />} />

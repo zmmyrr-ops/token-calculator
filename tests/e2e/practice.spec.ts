@@ -3,15 +3,27 @@ test("practice discovery, scenario links and actionable export", async ({
   page,
 }) => {
   await page.goto("/tutorials");
-  await expect(page.locator(".course-card")).toHaveCount(5);
-  await page.getByLabel("筛选教程场景").selectOption("3d");
-  await expect(page.locator(".course-card")).toHaveCount(1);
-  await page.getByLabel("搜索实践教程").fill("不会存在的教程");
+  await expect(page).toHaveURL(/learn\?format=practice/);
+  await expect(page.locator(".learning-card")).toHaveCount(5);
+  await page.getByLabel("搜索知识文章").fill("不会存在的教程");
+  await page.getByRole("button", { name: "筛选", exact: true }).click();
   await expect(
-    page.getByRole("heading", { name: "没有找到匹配教程" }),
+    page.getByText("没有匹配内容，试试更短的关键词或其他主题。"),
   ).toBeVisible();
-  await page.getByRole("button", { name: "清除筛选" }).click();
-  await expect(page.locator(".course-card")).toHaveCount(5);
+  await page.getByRole("link", { name: "重置", exact: true }).click();
+  await expect(page.locator(".learning-card")).toHaveCount(5);
+  await page.getByRole("link", { name: "视频课程", exact: true }).click();
+  await expect(page.locator(".learning-card")).toHaveCount(6);
+  await page.getByRole("link", { name: /Blender 官方基础视频/ }).click();
+  await expect(
+    page.getByRole("link", { name: /前往原站观看视频/ }),
+  ).toHaveAttribute(
+    "href",
+    "https://studio.blender.org/training/blender-2-8-fundamentals/",
+  );
+  await page.goto("/scenarios");
+  await expect(page).toHaveURL(/learn\?format=scenarios/);
+  await expect(page.locator(".resource-card")).toHaveCount(5);
   await page.goto("/scenarios/3d");
   await expect(page.getByRole("heading", { name: "开始前准备" })).toBeVisible();
   await page.getByRole("link", { name: "开始这条实践路线 →" }).click();

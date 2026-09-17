@@ -59,6 +59,16 @@ export const knowledgeSchema = z.object({
     .max(100)
     .default([]),
   practice: practiceSchema.optional(),
+  video: z
+    .object({
+      url: link,
+      publisher: short.min(1),
+      language: short,
+      version: text,
+      audience: text,
+      checkedAt: z.string().regex(/^\d{4}-\d{2}-\d{2}$/),
+    })
+    .optional(),
 });
 export const resourceSchema = z.object({
   id,

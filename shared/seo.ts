@@ -22,7 +22,7 @@ export const publicPages: Record<
       "浏览来自公开订阅源的 AI、大模型、软件应用与硬件资讯，按分类和来源筛选，查看发布时间并直达原文。",
   },
   "/learn": {
-    title: "AI 知识库｜基础概念与使用方法",
+    title: "AI 学习中心｜知识、实操、视频与应用场景",
     description:
       "理解 Token、模型、平台、API 与推理预算，学习有来源的 AI 基础知识及创作方法。",
   },
