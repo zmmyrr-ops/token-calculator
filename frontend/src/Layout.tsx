@@ -1,5 +1,5 @@
 import { AccountLink } from "./Community";
-import { isStaging } from "./base";
+import { isStaging, appPath } from "./base";
 import Link from "./Link";
 import { useLocation } from "react-router-dom";
 import { useContent } from "./content";
@@ -23,7 +23,13 @@ export default function RootLayout({
       <header className="site-header">
         <div className="container header-inner">
           <Link href="/" className="brand">
-            <span className="logo">门</span>
+            <img
+              className="site-mark"
+              src={appPath("/favicon.svg?v=2")}
+              alt=""
+              width="36"
+              height="36"
+            />
             {site.name}
             <small>AI MENDAO</small>
           </Link>
@@ -58,7 +64,7 @@ export default function RootLayout({
       </main>
       <footer className="site-footer">
         <div className="container footer-inner">
-          <span>AI 门道 · 懂点 AI，做点不一样的。</span>
+          <span>AI 门道 · 看懂 AI，用出门道。</span>
           <div className="footer-links">
             <Link href="/about">关于本站</Link>
             <Link href="/privacy">隐私说明</Link>

@@ -95,7 +95,7 @@ test("knowledge homepage, search, article and calculator are connected", async (
 }) => {
   await page.goto("/");
   await expect(page.getByRole("heading", { level: 1 })).toContainText(
-    "懂点 AI",
+    "看懂 AI",
   );
   await expect(page.getByLabel("待计算文本")).toHaveCount(0);
   await page.getByLabel("搜索 AI 门道").fill("token");
@@ -209,6 +209,7 @@ test("live news API, filters, source provenance and home entry", async ({
   );
   await expect(page.locator(".news-result-count")).toBeVisible();
   await expect(page.getByText(/来源每.*分钟检查/)).toHaveCount(0);
+  await expect(page.locator(".news-status")).toHaveCount(0);
   await expect(page.locator(".news-card").getByText(/本站收录/)).toHaveCount(0);
   if (data.total) {
     await expect(page.locator(".news-cover").first()).toBeVisible();
@@ -301,4 +302,19 @@ test("catalog and search request pages without downloading the full bootstrap", 
   ).toBe(true);
   await page.goto("/search?q=Claude&type=models");
   await expect(page.locator(".resource-card").first()).toContainText("Claude");
+});
+
+test("Baidu verification file and brand assets are served as static files", async ({
+  page,
+  request,
+}) => {
+  const verify = await request.get("/baidu_verify_codeva-dNjacCJLDs.html");
+  expect(verify.status()).toBe(200);
+  expect(await verify.text()).toBe("4a4ceceaa8eab27d185ee515776a1873");
+  await page.goto("/");
+  await expect(page.getByRole("heading", { level: 1 })).toContainText(
+    "用出门道",
+  );
+  await expect(page.locator(".site-mark")).toBeVisible();
+  expect((await request.get("/favicon.svg?v=2")).status()).toBe(200);
 });

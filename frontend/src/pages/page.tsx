@@ -50,9 +50,9 @@ export default function Home() {
         <div>
           <div className="eyebrow">EXPLORE THE INTELLIGENCE</div>
           <h1>
-            懂点 AI，
+            看懂 AI，
             <br />
-            <span>做点不一样的。</span>
+            <span>用出门道。</span>
           </h1>
           <p>
             看 AI 资讯，找实用工具，学创作方法。

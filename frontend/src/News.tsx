@@ -4,7 +4,6 @@ import { useSearchParams } from "react-router-dom";
 import {
   ArrowUpRight,
   Radio,
-  RefreshCw,
   Search,
   Cpu,
   BrainCircuit,
@@ -189,16 +188,6 @@ export function News({ compact = false }: { compact?: boolean }) {
         </div>
         <Cpu size={76} strokeWidth={1} />
       </header>
-      <div className="news-status">
-        <button
-          className="button"
-          disabled={loading}
-          onClick={() => setRefresh((x) => x + 1)}
-        >
-          <RefreshCw size={14} />
-          {loading ? "获取中…" : "刷新列表"}
-        </button>
-      </div>
       <form
         className="news-filters"
         onSubmit={(e) => {

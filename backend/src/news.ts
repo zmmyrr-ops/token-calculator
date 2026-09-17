@@ -1,3 +1,4 @@
+import { discoverQbitArticles } from "./qbit-discovery";
 import { fetchQbitImage } from "./news-images";
 import type { ContentDatabase } from "./database";
 import Parser from "rss-parser";
@@ -266,8 +267,10 @@ export class NewsService {
             Accept:
               "application/rss+xml, application/atom+xml, application/xml, text/xml",
           };
-          if (prev?.etag) headers["If-None-Match"] = prev.etag;
-          if (prev?.modified) headers["If-Modified-Since"] = prev.modified;
+          if (source.id !== "qbitai" && prev?.etag)
+            headers["If-None-Match"] = prev.etag;
+          if (source.id !== "qbitai" && prev?.modified)
+            headers["If-Modified-Since"] = prev.modified;
           // Fixed source allowlist. No public endpoint accepts feed URLs.
           const response = await fetch(source.feed, {
             headers,
@@ -318,6 +321,27 @@ export class NewsService {
         }
       }),
     );
+    // The publisher's homepage can lead its RSS feed. Discover missing articles
+    // once per collection cycle and use dates from the actual article page.
+    try {
+      const extra = await discoverQbitArticles(
+        new Set(this.store.items.map((x) => x.url)),
+      );
+      const now = new Date().toISOString();
+      for (const item of extra.items) {
+        const normalized = normalizeItem(item, sources[0], now);
+        if (normalized && !this.store.items.some((x) => x.id === normalized.id))
+          this.store.items.push(normalized);
+      }
+      if (extra.error) this.store.states.qbitai.error = extra.error;
+    } catch (e) {
+      this.store.states.qbitai.error = [
+        this.store.states.qbitai.error,
+        "官网补充：" + (e as Error).message,
+      ]
+        .filter(Boolean)
+        .join("；");
+    }
     // Runs even when RSS returns 304, including already collected title-only items.
     const pending = this.store.items
       .filter(

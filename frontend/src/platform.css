@@ -1764,3 +1764,11 @@ h3 {
 .video-detail p {
   margin: 12px 0;
 }
+
+.site-mark {
+  display: block;
+  flex-shrink: 0;
+  width: 36px;
+  height: 36px;
+  filter: drop-shadow(0 3px 9px #75e3d022);
+}
