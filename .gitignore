@@ -15,3 +15,6 @@ frontend/dist-staging/
 
 # WeChat developer machine settings
 miniprogram/project.private.config.json
+
+# Generated personal-subject mini program package
+miniprogram-personal/

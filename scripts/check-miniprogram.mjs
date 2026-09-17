@@ -1,7 +1,7 @@
 import { readFile, readdir, stat } from "node:fs/promises";
 import vm from "node:vm";
 import path from "node:path";
-const root = path.resolve("miniprogram");
+const root = path.resolve(process.argv[2] || "miniprogram");
 let bytes = 0;
 async function walk(dir) {
   for (const name of await readdir(dir)) {

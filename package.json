@@ -16,7 +16,7 @@
     "catalog:sync": "node scripts/sync-catalog.mjs",
     "catalog:check": "tsx scripts/validate-catalog.ts",
     "assets": "node scripts/copy-tokenizers.mjs",
-    "check": "npm run typecheck && npm run lint && npm test && npm run catalog:check && npm run mini:check",
+    "check": "npm run typecheck && npm run lint && npm test && npm run catalog:check && npm run mini:check && npm run mini:personal",
     "dev:frontend": "npm run dev -w frontend",
     "dev:backend": "npm run dev -w backend",
     "news:sync": "tsx backend/src/sync-news.ts",
@@ -24,7 +24,8 @@
     "mini:build": "node scripts/build-miniprogram.mjs",
     "mini:check": "npm run mini:build && node scripts/check-miniprogram.mjs",
     "mini:preview": "node scripts/mini-preview.mjs",
-    "mini:test": "npm run build -w backend && node scripts/test-miniprogram.mjs"
+    "mini:test": "npm run build -w backend && node scripts/test-miniprogram.mjs",
+    "mini:personal": "npm run mini:build && node scripts/build-mini-personal.mjs && node scripts/check-miniprogram.mjs miniprogram-personal"
   },
   "dependencies": {
     "decimal.js": "10.6.0",
