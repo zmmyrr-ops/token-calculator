@@ -1,19 +1,19 @@
-import { useContent } from "@/content";
+import { usePage, Pagination } from "@/usePage";
+import type { Content } from "@shared/content";
 import Link from "@/Link";
 export default function Learn({
   searchParams,
 }: {
-  searchParams: { q?: string; category?: string };
+  searchParams: { q?: string; category?: string; page?: string };
 }) {
-  const { knowledge } = useContent();
   const p = searchParams;
   const q = typeof p.q === "string" ? p.q.slice(0, 200) : "";
   const category = typeof p.category === "string" ? p.category : "";
-  const entries = knowledge.filter(
-    (a) =>
-      (!category || a.category === category) &&
-      `${a.title}${a.keywords}`.toLowerCase().includes(q.toLowerCase()),
+  const { data, page, status } = usePage<Content["knowledge"][number]>(
+    "/api/v1/library/learn",
+    p,
   );
+  const entries = data?.items ?? [];
   return (
     <div className="hub">
       <header className="page-intro">
@@ -31,7 +31,7 @@ export default function Learn({
         />
         <select name="category" aria-label="文章分类" defaultValue={category}>
           <option value="">全部分类</option>
-          {[...new Set(knowledge.map((a) => a.category))].map((c) => (
+          {(data?.categories ?? []).map((c) => (
             <option key={c}>{c}</option>
           ))}
         </select>
@@ -40,7 +40,8 @@ export default function Learn({
           重置
         </Link>
       </form>
-      <p className="muted">{entries.length} 篇文章</p>
+      {status}
+      {data && <p className="muted">{data.total} 篇文章</p>}
       <div className="resource-grid">
         {entries.map((a) => (
           <Link
@@ -55,10 +56,13 @@ export default function Learn({
           </Link>
         ))}
       </div>
-      {!entries.length && (
+      {data && !entries.length && (
         <p className="empty-panel">
           没有匹配的文章，请尝试更短的关键词或清除分类。
         </p>
+      )}
+      {data && (
+        <Pagination path="/learn" params={p} page={page} total={data.total} />
       )}
     </div>
   );

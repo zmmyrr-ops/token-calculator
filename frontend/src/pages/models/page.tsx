@@ -1,3 +1,5 @@
+import { useEffect, useState } from "react";
+import type { Content } from "@shared/content";
 import { appPath } from "@/base";
 import { useContent } from "@/content";
 import Link from "@/Link";
@@ -8,18 +10,41 @@ export default function ModelsPage({
 }: {
   searchParams: Record<string, string | undefined>;
 }) {
-  const { catalog, models, filterModels, coverage } = useContent();
-
+  const { catalog, modelCount, vendors, coverage } = useContent();
   const params = searchParams;
-  const filtered = filterModels(params);
-  const page = Math.max(
-    1,
-    Math.min(Math.ceil(filtered.length / 24) || 1, Number(params.page) || 1),
-  );
-  const list = filtered.slice((page - 1) * 24, page * 24);
-  const vendors = [
-    ...new Map(models.map((m) => [m.provider, m.providerName])).entries(),
-  ].sort((a, b) => a[1].localeCompare(b[1]));
+  const rawPage = Number(params.page);
+  const page =
+    Number.isSafeInteger(rawPage) && rawPage > 0 && rawPage <= 100000
+      ? rawPage
+      : 1;
+  const query = new URLSearchParams({ page: String(page), pageSize: "24" });
+  for (const key of ["q", "provider", "access", "support"])
+    if (params[key]) query.set(key, params[key]!);
+  const url = appPath("/api/v1/catalog") + "?" + query;
+  const [result, setResult] = useState<{
+    url: string;
+    models: Content["catalog"]["models"];
+    total: number;
+  } | null>(null);
+  const [error, setError] = useState(false);
+  const [retry, setRetry] = useState(0);
+  useEffect(() => {
+    const controller = new AbortController();
+    setError(false);
+    fetch(url, { signal: controller.signal })
+      .then(async (response) => {
+        if (!response.ok) throw Error("加载失败");
+        const data = await response.json();
+        if (!controller.signal.aborted) setResult({ ...data, url });
+      })
+      .catch(() => {
+        if (!controller.signal.aborted) setError(true);
+      });
+    return () => controller.abort();
+  }, [url, retry]);
+  const current = result?.url === url ? result : null;
+  const list = current?.models ?? [];
+  const total = current?.total ?? 0;
   function pageLink(n: number) {
     const p = new URLSearchParams();
     for (const [k, v] of Object.entries(params))
@@ -33,7 +58,7 @@ export default function ModelsPage({
         <div className="eyebrow">MODEL DIRECTORY</div>
         <h1>大模型，一处比较。</h1>
         <p>
-          {models.length} 个模型条目 · {vendors.length} 个厂商 · 目录获取日期{" "}
+          {modelCount} 个模型条目 · {vendors.length} 个厂商 · 目录获取日期{" "}
           {catalog.fetchedAt.slice(0, 10)}
           。报价为标注渠道基础价，不是订阅产品费用。
         </p>
@@ -86,11 +111,22 @@ export default function ModelsPage({
           筛选
         </button>
       </form>
-      <p className="micro">
-        找到 {filtered.length}{" "}
-        个条目。所有型号均可选择参考编码；尚未把参考编码核验为各型号的官方计数。
-      </p>
-      <div className="catalog-grid">
+      {!current && !error && <p role="status">正在加载模型…</p>}
+      {error && (
+        <p role="alert">
+          模型加载失败。
+          <button className="button" onClick={() => setRetry((x) => x + 1)}>
+            重试
+          </button>
+        </p>
+      )}
+      {current && (
+        <p className="micro">
+          找到 {total}{" "}
+          个条目。所有型号均可选择参考编码；尚未把参考编码核验为各型号的官方计数。
+        </p>
+      )}
+      <div className="catalog-grid" aria-busy={!current && !error}>
         {list.map((m) => (
           <article className="catalog-card panel" key={m.id}>
             <div className="micro">{m.providerName}</div>
@@ -130,26 +166,28 @@ export default function ModelsPage({
           </article>
         ))}
       </div>
-      {!list.length && (
+      {current && !list.length && (
         <div className="empty-state panel">
           没有匹配的模型。<Link href="/models">重置筛选</Link>
         </div>
       )}
-      <nav className="pagination" aria-label="模型分页">
-        {page > 1 && (
-          <Link className="button outline" href={pageLink(page - 1)}>
-            上一页
-          </Link>
-        )}
-        <span className="micro">
-          {page} / {Math.ceil(filtered.length / 24) || 1}
-        </span>
-        {page * 24 < filtered.length && (
-          <Link className="button outline" href={pageLink(page + 1)}>
-            下一页
-          </Link>
-        )}
-      </nav>
+      {current && (
+        <nav className="pagination" aria-label="模型分页">
+          {page > 1 && (
+            <Link className="button outline" href={pageLink(page - 1)}>
+              上一页
+            </Link>
+          )}
+          <span className="micro">
+            {page} / {Math.ceil(total / 24) || 1}
+          </span>
+          {page * 24 < total && (
+            <Link className="button outline" href={pageLink(page + 1)}>
+              下一页
+            </Link>
+          )}
+        </nav>
+      )}
       <details className="panel" style={{ padding: 20, marginBottom: 30 }}>
         <summary>覆盖范围与已知缺口</summary>
         <p className="micro">

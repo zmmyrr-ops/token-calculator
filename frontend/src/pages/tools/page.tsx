@@ -1,19 +1,19 @@
-import { useContent } from "@/content";
+import { usePage, Pagination } from "@/usePage";
+import type { Content } from "@shared/content";
 import Link from "@/Link";
 export default function Tools({
   searchParams,
 }: {
-  searchParams: { q?: string; category?: string };
+  searchParams: { q?: string; category?: string; page?: string };
 }) {
-  const { resources } = useContent();
   const p = searchParams;
   const q = typeof p.q === "string" ? p.q.slice(0, 200) : "";
   const category = typeof p.category === "string" ? p.category : "";
-  const list = resources.filter(
-    (t) =>
-      (!category || t.category === category) &&
-      (t.name + t.summary).toLowerCase().includes(q.toLowerCase()),
+  const { data, page, status } = usePage<Content["resources"][number]>(
+    "/api/v1/library/tools",
+    p,
   );
+  const list = data?.items ?? [];
   return (
     <div className="hub">
       <header className="page-intro">
@@ -41,7 +41,7 @@ export default function Tools({
         />
         <select name="category" defaultValue={category} aria-label="工具分类">
           <option value="">全部分类</option>
-          {[...new Set(resources.map((t) => t.category))].map((c) => (
+          {(data?.categories ?? []).map((c) => (
             <option key={c}>{c}</option>
           ))}
         </select>
@@ -50,7 +50,8 @@ export default function Tools({
           重置
         </Link>
       </form>
-      <p className="muted">{list.length} 个工具</p>
+      {status}
+      {data && <p className="muted">{data.total} 个工具</p>}
       <div className="resource-grid">
         {list.map((t) => (
           <Link className="resource-card" key={t.id} href={`/tools/${t.id}`}>
@@ -61,10 +62,13 @@ export default function Tools({
           </Link>
         ))}
       </div>
-      {!list.length && (
+      {data && !list.length && (
         <p className="empty-panel">
           没有匹配工具。可以清除筛选或搜索具体名称。
         </p>
+      )}
+      {data && (
+        <Pagination path="/tools" params={p} page={page} total={data.total} />
       )}
     </div>
   );

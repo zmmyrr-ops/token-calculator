@@ -121,7 +121,7 @@ function Entry() {
   return pathname.startsWith("/admin") ? (
     <Admin />
   ) : (
-    <ContentProvider>
+    <ContentProvider key={pathname}>
       <App />
     </ContentProvider>
   );

@@ -1,71 +1,23 @@
 import { appPath } from "@/base";
-import { useContent } from "@/content";
+import { usePage, Pagination } from "@/usePage";
 import Link from "@/Link";
 export default function Search({
   searchParams,
 }: {
   searchParams: { q?: string; type?: string; page?: string };
 }) {
-  const { knowledge, models, resources, scenarios } = useContent();
   const p = searchParams;
   const q = typeof p.q === "string" ? p.q.slice(0, 200).trim() : "";
   const type = typeof p.type === "string" ? p.type : "";
-  const all = [
-    ...knowledge.map((a) => ({
-      id: "article:" + a.slug,
-      kind: "knowledge",
-      label: a.category,
-      title: a.title,
-      description: a.summary,
-      keywords: a.keywords,
-      href: "/learn/" + a.slug,
-    })),
-    ...resources.map((t) => ({
-      id: "tool:" + t.id,
-      kind: "tools",
-      label: t.category,
-      title: t.name,
-      description: t.summary,
-      keywords: t.capabilities.join(" "),
-      href: "/tools/" + t.id,
-    })),
-    ...scenarios.map((s) => ({
-      id: "scenario:" + s.id,
-      kind: "scenarios",
-      label: "应用场景",
-      title: s.name,
-      description: s.summary,
-      keywords: s.steps.join(" "),
-      href: "/scenarios/" + s.id,
-    })),
-    ...models.map((m) => ({
-      id: "model:" + m.id,
-      kind: "models",
-      label: m.providerName,
-      title: m.name,
-      description: m.canonicalId,
-      keywords: m.providerName,
-      href: "/models/" + m.id,
-    })),
-  ];
-  const terms = q.toLowerCase().split(/\s+/).filter(Boolean);
-  const filtered = all.filter(
-    (a) =>
-      (!type || a.kind === type) &&
-      terms.every((term) =>
-        (a.title + " " + a.description + " " + a.keywords)
-          .toLowerCase()
-          .includes(term),
-      ),
-  );
-  const pages = Math.max(1, Math.ceil(filtered.length / 18));
-  const page = Math.max(
-    1,
-    Math.min(pages, Number.isSafeInteger(Number(p.page)) ? Number(p.page) : 1),
-  );
-  const list = filtered.slice((page - 1) * 18, page * 18);
-  const link = (n: number) =>
-    "/search?" + new URLSearchParams({ q, type, page: String(n) });
+  const { data, page, status } = usePage<{
+    id: string;
+    href: string;
+    label: string;
+    title: string;
+    description: string;
+  }>("/api/v1/search", p);
+  const list = data?.items ?? [];
+  const pages = Math.max(1, Math.ceil((data?.total ?? 0) / 18));
   return (
     <div className="hub">
       <header className="page-intro">
@@ -89,9 +41,12 @@ export default function Search({
           <button className="button primary">搜索</button>
         </form>
       </header>
-      <p className="muted">
-        {filtered.length} 条结果 · 第 {page}/{pages} 页
-      </p>
+      {status}
+      {data && (
+        <p className="muted">
+          {data?.total ?? 0} 条结果 · 第 {page}/{pages} 页
+        </p>
+      )}
       <div className="resource-grid">
         {list.map((a) => (
           <Link className="resource-card" key={a.id} href={a.href}>
@@ -101,7 +56,7 @@ export default function Search({
           </Link>
         ))}
       </div>
-      {!list.length && (
+      {data && !list.length && (
         <div className="empty-panel">
           <h2>暂未找到匹配内容</h2>
           <p>尝试缩短关键词，或从分类开始。</p>
@@ -113,18 +68,9 @@ export default function Search({
           </Link>
         </div>
       )}
-      <nav className="action-row section-spacer" aria-label="搜索分页">
-        {page > 1 && (
-          <Link className="button" href={link(page - 1)}>
-            上一页
-          </Link>
-        )}
-        {page < pages && (
-          <Link className="button" href={link(page + 1)}>
-            下一页
-          </Link>
-        )}
-      </nav>
+      {data && (
+        <Pagination path="/search" params={p} page={page} total={data.total} />
+      )}
     </div>
   );
 }

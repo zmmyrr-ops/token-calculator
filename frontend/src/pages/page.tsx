@@ -43,7 +43,7 @@ const scenes = [
   },
 ];
 export default function Home() {
-  const { models, knowledge, resources } = useContent();
+  const { modelCount, knowledge, resources } = useContent();
   return (
     <div className="portal">
       <section className="portal-hero">
@@ -111,7 +111,7 @@ export default function Home() {
           <BookOpen size={17} /> 基础概念与实用方法
         </span>
         <Link href="/models">
-          <Layers3 size={17} /> {models.length} 个模型条目{" "}
+          <Layers3 size={17} /> {modelCount} 个模型条目{" "}
           <ArrowUpRight size={14} />
         </Link>
         <Link href="/calculators/tokens">
@@ -234,7 +234,7 @@ export default function Home() {
           </p>
         </div>
         <Link className="portal-primary" href="/models">
-          探索 {models.length} 个模型 <ArrowUpRight size={18} />
+          探索 {modelCount} 个模型 <ArrowUpRight size={18} />
         </Link>
       </section>
       <section className="portal-section">

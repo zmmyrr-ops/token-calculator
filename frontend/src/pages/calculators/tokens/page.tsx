@@ -2,7 +2,7 @@ import { useContent } from "@/content";
 import { ArrowUpRight, ShieldCheck, Zap, Scale } from "lucide-react";
 import Calculator from "@/components/Calculator";
 export default function TokenCalculatorPage() {
-  const { catalog, models } = useContent();
+  const { catalog, models, modelCount } = useContent();
 
   const defaults = [
     "openai/gpt-5.6-luna",
@@ -39,7 +39,7 @@ export default function TokenCalculatorPage() {
       <Calculator
         initialModels={initial.length ? initial : models.slice(0, 3)}
         catalogVersion={catalog.version}
-        modelCount={models.length}
+        modelCount={modelCount}
       />
       <section className="info-strip">
         <div>

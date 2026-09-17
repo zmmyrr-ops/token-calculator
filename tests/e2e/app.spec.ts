@@ -234,3 +234,69 @@ test("live news API, filters, source provenance and home entry", async ({
   await page.goto("/");
   await expect(page.getByRole("link", { name: "全部资讯 →" })).toBeVisible();
 });
+
+test("catalog and search request pages without downloading the full bootstrap", async ({
+  page,
+  request,
+}) => {
+  const bootstrap = await (
+    await request.get("/api/v1/bootstrap?path=%2Fmodels")
+  ).json();
+  expect(bootstrap.catalog.models).toHaveLength(0);
+  expect(bootstrap.coverage.entries).toHaveLength(0);
+  expect(bootstrap.modelCount).toBeGreaterThan(24);
+  const first = await (
+    await request.get("/api/v1/catalog?page=1&pageSize=24")
+  ).json();
+  const second = await (
+    await request.get("/api/v1/catalog?page=2&pageSize=24")
+  ).json();
+  expect(first.models).toHaveLength(24);
+  expect(second.models).toHaveLength(24);
+  expect(
+    second.models.some((m: { id: string }) =>
+      first.models.some((n: { id: string }) => m.id === n.id),
+    ),
+  ).toBe(false);
+  const detail = await (
+    await request.get(
+      "/api/v1/bootstrap?path=" +
+        encodeURIComponent("/models/" + first.models[0].id),
+    )
+  ).json();
+  expect(detail.catalog.models).toHaveLength(1);
+  for (const endpoint of [
+    "/api/v1/search",
+    "/api/v1/library/tools",
+    "/api/v1/library/learn",
+  ]) {
+    const result = await (await request.get(endpoint + "?pageSize=2")).json();
+    expect(result.items).toHaveLength(2);
+    expect(result.total).toBeGreaterThan(2);
+    expect((await request.get(endpoint + "?pageSize=101")).status()).toBe(400);
+    expect(
+      (await (await request.get(endpoint + "?q=NotPresentCanary871")).json())
+        .total,
+    ).toBe(0);
+  }
+  const requests: string[] = [];
+  page.on("request", (r) => requests.push(r.url()));
+  await page.goto("/models");
+  await expect(page.locator(".catalog-card")).toHaveCount(24);
+  await page.getByRole("link", { name: "下一页", exact: true }).click();
+  await expect(page).toHaveURL(/page=2/);
+  await expect(page.locator(".catalog-card").first()).toContainText(
+    second.models[0].name,
+  );
+  await page.goBack();
+  await expect(page.locator(".catalog-card").first()).toContainText(
+    first.models[0].name,
+  );
+  expect(
+    requests
+      .filter((url) => url.includes("/bootstrap"))
+      .every((url) => url.includes("path=")),
+  ).toBe(true);
+  await page.goto("/search?q=Claude&type=models");
+  await expect(page.locator(".resource-card").first()).toContainText("Claude");
+});

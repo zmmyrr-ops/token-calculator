@@ -6,16 +6,25 @@ import {
   useState,
   type ReactNode,
 } from "react";
+import { useLocation } from "react-router-dom";
 import type { Content } from "@shared/content";
-const Context = createContext<Content | null>(null);
+type Bootstrap = Content & {
+  modelCount?: number;
+  vendors?: [string, string][];
+};
+const Context = createContext<Bootstrap | null>(null);
 export function ContentProvider({ children }: { children: ReactNode }) {
-  const [data, setData] = useState<Content | null>(null),
+  const { pathname } = useLocation();
+  const [data, setData] = useState<Bootstrap | null>(null),
     [error, setError] = useState(false),
     [retry, setRetry] = useState(0);
   useEffect(() => {
     const controller = new AbortController();
     setError(false);
-    fetch(appPath("/api/v1/bootstrap"), { signal: controller.signal })
+    fetch(
+      appPath("/api/v1/bootstrap") + "?path=" + encodeURIComponent(pathname),
+      { signal: controller.signal },
+    )
       .then(async (r) => {
         if (!r.ok) throw Error();
         return r.json();
@@ -30,7 +39,7 @@ export function ContentProvider({ children }: { children: ReactNode }) {
       controller.abort();
       window.removeEventListener("focus", refresh);
     };
-  }, [retry]);
+  }, [retry, pathname]);
   if (!data)
     return (
       <main className="container page-intro">
@@ -54,6 +63,10 @@ export function useContent() {
   return {
     ...data,
     models,
+    modelCount: data.modelCount ?? models.length,
+    vendors: data.vendors ?? [
+      ...new Map(models.map((m) => [m.provider, m.providerName])).entries(),
+    ],
     findModel: (id: string) => models.find((m) => m.id === id),
     filterModels: (p: Record<string, string | undefined>) =>
       models.filter(

@@ -46,8 +46,43 @@ app.get("/api/health/ready", (_req, res) =>
     news: news.status(),
   }),
 );
-app.get("/api/v1/bootstrap", (_req, res) => {
-  res.json(store.publicContent());
+app.get("/api/v1/bootstrap", (req, res) => {
+  const data = store.publicContent();
+  const path = typeof req.query.path === "string" ? req.query.path : undefined;
+  if (path === undefined) return res.json(data); // Compatibility for existing clients.
+  const all = data.catalog.models;
+  const defaults = [
+    "openai/gpt-5.6-luna",
+    "deepseek/deepseek-v4.1-flash",
+    "google/gemini-3.8-flash",
+  ];
+  const models = path.startsWith("/models/")
+    ? all.filter((m) => m.id === path.slice("/models/".length))
+    : path === "/calculators/tokens"
+      ? (() => {
+          const initial = all.filter((m) => defaults.includes(m.canonicalId));
+          return initial.length ? initial : all.slice(0, 3);
+        })()
+      : [];
+  res.json({
+    ...data,
+    catalog: { ...data.catalog, models },
+    modelCount: all.length,
+    vendors: [
+      ...new Map(all.map((m) => [m.provider, m.providerName])).entries(),
+    ].sort((a, b) => a[1].localeCompare(b[1])),
+    knowledge: ["/models", "/tools", "/learn", "/search", "/news"].includes(
+      path,
+    )
+      ? []
+      : data.knowledge,
+    resources: ["/models", "/tools", "/learn", "/search", "/news"].includes(
+      path,
+    )
+      ? []
+      : data.resources,
+    coverage: { ...data.coverage, excluded: [], entries: [] },
+  });
 });
 function query(req: express.Request) {
   return Object.fromEntries(
@@ -98,6 +133,111 @@ app.get("/api/v1/catalog", (req, res) => {
     page,
     pageSize,
     models: result.slice((page - 1) * pageSize, page * pageSize),
+  });
+});
+app.get("/api/v1/search", (req, res) => {
+  const p = query(req),
+    { page, pageSize } = pagination(p, 18);
+  const q = (p.q || "").trim(),
+    type = p.type || "";
+  const {
+    knowledge,
+    resources,
+    scenarios,
+    catalog: { models },
+  } = store.publicContent();
+  const all = [
+    ...knowledge.map((a) => ({
+      id: "article:" + a.slug,
+      kind: "knowledge",
+      label: a.category,
+      title: a.title,
+      description: a.summary,
+      keywords: a.keywords,
+      href: "/learn/" + a.slug,
+    })),
+    ...resources.map((t) => ({
+      id: "tool:" + t.id,
+      kind: "tools",
+      label: t.category,
+      title: t.name,
+      description: t.summary,
+      keywords: t.capabilities.join(" "),
+      href: "/tools/" + t.id,
+    })),
+    ...scenarios.map((s) => ({
+      id: "scenario:" + s.id,
+      kind: "scenarios",
+      label: "应用场景",
+      title: s.name,
+      description: s.summary,
+      keywords: s.steps.join(" "),
+      href: "/scenarios/" + s.id,
+    })),
+    ...models.map((m) => ({
+      id: "model:" + m.id,
+      kind: "models",
+      label: m.providerName,
+      title: m.name,
+      description: m.canonicalId,
+      keywords: m.providerName,
+      href: "/models/" + m.id,
+    })),
+  ];
+  const terms = q.toLowerCase().split(/\s+/).filter(Boolean);
+  const filtered = all.filter(
+    (a) =>
+      (!type || a.kind === type) &&
+      terms.every((term) =>
+        (a.title + " " + a.description + " " + a.keywords)
+          .toLowerCase()
+          .includes(term),
+      ),
+  );
+  res.json({
+    total: filtered.length,
+    page,
+    pageSize,
+    items: filtered.slice((page - 1) * pageSize, page * pageSize),
+  });
+});
+app.get("/api/v1/library/:kind", (req, res) => {
+  const p = query(req),
+    { page, pageSize } = pagination(p, 18);
+  const data = store.publicContent();
+  const kind = req.params.kind;
+  if (kind !== "tools" && kind !== "learn")
+    return res.status(404).json({ error: "NOT_FOUND" });
+  const entries =
+    kind === "tools"
+      ? data.resources.map((t) => ({
+          id: t.id,
+          name: t.name,
+          summary: t.summary,
+          category: t.category,
+          access: t.access,
+          search: t.name + t.summary,
+        }))
+      : data.knowledge.map((a) => ({
+          slug: a.slug,
+          title: a.title,
+          summary: a.summary,
+          category: a.category,
+          search: a.title + a.keywords,
+        }));
+  const filtered = entries.filter(
+    (a) =>
+      (!p.category || a.category === p.category) &&
+      a.search.toLowerCase().includes((p.q || "").toLowerCase()),
+  );
+  res.json({
+    total: filtered.length,
+    page,
+    pageSize,
+    categories: [...new Set(entries.map((a) => a.category))],
+    items: filtered
+      .slice((page - 1) * pageSize, page * pageSize)
+      .map(({ search: _search, ...a }) => a),
   });
 });
 app.get("/api/v1/catalog/:id", (req, res) => {

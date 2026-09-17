@@ -1,7 +1,7 @@
 import { useContent } from "@/content";
 import Link from "@/Link";
 export default function Updates() {
-  const { catalog, models, resources, knowledge } = useContent();
+  const { catalog, modelCount, resources, knowledge } = useContent();
   return (
     <div className="hub">
       <header className="page-intro">
@@ -12,7 +12,7 @@ export default function Updates() {
       <div className="resource-grid">
         <article className="resource-card">
           <small>模型目录快照</small>
-          <h2>{models.length} 个模型条目</h2>
+          <h2>{modelCount} 个模型条目</h2>
           <p>获取时间：{catalog.fetchedAt.slice(0, 10)}</p>
           <p>数据版本：{catalog.version}</p>
           <a href={catalog.source} target="_blank" rel="noreferrer">
