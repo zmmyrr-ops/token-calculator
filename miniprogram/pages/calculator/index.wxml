@@ -1,0 +1,67 @@
+<view class="page"
+  ><view class="title">先算成本，再开始。</view
+  ><view class="notice"
+    >这是用量预算器，不是精确分词器。请填写已知或计划的 Token
+    用量，实际账单以服务商为准。</view
+  ><input
+    placeholder="搜索模型后点击查找"
+    value="{{q}}"
+    data-field="q"
+    bindinput="field"
+    bindconfirm="load"
+  /><button bindtap="load" loading="{{loading}}">查找模型</button
+  ><picker
+    range="{{models}}"
+    range-key="name"
+    value="{{selected}}"
+    bindchange="select"
+    ><view class="card"
+      >{{models.length ? models[selected].name : '没有匹配的模型'}} ▾<view
+        class="tiny"
+        >{{models[selected].channel}}</view
+      ></view
+    ></picker
+  ><view class="tiny">每次显示最多 100 个结果，可输入名称缩小范围。</view
+  ><view class="card"
+    ><text class="label">输入 Tokens</text
+    ><input
+      type="number"
+      value="{{input}}"
+      data-field="input"
+      bindinput="field"
+    /><text class="label">可见输出 Tokens</text
+    ><input
+      type="number"
+      value="{{output}}"
+      data-field="output"
+      bindinput="field"
+    /><text class="label">推理 Tokens（未知可留空）</text
+    ><input
+      type="number"
+      value="{{reasoning}}"
+      data-field="reasoning"
+      bindinput="field"
+      placeholder="留空时不计入推理费用"
+    /><text class="label">预计请求次数</text
+    ><input
+      type="number"
+      value="{{requests}}"
+      data-field="requests"
+      bindinput="field"
+    /><button
+      class="primary"
+      bindtap="calculate"
+      disabled="{{loading || !models.length}}"
+    >
+      计算参考费用
+    </button></view
+  ><view wx:if="{{error}}" class="notice">{{error}}</view
+  ><view wx:if="{{result}}" class="card"
+    ><block wx:if="{{result.values}}"
+      ><view class="muted">每次请求 · USD</view
+      ><view class="big">$ {{result.cost}}</view
+      ><view>累计预算：$ {{result.total}}</view></block
+    ><view class="notice">{{result.reason}}</view
+    ><view class="tiny">{{result.warning}}</view></view
+  ><button bindtap="copy">复制网页版精确分词工具链接</button></view
+>

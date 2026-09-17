@@ -1,0 +1,183 @@
+import automator from "miniprogram-automator";
+import { spawn } from "node:child_process";
+import { createServer } from "node:net";
+import { mkdir, cp, writeFile, readFile } from "node:fs/promises";
+import { randomUUID, randomBytes } from "node:crypto";
+import path from "node:path";
+import assert from "node:assert/strict";
+const dir = path.resolve(
+  "test-results/miniprogram-integration-" + randomUUID(),
+);
+await mkdir(dir, { recursive: true });
+const project = path.join(dir, "app");
+await cp("miniprogram", project, {
+  recursive: true,
+  filter: (s) => !s.endsWith("project.private.config.json"),
+});
+// Refuse an occupied port so no test ever targets an unrelated database.
+const guard = createServer();
+await new Promise((resolve, reject) => {
+  guard.once("error", reject);
+  guard.listen(4006, "127.0.0.1", resolve);
+});
+await new Promise((resolve) => guard.close(resolve));
+const origin = "http://127.0.0.1:4006";
+await writeFile(
+  path.join(project, "config.js"),
+  `module.exports={apiBase:'${origin}',website:'https://ruming.top'};`,
+);
+const config = JSON.parse(
+  await readFile(path.join(project, "project.config.json"), "utf8"),
+);
+config.setting.urlCheck = false;
+await writeFile(
+  path.join(project, "project.config.json"),
+  JSON.stringify(config),
+);
+const server = spawn(process.execPath, ["backend/dist/server.mjs"], {
+  env: {
+    ...process.env,
+    PORT: "4006",
+    HOST: "127.0.0.1",
+    DATABASE_FILE: path.join(dir, "test.sqlite"),
+    NEWS_DATA_FILE: path.join(dir, "news.json"),
+    ADMIN_PASSWORD: randomBytes(24).toString("hex"),
+  },
+  stdio: "ignore",
+});
+let mini;
+const errors = [];
+async function waitFor(fn, timeout = 20000) {
+  const start = Date.now();
+  while (Date.now() - start < timeout) {
+    if (await fn()) return;
+    await new Promise((r) => setTimeout(r, 200));
+  }
+  throw Error("Timed out");
+}
+try {
+  await waitFor(async () => {
+    try {
+      return (await fetch(origin + "/api/health/ready")).ok;
+    } catch {
+      return false;
+    }
+  });
+  const launch = () =>
+    automator.launch({
+      cliPath:
+        process.env.WECHAT_CLI ||
+        "/Applications/wechatwebdevtools.app/Contents/MacOS/cli",
+      projectPath: project,
+      timeout: 60000,
+      trustProject: true,
+    });
+  try {
+    mini = await launch();
+  } catch (e) {
+    if (!/split/.test(e.message)) throw e;
+    await new Promise((r) => setTimeout(r, 3000));
+    mini = await launch();
+  }
+  mini.on("exception", (e) => errors.push(e));
+  const ready = async (p) => {
+    await waitFor(async () => !(await p.data("loading")));
+    assert.equal((await p.data("error")) || "", "");
+    return p;
+  };
+  let p = await ready(await mini.switchTab("/pages/learn/index"));
+  assert.ok((await p.data("items")).length > 0);
+  const article = (await p.data("items"))[0];
+  const before = (await p.data("items")).length;
+  await p.callMethod("load", false);
+  await ready(p);
+  assert.ok((await p.data("items")).length > before);
+  console.log("PASS: real learning API and pagination");
+  await p.callMethod("filter", {
+    currentTarget: { dataset: { value: "场景" } },
+  });
+  await ready(p);
+  assert.ok((await p.data("items")).length > 0);
+  p = await ready(
+    await mini.navigateTo(
+      "/pages/detail/index?kind=learn&id=" + encodeURIComponent(article.slug),
+    ),
+  );
+  assert.ok(await p.data("item"));
+  await p.callMethod("save");
+  assert.equal(await p.data("saved"), true);
+  console.log("PASS: article, local favorite");
+  await mini.screenshot({ path: path.join(dir, "learn.png") });
+  for (const kind of ["tools", "models"]) {
+    p = await ready(await mini.redirectTo("/pages/list/index?kind=" + kind));
+    const row = (await p.data("items"))[0];
+    assert.ok(row);
+    p = await ready(
+      await mini.redirectTo(
+        "/pages/detail/index?kind=" +
+          kind +
+          "&id=" +
+          encodeURIComponent(row.id),
+      ),
+    );
+    assert.ok(await p.data("item"));
+  }
+  p = await ready(await mini.redirectTo("/pages/calculator/index"));
+  assert.ok((await p.data("models")).length);
+  await p.callMethod("calculate");
+  assert.ok(await p.data("result"));
+  await mini.screenshot({ path: path.join(dir, "calculator.png") });
+  console.log("PASS: tool/model detail and budget");
+  p = await mini.redirectTo("/pages/account/index");
+  await p.waitFor(300);
+  await p.setData({
+    mode: "register",
+    username: "mini_" + Date.now(),
+    password: "test-only-long-password",
+    nickname: "自动化测试",
+    agreed: true,
+  });
+  await p.callMethod("submit");
+  await ready(p);
+  assert.ok(await p.data("user"));
+  await p.setData({ nickname: "更新后的昵称" });
+  await p.callMethod("submit");
+  await ready(p);
+  assert.equal((await p.data("user")).nickname, "更新后的昵称");
+  console.log(
+    "PASS: registration, native bearer authentication and profile edit (isolated DB)",
+  );
+  p = await mini.redirectTo("/pages/compose/index");
+  await p.setData({
+    title: "小程序自动化集成测试",
+    body: "这是独立测试数据库中的帖子，不会写入生产环境。",
+  });
+  await p.callMethod("submit");
+  await waitFor(
+    async () => (await mini.currentPage()).path === "pages/post/index",
+  );
+  p = await ready(await mini.currentPage());
+  assert.ok(await p.data("post"));
+  await p.setData({ body: "这是测试数据库中的回复。" });
+  await p.callMethod("reply");
+  await waitFor(async () => !(await p.data("sending")));
+  assert.equal(await p.data("error"), "");
+  assert.equal(await p.data("total"), 1);
+  console.log("PASS: create discussion and reply");
+  p = await mini.switchTab("/pages/me/index");
+  await p.waitFor(400);
+  assert.ok((await p.data("items")).length);
+  await mini.screenshot({ path: path.join(dir, "me.png") });
+  await p.callMethod("logout");
+  assert.ok(!(await p.data("user")));
+  assert.ok(
+    !(await mini.callWxMethod("getStorageSync", "mendao-session:" + origin)),
+  );
+  await mini.navigateTo("/pages/about/index");
+  assert.equal(errors.length, 0, JSON.stringify(errors));
+  console.log("PASS: logout, about, no runtime exceptions");
+  console.log("Screenshots: " + dir);
+} finally {
+  if (mini) mini.disconnect();
+  server.kill("SIGTERM");
+}

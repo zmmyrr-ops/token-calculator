@@ -1,0 +1,52 @@
+<view class="page"
+  ><input
+    class="search"
+    placeholder="搜索{{kind === 'news' ? 'AI 资讯' : kind === 'models' ? '模型名称、厂商' : '内容'}}"
+    value="{{q}}"
+    bindinput="query"
+    bindconfirm="search"
+    confirm-type="search"
+    maxlength="100"
+  /><button bindtap="search" size="mini">搜索</button>
+  <view
+    ><text
+      wx:for="{{filters}}"
+      wx:key="*this"
+      class="chip {{filter === item || (!filter && index === 0) ? 'active' : ''}}"
+      data-value="{{item}}"
+      bindtap="filter"
+      >{{item}}</text
+    ></view
+  >
+  <view
+    class="card row"
+    wx:for="{{items}}"
+    wx:key="key"
+    data-index="{{index}}"
+    bindtap="open"
+    ><view class="grow"
+      ><view class="tag"
+        >{{item.sourceName || item.category || item.providerName}}</view
+      ><view class="card-title">{{item.title}}</view
+      ><view class="muted">{{item.summary}}</view
+      ><view class="tiny"
+        >{{item.date}}{{item.format === 'video' ? '视频教程 · 来源链接' :
+        item.format === 'practice' ? '动手实践' : ''}}</view
+      ></view
+    ><image
+      wx:if="{{item.imageUrl}}"
+      src="{{item.imageUrl}}"
+      mode="aspectFill"
+      class="cover"
+      data-index="{{index}}"
+      binderror="imageError"
+  /></view>
+  <view wx:if="{{error}}" class="state"
+    >{{error}}<button bindtap="retry">重试</button></view
+  ><view wx:elif="{{loading}}" class="state">正在加载…</view
+  ><view wx:elif="{{!items.length}}" class="state"
+    >暂无相关内容，试试其他关键词。</view
+  ><view wx:elif="{{items.length < total}}" class="state" bindtap="retry"
+    >点击或上拉加载更多 · {{items.length}} / {{total}}</view
+  ><view wx:else class="state">已展示全部 {{total}} 条</view></view
+>

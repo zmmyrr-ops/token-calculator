@@ -1,0 +1,21 @@
+{
+  "desc": "公开内容可被发现；账号和个人数据不索引",
+  "rules": [
+    {
+      "action": "disallow",
+      "page": "pages/account/index"
+    },
+    {
+      "action": "disallow",
+      "page": "pages/me/index"
+    },
+    {
+      "action": "disallow",
+      "page": "pages/compose/index"
+    },
+    {
+      "action": "allow",
+      "page": "*"
+    }
+  ]
+}

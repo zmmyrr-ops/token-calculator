@@ -1,0 +1,28 @@
+<view class="page"
+  ><view class="hero"
+    ><image src="/assets/logo.png" class="logo" /><view class="title"
+      >AI 门道</view
+    ><view>看懂 AI，用出门道。</view></view
+  ><view class="card"
+    ><view class="heading">关于我们</view
+    ><view
+      >汇集 AI
+      资讯、知识、实践路线与模型平台资料，帮助独立创作者把想法做出来。</view
+    ><view class="tiny"
+      >主办：张鸣鸣 · ruming.top<br />浙ICP备2023017888号-4</view
+    ><button bindtap="copy">复制网站地址</button
+    ><button bindtap="feedback">前往社区反馈</button></view
+  ><view class="card"
+    ><view class="heading">隐私说明</view
+    ><view class="body"
+      >浏览公开内容无需登录。注册时收集账号、密码与昵称，密码经过加盐哈希存储。头像由你主动选择并确认保存后上传；不读取其他相册内容。昵称、头像、帖子和回复会公开展示，登录会话保存在本设备，可通过退出登录移除；修改密码会使所有设备的会话失效。收藏、阅读进度仅保存在本设备，可在“我的”中清除。服务会处理网络请求与必要的安全日志。本版本不接入广告或第三方统计
+      SDK。请求更正或删除账号资料，可通过网站管理员反馈渠道联系，管理员核验身份后处理。</view
+    ><view class="heading">社区规则</view
+    ><view
+      >请发布原创或有权转载的内容，引用注明来源；友善交流，禁止骚扰、垃圾广告、侵权及泄露隐私。你可以删除自己发布的帖子和回复，管理员可处理违规内容。</view
+    ><view class="heading">内容与费用</view
+    ><view
+      >资讯与视频版权属于原发布方。模型能力、价格与平台限制可能调整，来源链接供核验；预算不是账单或效果承诺。</view
+    ></view
+  ></view
+>

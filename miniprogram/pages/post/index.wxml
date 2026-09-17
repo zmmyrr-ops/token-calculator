@@ -1,0 +1,49 @@
+<view class="page"
+  ><block wx:if="{{post}}"
+    ><view class="tag">{{post.category}}</view
+    ><view class="title">{{post.title}}</view
+    ><view class="muted">{{post.author.nickname}}</view
+    ><view class="card body">{{post.body}}</view
+    ><button
+      wx:if="{{post.author.id === userId}}"
+      class="danger"
+      bindtap="remove"
+    >
+      删除我的帖子</button
+    ><view class="heading">讨论 · {{total}}</view
+    ><view wx:for="{{replies}}" wx:key="id" class="card"
+      ><view class="tag">{{item.author.nickname}}</view
+      ><view class="body">{{item.body}}</view
+      ><view
+        wx:if="{{item.author.id === userId}}"
+        class="link"
+        data-reply="{{item.id}}"
+        bindtap="remove"
+        >删除我的回复</view
+      ></view
+    ><button
+      wx:if="{{replies.length < total}}"
+      bindtap="retry"
+      loading="{{loading}}"
+    >
+      加载更多回复</button
+    ><view wx:if="{{!total}}" class="state">还没有回复，分享你的看法吧。</view
+    ><view wx:if="{{userId}}" class="card">
+      <textarea
+        placeholder="友善讨论，分享具体经验（2–5000 字）"
+        value="{{body}}"
+        bindinput="field"
+        maxlength="5000"
+      /><button
+        class="primary"
+        bindtap="reply"
+        loading="{{sending}}"
+        disabled="{{sending}}"
+      >
+        发布回复
+      </button></view
+    ><button wx:else bindtap="login">登录后参与讨论</button></block
+  ><view wx:if="{{error}}" class="notice"
+    >{{error}}<button bindtap="retry">重试加载</button></view
+  ><view wx:if="{{loading}}" class="state">加载中…</view></view
+>

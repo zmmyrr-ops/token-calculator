@@ -409,6 +409,9 @@ export class NewsService {
       sources: this.status(),
     };
   }
+  article(id: string) {
+    return this.store.items.find((item) => item.id === id);
+  }
   status(): NewsSourceStatus[] {
     return sources.map((s) => ({
       ...s,

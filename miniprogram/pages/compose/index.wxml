@@ -1,0 +1,30 @@
+<view class="page"
+  ><view class="title">分享你的发现。</view
+  ><view class="muted">写清楚目标、尝试过程和遇到的问题，更容易获得帮助。</view
+  ><input
+    placeholder="标题（6–120 字）"
+    maxlength="120"
+    value="{{title}}"
+    data-field="title"
+    bindinput="field"
+  /><picker range="{{categories}}" value="{{category}}" bindchange="category"
+    ><view class="card">{{categories[category]}} ▾</view></picker
+  ><textarea
+    placeholder="正文（10–20000 字）"
+    style="min-height: 600rpx"
+    value="{{body}}"
+    data-field="body"
+    bindinput="field"
+    maxlength="20000"
+  /><view class="tiny"
+    >请勿发布侵权、骚扰、广告或个人隐私内容。管理员可处理违规内容。</view
+  ><view wx:if="{{error}}" class="notice">{{error}}</view
+  ><button
+    class="primary"
+    bindtap="submit"
+    loading="{{loading}}"
+    disabled="{{loading}}"
+  >
+    发布讨论
+  </button></view
+>

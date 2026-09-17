@@ -1,0 +1,31 @@
+<view class="page"
+  ><view class="card row" bindtap="account"
+    ><image wx:if="{{user.avatar}}" src="{{user.avatar}}" class="avatar" /><view
+      wx:else
+      class="avatar"
+      >{{user ? '我' : '门'}}</view
+    ><view class="grow"
+      ><view class="card-title"
+        >{{user ? user.nickname : '欢迎来到 AI 门道'}}</view
+      ><view class="muted"
+        >{{user ? '编辑资料与账号设置 →' : '登录 / 注册，参与交流 →'}}</view
+      ></view
+    ></view
+  ><view wx:if="{{error}}" class="notice">{{error}}</view
+  ><view class="card" bindtap="forum"
+    ><view class="card-title">门道社区 →</view
+    ><view class="muted">分享作品，讨论遇到的问题。</view></view
+  ><view class="heading"
+    >我的收藏 <text class="muted">{{items.length}} · 仅此设备</text></view
+  ><view wx:for="{{items}}" wx:key="key" class="card"
+    ><view data-index="{{index}}" bindtap="open" class="card-title"
+      >{{item.title}}</view
+    ><text class="link" data-index="{{index}}" bindtap="remove"
+      >移除收藏</text
+    ></view
+  ><view wx:if="{{!items.length}}" class="state"
+    >喜欢的教程、资讯和工具，可以随手收藏。</view
+  ><button bindtap="about">关于、隐私与反馈</button
+  ><button bindtap="clear">清除本机收藏与阅读记录</button
+  ><button wx:if="{{user}}" bindtap="logout">退出登录</button></view
+>

@@ -12,3 +12,6 @@ backend/dist/
 backend/storage/
 
 frontend/dist-staging/
+
+# WeChat developer machine settings
+miniprogram/project.private.config.json

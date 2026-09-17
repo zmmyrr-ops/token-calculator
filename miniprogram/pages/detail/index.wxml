@@ -1,0 +1,155 @@
+<view class="page"
+  ><view wx:if="{{loading}}" class="state">正在加载…</view
+  ><view wx:elif="{{error}}" class="state"
+    >{{error}}<button bindtap="load">重新加载</button></view
+  ><block wx:elif="{{item}}"
+    ><view class="tag"
+      >{{item.category || item.providerName || item.sourceName}}</view
+    ><view class="title">{{item.title || item.name}}</view
+    ><image
+      wx:if="{{item.imageUrl}}"
+      class="thumb"
+      src="{{item.imageUrl}}"
+      mode="aspectFill"
+      binderror="imageError"
+    /><view class="muted">{{item.summary || item.description}}</view
+    ><button bindtap="save">
+      {{saved ? '已收藏 · 点击取消' : '收藏到我的门道'}}
+    </button>
+    <block wx:if="{{kind === 'news'}}"
+      ><view class="card"
+        ><view>来源：{{item.sourceName}}</view
+        ><view wx:if="{{item.publishedAt}}" class="muted"
+          >原文发布时间：{{item.publishedAt}}</view
+        ><view class="notice"
+          >这里收录原文标题、来源与链接，全文请前往发布方查看。</view
+        ><button class="primary" bindtap="copy" data-url="{{item.url}}">
+          复制原文链接
+        </button></view
+      ></block
+    >
+    <block wx:if="{{kind === 'models'}}"
+      ><view class="card"
+        ><view>渠道：{{item.channel}}</view
+        ><view>上下文：{{item.context || '未公开'}} tokens</view
+        ><view>最大输出：{{item.maxOutput || '未公开'}} tokens</view
+        ><view>推理能力：{{item.reasoning ? '支持' : '未标注支持'}}</view
+        ><view>核验时间：{{item.checkedAt}}</view><view class="divider" /><block
+          wx:if="{{item.price}}"
+          ><view
+            >输入：{{item.price.input === null ? '未公开' : item.price.input}}
+            USD / 百万 tokens</view
+          ><view
+            >输出：{{item.price.output === null ? '未公开' : item.price.output}}
+            USD / 百万 tokens</view
+          ><view class="tiny"
+            >{{item.price.basis}}；阶梯价格和时段以预算结果为准。</view
+          ></block
+        ><view wx:else>暂无可核验公开价格</view
+        ><button class="primary" bindtap="budget">用这个模型做预算</button
+        ><button data-url="{{item.source}}" bindtap="copy">
+          复制官方来源链接
+        </button></view
+      ></block
+    >
+    <block wx:if="{{kind === 'tools'}}"
+      ><view class="card"
+        ><view>输入：{{item.input}}</view><view>输出：{{item.output}}</view
+        ><view>使用方式：{{item.access}}</view
+        ><view class="heading">可以做什么</view
+        ><view wx:for="{{item.capabilities}}" wx:key="*this">· {{item}}</view
+        ><view class="heading">使用边界</view
+        ><view class="body">{{item.limits}}</view
+        ><view class="tiny">核验时间：{{item.checkedAt}}</view
+        ><button class="primary" data-url="{{item.url}}" bindtap="copy">
+          复制平台官网链接</button
+        ><button
+          wx:if="{{item.article}}"
+          data-kind="learn"
+          data-id="{{item.article}}"
+          bindtap="related"
+        >
+          阅读相关教程
+        </button></view
+      ></block
+    >
+    <block wx:if="{{kind === 'scenarios'}}"
+      ><view class="card"
+        ><view class="heading">实践路线</view
+        ><view wx:for="{{item.steps}}" wx:key="*this" class="body"
+          >{{index + 1}}. {{item}}</view
+        ></view
+      ><view class="heading">配套教程</view
+      ><button
+        wx:for="{{item.articles}}"
+        wx:key="*this"
+        data-kind="learn"
+        data-id="{{item}}"
+        bindtap="related"
+      >
+        阅读教程 {{index + 1}} →</button
+      ><view class="heading">相关平台</view
+      ><button
+        wx:for="{{item.tools}}"
+        wx:key="*this"
+        data-kind="tools"
+        data-id="{{item}}"
+        bindtap="related"
+      >
+        {{item}} →
+      </button></block
+    >
+    <block wx:if="{{kind === 'learn'}}"
+      ><view wx:if="{{item.video}}" class="card"
+        ><view class="tag">视频教程 · {{item.video.publisher}}</view
+        ><view>{{item.video.language}} · {{item.video.audience}}</view
+        ><view class="muted">{{item.video.version}}</view
+        ><button class="primary" data-url="{{item.video.url}}" bindtap="copy">
+          复制视频来源链接
+        </button></view
+      ><view class="card" wx:for="{{item.sections}}" wx:key="title"
+        ><view class="heading">{{item.title}}</view
+        ><view class="body">{{item.body}}</view></view
+      >
+      <view wx:if="{{item.practice}}" class="card"
+        ><view class="tag">动手实践 · {{item.practice.level}}</view
+        ><view class="heading">你将完成什么</view
+        ><view>{{item.practice.result}}</view
+        ><view class="heading">开始之前</view
+        ><view wx:for="{{item.practice.preparation}}" wx:key="*this"
+          >· {{item}}</view
+        ><view wx:for="{{item.practice.steps}}" wx:key="index"
+          ><view class="heading">步骤 {{index + 1}}</view
+          ><view wx:for="{{item.actions}}" wx:for-item="action" wx:key="*this"
+            >· {{action}}</view
+          ><view class="notice">检查：{{item.check}}</view></view
+        ><view class="heading">交付检查</view
+        ><view wx:for="{{item.practice.deliverables}}" wx:key="*this"
+          >· {{item}}</view
+        ><view wx:for="{{item.practice.pitfalls}}" wx:key="problem"
+          ><view class="heading">{{item.problem}}</view
+          ><view>{{item.solution}}</view></view
+        ><button
+          wx:if="{{item.practice.prompt}}"
+          data-url="{{item.practice.prompt}}"
+          bindtap="copy"
+        >
+          复制实践提示词
+        </button></view
+      >
+      <view wx:if="{{item.sources.length}}" class="card"
+        ><view class="heading">参考资料</view
+        ><view
+          wx:for="{{item.sources}}"
+          wx:key="url"
+          class="link"
+          bindtap="copy"
+          data-url="{{item.url}}"
+          >{{item.title}} ↗</view
+        ></view
+      ><button class="primary" bindtap="complete">
+        {{completed ? '已完成阅读 ✓' : '标记已完成阅读'}}</button
+      ><view class="tiny">阅读进度保存在此设备。</view></block
+    ></block
+  ></view
+>

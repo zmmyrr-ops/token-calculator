@@ -131,12 +131,18 @@ function paging(req: Request, size = 12) {
     throw new CmsError(400, "无效页码");
   return { page, pageSize: size, offset: (page - 1) * size };
 }
-export function communityRouter(store: ContentDatabase) {
+export function communityRouter(
+  store: ContentDatabase,
+  transport: "cookie" | "bearer" = "cookie",
+) {
   const router = Router(),
     service = communityService(store);
   const name =
     process.env.APP_ENV === "staging" ? "mendao_staging_user" : "mendao_user";
+  const sessionKey = (value: string) =>
+    (transport === "bearer" ? "mini:" : "") + digest(value);
   const cookie = (res: Response, value: string, maxAge: number) =>
+    transport === "cookie" &&
     res.cookie(name, value, {
       httpOnly: true,
       sameSite: "strict",
@@ -145,17 +151,20 @@ export function communityRouter(store: ContentDatabase) {
       maxAge,
     });
   const token = (req: Request) =>
-    req.headers.cookie
-      ?.split(";")
-      .map((s) => s.trim())
-      .find((s) => s.startsWith(name + "="))
-      ?.slice(name.length + 1) || "";
+    transport === "bearer"
+      ? /^Bearer ([a-f0-9]{64})$/.exec(req.headers.authorization || "")?.[1] ||
+        ""
+      : req.headers.cookie
+          ?.split(";")
+          .map((s) => s.trim())
+          .find((s) => s.startsWith(name + "="))
+          ?.slice(name.length + 1) || "";
   function current(req: Request) {
     return store.db
       .prepare(
         "SELECT u.* FROM community_users u JOIN community_sessions s ON s.user_id=u.id WHERE s.token=? AND s.expires>? AND u.disabled=0 AND u.demo=0",
       )
-      .get(digest(token(req)), Date.now()) as UserRow | undefined;
+      .get(sessionKey(token(req)), Date.now()) as UserRow | undefined;
   }
   function auth(req: Request) {
     const u = current(req);
@@ -169,8 +178,9 @@ export function communityRouter(store: ContentDatabase) {
       .run(Date.now());
     store.db
       .prepare("INSERT INTO community_sessions VALUES(?,?,?)")
-      .run(digest(secret), id, Date.now() + 7 * 86400000);
+      .run(sessionKey(secret), id, Date.now() + 7 * 86400000);
     cookie(res, secret, 7 * 86400000);
+    if (transport === "bearer") res.locals.sessionToken = secret;
   }
   function limit(key: string, max: number, ms: number) {
     const now = Date.now();
@@ -187,6 +197,11 @@ export function communityRouter(store: ContentDatabase) {
       .run(key, now + ms);
   }
   router.use((req, _res, next) => {
+    if (transport === "bearer") {
+      if (req.headers.origin)
+        return next(new CmsError(403, "请使用小程序客户端"));
+      return next();
+    }
     if (!["GET", "HEAD", "OPTIONS"].includes(req.method)) {
       const allowed = [process.env.SITE_URL || "https://ruming.top"];
       if (process.env.NODE_ENV !== "production")
@@ -222,7 +237,12 @@ export function communityRouter(store: ContentDatabase) {
         .run(id, d.username, d.nickname, hash, avatar ?? null, now, now);
       session(res, id);
     });
-    res.status(201).json({ user: publicUser(service.user(id)!) });
+    res
+      .status(201)
+      .json({
+        user: publicUser(service.user(id)!),
+        ...(transport === "bearer" ? { token: res.locals.sessionToken } : {}),
+      });
   });
   const dummy = hashPassword(randomBytes(32).toString("hex"));
   router.post("/login", async (req, res) => {
@@ -244,12 +264,15 @@ export function communityRouter(store: ContentDatabase) {
       .prepare("DELETE FROM community_limits WHERE key=?")
       .run("login:" + d.username);
     session(res, u.id);
-    res.json({ user: publicUser(u) });
+    res.json({
+      user: publicUser(u),
+      ...(transport === "bearer" ? { token: res.locals.sessionToken } : {}),
+    });
   });
   router.post("/logout", (req, res) => {
     store.db
       .prepare("DELETE FROM community_sessions WHERE token=?")
-      .run(digest(token(req)));
+      .run(sessionKey(token(req)));
     cookie(res, "", 0);
     res.json({ ok: true });
   });

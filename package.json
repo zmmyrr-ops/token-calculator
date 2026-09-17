@@ -16,11 +16,15 @@
     "catalog:sync": "node scripts/sync-catalog.mjs",
     "catalog:check": "tsx scripts/validate-catalog.ts",
     "assets": "node scripts/copy-tokenizers.mjs",
-    "check": "npm run typecheck && npm run lint && npm test && npm run catalog:check",
+    "check": "npm run typecheck && npm run lint && npm test && npm run catalog:check && npm run mini:check",
     "dev:frontend": "npm run dev -w frontend",
     "dev:backend": "npm run dev -w backend",
     "news:sync": "tsx backend/src/sync-news.ts",
-    "admin:reset": "tsx backend/src/reset-admin.ts"
+    "admin:reset": "tsx backend/src/reset-admin.ts",
+    "mini:build": "node scripts/build-miniprogram.mjs",
+    "mini:check": "npm run mini:build && node scripts/check-miniprogram.mjs",
+    "mini:preview": "node scripts/mini-preview.mjs",
+    "mini:test": "npm run build -w backend && node scripts/test-miniprogram.mjs"
   },
   "dependencies": {
     "decimal.js": "10.6.0",
@@ -31,18 +35,19 @@
     "zod": "4.3.6"
   },
   "devDependencies": {
+    "@eslint/js": "^9.39.4",
     "@playwright/test": "1.58.2",
     "@types/node": "24.10.1",
     "@types/react": "19.2.14",
     "@types/react-dom": "19.2.3",
+    "esbuild": "^0.27.3",
     "eslint": "9.39.4",
+    "miniprogram-automator": "^0.12.1",
     "prettier": "3.8.1",
     "tsx": "4.21.0",
     "typescript": "5.9.3",
-    "vitest": "4.0.18",
     "typescript-eslint": "^8.56.0",
-    "@eslint/js": "^9.39.4",
-    "esbuild": "^0.27.3"
+    "vitest": "4.0.18"
   },
   "type": "module",
   "workspaces": [

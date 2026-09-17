@@ -48,6 +48,7 @@ simplifyStarterPresentation(store);
 app.use("/api/v1/events", express.json({ limit: "2kb" }), eventsRouter(store));
 app.use(express.json({ limit: "512kb" }));
 app.use("/api/community", communityRouter(store));
+app.use("/api/mini/community", communityRouter(store, "bearer"));
 const baidu = new BaiduService(store);
 app.use("/api/admin", adminRouter(store, baidu));
 const news = new NewsService(store);
@@ -259,6 +260,25 @@ app.get("/api/v1/library/:kind", (req, res) => {
       .slice((page - 1) * pageSize, page * pageSize)
       .map(({ search: _search, ...a }) => a),
   });
+});
+app.get("/api/v1/mini/scenarios", (_req, res) => {
+  res.json({ items: store.publicContent().scenarios });
+});
+app.get("/api/v1/mini/news/:id", (req, res) => {
+  const item = news.article(String(req.params.id));
+  res.status(item ? 200 : 404).json(item || { error: "资讯不存在或已归档" });
+});
+app.get("/api/v1/mini/:kind/:id", (req, res) => {
+  const data = store.publicContent();
+  const item =
+    req.params.kind === "learn"
+      ? data.knowledge.find((a) => a.slug === req.params.id)
+      : req.params.kind === "tools"
+        ? data.resources.find((a) => a.id === req.params.id)
+        : req.params.kind === "scenarios"
+          ? data.scenarios.find((a) => a.id === req.params.id)
+          : undefined;
+  res.status(item ? 200 : 404).json(item || { error: "内容不存在或已下架" });
 });
 app.get("/api/v1/catalog/:id", (req, res) => {
   const model = store
