@@ -1,0 +1,3758 @@
+{
+  "fetchedAt": "2026-09-16T17:05:10.248Z",
+  "version": "2026-09-1283abbf5810",
+  "sourceCount": 444,
+  "included": 313,
+  "providers": [
+    "蚂蚁",
+    "DeepSeek 深度求索",
+    "Inception",
+    "OpenAI",
+    "通义千问 Qwen",
+    "Meta",
+    "Google",
+    "Anthropic",
+    "IBM Granite",
+    "腾讯混元",
+    "智谱 GLM",
+    "字节 Seed",
+    "Grok",
+    "NVIDIA",
+    "Upstage",
+    "Thinking Machines",
+    "Poolside",
+    "美团",
+    "月之暗面 Kimi",
+    "快手",
+    "Aion Labs",
+    "MiniMax",
+    "阶跃星辰",
+    "Mistral",
+    "小米 MiMo",
+    "Arcee",
+    "Reka",
+    "Writer",
+    "Amazon Nova",
+    "Perplexity",
+    "Nous Research",
+    "字节豆包",
+    "百度文心",
+    "Meta Llama",
+    "Cohere",
+    "Microsoft",
+    "AI21 Jamba",
+    "百川智能",
+    "讯飞星火",
+    "LG EXAONE",
+    "商汤日日新",
+    "零一万物 Yi"
+  ],
+  "excluded": [
+    {
+      "id": "stealth/union-alpha",
+      "reason": "非目标厂商、渠道变体或非文本输出"
+    },
+    {
+      "id": "~deepseek/deepseek-pro-latest",
+      "reason": "非目标厂商、渠道变体或非文本输出"
+    },
+    {
+      "id": "~deepseek/deepseek-flash-latest",
+      "reason": "非目标厂商、渠道变体或非文本输出"
+    },
+    {
+      "id": "inference-net/schematron-v2-turbo",
+      "reason": "非目标厂商、渠道变体或非文本输出"
+    },
+    {
+      "id": "inference-net/schematron-v2-small",
+      "reason": "非目标厂商、渠道变体或非文本输出"
+    },
+    {
+      "id": "~openai/gpt-astra-latest",
+      "reason": "非目标厂商、渠道变体或非文本输出"
+    },
+    {
+      "id": "~openai/gpt-sol-latest",
+      "reason": "非目标厂商、渠道变体或非文本输出"
+    },
+    {
+      "id": "~openai/gpt-terra-latest",
+      "reason": "非目标厂商、渠道变体或非文本输出"
+    },
+    {
+      "id": "~openai/gpt-luna-latest",
+      "reason": "非目标厂商、渠道变体或非文本输出"
+    },
+    {
+      "id": "sakana/fugu-ultra-v2",
+      "reason": "非目标厂商、渠道变体或非文本输出"
+    },
+    {
+      "id": "sakana/fugu-max",
+      "reason": "非目标厂商、渠道变体或非文本输出"
+    },
+    {
+      "id": "inclusionai/ling-3.0-flash-vl:free",
+      "reason": "非目标厂商、渠道变体或非文本输出"
+    },
+    {
+      "id": "nex-agi/nex-n2.5-mini:free",
+      "reason": "非目标厂商、渠道变体或非文本输出"
+    },
+    {
+      "id": "nex-agi/nex-n2.5-pro:free",
+      "reason": "非目标厂商、渠道变体或非文本输出"
+    },
+    {
+      "id": "openai/gpt-6-astra:batch",
+      "reason": "非目标厂商、渠道变体或非文本输出"
+    },
+    {
+      "id": "openai/gpt-6-astra-pro:batch",
+      "reason": "非目标厂商、渠道变体或非文本输出"
+    },
+    {
+      "id": "inclusionai/ling-3.0-flash-sante:free",
+      "reason": "非目标厂商、渠道变体或非文本输出"
+    },
+    {
+      "id": "google/gemini-3.8-flash:batch",
+      "reason": "非目标厂商、渠道变体或非文本输出"
+    },
+    {
+      "id": "anthropic/claude-fable-5.1:batch",
+      "reason": "非目标厂商、渠道变体或非文本输出"
+    },
+    {
+      "id": "inclusionai/ling-3.0-flash-fin:free",
+      "reason": "非目标厂商、渠道变体或非文本输出"
+    },
+    {
+      "id": "~z-ai/glm-flash-latest",
+      "reason": "非目标厂商、渠道变体或非文本输出"
+    },
+    {
+      "id": "z-ai/glm-5.3-flash:batch",
+      "reason": "非目标厂商、渠道变体或非文本输出"
+    },
+    {
+      "id": "deepseek/deepseek-v4-flash-vision-exp:batch",
+      "reason": "非目标厂商、渠道变体或非文本输出"
+    },
+    {
+      "id": "~z-ai/glm-latest",
+      "reason": "非目标厂商、渠道变体或非文本输出"
+    },
+    {
+      "id": "z-ai/glm-5.3:batch",
+      "reason": "非目标厂商、渠道变体或非文本输出"
+    },
+    {
+      "id": "dots-studio/dots-3-note-preview:free",
+      "reason": "非目标厂商、渠道变体或非文本输出"
+    },
+    {
+      "id": "google/gemini-3.7-flash:batch",
+      "reason": "非目标厂商、渠道变体或非文本输出"
+    },
+    {
+      "id": "qwen/qwen3.8-2.4t-a95b:batch",
+      "reason": "非目标厂商、渠道变体或非文本输出"
+    },
+    {
+      "id": "deepseek/deepseek-v4-pro-0813:batch",
+      "reason": "非目标厂商、渠道变体或非文本输出"
+    },
+    {
+      "id": "liquid/lfm-2.5-2.6b:free",
+      "reason": "非目标厂商、渠道变体或非文本输出"
+    },
+    {
+      "id": "nvidia/nemotron-3.5-lightning:free",
+      "reason": "非目标厂商、渠道变体或非文本输出"
+    },
+    {
+      "id": "sakana/sakana-namazu",
+      "reason": "非目标厂商、渠道变体或非文本输出"
+    },
+    {
+      "id": "meta/muse-glimmer-30b:batch",
+      "reason": "非目标厂商、渠道变体或非文本输出"
+    },
+    {
+      "id": "~deepseek/deepseek-v4-flash-latest",
+      "reason": "非目标厂商、渠道变体或非文本输出"
+    },
+    {
+      "id": "deepseek/deepseek-v4-flash-0731:batch",
+      "reason": "非目标厂商、渠道变体或非文本输出"
+    },
+    {
+      "id": "thinkingmachines/inkling-small:free",
+      "reason": "非目标厂商、渠道变体或非文本输出"
+    },
+    {
+      "id": "anthropic/claude-opus-5:batch",
+      "reason": "非目标厂商、渠道变体或非文本输出"
+    },
+    {
+      "id": "poolside/laguna-s-2.1:free",
+      "reason": "非目标厂商、渠道变体或非文本输出"
+    },
+    {
+      "id": "google/gemini-3.6-flash:batch",
+      "reason": "非目标厂商、渠道变体或非文本输出"
+    },
+    {
+      "id": "google/gemini-3.5-flash-lite:batch",
+      "reason": "非目标厂商、渠道变体或非文本输出"
+    },
+    {
+      "id": "thinkingmachines/inkling:batch",
+      "reason": "非目标厂商、渠道变体或非文本输出"
+    },
+    {
+      "id": "thinkingmachines/inkling:free",
+      "reason": "非目标厂商、渠道变体或非文本输出"
+    },
+    {
+      "id": "openrouter/auto-beta",
+      "reason": "非目标厂商、渠道变体或非文本输出"
+    },
+    {
+      "id": "moonshotai/kimi-k3:batch",
+      "reason": "非目标厂商、渠道变体或非文本输出"
+    },
+    {
+      "id": "openai/gpt-5.6-luna-pro:batch",
+      "reason": "非目标厂商、渠道变体或非文本输出"
+    },
+    {
+      "id": "openai/gpt-5.6-luna:batch",
+      "reason": "非目标厂商、渠道变体或非文本输出"
+    },
+    {
+      "id": "openai/gpt-5.6-terra-pro:batch",
+      "reason": "非目标厂商、渠道变体或非文本输出"
+    },
+    {
+      "id": "openai/gpt-5.6-terra:batch",
+      "reason": "非目标厂商、渠道变体或非文本输出"
+    },
+    {
+      "id": "openai/gpt-5.6-sol-pro:batch",
+      "reason": "非目标厂商、渠道变体或非文本输出"
+    },
+    {
+      "id": "openai/gpt-5.6-sol:batch",
+      "reason": "非目标厂商、渠道变体或非文本输出"
+    },
+    {
+      "id": "~x-ai/grok-latest",
+      "reason": "非目标厂商、渠道变体或非文本输出"
+    },
+    {
+      "id": "poolside/laguna-xs-2.1:free",
+      "reason": "非目标厂商、渠道变体或非文本输出"
+    },
+    {
+      "id": "anthropic/claude-sonnet-5:batch",
+      "reason": "非目标厂商、渠道变体或非文本输出"
+    },
+    {
+      "id": "sakana/fugu-ultra",
+      "reason": "非目标厂商、渠道变体或非文本输出"
+    },
+    {
+      "id": "cohere/north-mini-code:free",
+      "reason": "非目标厂商、渠道变体或非文本输出"
+    },
+    {
+      "id": "z-ai/glm-5.2:batch",
+      "reason": "非目标厂商、渠道变体或非文本输出"
+    },
+    {
+      "id": "z-ai/glm-5.2:free",
+      "reason": "非目标厂商、渠道变体或非文本输出"
+    },
+    {
+      "id": "openrouter/fusion",
+      "reason": "非目标厂商、渠道变体或非文本输出"
+    },
+    {
+      "id": "~anthropic/claude-fable-latest",
+      "reason": "非目标厂商、渠道变体或非文本输出"
+    },
+    {
+      "id": "anthropic/claude-fable-5:batch",
+      "reason": "非目标厂商、渠道变体或非文本输出"
+    },
+    {
+      "id": "nvidia/nemotron-3.5-content-safety:free",
+      "reason": "非目标厂商、渠道变体或非文本输出"
+    },
+    {
+      "id": "nvidia/nemotron-3-ultra-550b-a55b:free",
+      "reason": "非目标厂商、渠道变体或非文本输出"
+    },
+    {
+      "id": "minimax/minimax-m3:batch",
+      "reason": "非目标厂商、渠道变体或非文本输出"
+    },
+    {
+      "id": "anthropic/claude-opus-4.8:batch",
+      "reason": "非目标厂商、渠道变体或非文本输出"
+    },
+    {
+      "id": "google/gemini-3.5-flash:batch",
+      "reason": "非目标厂商、渠道变体或非文本输出"
+    },
+    {
+      "id": "perceptron/perceptron-mk1",
+      "reason": "非目标厂商、渠道变体或非文本输出"
+    },
+    {
+      "id": "google/gemini-3.1-flash-lite:batch",
+      "reason": "非目标厂商、渠道变体或非文本输出"
+    },
+    {
+      "id": "x-ai/grok-4.3:batch",
+      "reason": "非目标厂商、渠道变体或非文本输出"
+    },
+    {
+      "id": "mistralai/mistral-medium-3-5:batch",
+      "reason": "非目标厂商、渠道变体或非文本输出"
+    },
+    {
+      "id": "nvidia/nemotron-3-nano-omni-30b-a3b-reasoning:free",
+      "reason": "非目标厂商、渠道变体或非文本输出"
+    },
+    {
+      "id": "~anthropic/claude-haiku-latest",
+      "reason": "非目标厂商、渠道变体或非文本输出"
+    },
+    {
+      "id": "~openai/gpt-mini-latest",
+      "reason": "非目标厂商、渠道变体或非文本输出"
+    },
+    {
+      "id": "~google/gemini-pro-latest",
+      "reason": "非目标厂商、渠道变体或非文本输出"
+    },
+    {
+      "id": "~moonshotai/kimi-latest",
+      "reason": "非目标厂商、渠道变体或非文本输出"
+    },
+    {
+      "id": "~google/gemini-flash-latest",
+      "reason": "非目标厂商、渠道变体或非文本输出"
+    },
+    {
+      "id": "~anthropic/claude-sonnet-latest",
+      "reason": "非目标厂商、渠道变体或非文本输出"
+    },
+    {
+      "id": "openai/gpt-5.5-pro:batch",
+      "reason": "非目标厂商、渠道变体或非文本输出"
+    },
+    {
+      "id": "openai/gpt-5.5:batch",
+      "reason": "非目标厂商、渠道变体或非文本输出"
+    },
+    {
+      "id": "~anthropic/claude-opus-latest",
+      "reason": "非目标厂商、渠道变体或非文本输出"
+    },
+    {
+      "id": "openrouter/pareto-code",
+      "reason": "非目标厂商、渠道变体或非文本输出"
+    },
+    {
+      "id": "anthropic/claude-opus-4.7:batch",
+      "reason": "非目标厂商、渠道变体或非文本输出"
+    },
+    {
+      "id": "google/gemma-4-26b-a4b-it:free",
+      "reason": "非目标厂商、渠道变体或非文本输出"
+    },
+    {
+      "id": "google/gemma-4-31b-it:free",
+      "reason": "非目标厂商、渠道变体或非文本输出"
+    },
+    {
+      "id": "openai/gpt-5.4-nano:batch",
+      "reason": "非目标厂商、渠道变体或非文本输出"
+    },
+    {
+      "id": "openai/gpt-5.4-mini:batch",
+      "reason": "非目标厂商、渠道变体或非文本输出"
+    },
+    {
+      "id": "mistralai/mistral-small-2603:batch",
+      "reason": "非目标厂商、渠道变体或非文本输出"
+    },
+    {
+      "id": "nvidia/nemotron-3-super-120b-a12b:free",
+      "reason": "非目标厂商、渠道变体或非文本输出"
+    },
+    {
+      "id": "qwen/qwen3.5-9b:batch",
+      "reason": "非目标厂商、渠道变体或非文本输出"
+    },
+    {
+      "id": "openai/gpt-5.4-pro:batch",
+      "reason": "非目标厂商、渠道变体或非文本输出"
+    },
+    {
+      "id": "openai/gpt-5.4:batch",
+      "reason": "非目标厂商、渠道变体或非文本输出"
+    },
+    {
+      "id": "google/gemini-3.1-pro-preview:batch",
+      "reason": "非目标厂商、渠道变体或非文本输出"
+    },
+    {
+      "id": "anthropic/claude-sonnet-4.6:batch",
+      "reason": "非目标厂商、渠道变体或非文本输出"
+    },
+    {
+      "id": "anthropic/claude-opus-4.6:batch",
+      "reason": "非目标厂商、渠道变体或非文本输出"
+    },
+    {
+      "id": "openrouter/free",
+      "reason": "非目标厂商、渠道变体或非文本输出"
+    },
+    {
+      "id": "google/gemini-3-flash-preview:batch",
+      "reason": "非目标厂商、渠道变体或非文本输出"
+    },
+    {
+      "id": "openai/gpt-5.2-pro:batch",
+      "reason": "非目标厂商、渠道变体或非文本输出"
+    },
+    {
+      "id": "openai/gpt-5.2:batch",
+      "reason": "非目标厂商、渠道变体或非文本输出"
+    },
+    {
+      "id": "relace/relace-search",
+      "reason": "非目标厂商、渠道变体或非文本输出"
+    },
+    {
+      "id": "openrouter/bodybuilder",
+      "reason": "非目标厂商、渠道变体或非文本输出"
+    },
+    {
+      "id": "mistralai/ministral-8b-2512:batch",
+      "reason": "非目标厂商、渠道变体或非文本输出"
+    },
+    {
+      "id": "mistralai/mistral-large-2512:batch",
+      "reason": "非目标厂商、渠道变体或非文本输出"
+    },
+    {
+      "id": "anthropic/claude-opus-4.5:batch",
+      "reason": "非目标厂商、渠道变体或非文本输出"
+    },
+    {
+      "id": "openai/gpt-5.1:batch",
+      "reason": "非目标厂商、渠道变体或非文本输出"
+    },
+    {
+      "id": "anthropic/claude-haiku-4.5:batch",
+      "reason": "非目标厂商、渠道变体或非文本输出"
+    },
+    {
+      "id": "openai/gpt-5-pro:batch",
+      "reason": "非目标厂商、渠道变体或非文本输出"
+    },
+    {
+      "id": "anthropic/claude-sonnet-4.5:batch",
+      "reason": "非目标厂商、渠道变体或非文本输出"
+    },
+    {
+      "id": "thedrummer/cydonia-24b-v4.1",
+      "reason": "非目标厂商、渠道变体或非文本输出"
+    },
+    {
+      "id": "relace/relace-apply-3",
+      "reason": "非目标厂商、渠道变体或非文本输出"
+    },
+    {
+      "id": "mistralai/mistral-medium-3.1:batch",
+      "reason": "非目标厂商、渠道变体或非文本输出"
+    },
+    {
+      "id": "openai/gpt-5:batch",
+      "reason": "非目标厂商、渠道变体或非文本输出"
+    },
+    {
+      "id": "openai/gpt-5-mini:batch",
+      "reason": "非目标厂商、渠道变体或非文本输出"
+    },
+    {
+      "id": "openai/gpt-5-nano:batch",
+      "reason": "非目标厂商、渠道变体或非文本输出"
+    },
+    {
+      "id": "openai/gpt-oss-120b:batch",
+      "reason": "非目标厂商、渠道变体或非文本输出"
+    },
+    {
+      "id": "anthropic/claude-opus-4.1:batch",
+      "reason": "非目标厂商、渠道变体或非文本输出"
+    },
+    {
+      "id": "mistralai/codestral-2508:batch",
+      "reason": "非目标厂商、渠道变体或非文本输出"
+    },
+    {
+      "id": "google/gemini-2.5-flash-lite:batch",
+      "reason": "非目标厂商、渠道变体或非文本输出"
+    },
+    {
+      "id": "cognitivecomputations/dolphin-mistral-24b-venice-edition",
+      "reason": "非目标厂商、渠道变体或非文本输出"
+    },
+    {
+      "id": "morph/morph-v3-large",
+      "reason": "非目标厂商、渠道变体或非文本输出"
+    },
+    {
+      "id": "morph/morph-v3-fast",
+      "reason": "非目标厂商、渠道变体或非文本输出"
+    },
+    {
+      "id": "google/gemini-2.5-flash:batch",
+      "reason": "非目标厂商、渠道变体或非文本输出"
+    },
+    {
+      "id": "google/gemini-2.5-pro:batch",
+      "reason": "非目标厂商、渠道变体或非文本输出"
+    },
+    {
+      "id": "openai/o3:batch",
+      "reason": "非目标厂商、渠道变体或非文本输出"
+    },
+    {
+      "id": "openai/o4-mini:batch",
+      "reason": "非目标厂商、渠道变体或非文本输出"
+    },
+    {
+      "id": "openai/gpt-4.1:batch",
+      "reason": "非目标厂商、渠道变体或非文本输出"
+    },
+    {
+      "id": "openai/gpt-4.1-mini:batch",
+      "reason": "非目标厂商、渠道变体或非文本输出"
+    },
+    {
+      "id": "openai/gpt-4.1-nano:batch",
+      "reason": "非目标厂商、渠道变体或非文本输出"
+    },
+    {
+      "id": "thedrummer/skyfall-36b-v2",
+      "reason": "非目标厂商、渠道变体或非文本输出"
+    },
+    {
+      "id": "openai/o3-mini:batch",
+      "reason": "非目标厂商、渠道变体或非文本输出"
+    },
+    {
+      "id": "sao10k/l3.3-euryale-70b",
+      "reason": "非目标厂商、渠道变体或非文本输出"
+    },
+    {
+      "id": "thedrummer/unslopnemo-12b",
+      "reason": "非目标厂商、渠道变体或非文本输出"
+    },
+    {
+      "id": "anthracite-org/magnum-v4-72b",
+      "reason": "非目标厂商、渠道变体或非文本输出"
+    },
+    {
+      "id": "sao10k/l3.1-euryale-70b",
+      "reason": "非目标厂商、渠道变体或非文本输出"
+    },
+    {
+      "id": "sao10k/l3-lunaris-8b",
+      "reason": "非目标厂商、渠道变体或非文本输出"
+    },
+    {
+      "id": "openai/gpt-4o-mini:batch",
+      "reason": "非目标厂商、渠道变体或非文本输出"
+    },
+    {
+      "id": "openai/gpt-4o:batch",
+      "reason": "非目标厂商、渠道变体或非文本输出"
+    },
+    {
+      "id": "openai/gpt-4-turbo:batch",
+      "reason": "非目标厂商、渠道变体或非文本输出"
+    },
+    {
+      "id": "openrouter/auto",
+      "reason": "非目标厂商、渠道变体或非文本输出"
+    },
+    {
+      "id": "mancer/weaver",
+      "reason": "非目标厂商、渠道变体或非文本输出"
+    },
+    {
+      "id": "undi95/remm-slerp-l2-13b",
+      "reason": "非目标厂商、渠道变体或非文本输出"
+    },
+    {
+      "id": "gryphe/mythomax-l2-13b",
+      "reason": "非目标厂商、渠道变体或非文本输出"
+    },
+    {
+      "id": "openai/gpt-3.5-turbo:batch",
+      "reason": "非目标厂商、渠道变体或非文本输出"
+    }
+  ],
+  "missingManufacturerAudits": [
+    "零一万物 Yi",
+    "百川",
+    "AI21 Jamba"
+  ],
+  "limits": [
+    "渠道目录不代表全球全部厂商清单；仍需逐家核验。",
+    "目录报价为 OpenRouter 渠道基础报价，非厂商直连价；充值手续费和复杂阶梯另计。",
+    "所有模型的输入暂使用用户选择的参考编码，不冒充官方 API token 计数。"
+  ],
+  "entries": [
+    {
+      "id": "inclusionai--ling-3.0-flash-vl",
+      "source": "https://openrouter.ai/inclusionai/ling-3.0-flash-vl",
+      "status": "listed",
+      "missing": [
+        "model-tokenizer-mapping",
+        "task-evaluation",
+        "full-tier-audit"
+      ]
+    },
+    {
+      "id": "deepseek--deepseek-v4.1-flash",
+      "source": "https://openrouter.ai/deepseek/deepseek-v4.1-flash",
+      "status": "listed",
+      "missing": [
+        "model-tokenizer-mapping",
+        "task-evaluation",
+        "full-tier-audit"
+      ]
+    },
+    {
+      "id": "inception--mercury-2.5",
+      "source": "https://openrouter.ai/inception/mercury-2.5",
+      "status": "listed",
+      "missing": [
+        "model-tokenizer-mapping",
+        "task-evaluation",
+        "full-tier-audit"
+      ]
+    },
+    {
+      "id": "openai--gpt-6-astra",
+      "source": "https://openrouter.ai/openai/gpt-6-astra",
+      "status": "listed",
+      "missing": [
+        "model-tokenizer-mapping",
+        "task-evaluation",
+        "full-tier-audit"
+      ]
+    },
+    {
+      "id": "openai--gpt-6-astra-pro",
+      "source": "https://openrouter.ai/openai/gpt-6-astra-pro",
+      "status": "listed",
+      "missing": [
+        "model-tokenizer-mapping",
+        "task-evaluation",
+        "full-tier-audit"
+      ]
+    },
+    {
+      "id": "qwen--qwen3.8-max-0902",
+      "source": "https://openrouter.ai/qwen/qwen3.8-max-0902",
+      "status": "listed",
+      "missing": [
+        "model-tokenizer-mapping",
+        "task-evaluation",
+        "full-tier-audit"
+      ]
+    },
+    {
+      "id": "meta--muse-spark-1.3-contributor",
+      "source": "https://openrouter.ai/meta/muse-spark-1.3-contributor",
+      "status": "listed",
+      "missing": [
+        "model-tokenizer-mapping",
+        "task-evaluation",
+        "full-tier-audit"
+      ]
+    },
+    {
+      "id": "meta--muse-spark-1.3",
+      "source": "https://openrouter.ai/meta/muse-spark-1.3",
+      "status": "listed",
+      "missing": [
+        "model-tokenizer-mapping",
+        "task-evaluation",
+        "full-tier-audit"
+      ]
+    },
+    {
+      "id": "google--gemini-3.8-flash",
+      "source": "https://openrouter.ai/google/gemini-3.8-flash",
+      "status": "listed",
+      "missing": [
+        "model-tokenizer-mapping",
+        "task-evaluation",
+        "full-tier-audit"
+      ]
+    },
+    {
+      "id": "anthropic--claude-fable-5.1",
+      "source": "https://openrouter.ai/anthropic/claude-fable-5.1",
+      "status": "listed",
+      "missing": [
+        "model-tokenizer-mapping",
+        "task-evaluation",
+        "full-tier-audit"
+      ]
+    },
+    {
+      "id": "ibm-granite--granite-4.2-8b",
+      "source": "https://openrouter.ai/ibm-granite/granite-4.2-8b",
+      "status": "listed",
+      "missing": [
+        "model-tokenizer-mapping",
+        "task-evaluation",
+        "full-tier-audit"
+      ]
+    },
+    {
+      "id": "tencent--hy4-preview",
+      "source": "https://openrouter.ai/tencent/hy4-preview",
+      "status": "listed",
+      "missing": [
+        "model-tokenizer-mapping",
+        "task-evaluation",
+        "full-tier-audit"
+      ]
+    },
+    {
+      "id": "inclusionai--ling-3.0-flash-fin",
+      "source": "https://openrouter.ai/inclusionai/ling-3.0-flash-fin",
+      "status": "listed",
+      "missing": [
+        "model-tokenizer-mapping",
+        "task-evaluation",
+        "full-tier-audit"
+      ]
+    },
+    {
+      "id": "qwen--qwen3.8-flash",
+      "source": "https://openrouter.ai/qwen/qwen3.8-flash",
+      "status": "listed",
+      "missing": [
+        "model-tokenizer-mapping",
+        "task-evaluation",
+        "full-tier-audit"
+      ]
+    },
+    {
+      "id": "z-ai--glm-5.3-flash",
+      "source": "https://openrouter.ai/z-ai/glm-5.3-flash",
+      "status": "listed",
+      "missing": [
+        "model-tokenizer-mapping",
+        "task-evaluation",
+        "full-tier-audit"
+      ]
+    },
+    {
+      "id": "meta--muse-spark-1.2-contributor",
+      "source": "https://openrouter.ai/meta/muse-spark-1.2-contributor",
+      "status": "listed",
+      "missing": [
+        "model-tokenizer-mapping",
+        "task-evaluation",
+        "full-tier-audit"
+      ]
+    },
+    {
+      "id": "deepseek--deepseek-v4-flash-vision-exp",
+      "source": "https://openrouter.ai/deepseek/deepseek-v4-flash-vision-exp",
+      "status": "listed",
+      "missing": [
+        "model-tokenizer-mapping",
+        "task-evaluation",
+        "full-tier-audit"
+      ]
+    },
+    {
+      "id": "tencent--hy-mt2-1.8b",
+      "source": "https://openrouter.ai/tencent/hy-mt2-1.8b",
+      "status": "listed",
+      "missing": [
+        "model-tokenizer-mapping",
+        "task-evaluation",
+        "full-tier-audit"
+      ]
+    },
+    {
+      "id": "tencent--hy-mt2-30b-a3b",
+      "source": "https://openrouter.ai/tencent/hy-mt2-30b-a3b",
+      "status": "listed",
+      "missing": [
+        "model-tokenizer-mapping",
+        "task-evaluation",
+        "full-tier-audit"
+      ]
+    },
+    {
+      "id": "tencent--hy-mt2-7b",
+      "source": "https://openrouter.ai/tencent/hy-mt2-7b",
+      "status": "listed",
+      "missing": [
+        "model-tokenizer-mapping",
+        "task-evaluation",
+        "full-tier-audit"
+      ]
+    },
+    {
+      "id": "z-ai--glm-5.3",
+      "source": "https://openrouter.ai/z-ai/glm-5.3",
+      "status": "listed",
+      "missing": [
+        "model-tokenizer-mapping",
+        "task-evaluation",
+        "full-tier-audit"
+      ]
+    },
+    {
+      "id": "qwen--qwen3.8-27b",
+      "source": "https://openrouter.ai/qwen/qwen3.8-27b",
+      "status": "listed",
+      "missing": [
+        "model-tokenizer-mapping",
+        "task-evaluation",
+        "full-tier-audit"
+      ]
+    },
+    {
+      "id": "google--gemini-3.7-flash",
+      "source": "https://openrouter.ai/google/gemini-3.7-flash",
+      "status": "listed",
+      "missing": [
+        "model-tokenizer-mapping",
+        "task-evaluation",
+        "full-tier-audit"
+      ]
+    },
+    {
+      "id": "bytedance-seed--seed-2-1-turbo",
+      "source": "https://openrouter.ai/bytedance-seed/seed-2-1-turbo",
+      "status": "listed",
+      "missing": [
+        "model-tokenizer-mapping",
+        "task-evaluation",
+        "full-tier-audit"
+      ]
+    },
+    {
+      "id": "qwen--qwen3.8-2.4t-a95b",
+      "source": "https://openrouter.ai/qwen/qwen3.8-2.4t-a95b",
+      "status": "listed",
+      "missing": [
+        "model-tokenizer-mapping",
+        "task-evaluation",
+        "full-tier-audit"
+      ]
+    },
+    {
+      "id": "bytedance-seed--seed-2.0-code",
+      "source": "https://openrouter.ai/bytedance-seed/seed-2.0-code",
+      "status": "listed",
+      "missing": [
+        "model-tokenizer-mapping",
+        "task-evaluation",
+        "full-tier-audit"
+      ]
+    },
+    {
+      "id": "deepseek--deepseek-v4-pro-0813",
+      "source": "https://openrouter.ai/deepseek/deepseek-v4-pro-0813",
+      "status": "listed",
+      "missing": [
+        "model-tokenizer-mapping",
+        "task-evaluation",
+        "full-tier-audit"
+      ]
+    },
+    {
+      "id": "x-ai--grok-4.6",
+      "source": "https://openrouter.ai/x-ai/grok-4.6",
+      "status": "listed",
+      "missing": [
+        "model-tokenizer-mapping",
+        "task-evaluation",
+        "full-tier-audit"
+      ]
+    },
+    {
+      "id": "nvidia--nemotron-3.5-lightning",
+      "source": "https://openrouter.ai/nvidia/nemotron-3.5-lightning",
+      "status": "listed",
+      "missing": [
+        "model-tokenizer-mapping",
+        "task-evaluation",
+        "full-tier-audit"
+      ]
+    },
+    {
+      "id": "upstage--solar-pro4",
+      "source": "https://openrouter.ai/upstage/solar-pro4",
+      "status": "listed",
+      "missing": [
+        "model-tokenizer-mapping",
+        "task-evaluation",
+        "full-tier-audit"
+      ]
+    },
+    {
+      "id": "meta--muse-glimmer-30b",
+      "source": "https://openrouter.ai/meta/muse-glimmer-30b",
+      "status": "listed",
+      "missing": [
+        "model-tokenizer-mapping",
+        "task-evaluation",
+        "full-tier-audit"
+      ]
+    },
+    {
+      "id": "meta--muse-spark-1.2",
+      "source": "https://openrouter.ai/meta/muse-spark-1.2",
+      "status": "listed",
+      "missing": [
+        "model-tokenizer-mapping",
+        "task-evaluation",
+        "full-tier-audit"
+      ]
+    },
+    {
+      "id": "deepseek--deepseek-v4-flash-0731",
+      "source": "https://openrouter.ai/deepseek/deepseek-v4-flash-0731",
+      "status": "listed",
+      "missing": [
+        "model-tokenizer-mapping",
+        "task-evaluation",
+        "full-tier-audit"
+      ]
+    },
+    {
+      "id": "thinkingmachines--inkling-small",
+      "source": "https://openrouter.ai/thinkingmachines/inkling-small",
+      "status": "listed",
+      "missing": [
+        "model-tokenizer-mapping",
+        "task-evaluation",
+        "full-tier-audit"
+      ]
+    },
+    {
+      "id": "qwen--qwen3.7-flash",
+      "source": "https://openrouter.ai/qwen/qwen3.7-flash",
+      "status": "listed",
+      "missing": [
+        "model-tokenizer-mapping",
+        "task-evaluation",
+        "full-tier-audit"
+      ]
+    },
+    {
+      "id": "anthropic--claude-opus-5",
+      "source": "https://openrouter.ai/anthropic/claude-opus-5",
+      "status": "listed",
+      "missing": [
+        "model-tokenizer-mapping",
+        "task-evaluation",
+        "full-tier-audit"
+      ]
+    },
+    {
+      "id": "inclusionai--ling-3.0-flash",
+      "source": "https://openrouter.ai/inclusionai/ling-3.0-flash",
+      "status": "listed",
+      "missing": [
+        "model-tokenizer-mapping",
+        "task-evaluation",
+        "full-tier-audit"
+      ]
+    },
+    {
+      "id": "poolside--laguna-s-2.1",
+      "source": "https://openrouter.ai/poolside/laguna-s-2.1",
+      "status": "listed",
+      "missing": [
+        "model-tokenizer-mapping",
+        "task-evaluation",
+        "full-tier-audit"
+      ]
+    },
+    {
+      "id": "google--gemini-3.6-flash",
+      "source": "https://openrouter.ai/google/gemini-3.6-flash",
+      "status": "listed",
+      "missing": [
+        "model-tokenizer-mapping",
+        "task-evaluation",
+        "full-tier-audit"
+      ]
+    },
+    {
+      "id": "google--gemini-3.5-flash-lite",
+      "source": "https://openrouter.ai/google/gemini-3.5-flash-lite",
+      "status": "listed",
+      "missing": [
+        "model-tokenizer-mapping",
+        "task-evaluation",
+        "full-tier-audit"
+      ]
+    },
+    {
+      "id": "meituan--longcat-2.0",
+      "source": "https://openrouter.ai/meituan/longcat-2.0",
+      "status": "listed",
+      "missing": [
+        "model-tokenizer-mapping",
+        "task-evaluation",
+        "full-tier-audit"
+      ]
+    },
+    {
+      "id": "thinkingmachines--inkling",
+      "source": "https://openrouter.ai/thinkingmachines/inkling",
+      "status": "listed",
+      "missing": [
+        "model-tokenizer-mapping",
+        "task-evaluation",
+        "full-tier-audit"
+      ]
+    },
+    {
+      "id": "moonshotai--kimi-k3",
+      "source": "https://openrouter.ai/moonshotai/kimi-k3",
+      "status": "listed",
+      "missing": [
+        "model-tokenizer-mapping",
+        "task-evaluation",
+        "full-tier-audit"
+      ]
+    },
+    {
+      "id": "meta--muse-spark-1.1",
+      "source": "https://openrouter.ai/meta/muse-spark-1.1",
+      "status": "listed",
+      "missing": [
+        "model-tokenizer-mapping",
+        "task-evaluation",
+        "full-tier-audit"
+      ]
+    },
+    {
+      "id": "kwaipilot--kat-coder-pro-v2.5",
+      "source": "https://openrouter.ai/kwaipilot/kat-coder-pro-v2.5",
+      "status": "listed",
+      "missing": [
+        "model-tokenizer-mapping",
+        "task-evaluation",
+        "full-tier-audit"
+      ]
+    },
+    {
+      "id": "openai--gpt-5.6-luna-pro",
+      "source": "https://openrouter.ai/openai/gpt-5.6-luna-pro",
+      "status": "listed",
+      "missing": [
+        "model-tokenizer-mapping",
+        "task-evaluation",
+        "full-tier-audit"
+      ]
+    },
+    {
+      "id": "openai--gpt-5.6-luna",
+      "source": "https://openrouter.ai/openai/gpt-5.6-luna",
+      "status": "listed",
+      "missing": [
+        "model-tokenizer-mapping",
+        "task-evaluation",
+        "full-tier-audit"
+      ]
+    },
+    {
+      "id": "openai--gpt-5.6-terra-pro",
+      "source": "https://openrouter.ai/openai/gpt-5.6-terra-pro",
+      "status": "listed",
+      "missing": [
+        "model-tokenizer-mapping",
+        "task-evaluation",
+        "full-tier-audit"
+      ]
+    },
+    {
+      "id": "openai--gpt-5.6-terra",
+      "source": "https://openrouter.ai/openai/gpt-5.6-terra",
+      "status": "listed",
+      "missing": [
+        "model-tokenizer-mapping",
+        "task-evaluation",
+        "full-tier-audit"
+      ]
+    },
+    {
+      "id": "openai--gpt-5.6-sol-pro",
+      "source": "https://openrouter.ai/openai/gpt-5.6-sol-pro",
+      "status": "listed",
+      "missing": [
+        "model-tokenizer-mapping",
+        "task-evaluation",
+        "full-tier-audit"
+      ]
+    },
+    {
+      "id": "openai--gpt-5.6-sol",
+      "source": "https://openrouter.ai/openai/gpt-5.6-sol",
+      "status": "listed",
+      "missing": [
+        "model-tokenizer-mapping",
+        "task-evaluation",
+        "full-tier-audit"
+      ]
+    },
+    {
+      "id": "x-ai--grok-4.5",
+      "source": "https://openrouter.ai/x-ai/grok-4.5",
+      "status": "listed",
+      "missing": [
+        "model-tokenizer-mapping",
+        "task-evaluation",
+        "full-tier-audit"
+      ]
+    },
+    {
+      "id": "aion-labs--aion-3.0-mini",
+      "source": "https://openrouter.ai/aion-labs/aion-3.0-mini",
+      "status": "listed",
+      "missing": [
+        "model-tokenizer-mapping",
+        "task-evaluation",
+        "full-tier-audit"
+      ]
+    },
+    {
+      "id": "aion-labs--aion-3.0",
+      "source": "https://openrouter.ai/aion-labs/aion-3.0",
+      "status": "listed",
+      "missing": [
+        "model-tokenizer-mapping",
+        "task-evaluation",
+        "full-tier-audit"
+      ]
+    },
+    {
+      "id": "tencent--hy3",
+      "source": "https://openrouter.ai/tencent/hy3",
+      "status": "listed",
+      "missing": [
+        "model-tokenizer-mapping",
+        "task-evaluation",
+        "full-tier-audit"
+      ]
+    },
+    {
+      "id": "poolside--laguna-xs-2.1",
+      "source": "https://openrouter.ai/poolside/laguna-xs-2.1",
+      "status": "listed",
+      "missing": [
+        "model-tokenizer-mapping",
+        "task-evaluation",
+        "full-tier-audit"
+      ]
+    },
+    {
+      "id": "anthropic--claude-sonnet-5",
+      "source": "https://openrouter.ai/anthropic/claude-sonnet-5",
+      "status": "listed",
+      "missing": [
+        "model-tokenizer-mapping",
+        "task-evaluation",
+        "full-tier-audit"
+      ]
+    },
+    {
+      "id": "google--gemini-3.1-flash-lite-image",
+      "source": "https://openrouter.ai/google/gemini-3.1-flash-lite-image",
+      "status": "listed",
+      "missing": [
+        "model-tokenizer-mapping",
+        "task-evaluation",
+        "full-tier-audit"
+      ]
+    },
+    {
+      "id": "google--gemini-3.1-flash-image",
+      "source": "https://openrouter.ai/google/gemini-3.1-flash-image",
+      "status": "listed",
+      "missing": [
+        "model-tokenizer-mapping",
+        "task-evaluation",
+        "full-tier-audit"
+      ]
+    },
+    {
+      "id": "google--gemini-3-pro-image",
+      "source": "https://openrouter.ai/google/gemini-3-pro-image",
+      "status": "listed",
+      "missing": [
+        "model-tokenizer-mapping",
+        "task-evaluation",
+        "full-tier-audit"
+      ]
+    },
+    {
+      "id": "z-ai--glm-5.2",
+      "source": "https://openrouter.ai/z-ai/glm-5.2",
+      "status": "listed",
+      "missing": [
+        "model-tokenizer-mapping",
+        "task-evaluation",
+        "full-tier-audit"
+      ]
+    },
+    {
+      "id": "moonshotai--kimi-k2.7-code",
+      "source": "https://openrouter.ai/moonshotai/kimi-k2.7-code",
+      "status": "listed",
+      "missing": [
+        "model-tokenizer-mapping",
+        "task-evaluation",
+        "full-tier-audit"
+      ]
+    },
+    {
+      "id": "anthropic--claude-fable-5",
+      "source": "https://openrouter.ai/anthropic/claude-fable-5",
+      "status": "listed",
+      "missing": [
+        "model-tokenizer-mapping",
+        "task-evaluation",
+        "full-tier-audit"
+      ]
+    },
+    {
+      "id": "nvidia--nemotron-3.5-content-safety",
+      "source": "https://openrouter.ai/nvidia/nemotron-3.5-content-safety",
+      "status": "listed",
+      "missing": [
+        "model-tokenizer-mapping",
+        "task-evaluation",
+        "full-tier-audit"
+      ]
+    },
+    {
+      "id": "nvidia--nemotron-3-ultra-550b-a55b",
+      "source": "https://openrouter.ai/nvidia/nemotron-3-ultra-550b-a55b",
+      "status": "listed",
+      "missing": [
+        "model-tokenizer-mapping",
+        "task-evaluation",
+        "full-tier-audit"
+      ]
+    },
+    {
+      "id": "qwen--qwen3.7-plus",
+      "source": "https://openrouter.ai/qwen/qwen3.7-plus",
+      "status": "listed",
+      "missing": [
+        "model-tokenizer-mapping",
+        "task-evaluation",
+        "full-tier-audit"
+      ]
+    },
+    {
+      "id": "minimax--minimax-m3",
+      "source": "https://openrouter.ai/minimax/minimax-m3",
+      "status": "listed",
+      "missing": [
+        "model-tokenizer-mapping",
+        "task-evaluation",
+        "full-tier-audit"
+      ]
+    },
+    {
+      "id": "stepfun--step-3.7-flash",
+      "source": "https://openrouter.ai/stepfun/step-3.7-flash",
+      "status": "listed",
+      "missing": [
+        "model-tokenizer-mapping",
+        "task-evaluation",
+        "full-tier-audit"
+      ]
+    },
+    {
+      "id": "anthropic--claude-opus-4.8",
+      "source": "https://openrouter.ai/anthropic/claude-opus-4.8",
+      "status": "listed",
+      "missing": [
+        "model-tokenizer-mapping",
+        "task-evaluation",
+        "full-tier-audit"
+      ]
+    },
+    {
+      "id": "qwen--qwen3.7-max",
+      "source": "https://openrouter.ai/qwen/qwen3.7-max",
+      "status": "listed",
+      "missing": [
+        "model-tokenizer-mapping",
+        "task-evaluation",
+        "full-tier-audit"
+      ]
+    },
+    {
+      "id": "x-ai--grok-build-0.1",
+      "source": "https://openrouter.ai/x-ai/grok-build-0.1",
+      "status": "listed",
+      "missing": [
+        "model-tokenizer-mapping",
+        "task-evaluation",
+        "full-tier-audit"
+      ]
+    },
+    {
+      "id": "google--gemini-3.5-flash",
+      "source": "https://openrouter.ai/google/gemini-3.5-flash",
+      "status": "listed",
+      "missing": [
+        "model-tokenizer-mapping",
+        "task-evaluation",
+        "full-tier-audit"
+      ]
+    },
+    {
+      "id": "google--gemini-3.1-flash-lite",
+      "source": "https://openrouter.ai/google/gemini-3.1-flash-lite",
+      "status": "listed",
+      "missing": [
+        "model-tokenizer-mapping",
+        "task-evaluation",
+        "full-tier-audit"
+      ]
+    },
+    {
+      "id": "openai--gpt-chat-latest",
+      "source": "https://openrouter.ai/openai/gpt-chat-latest",
+      "status": "listed",
+      "missing": [
+        "model-tokenizer-mapping",
+        "task-evaluation",
+        "full-tier-audit"
+      ]
+    },
+    {
+      "id": "x-ai--grok-4.3",
+      "source": "https://openrouter.ai/x-ai/grok-4.3",
+      "status": "listed",
+      "missing": [
+        "model-tokenizer-mapping",
+        "task-evaluation",
+        "full-tier-audit"
+      ]
+    },
+    {
+      "id": "mistralai--mistral-medium-3-5",
+      "source": "https://openrouter.ai/mistralai/mistral-medium-3-5",
+      "status": "listed",
+      "missing": [
+        "model-tokenizer-mapping",
+        "task-evaluation",
+        "full-tier-audit"
+      ]
+    },
+    {
+      "id": "qwen--qwen3.5-plus-20260420",
+      "source": "https://openrouter.ai/qwen/qwen3.5-plus-20260420",
+      "status": "listed",
+      "missing": [
+        "model-tokenizer-mapping",
+        "task-evaluation",
+        "full-tier-audit"
+      ]
+    },
+    {
+      "id": "qwen--qwen3.6-flash",
+      "source": "https://openrouter.ai/qwen/qwen3.6-flash",
+      "status": "listed",
+      "missing": [
+        "model-tokenizer-mapping",
+        "task-evaluation",
+        "full-tier-audit"
+      ]
+    },
+    {
+      "id": "qwen--qwen3.6-35b-a3b",
+      "source": "https://openrouter.ai/qwen/qwen3.6-35b-a3b",
+      "status": "listed",
+      "missing": [
+        "model-tokenizer-mapping",
+        "task-evaluation",
+        "full-tier-audit"
+      ]
+    },
+    {
+      "id": "qwen--qwen3.6-max-preview",
+      "source": "https://openrouter.ai/qwen/qwen3.6-max-preview",
+      "status": "listed",
+      "missing": [
+        "model-tokenizer-mapping",
+        "task-evaluation",
+        "full-tier-audit"
+      ]
+    },
+    {
+      "id": "qwen--qwen3.6-27b",
+      "source": "https://openrouter.ai/qwen/qwen3.6-27b",
+      "status": "listed",
+      "missing": [
+        "model-tokenizer-mapping",
+        "task-evaluation",
+        "full-tier-audit"
+      ]
+    },
+    {
+      "id": "openai--gpt-5.5-pro",
+      "source": "https://openrouter.ai/openai/gpt-5.5-pro",
+      "status": "listed",
+      "missing": [
+        "model-tokenizer-mapping",
+        "task-evaluation",
+        "full-tier-audit"
+      ]
+    },
+    {
+      "id": "openai--gpt-5.5",
+      "source": "https://openrouter.ai/openai/gpt-5.5",
+      "status": "listed",
+      "missing": [
+        "model-tokenizer-mapping",
+        "task-evaluation",
+        "full-tier-audit"
+      ]
+    },
+    {
+      "id": "deepseek--deepseek-v4-pro",
+      "source": "https://openrouter.ai/deepseek/deepseek-v4-pro",
+      "status": "listed",
+      "missing": [
+        "model-tokenizer-mapping",
+        "task-evaluation",
+        "full-tier-audit"
+      ]
+    },
+    {
+      "id": "deepseek--deepseek-v4-flash",
+      "source": "https://openrouter.ai/deepseek/deepseek-v4-flash",
+      "status": "listed",
+      "missing": [
+        "model-tokenizer-mapping",
+        "task-evaluation",
+        "full-tier-audit"
+      ]
+    },
+    {
+      "id": "tencent--hy3-preview",
+      "source": "https://openrouter.ai/tencent/hy3-preview",
+      "status": "listed",
+      "missing": [
+        "model-tokenizer-mapping",
+        "task-evaluation",
+        "full-tier-audit"
+      ]
+    },
+    {
+      "id": "xiaomi--mimo-v2.5-pro",
+      "source": "https://openrouter.ai/xiaomi/mimo-v2.5-pro",
+      "status": "listed",
+      "missing": [
+        "model-tokenizer-mapping",
+        "task-evaluation",
+        "full-tier-audit"
+      ]
+    },
+    {
+      "id": "xiaomi--mimo-v2.5",
+      "source": "https://openrouter.ai/xiaomi/mimo-v2.5",
+      "status": "listed",
+      "missing": [
+        "model-tokenizer-mapping",
+        "task-evaluation",
+        "full-tier-audit"
+      ]
+    },
+    {
+      "id": "openai--gpt-5.4-image-2",
+      "source": "https://openrouter.ai/openai/gpt-5.4-image-2",
+      "status": "listed",
+      "missing": [
+        "model-tokenizer-mapping",
+        "task-evaluation",
+        "full-tier-audit"
+      ]
+    },
+    {
+      "id": "moonshotai--kimi-k2.6",
+      "source": "https://openrouter.ai/moonshotai/kimi-k2.6",
+      "status": "listed",
+      "missing": [
+        "model-tokenizer-mapping",
+        "task-evaluation",
+        "full-tier-audit"
+      ]
+    },
+    {
+      "id": "anthropic--claude-opus-4.7",
+      "source": "https://openrouter.ai/anthropic/claude-opus-4.7",
+      "status": "listed",
+      "missing": [
+        "model-tokenizer-mapping",
+        "task-evaluation",
+        "full-tier-audit"
+      ]
+    },
+    {
+      "id": "z-ai--glm-5.1",
+      "source": "https://openrouter.ai/z-ai/glm-5.1",
+      "status": "listed",
+      "missing": [
+        "model-tokenizer-mapping",
+        "task-evaluation",
+        "full-tier-audit"
+      ]
+    },
+    {
+      "id": "google--gemma-4-26b-a4b-it",
+      "source": "https://openrouter.ai/google/gemma-4-26b-a4b-it",
+      "status": "listed",
+      "missing": [
+        "model-tokenizer-mapping",
+        "task-evaluation",
+        "full-tier-audit"
+      ]
+    },
+    {
+      "id": "google--gemma-4-31b-it",
+      "source": "https://openrouter.ai/google/gemma-4-31b-it",
+      "status": "listed",
+      "missing": [
+        "model-tokenizer-mapping",
+        "task-evaluation",
+        "full-tier-audit"
+      ]
+    },
+    {
+      "id": "qwen--qwen3.6-plus",
+      "source": "https://openrouter.ai/qwen/qwen3.6-plus",
+      "status": "listed",
+      "missing": [
+        "model-tokenizer-mapping",
+        "task-evaluation",
+        "full-tier-audit"
+      ]
+    },
+    {
+      "id": "z-ai--glm-5v-turbo",
+      "source": "https://openrouter.ai/z-ai/glm-5v-turbo",
+      "status": "listed",
+      "missing": [
+        "model-tokenizer-mapping",
+        "task-evaluation",
+        "full-tier-audit"
+      ]
+    },
+    {
+      "id": "arcee-ai--trinity-large-thinking",
+      "source": "https://openrouter.ai/arcee-ai/trinity-large-thinking",
+      "status": "listed",
+      "missing": [
+        "model-tokenizer-mapping",
+        "task-evaluation",
+        "full-tier-audit"
+      ]
+    },
+    {
+      "id": "x-ai--grok-4.20-multi-agent",
+      "source": "https://openrouter.ai/x-ai/grok-4.20-multi-agent",
+      "status": "listed",
+      "missing": [
+        "model-tokenizer-mapping",
+        "task-evaluation",
+        "full-tier-audit"
+      ]
+    },
+    {
+      "id": "x-ai--grok-4.20",
+      "source": "https://openrouter.ai/x-ai/grok-4.20",
+      "status": "listed",
+      "missing": [
+        "model-tokenizer-mapping",
+        "task-evaluation",
+        "full-tier-audit"
+      ]
+    },
+    {
+      "id": "google--lyria-3-pro-preview",
+      "source": "https://openrouter.ai/google/lyria-3-pro-preview",
+      "status": "listed",
+      "missing": [
+        "model-tokenizer-mapping",
+        "task-evaluation",
+        "full-tier-audit"
+      ]
+    },
+    {
+      "id": "google--lyria-3-clip-preview",
+      "source": "https://openrouter.ai/google/lyria-3-clip-preview",
+      "status": "listed",
+      "missing": [
+        "model-tokenizer-mapping",
+        "task-evaluation",
+        "full-tier-audit"
+      ]
+    },
+    {
+      "id": "kwaipilot--kat-coder-pro-v2",
+      "source": "https://openrouter.ai/kwaipilot/kat-coder-pro-v2",
+      "status": "listed",
+      "missing": [
+        "model-tokenizer-mapping",
+        "task-evaluation",
+        "full-tier-audit"
+      ]
+    },
+    {
+      "id": "rekaai--reka-edge",
+      "source": "https://openrouter.ai/rekaai/reka-edge",
+      "status": "listed",
+      "missing": [
+        "model-tokenizer-mapping",
+        "task-evaluation",
+        "full-tier-audit"
+      ]
+    },
+    {
+      "id": "minimax--minimax-m2.7",
+      "source": "https://openrouter.ai/minimax/minimax-m2.7",
+      "status": "listed",
+      "missing": [
+        "model-tokenizer-mapping",
+        "task-evaluation",
+        "full-tier-audit"
+      ]
+    },
+    {
+      "id": "openai--gpt-5.4-nano",
+      "source": "https://openrouter.ai/openai/gpt-5.4-nano",
+      "status": "listed",
+      "missing": [
+        "model-tokenizer-mapping",
+        "task-evaluation",
+        "full-tier-audit"
+      ]
+    },
+    {
+      "id": "openai--gpt-5.4-mini",
+      "source": "https://openrouter.ai/openai/gpt-5.4-mini",
+      "status": "listed",
+      "missing": [
+        "model-tokenizer-mapping",
+        "task-evaluation",
+        "full-tier-audit"
+      ]
+    },
+    {
+      "id": "mistralai--mistral-small-2603",
+      "source": "https://openrouter.ai/mistralai/mistral-small-2603",
+      "status": "listed",
+      "missing": [
+        "model-tokenizer-mapping",
+        "task-evaluation",
+        "full-tier-audit"
+      ]
+    },
+    {
+      "id": "z-ai--glm-5-turbo",
+      "source": "https://openrouter.ai/z-ai/glm-5-turbo",
+      "status": "listed",
+      "missing": [
+        "model-tokenizer-mapping",
+        "task-evaluation",
+        "full-tier-audit"
+      ]
+    },
+    {
+      "id": "nvidia--nemotron-3-super-120b-a12b",
+      "source": "https://openrouter.ai/nvidia/nemotron-3-super-120b-a12b",
+      "status": "listed",
+      "missing": [
+        "model-tokenizer-mapping",
+        "task-evaluation",
+        "full-tier-audit"
+      ]
+    },
+    {
+      "id": "bytedance-seed--seed-2.0-lite",
+      "source": "https://openrouter.ai/bytedance-seed/seed-2.0-lite",
+      "status": "listed",
+      "missing": [
+        "model-tokenizer-mapping",
+        "task-evaluation",
+        "full-tier-audit"
+      ]
+    },
+    {
+      "id": "qwen--qwen3.5-9b",
+      "source": "https://openrouter.ai/qwen/qwen3.5-9b",
+      "status": "listed",
+      "missing": [
+        "model-tokenizer-mapping",
+        "task-evaluation",
+        "full-tier-audit"
+      ]
+    },
+    {
+      "id": "openai--gpt-5.4-pro",
+      "source": "https://openrouter.ai/openai/gpt-5.4-pro",
+      "status": "listed",
+      "missing": [
+        "model-tokenizer-mapping",
+        "task-evaluation",
+        "full-tier-audit"
+      ]
+    },
+    {
+      "id": "openai--gpt-5.4",
+      "source": "https://openrouter.ai/openai/gpt-5.4",
+      "status": "listed",
+      "missing": [
+        "model-tokenizer-mapping",
+        "task-evaluation",
+        "full-tier-audit"
+      ]
+    },
+    {
+      "id": "inception--mercury-2",
+      "source": "https://openrouter.ai/inception/mercury-2",
+      "status": "listed",
+      "missing": [
+        "model-tokenizer-mapping",
+        "task-evaluation",
+        "full-tier-audit"
+      ]
+    },
+    {
+      "id": "google--gemini-3.1-flash-lite-preview",
+      "source": "https://openrouter.ai/google/gemini-3.1-flash-lite-preview",
+      "status": "listed",
+      "missing": [
+        "model-tokenizer-mapping",
+        "task-evaluation",
+        "full-tier-audit"
+      ]
+    },
+    {
+      "id": "bytedance-seed--seed-2.0-mini",
+      "source": "https://openrouter.ai/bytedance-seed/seed-2.0-mini",
+      "status": "listed",
+      "missing": [
+        "model-tokenizer-mapping",
+        "task-evaluation",
+        "full-tier-audit"
+      ]
+    },
+    {
+      "id": "google--gemini-3.1-flash-image-preview",
+      "source": "https://openrouter.ai/google/gemini-3.1-flash-image-preview",
+      "status": "listed",
+      "missing": [
+        "model-tokenizer-mapping",
+        "task-evaluation",
+        "full-tier-audit"
+      ]
+    },
+    {
+      "id": "qwen--qwen3.5-35b-a3b",
+      "source": "https://openrouter.ai/qwen/qwen3.5-35b-a3b",
+      "status": "listed",
+      "missing": [
+        "model-tokenizer-mapping",
+        "task-evaluation",
+        "full-tier-audit"
+      ]
+    },
+    {
+      "id": "qwen--qwen3.5-27b",
+      "source": "https://openrouter.ai/qwen/qwen3.5-27b",
+      "status": "listed",
+      "missing": [
+        "model-tokenizer-mapping",
+        "task-evaluation",
+        "full-tier-audit"
+      ]
+    },
+    {
+      "id": "qwen--qwen3.5-122b-a10b",
+      "source": "https://openrouter.ai/qwen/qwen3.5-122b-a10b",
+      "status": "listed",
+      "missing": [
+        "model-tokenizer-mapping",
+        "task-evaluation",
+        "full-tier-audit"
+      ]
+    },
+    {
+      "id": "qwen--qwen3.5-flash-02-23",
+      "source": "https://openrouter.ai/qwen/qwen3.5-flash-02-23",
+      "status": "listed",
+      "missing": [
+        "model-tokenizer-mapping",
+        "task-evaluation",
+        "full-tier-audit"
+      ]
+    },
+    {
+      "id": "google--gemini-3.1-pro-preview-customtools",
+      "source": "https://openrouter.ai/google/gemini-3.1-pro-preview-customtools",
+      "status": "listed",
+      "missing": [
+        "model-tokenizer-mapping",
+        "task-evaluation",
+        "full-tier-audit"
+      ]
+    },
+    {
+      "id": "openai--gpt-5.3-codex",
+      "source": "https://openrouter.ai/openai/gpt-5.3-codex",
+      "status": "listed",
+      "missing": [
+        "model-tokenizer-mapping",
+        "task-evaluation",
+        "full-tier-audit"
+      ]
+    },
+    {
+      "id": "aion-labs--aion-2.0",
+      "source": "https://openrouter.ai/aion-labs/aion-2.0",
+      "status": "listed",
+      "missing": [
+        "model-tokenizer-mapping",
+        "task-evaluation",
+        "full-tier-audit"
+      ]
+    },
+    {
+      "id": "google--gemini-3.1-pro-preview",
+      "source": "https://openrouter.ai/google/gemini-3.1-pro-preview",
+      "status": "listed",
+      "missing": [
+        "model-tokenizer-mapping",
+        "task-evaluation",
+        "full-tier-audit"
+      ]
+    },
+    {
+      "id": "anthropic--claude-sonnet-4.6",
+      "source": "https://openrouter.ai/anthropic/claude-sonnet-4.6",
+      "status": "listed",
+      "missing": [
+        "model-tokenizer-mapping",
+        "task-evaluation",
+        "full-tier-audit"
+      ]
+    },
+    {
+      "id": "qwen--qwen3.5-plus-02-15",
+      "source": "https://openrouter.ai/qwen/qwen3.5-plus-02-15",
+      "status": "listed",
+      "missing": [
+        "model-tokenizer-mapping",
+        "task-evaluation",
+        "full-tier-audit"
+      ]
+    },
+    {
+      "id": "qwen--qwen3.5-397b-a17b",
+      "source": "https://openrouter.ai/qwen/qwen3.5-397b-a17b",
+      "status": "listed",
+      "missing": [
+        "model-tokenizer-mapping",
+        "task-evaluation",
+        "full-tier-audit"
+      ]
+    },
+    {
+      "id": "minimax--minimax-m2.5",
+      "source": "https://openrouter.ai/minimax/minimax-m2.5",
+      "status": "listed",
+      "missing": [
+        "model-tokenizer-mapping",
+        "task-evaluation",
+        "full-tier-audit"
+      ]
+    },
+    {
+      "id": "z-ai--glm-5",
+      "source": "https://openrouter.ai/z-ai/glm-5",
+      "status": "listed",
+      "missing": [
+        "model-tokenizer-mapping",
+        "task-evaluation",
+        "full-tier-audit"
+      ]
+    },
+    {
+      "id": "qwen--qwen3-max-thinking",
+      "source": "https://openrouter.ai/qwen/qwen3-max-thinking",
+      "status": "listed",
+      "missing": [
+        "model-tokenizer-mapping",
+        "task-evaluation",
+        "full-tier-audit"
+      ]
+    },
+    {
+      "id": "anthropic--claude-opus-4.6",
+      "source": "https://openrouter.ai/anthropic/claude-opus-4.6",
+      "status": "listed",
+      "missing": [
+        "model-tokenizer-mapping",
+        "task-evaluation",
+        "full-tier-audit"
+      ]
+    },
+    {
+      "id": "qwen--qwen3-coder-next",
+      "source": "https://openrouter.ai/qwen/qwen3-coder-next",
+      "status": "listed",
+      "missing": [
+        "model-tokenizer-mapping",
+        "task-evaluation",
+        "full-tier-audit"
+      ]
+    },
+    {
+      "id": "stepfun--step-3.5-flash",
+      "source": "https://openrouter.ai/stepfun/step-3.5-flash",
+      "status": "listed",
+      "missing": [
+        "model-tokenizer-mapping",
+        "task-evaluation",
+        "full-tier-audit"
+      ]
+    },
+    {
+      "id": "moonshotai--kimi-k2.5",
+      "source": "https://openrouter.ai/moonshotai/kimi-k2.5",
+      "status": "listed",
+      "missing": [
+        "model-tokenizer-mapping",
+        "task-evaluation",
+        "full-tier-audit"
+      ]
+    },
+    {
+      "id": "upstage--solar-pro-3",
+      "source": "https://openrouter.ai/upstage/solar-pro-3",
+      "status": "listed",
+      "missing": [
+        "model-tokenizer-mapping",
+        "task-evaluation",
+        "full-tier-audit"
+      ]
+    },
+    {
+      "id": "minimax--minimax-m2-her",
+      "source": "https://openrouter.ai/minimax/minimax-m2-her",
+      "status": "listed",
+      "missing": [
+        "model-tokenizer-mapping",
+        "task-evaluation",
+        "full-tier-audit"
+      ]
+    },
+    {
+      "id": "writer--palmyra-x5",
+      "source": "https://openrouter.ai/writer/palmyra-x5",
+      "status": "listed",
+      "missing": [
+        "model-tokenizer-mapping",
+        "task-evaluation",
+        "full-tier-audit"
+      ]
+    },
+    {
+      "id": "openai--gpt-audio",
+      "source": "https://openrouter.ai/openai/gpt-audio",
+      "status": "listed",
+      "missing": [
+        "model-tokenizer-mapping",
+        "task-evaluation",
+        "full-tier-audit"
+      ]
+    },
+    {
+      "id": "openai--gpt-audio-mini",
+      "source": "https://openrouter.ai/openai/gpt-audio-mini",
+      "status": "listed",
+      "missing": [
+        "model-tokenizer-mapping",
+        "task-evaluation",
+        "full-tier-audit"
+      ]
+    },
+    {
+      "id": "z-ai--glm-4.7-flash",
+      "source": "https://openrouter.ai/z-ai/glm-4.7-flash",
+      "status": "listed",
+      "missing": [
+        "model-tokenizer-mapping",
+        "task-evaluation",
+        "full-tier-audit"
+      ]
+    },
+    {
+      "id": "openai--gpt-5.2-codex",
+      "source": "https://openrouter.ai/openai/gpt-5.2-codex",
+      "status": "listed",
+      "missing": [
+        "model-tokenizer-mapping",
+        "task-evaluation",
+        "full-tier-audit"
+      ]
+    },
+    {
+      "id": "bytedance-seed--seed-1.6-flash",
+      "source": "https://openrouter.ai/bytedance-seed/seed-1.6-flash",
+      "status": "listed",
+      "missing": [
+        "model-tokenizer-mapping",
+        "task-evaluation",
+        "full-tier-audit"
+      ]
+    },
+    {
+      "id": "bytedance-seed--seed-1.6",
+      "source": "https://openrouter.ai/bytedance-seed/seed-1.6",
+      "status": "listed",
+      "missing": [
+        "model-tokenizer-mapping",
+        "task-evaluation",
+        "full-tier-audit"
+      ]
+    },
+    {
+      "id": "minimax--minimax-m2.1",
+      "source": "https://openrouter.ai/minimax/minimax-m2.1",
+      "status": "listed",
+      "missing": [
+        "model-tokenizer-mapping",
+        "task-evaluation",
+        "full-tier-audit"
+      ]
+    },
+    {
+      "id": "z-ai--glm-4.7",
+      "source": "https://openrouter.ai/z-ai/glm-4.7",
+      "status": "listed",
+      "missing": [
+        "model-tokenizer-mapping",
+        "task-evaluation",
+        "full-tier-audit"
+      ]
+    },
+    {
+      "id": "google--gemini-3-flash-preview",
+      "source": "https://openrouter.ai/google/gemini-3-flash-preview",
+      "status": "listed",
+      "missing": [
+        "model-tokenizer-mapping",
+        "task-evaluation",
+        "full-tier-audit"
+      ]
+    },
+    {
+      "id": "nvidia--nemotron-3-nano-30b-a3b",
+      "source": "https://openrouter.ai/nvidia/nemotron-3-nano-30b-a3b",
+      "status": "listed",
+      "missing": [
+        "model-tokenizer-mapping",
+        "task-evaluation",
+        "full-tier-audit"
+      ]
+    },
+    {
+      "id": "openai--gpt-5.2-chat",
+      "source": "https://openrouter.ai/openai/gpt-5.2-chat",
+      "status": "listed",
+      "missing": [
+        "model-tokenizer-mapping",
+        "task-evaluation",
+        "full-tier-audit"
+      ]
+    },
+    {
+      "id": "openai--gpt-5.2-pro",
+      "source": "https://openrouter.ai/openai/gpt-5.2-pro",
+      "status": "listed",
+      "missing": [
+        "model-tokenizer-mapping",
+        "task-evaluation",
+        "full-tier-audit"
+      ]
+    },
+    {
+      "id": "openai--gpt-5.2",
+      "source": "https://openrouter.ai/openai/gpt-5.2",
+      "status": "listed",
+      "missing": [
+        "model-tokenizer-mapping",
+        "task-evaluation",
+        "full-tier-audit"
+      ]
+    },
+    {
+      "id": "mistralai--devstral-2512",
+      "source": "https://openrouter.ai/mistralai/devstral-2512",
+      "status": "listed",
+      "missing": [
+        "model-tokenizer-mapping",
+        "task-evaluation",
+        "full-tier-audit"
+      ]
+    },
+    {
+      "id": "z-ai--glm-4.6v",
+      "source": "https://openrouter.ai/z-ai/glm-4.6v",
+      "status": "listed",
+      "missing": [
+        "model-tokenizer-mapping",
+        "task-evaluation",
+        "full-tier-audit"
+      ]
+    },
+    {
+      "id": "openai--gpt-5.1-codex-max",
+      "source": "https://openrouter.ai/openai/gpt-5.1-codex-max",
+      "status": "listed",
+      "missing": [
+        "model-tokenizer-mapping",
+        "task-evaluation",
+        "full-tier-audit"
+      ]
+    },
+    {
+      "id": "amazon--nova-2-lite-v1",
+      "source": "https://openrouter.ai/amazon/nova-2-lite-v1",
+      "status": "listed",
+      "missing": [
+        "model-tokenizer-mapping",
+        "task-evaluation",
+        "full-tier-audit"
+      ]
+    },
+    {
+      "id": "mistralai--ministral-14b-2512",
+      "source": "https://openrouter.ai/mistralai/ministral-14b-2512",
+      "status": "listed",
+      "missing": [
+        "model-tokenizer-mapping",
+        "task-evaluation",
+        "full-tier-audit"
+      ]
+    },
+    {
+      "id": "mistralai--ministral-8b-2512",
+      "source": "https://openrouter.ai/mistralai/ministral-8b-2512",
+      "status": "listed",
+      "missing": [
+        "model-tokenizer-mapping",
+        "task-evaluation",
+        "full-tier-audit"
+      ]
+    },
+    {
+      "id": "mistralai--ministral-3b-2512",
+      "source": "https://openrouter.ai/mistralai/ministral-3b-2512",
+      "status": "listed",
+      "missing": [
+        "model-tokenizer-mapping",
+        "task-evaluation",
+        "full-tier-audit"
+      ]
+    },
+    {
+      "id": "mistralai--mistral-large-2512",
+      "source": "https://openrouter.ai/mistralai/mistral-large-2512",
+      "status": "listed",
+      "missing": [
+        "model-tokenizer-mapping",
+        "task-evaluation",
+        "full-tier-audit"
+      ]
+    },
+    {
+      "id": "deepseek--deepseek-v3.2",
+      "source": "https://openrouter.ai/deepseek/deepseek-v3.2",
+      "status": "listed",
+      "missing": [
+        "model-tokenizer-mapping",
+        "task-evaluation",
+        "full-tier-audit"
+      ]
+    },
+    {
+      "id": "anthropic--claude-opus-4.5",
+      "source": "https://openrouter.ai/anthropic/claude-opus-4.5",
+      "status": "listed",
+      "missing": [
+        "model-tokenizer-mapping",
+        "task-evaluation",
+        "full-tier-audit"
+      ]
+    },
+    {
+      "id": "google--gemini-3-pro-image-preview",
+      "source": "https://openrouter.ai/google/gemini-3-pro-image-preview",
+      "status": "listed",
+      "missing": [
+        "model-tokenizer-mapping",
+        "task-evaluation",
+        "full-tier-audit"
+      ]
+    },
+    {
+      "id": "openai--gpt-5.1",
+      "source": "https://openrouter.ai/openai/gpt-5.1",
+      "status": "listed",
+      "missing": [
+        "model-tokenizer-mapping",
+        "task-evaluation",
+        "full-tier-audit"
+      ]
+    },
+    {
+      "id": "openai--gpt-5.1-codex",
+      "source": "https://openrouter.ai/openai/gpt-5.1-codex",
+      "status": "listed",
+      "missing": [
+        "model-tokenizer-mapping",
+        "task-evaluation",
+        "full-tier-audit"
+      ]
+    },
+    {
+      "id": "openai--gpt-5.1-codex-mini",
+      "source": "https://openrouter.ai/openai/gpt-5.1-codex-mini",
+      "status": "listed",
+      "missing": [
+        "model-tokenizer-mapping",
+        "task-evaluation",
+        "full-tier-audit"
+      ]
+    },
+    {
+      "id": "moonshotai--kimi-k2-thinking",
+      "source": "https://openrouter.ai/moonshotai/kimi-k2-thinking",
+      "status": "listed",
+      "missing": [
+        "model-tokenizer-mapping",
+        "task-evaluation",
+        "full-tier-audit"
+      ]
+    },
+    {
+      "id": "amazon--nova-premier-v1",
+      "source": "https://openrouter.ai/amazon/nova-premier-v1",
+      "status": "listed",
+      "missing": [
+        "model-tokenizer-mapping",
+        "task-evaluation",
+        "full-tier-audit"
+      ]
+    },
+    {
+      "id": "perplexity--sonar-pro-search",
+      "source": "https://openrouter.ai/perplexity/sonar-pro-search",
+      "status": "listed",
+      "missing": [
+        "model-tokenizer-mapping",
+        "task-evaluation",
+        "full-tier-audit"
+      ]
+    },
+    {
+      "id": "mistralai--voxtral-small-24b-2507",
+      "source": "https://openrouter.ai/mistralai/voxtral-small-24b-2507",
+      "status": "listed",
+      "missing": [
+        "model-tokenizer-mapping",
+        "task-evaluation",
+        "full-tier-audit"
+      ]
+    },
+    {
+      "id": "openai--gpt-oss-safeguard-20b",
+      "source": "https://openrouter.ai/openai/gpt-oss-safeguard-20b",
+      "status": "listed",
+      "missing": [
+        "model-tokenizer-mapping",
+        "task-evaluation",
+        "full-tier-audit"
+      ]
+    },
+    {
+      "id": "minimax--minimax-m2",
+      "source": "https://openrouter.ai/minimax/minimax-m2",
+      "status": "listed",
+      "missing": [
+        "model-tokenizer-mapping",
+        "task-evaluation",
+        "full-tier-audit"
+      ]
+    },
+    {
+      "id": "qwen--qwen3-vl-32b-instruct",
+      "source": "https://openrouter.ai/qwen/qwen3-vl-32b-instruct",
+      "status": "listed",
+      "missing": [
+        "model-tokenizer-mapping",
+        "task-evaluation",
+        "full-tier-audit"
+      ]
+    },
+    {
+      "id": "ibm-granite--granite-4.0-h-micro",
+      "source": "https://openrouter.ai/ibm-granite/granite-4.0-h-micro",
+      "status": "listed",
+      "missing": [
+        "model-tokenizer-mapping",
+        "task-evaluation",
+        "full-tier-audit"
+      ]
+    },
+    {
+      "id": "openai--gpt-5-image-mini",
+      "source": "https://openrouter.ai/openai/gpt-5-image-mini",
+      "status": "listed",
+      "missing": [
+        "model-tokenizer-mapping",
+        "task-evaluation",
+        "full-tier-audit"
+      ]
+    },
+    {
+      "id": "anthropic--claude-haiku-4.5",
+      "source": "https://openrouter.ai/anthropic/claude-haiku-4.5",
+      "status": "listed",
+      "missing": [
+        "model-tokenizer-mapping",
+        "task-evaluation",
+        "full-tier-audit"
+      ]
+    },
+    {
+      "id": "qwen--qwen3-vl-8b-thinking",
+      "source": "https://openrouter.ai/qwen/qwen3-vl-8b-thinking",
+      "status": "listed",
+      "missing": [
+        "model-tokenizer-mapping",
+        "task-evaluation",
+        "full-tier-audit"
+      ]
+    },
+    {
+      "id": "qwen--qwen3-vl-8b-instruct",
+      "source": "https://openrouter.ai/qwen/qwen3-vl-8b-instruct",
+      "status": "listed",
+      "missing": [
+        "model-tokenizer-mapping",
+        "task-evaluation",
+        "full-tier-audit"
+      ]
+    },
+    {
+      "id": "openai--gpt-5-image",
+      "source": "https://openrouter.ai/openai/gpt-5-image",
+      "status": "listed",
+      "missing": [
+        "model-tokenizer-mapping",
+        "task-evaluation",
+        "full-tier-audit"
+      ]
+    },
+    {
+      "id": "google--gemini-2.5-flash-image",
+      "source": "https://openrouter.ai/google/gemini-2.5-flash-image",
+      "status": "listed",
+      "missing": [
+        "model-tokenizer-mapping",
+        "task-evaluation",
+        "full-tier-audit"
+      ]
+    },
+    {
+      "id": "qwen--qwen3-vl-30b-a3b-thinking",
+      "source": "https://openrouter.ai/qwen/qwen3-vl-30b-a3b-thinking",
+      "status": "listed",
+      "missing": [
+        "model-tokenizer-mapping",
+        "task-evaluation",
+        "full-tier-audit"
+      ]
+    },
+    {
+      "id": "qwen--qwen3-vl-30b-a3b-instruct",
+      "source": "https://openrouter.ai/qwen/qwen3-vl-30b-a3b-instruct",
+      "status": "listed",
+      "missing": [
+        "model-tokenizer-mapping",
+        "task-evaluation",
+        "full-tier-audit"
+      ]
+    },
+    {
+      "id": "openai--gpt-5-pro",
+      "source": "https://openrouter.ai/openai/gpt-5-pro",
+      "status": "listed",
+      "missing": [
+        "model-tokenizer-mapping",
+        "task-evaluation",
+        "full-tier-audit"
+      ]
+    },
+    {
+      "id": "z-ai--glm-4.6",
+      "source": "https://openrouter.ai/z-ai/glm-4.6",
+      "status": "listed",
+      "missing": [
+        "model-tokenizer-mapping",
+        "task-evaluation",
+        "full-tier-audit"
+      ]
+    },
+    {
+      "id": "anthropic--claude-sonnet-4.5",
+      "source": "https://openrouter.ai/anthropic/claude-sonnet-4.5",
+      "status": "listed",
+      "missing": [
+        "model-tokenizer-mapping",
+        "task-evaluation",
+        "full-tier-audit"
+      ]
+    },
+    {
+      "id": "deepseek--deepseek-v3.2-exp",
+      "source": "https://openrouter.ai/deepseek/deepseek-v3.2-exp",
+      "status": "listed",
+      "missing": [
+        "model-tokenizer-mapping",
+        "task-evaluation",
+        "full-tier-audit"
+      ]
+    },
+    {
+      "id": "qwen--qwen3-vl-235b-a22b-thinking",
+      "source": "https://openrouter.ai/qwen/qwen3-vl-235b-a22b-thinking",
+      "status": "listed",
+      "missing": [
+        "model-tokenizer-mapping",
+        "task-evaluation",
+        "full-tier-audit"
+      ]
+    },
+    {
+      "id": "qwen--qwen3-vl-235b-a22b-instruct",
+      "source": "https://openrouter.ai/qwen/qwen3-vl-235b-a22b-instruct",
+      "status": "listed",
+      "missing": [
+        "model-tokenizer-mapping",
+        "task-evaluation",
+        "full-tier-audit"
+      ]
+    },
+    {
+      "id": "qwen--qwen3-max",
+      "source": "https://openrouter.ai/qwen/qwen3-max",
+      "status": "listed",
+      "missing": [
+        "model-tokenizer-mapping",
+        "task-evaluation",
+        "full-tier-audit"
+      ]
+    },
+    {
+      "id": "qwen--qwen3-coder-plus",
+      "source": "https://openrouter.ai/qwen/qwen3-coder-plus",
+      "status": "listed",
+      "missing": [
+        "model-tokenizer-mapping",
+        "task-evaluation",
+        "full-tier-audit"
+      ]
+    },
+    {
+      "id": "deepseek--deepseek-v3.1-terminus",
+      "source": "https://openrouter.ai/deepseek/deepseek-v3.1-terminus",
+      "status": "listed",
+      "missing": [
+        "model-tokenizer-mapping",
+        "task-evaluation",
+        "full-tier-audit"
+      ]
+    },
+    {
+      "id": "qwen--qwen3-coder-flash",
+      "source": "https://openrouter.ai/qwen/qwen3-coder-flash",
+      "status": "listed",
+      "missing": [
+        "model-tokenizer-mapping",
+        "task-evaluation",
+        "full-tier-audit"
+      ]
+    },
+    {
+      "id": "qwen--qwen3-next-80b-a3b-thinking",
+      "source": "https://openrouter.ai/qwen/qwen3-next-80b-a3b-thinking",
+      "status": "listed",
+      "missing": [
+        "model-tokenizer-mapping",
+        "task-evaluation",
+        "full-tier-audit"
+      ]
+    },
+    {
+      "id": "qwen--qwen3-next-80b-a3b-instruct",
+      "source": "https://openrouter.ai/qwen/qwen3-next-80b-a3b-instruct",
+      "status": "listed",
+      "missing": [
+        "model-tokenizer-mapping",
+        "task-evaluation",
+        "full-tier-audit"
+      ]
+    },
+    {
+      "id": "qwen--qwen-plus-2025-07-28",
+      "source": "https://openrouter.ai/qwen/qwen-plus-2025-07-28",
+      "status": "listed",
+      "missing": [
+        "model-tokenizer-mapping",
+        "task-evaluation",
+        "full-tier-audit"
+      ]
+    },
+    {
+      "id": "moonshotai--kimi-k2-0905",
+      "source": "https://openrouter.ai/moonshotai/kimi-k2-0905",
+      "status": "listed",
+      "missing": [
+        "model-tokenizer-mapping",
+        "task-evaluation",
+        "full-tier-audit"
+      ]
+    },
+    {
+      "id": "qwen--qwen3-30b-a3b-thinking-2507",
+      "source": "https://openrouter.ai/qwen/qwen3-30b-a3b-thinking-2507",
+      "status": "listed",
+      "missing": [
+        "model-tokenizer-mapping",
+        "task-evaluation",
+        "full-tier-audit"
+      ]
+    },
+    {
+      "id": "nousresearch--hermes-4-405b",
+      "source": "https://openrouter.ai/nousresearch/hermes-4-405b",
+      "status": "listed",
+      "missing": [
+        "model-tokenizer-mapping",
+        "task-evaluation",
+        "full-tier-audit"
+      ]
+    },
+    {
+      "id": "deepseek--deepseek-chat-v3.1",
+      "source": "https://openrouter.ai/deepseek/deepseek-chat-v3.1",
+      "status": "listed",
+      "missing": [
+        "model-tokenizer-mapping",
+        "task-evaluation",
+        "full-tier-audit"
+      ]
+    },
+    {
+      "id": "mistralai--mistral-medium-3.1",
+      "source": "https://openrouter.ai/mistralai/mistral-medium-3.1",
+      "status": "listed",
+      "missing": [
+        "model-tokenizer-mapping",
+        "task-evaluation",
+        "full-tier-audit"
+      ]
+    },
+    {
+      "id": "z-ai--glm-4.5v",
+      "source": "https://openrouter.ai/z-ai/glm-4.5v",
+      "status": "listed",
+      "missing": [
+        "model-tokenizer-mapping",
+        "task-evaluation",
+        "full-tier-audit"
+      ]
+    },
+    {
+      "id": "openai--gpt-5",
+      "source": "https://openrouter.ai/openai/gpt-5",
+      "status": "listed",
+      "missing": [
+        "model-tokenizer-mapping",
+        "task-evaluation",
+        "full-tier-audit"
+      ]
+    },
+    {
+      "id": "openai--gpt-5-mini",
+      "source": "https://openrouter.ai/openai/gpt-5-mini",
+      "status": "listed",
+      "missing": [
+        "model-tokenizer-mapping",
+        "task-evaluation",
+        "full-tier-audit"
+      ]
+    },
+    {
+      "id": "openai--gpt-5-nano",
+      "source": "https://openrouter.ai/openai/gpt-5-nano",
+      "status": "listed",
+      "missing": [
+        "model-tokenizer-mapping",
+        "task-evaluation",
+        "full-tier-audit"
+      ]
+    },
+    {
+      "id": "openai--gpt-oss-120b",
+      "source": "https://openrouter.ai/openai/gpt-oss-120b",
+      "status": "listed",
+      "missing": [
+        "model-tokenizer-mapping",
+        "task-evaluation",
+        "full-tier-audit"
+      ]
+    },
+    {
+      "id": "openai--gpt-oss-20b",
+      "source": "https://openrouter.ai/openai/gpt-oss-20b",
+      "status": "listed",
+      "missing": [
+        "model-tokenizer-mapping",
+        "task-evaluation",
+        "full-tier-audit"
+      ]
+    },
+    {
+      "id": "anthropic--claude-opus-4.1",
+      "source": "https://openrouter.ai/anthropic/claude-opus-4.1",
+      "status": "listed",
+      "missing": [
+        "model-tokenizer-mapping",
+        "task-evaluation",
+        "full-tier-audit"
+      ]
+    },
+    {
+      "id": "mistralai--codestral-2508",
+      "source": "https://openrouter.ai/mistralai/codestral-2508",
+      "status": "listed",
+      "missing": [
+        "model-tokenizer-mapping",
+        "task-evaluation",
+        "full-tier-audit"
+      ]
+    },
+    {
+      "id": "qwen--qwen3-coder-30b-a3b-instruct",
+      "source": "https://openrouter.ai/qwen/qwen3-coder-30b-a3b-instruct",
+      "status": "listed",
+      "missing": [
+        "model-tokenizer-mapping",
+        "task-evaluation",
+        "full-tier-audit"
+      ]
+    },
+    {
+      "id": "qwen--qwen3-30b-a3b-instruct-2507",
+      "source": "https://openrouter.ai/qwen/qwen3-30b-a3b-instruct-2507",
+      "status": "listed",
+      "missing": [
+        "model-tokenizer-mapping",
+        "task-evaluation",
+        "full-tier-audit"
+      ]
+    },
+    {
+      "id": "z-ai--glm-4.5",
+      "source": "https://openrouter.ai/z-ai/glm-4.5",
+      "status": "listed",
+      "missing": [
+        "model-tokenizer-mapping",
+        "task-evaluation",
+        "full-tier-audit"
+      ]
+    },
+    {
+      "id": "z-ai--glm-4.5-air",
+      "source": "https://openrouter.ai/z-ai/glm-4.5-air",
+      "status": "listed",
+      "missing": [
+        "model-tokenizer-mapping",
+        "task-evaluation",
+        "full-tier-audit"
+      ]
+    },
+    {
+      "id": "qwen--qwen3-235b-a22b-thinking-2507",
+      "source": "https://openrouter.ai/qwen/qwen3-235b-a22b-thinking-2507",
+      "status": "listed",
+      "missing": [
+        "model-tokenizer-mapping",
+        "task-evaluation",
+        "full-tier-audit"
+      ]
+    },
+    {
+      "id": "qwen--qwen3-coder",
+      "source": "https://openrouter.ai/qwen/qwen3-coder",
+      "status": "listed",
+      "missing": [
+        "model-tokenizer-mapping",
+        "task-evaluation",
+        "full-tier-audit"
+      ]
+    },
+    {
+      "id": "bytedance--ui-tars-1.5-7b",
+      "source": "https://openrouter.ai/bytedance/ui-tars-1.5-7b",
+      "status": "listed",
+      "missing": [
+        "model-tokenizer-mapping",
+        "task-evaluation",
+        "full-tier-audit"
+      ]
+    },
+    {
+      "id": "google--gemini-2.5-flash-lite",
+      "source": "https://openrouter.ai/google/gemini-2.5-flash-lite",
+      "status": "listed",
+      "missing": [
+        "model-tokenizer-mapping",
+        "task-evaluation",
+        "full-tier-audit"
+      ]
+    },
+    {
+      "id": "qwen--qwen3-235b-a22b-2507",
+      "source": "https://openrouter.ai/qwen/qwen3-235b-a22b-2507",
+      "status": "listed",
+      "missing": [
+        "model-tokenizer-mapping",
+        "task-evaluation",
+        "full-tier-audit"
+      ]
+    },
+    {
+      "id": "moonshotai--kimi-k2",
+      "source": "https://openrouter.ai/moonshotai/kimi-k2",
+      "status": "listed",
+      "missing": [
+        "model-tokenizer-mapping",
+        "task-evaluation",
+        "full-tier-audit"
+      ]
+    },
+    {
+      "id": "tencent--hunyuan-a13b-instruct",
+      "source": "https://openrouter.ai/tencent/hunyuan-a13b-instruct",
+      "status": "listed",
+      "missing": [
+        "model-tokenizer-mapping",
+        "task-evaluation",
+        "full-tier-audit"
+      ]
+    },
+    {
+      "id": "baidu--ernie-4.5-vl-424b-a47b",
+      "source": "https://openrouter.ai/baidu/ernie-4.5-vl-424b-a47b",
+      "status": "listed",
+      "missing": [
+        "model-tokenizer-mapping",
+        "task-evaluation",
+        "full-tier-audit"
+      ]
+    },
+    {
+      "id": "mistralai--mistral-small-3.2-24b-instruct",
+      "source": "https://openrouter.ai/mistralai/mistral-small-3.2-24b-instruct",
+      "status": "listed",
+      "missing": [
+        "model-tokenizer-mapping",
+        "task-evaluation",
+        "full-tier-audit"
+      ]
+    },
+    {
+      "id": "minimax--minimax-m1",
+      "source": "https://openrouter.ai/minimax/minimax-m1",
+      "status": "listed",
+      "missing": [
+        "model-tokenizer-mapping",
+        "task-evaluation",
+        "full-tier-audit"
+      ]
+    },
+    {
+      "id": "google--gemini-2.5-flash",
+      "source": "https://openrouter.ai/google/gemini-2.5-flash",
+      "status": "listed",
+      "missing": [
+        "model-tokenizer-mapping",
+        "task-evaluation",
+        "full-tier-audit"
+      ]
+    },
+    {
+      "id": "google--gemini-2.5-pro",
+      "source": "https://openrouter.ai/google/gemini-2.5-pro",
+      "status": "listed",
+      "missing": [
+        "model-tokenizer-mapping",
+        "task-evaluation",
+        "full-tier-audit"
+      ]
+    },
+    {
+      "id": "openai--o3-pro",
+      "source": "https://openrouter.ai/openai/o3-pro",
+      "status": "listed",
+      "missing": [
+        "model-tokenizer-mapping",
+        "task-evaluation",
+        "full-tier-audit"
+      ]
+    },
+    {
+      "id": "google--gemini-2.5-pro-preview",
+      "source": "https://openrouter.ai/google/gemini-2.5-pro-preview",
+      "status": "listed",
+      "missing": [
+        "model-tokenizer-mapping",
+        "task-evaluation",
+        "full-tier-audit"
+      ]
+    },
+    {
+      "id": "deepseek--deepseek-r1-0528",
+      "source": "https://openrouter.ai/deepseek/deepseek-r1-0528",
+      "status": "listed",
+      "missing": [
+        "model-tokenizer-mapping",
+        "task-evaluation",
+        "full-tier-audit"
+      ]
+    },
+    {
+      "id": "anthropic--claude-opus-4",
+      "source": "https://openrouter.ai/anthropic/claude-opus-4",
+      "status": "listed",
+      "missing": [
+        "model-tokenizer-mapping",
+        "task-evaluation",
+        "full-tier-audit"
+      ]
+    },
+    {
+      "id": "anthropic--claude-sonnet-4",
+      "source": "https://openrouter.ai/anthropic/claude-sonnet-4",
+      "status": "listed",
+      "missing": [
+        "model-tokenizer-mapping",
+        "task-evaluation",
+        "full-tier-audit"
+      ]
+    },
+    {
+      "id": "mistralai--mistral-medium-3",
+      "source": "https://openrouter.ai/mistralai/mistral-medium-3",
+      "status": "listed",
+      "missing": [
+        "model-tokenizer-mapping",
+        "task-evaluation",
+        "full-tier-audit"
+      ]
+    },
+    {
+      "id": "meta-llama--llama-guard-4-12b",
+      "source": "https://openrouter.ai/meta-llama/llama-guard-4-12b",
+      "status": "listed",
+      "missing": [
+        "model-tokenizer-mapping",
+        "task-evaluation",
+        "full-tier-audit"
+      ]
+    },
+    {
+      "id": "qwen--qwen3-30b-a3b",
+      "source": "https://openrouter.ai/qwen/qwen3-30b-a3b",
+      "status": "listed",
+      "missing": [
+        "model-tokenizer-mapping",
+        "task-evaluation",
+        "full-tier-audit"
+      ]
+    },
+    {
+      "id": "qwen--qwen3-8b",
+      "source": "https://openrouter.ai/qwen/qwen3-8b",
+      "status": "listed",
+      "missing": [
+        "model-tokenizer-mapping",
+        "task-evaluation",
+        "full-tier-audit"
+      ]
+    },
+    {
+      "id": "qwen--qwen3-14b",
+      "source": "https://openrouter.ai/qwen/qwen3-14b",
+      "status": "listed",
+      "missing": [
+        "model-tokenizer-mapping",
+        "task-evaluation",
+        "full-tier-audit"
+      ]
+    },
+    {
+      "id": "qwen--qwen3-32b",
+      "source": "https://openrouter.ai/qwen/qwen3-32b",
+      "status": "listed",
+      "missing": [
+        "model-tokenizer-mapping",
+        "task-evaluation",
+        "full-tier-audit"
+      ]
+    },
+    {
+      "id": "qwen--qwen3-235b-a22b",
+      "source": "https://openrouter.ai/qwen/qwen3-235b-a22b",
+      "status": "listed",
+      "missing": [
+        "model-tokenizer-mapping",
+        "task-evaluation",
+        "full-tier-audit"
+      ]
+    },
+    {
+      "id": "openai--o4-mini-high",
+      "source": "https://openrouter.ai/openai/o4-mini-high",
+      "status": "listed",
+      "missing": [
+        "model-tokenizer-mapping",
+        "task-evaluation",
+        "full-tier-audit"
+      ]
+    },
+    {
+      "id": "openai--o3",
+      "source": "https://openrouter.ai/openai/o3",
+      "status": "listed",
+      "missing": [
+        "model-tokenizer-mapping",
+        "task-evaluation",
+        "full-tier-audit"
+      ]
+    },
+    {
+      "id": "openai--o4-mini",
+      "source": "https://openrouter.ai/openai/o4-mini",
+      "status": "listed",
+      "missing": [
+        "model-tokenizer-mapping",
+        "task-evaluation",
+        "full-tier-audit"
+      ]
+    },
+    {
+      "id": "openai--gpt-4.1",
+      "source": "https://openrouter.ai/openai/gpt-4.1",
+      "status": "listed",
+      "missing": [
+        "model-tokenizer-mapping",
+        "task-evaluation",
+        "full-tier-audit"
+      ]
+    },
+    {
+      "id": "openai--gpt-4.1-mini",
+      "source": "https://openrouter.ai/openai/gpt-4.1-mini",
+      "status": "listed",
+      "missing": [
+        "model-tokenizer-mapping",
+        "task-evaluation",
+        "full-tier-audit"
+      ]
+    },
+    {
+      "id": "openai--gpt-4.1-nano",
+      "source": "https://openrouter.ai/openai/gpt-4.1-nano",
+      "status": "listed",
+      "missing": [
+        "model-tokenizer-mapping",
+        "task-evaluation",
+        "full-tier-audit"
+      ]
+    },
+    {
+      "id": "meta-llama--llama-4-maverick",
+      "source": "https://openrouter.ai/meta-llama/llama-4-maverick",
+      "status": "listed",
+      "missing": [
+        "model-tokenizer-mapping",
+        "task-evaluation",
+        "full-tier-audit"
+      ]
+    },
+    {
+      "id": "meta-llama--llama-4-scout",
+      "source": "https://openrouter.ai/meta-llama/llama-4-scout",
+      "status": "listed",
+      "missing": [
+        "model-tokenizer-mapping",
+        "task-evaluation",
+        "full-tier-audit"
+      ]
+    },
+    {
+      "id": "deepseek--deepseek-chat-v3-0324",
+      "source": "https://openrouter.ai/deepseek/deepseek-chat-v3-0324",
+      "status": "listed",
+      "missing": [
+        "model-tokenizer-mapping",
+        "task-evaluation",
+        "full-tier-audit"
+      ]
+    },
+    {
+      "id": "openai--o1-pro",
+      "source": "https://openrouter.ai/openai/o1-pro",
+      "status": "listed",
+      "missing": [
+        "model-tokenizer-mapping",
+        "task-evaluation",
+        "full-tier-audit"
+      ]
+    },
+    {
+      "id": "mistralai--mistral-small-3.1-24b-instruct",
+      "source": "https://openrouter.ai/mistralai/mistral-small-3.1-24b-instruct",
+      "status": "listed",
+      "missing": [
+        "model-tokenizer-mapping",
+        "task-evaluation",
+        "full-tier-audit"
+      ]
+    },
+    {
+      "id": "google--gemma-3-4b-it",
+      "source": "https://openrouter.ai/google/gemma-3-4b-it",
+      "status": "listed",
+      "missing": [
+        "model-tokenizer-mapping",
+        "task-evaluation",
+        "full-tier-audit"
+      ]
+    },
+    {
+      "id": "google--gemma-3-12b-it",
+      "source": "https://openrouter.ai/google/gemma-3-12b-it",
+      "status": "listed",
+      "missing": [
+        "model-tokenizer-mapping",
+        "task-evaluation",
+        "full-tier-audit"
+      ]
+    },
+    {
+      "id": "cohere--command-a",
+      "source": "https://openrouter.ai/cohere/command-a",
+      "status": "listed",
+      "missing": [
+        "model-tokenizer-mapping",
+        "task-evaluation",
+        "full-tier-audit"
+      ]
+    },
+    {
+      "id": "rekaai--reka-flash-3",
+      "source": "https://openrouter.ai/rekaai/reka-flash-3",
+      "status": "listed",
+      "missing": [
+        "model-tokenizer-mapping",
+        "task-evaluation",
+        "full-tier-audit"
+      ]
+    },
+    {
+      "id": "google--gemma-3-27b-it",
+      "source": "https://openrouter.ai/google/gemma-3-27b-it",
+      "status": "listed",
+      "missing": [
+        "model-tokenizer-mapping",
+        "task-evaluation",
+        "full-tier-audit"
+      ]
+    },
+    {
+      "id": "perplexity--sonar-reasoning-pro",
+      "source": "https://openrouter.ai/perplexity/sonar-reasoning-pro",
+      "status": "listed",
+      "missing": [
+        "model-tokenizer-mapping",
+        "task-evaluation",
+        "full-tier-audit"
+      ]
+    },
+    {
+      "id": "perplexity--sonar-pro",
+      "source": "https://openrouter.ai/perplexity/sonar-pro",
+      "status": "listed",
+      "missing": [
+        "model-tokenizer-mapping",
+        "task-evaluation",
+        "full-tier-audit"
+      ]
+    },
+    {
+      "id": "perplexity--sonar-deep-research",
+      "source": "https://openrouter.ai/perplexity/sonar-deep-research",
+      "status": "listed",
+      "missing": [
+        "model-tokenizer-mapping",
+        "task-evaluation",
+        "full-tier-audit"
+      ]
+    },
+    {
+      "id": "mistralai--mistral-saba",
+      "source": "https://openrouter.ai/mistralai/mistral-saba",
+      "status": "listed",
+      "missing": [
+        "model-tokenizer-mapping",
+        "task-evaluation",
+        "full-tier-audit"
+      ]
+    },
+    {
+      "id": "openai--o3-mini-high",
+      "source": "https://openrouter.ai/openai/o3-mini-high",
+      "status": "listed",
+      "missing": [
+        "model-tokenizer-mapping",
+        "task-evaluation",
+        "full-tier-audit"
+      ]
+    },
+    {
+      "id": "aion-labs--aion-rp-llama-3.1-8b",
+      "source": "https://openrouter.ai/aion-labs/aion-rp-llama-3.1-8b",
+      "status": "listed",
+      "missing": [
+        "model-tokenizer-mapping",
+        "task-evaluation",
+        "full-tier-audit"
+      ]
+    },
+    {
+      "id": "qwen--qwen2.5-vl-72b-instruct",
+      "source": "https://openrouter.ai/qwen/qwen2.5-vl-72b-instruct",
+      "status": "listed",
+      "missing": [
+        "model-tokenizer-mapping",
+        "task-evaluation",
+        "full-tier-audit"
+      ]
+    },
+    {
+      "id": "qwen--qwen-plus",
+      "source": "https://openrouter.ai/qwen/qwen-plus",
+      "status": "listed",
+      "missing": [
+        "model-tokenizer-mapping",
+        "task-evaluation",
+        "full-tier-audit"
+      ]
+    },
+    {
+      "id": "openai--o3-mini",
+      "source": "https://openrouter.ai/openai/o3-mini",
+      "status": "listed",
+      "missing": [
+        "model-tokenizer-mapping",
+        "task-evaluation",
+        "full-tier-audit"
+      ]
+    },
+    {
+      "id": "mistralai--mistral-small-24b-instruct-2501",
+      "source": "https://openrouter.ai/mistralai/mistral-small-24b-instruct-2501",
+      "status": "listed",
+      "missing": [
+        "model-tokenizer-mapping",
+        "task-evaluation",
+        "full-tier-audit"
+      ]
+    },
+    {
+      "id": "perplexity--sonar",
+      "source": "https://openrouter.ai/perplexity/sonar",
+      "status": "listed",
+      "missing": [
+        "model-tokenizer-mapping",
+        "task-evaluation",
+        "full-tier-audit"
+      ]
+    },
+    {
+      "id": "deepseek--deepseek-r1-distill-llama-70b",
+      "source": "https://openrouter.ai/deepseek/deepseek-r1-distill-llama-70b",
+      "status": "listed",
+      "missing": [
+        "model-tokenizer-mapping",
+        "task-evaluation",
+        "full-tier-audit"
+      ]
+    },
+    {
+      "id": "deepseek--deepseek-r1",
+      "source": "https://openrouter.ai/deepseek/deepseek-r1",
+      "status": "listed",
+      "missing": [
+        "model-tokenizer-mapping",
+        "task-evaluation",
+        "full-tier-audit"
+      ]
+    },
+    {
+      "id": "minimax--minimax-01",
+      "source": "https://openrouter.ai/minimax/minimax-01",
+      "status": "listed",
+      "missing": [
+        "model-tokenizer-mapping",
+        "task-evaluation",
+        "full-tier-audit"
+      ]
+    },
+    {
+      "id": "microsoft--phi-4",
+      "source": "https://openrouter.ai/microsoft/phi-4",
+      "status": "listed",
+      "missing": [
+        "model-tokenizer-mapping",
+        "task-evaluation",
+        "full-tier-audit"
+      ]
+    },
+    {
+      "id": "deepseek--deepseek-chat",
+      "source": "https://openrouter.ai/deepseek/deepseek-chat",
+      "status": "listed",
+      "missing": [
+        "model-tokenizer-mapping",
+        "task-evaluation",
+        "full-tier-audit"
+      ]
+    },
+    {
+      "id": "openai--o1",
+      "source": "https://openrouter.ai/openai/o1",
+      "status": "listed",
+      "missing": [
+        "model-tokenizer-mapping",
+        "task-evaluation",
+        "full-tier-audit"
+      ]
+    },
+    {
+      "id": "cohere--command-r7b-12-2024",
+      "source": "https://openrouter.ai/cohere/command-r7b-12-2024",
+      "status": "listed",
+      "missing": [
+        "model-tokenizer-mapping",
+        "task-evaluation",
+        "full-tier-audit"
+      ]
+    },
+    {
+      "id": "meta-llama--llama-3.3-70b-instruct",
+      "source": "https://openrouter.ai/meta-llama/llama-3.3-70b-instruct",
+      "status": "listed",
+      "missing": [
+        "model-tokenizer-mapping",
+        "task-evaluation",
+        "full-tier-audit"
+      ]
+    },
+    {
+      "id": "amazon--nova-lite-v1",
+      "source": "https://openrouter.ai/amazon/nova-lite-v1",
+      "status": "listed",
+      "missing": [
+        "model-tokenizer-mapping",
+        "task-evaluation",
+        "full-tier-audit"
+      ]
+    },
+    {
+      "id": "amazon--nova-micro-v1",
+      "source": "https://openrouter.ai/amazon/nova-micro-v1",
+      "status": "listed",
+      "missing": [
+        "model-tokenizer-mapping",
+        "task-evaluation",
+        "full-tier-audit"
+      ]
+    },
+    {
+      "id": "amazon--nova-pro-v1",
+      "source": "https://openrouter.ai/amazon/nova-pro-v1",
+      "status": "listed",
+      "missing": [
+        "model-tokenizer-mapping",
+        "task-evaluation",
+        "full-tier-audit"
+      ]
+    },
+    {
+      "id": "openai--gpt-4o-2024-11-20",
+      "source": "https://openrouter.ai/openai/gpt-4o-2024-11-20",
+      "status": "listed",
+      "missing": [
+        "model-tokenizer-mapping",
+        "task-evaluation",
+        "full-tier-audit"
+      ]
+    },
+    {
+      "id": "mistralai--mistral-large-2407",
+      "source": "https://openrouter.ai/mistralai/mistral-large-2407",
+      "status": "listed",
+      "missing": [
+        "model-tokenizer-mapping",
+        "task-evaluation",
+        "full-tier-audit"
+      ]
+    },
+    {
+      "id": "qwen--qwen-2.5-coder-32b-instruct",
+      "source": "https://openrouter.ai/qwen/qwen-2.5-coder-32b-instruct",
+      "status": "listed",
+      "missing": [
+        "model-tokenizer-mapping",
+        "task-evaluation",
+        "full-tier-audit"
+      ]
+    },
+    {
+      "id": "qwen--qwen-2.5-7b-instruct",
+      "source": "https://openrouter.ai/qwen/qwen-2.5-7b-instruct",
+      "status": "listed",
+      "missing": [
+        "model-tokenizer-mapping",
+        "task-evaluation",
+        "full-tier-audit"
+      ]
+    },
+    {
+      "id": "meta-llama--llama-3.2-1b-instruct",
+      "source": "https://openrouter.ai/meta-llama/llama-3.2-1b-instruct",
+      "status": "listed",
+      "missing": [
+        "model-tokenizer-mapping",
+        "task-evaluation",
+        "full-tier-audit"
+      ]
+    },
+    {
+      "id": "meta-llama--llama-3.2-3b-instruct",
+      "source": "https://openrouter.ai/meta-llama/llama-3.2-3b-instruct",
+      "status": "listed",
+      "missing": [
+        "model-tokenizer-mapping",
+        "task-evaluation",
+        "full-tier-audit"
+      ]
+    },
+    {
+      "id": "qwen--qwen-2.5-72b-instruct",
+      "source": "https://openrouter.ai/qwen/qwen-2.5-72b-instruct",
+      "status": "listed",
+      "missing": [
+        "model-tokenizer-mapping",
+        "task-evaluation",
+        "full-tier-audit"
+      ]
+    },
+    {
+      "id": "cohere--command-r-08-2024",
+      "source": "https://openrouter.ai/cohere/command-r-08-2024",
+      "status": "listed",
+      "missing": [
+        "model-tokenizer-mapping",
+        "task-evaluation",
+        "full-tier-audit"
+      ]
+    },
+    {
+      "id": "cohere--command-r-plus-08-2024",
+      "source": "https://openrouter.ai/cohere/command-r-plus-08-2024",
+      "status": "listed",
+      "missing": [
+        "model-tokenizer-mapping",
+        "task-evaluation",
+        "full-tier-audit"
+      ]
+    },
+    {
+      "id": "nousresearch--hermes-3-llama-3.1-70b",
+      "source": "https://openrouter.ai/nousresearch/hermes-3-llama-3.1-70b",
+      "status": "listed",
+      "missing": [
+        "model-tokenizer-mapping",
+        "task-evaluation",
+        "full-tier-audit"
+      ]
+    },
+    {
+      "id": "nousresearch--hermes-3-llama-3.1-405b",
+      "source": "https://openrouter.ai/nousresearch/hermes-3-llama-3.1-405b",
+      "status": "listed",
+      "missing": [
+        "model-tokenizer-mapping",
+        "task-evaluation",
+        "full-tier-audit"
+      ]
+    },
+    {
+      "id": "openai--gpt-4o-2024-08-06",
+      "source": "https://openrouter.ai/openai/gpt-4o-2024-08-06",
+      "status": "listed",
+      "missing": [
+        "model-tokenizer-mapping",
+        "task-evaluation",
+        "full-tier-audit"
+      ]
+    },
+    {
+      "id": "meta-llama--llama-3.1-70b-instruct",
+      "source": "https://openrouter.ai/meta-llama/llama-3.1-70b-instruct",
+      "status": "listed",
+      "missing": [
+        "model-tokenizer-mapping",
+        "task-evaluation",
+        "full-tier-audit"
+      ]
+    },
+    {
+      "id": "meta-llama--llama-3.1-8b-instruct",
+      "source": "https://openrouter.ai/meta-llama/llama-3.1-8b-instruct",
+      "status": "listed",
+      "missing": [
+        "model-tokenizer-mapping",
+        "task-evaluation",
+        "full-tier-audit"
+      ]
+    },
+    {
+      "id": "mistralai--mistral-nemo",
+      "source": "https://openrouter.ai/mistralai/mistral-nemo",
+      "status": "listed",
+      "missing": [
+        "model-tokenizer-mapping",
+        "task-evaluation",
+        "full-tier-audit"
+      ]
+    },
+    {
+      "id": "openai--gpt-4o-mini",
+      "source": "https://openrouter.ai/openai/gpt-4o-mini",
+      "status": "listed",
+      "missing": [
+        "model-tokenizer-mapping",
+        "task-evaluation",
+        "full-tier-audit"
+      ]
+    },
+    {
+      "id": "openai--gpt-4o-mini-2024-07-18",
+      "source": "https://openrouter.ai/openai/gpt-4o-mini-2024-07-18",
+      "status": "listed",
+      "missing": [
+        "model-tokenizer-mapping",
+        "task-evaluation",
+        "full-tier-audit"
+      ]
+    },
+    {
+      "id": "google--gemma-2-27b-it",
+      "source": "https://openrouter.ai/google/gemma-2-27b-it",
+      "status": "listed",
+      "missing": [
+        "model-tokenizer-mapping",
+        "task-evaluation",
+        "full-tier-audit"
+      ]
+    },
+    {
+      "id": "openai--gpt-4o",
+      "source": "https://openrouter.ai/openai/gpt-4o",
+      "status": "listed",
+      "missing": [
+        "model-tokenizer-mapping",
+        "task-evaluation",
+        "full-tier-audit"
+      ]
+    },
+    {
+      "id": "openai--gpt-4o-2024-05-13",
+      "source": "https://openrouter.ai/openai/gpt-4o-2024-05-13",
+      "status": "listed",
+      "missing": [
+        "model-tokenizer-mapping",
+        "task-evaluation",
+        "full-tier-audit"
+      ]
+    },
+    {
+      "id": "mistralai--mixtral-8x22b-instruct",
+      "source": "https://openrouter.ai/mistralai/mixtral-8x22b-instruct",
+      "status": "listed",
+      "missing": [
+        "model-tokenizer-mapping",
+        "task-evaluation",
+        "full-tier-audit"
+      ]
+    },
+    {
+      "id": "microsoft--wizardlm-2-8x22b",
+      "source": "https://openrouter.ai/microsoft/wizardlm-2-8x22b",
+      "status": "listed",
+      "missing": [
+        "model-tokenizer-mapping",
+        "task-evaluation",
+        "full-tier-audit"
+      ]
+    },
+    {
+      "id": "openai--gpt-4-turbo",
+      "source": "https://openrouter.ai/openai/gpt-4-turbo",
+      "status": "listed",
+      "missing": [
+        "model-tokenizer-mapping",
+        "task-evaluation",
+        "full-tier-audit"
+      ]
+    },
+    {
+      "id": "anthropic--claude-3-haiku",
+      "source": "https://openrouter.ai/anthropic/claude-3-haiku",
+      "status": "listed",
+      "missing": [
+        "model-tokenizer-mapping",
+        "task-evaluation",
+        "full-tier-audit"
+      ]
+    },
+    {
+      "id": "mistralai--mistral-large",
+      "source": "https://openrouter.ai/mistralai/mistral-large",
+      "status": "listed",
+      "missing": [
+        "model-tokenizer-mapping",
+        "task-evaluation",
+        "full-tier-audit"
+      ]
+    },
+    {
+      "id": "openai--gpt-3.5-turbo-0613",
+      "source": "https://openrouter.ai/openai/gpt-3.5-turbo-0613",
+      "status": "listed",
+      "missing": [
+        "model-tokenizer-mapping",
+        "task-evaluation",
+        "full-tier-audit"
+      ]
+    },
+    {
+      "id": "openai--gpt-3.5-turbo-instruct",
+      "source": "https://openrouter.ai/openai/gpt-3.5-turbo-instruct",
+      "status": "listed",
+      "missing": [
+        "model-tokenizer-mapping",
+        "task-evaluation",
+        "full-tier-audit"
+      ]
+    },
+    {
+      "id": "openai--gpt-3.5-turbo-16k",
+      "source": "https://openrouter.ai/openai/gpt-3.5-turbo-16k",
+      "status": "listed",
+      "missing": [
+        "model-tokenizer-mapping",
+        "task-evaluation",
+        "full-tier-audit"
+      ]
+    },
+    {
+      "id": "openai--gpt-3.5-turbo",
+      "source": "https://openrouter.ai/openai/gpt-3.5-turbo",
+      "status": "listed",
+      "missing": [
+        "model-tokenizer-mapping",
+        "task-evaluation",
+        "full-tier-audit"
+      ]
+    },
+    {
+      "id": "openai--gpt-4",
+      "source": "https://openrouter.ai/openai/gpt-4",
+      "status": "listed",
+      "missing": [
+        "model-tokenizer-mapping",
+        "task-evaluation",
+        "full-tier-audit"
+      ]
+    },
+    {
+      "id": "ai21--jamba-1.6-large",
+      "source": "https://docs.ai21.com/docs/jamba-foundation-models",
+      "status": "pending",
+      "missing": [
+        "model-tokenizer-mapping",
+        "task-evaluation",
+        "price"
+      ]
+    },
+    {
+      "id": "ai21--jamba-1.6-mini",
+      "source": "https://docs.ai21.com/docs/jamba-foundation-models",
+      "status": "pending",
+      "missing": [
+        "model-tokenizer-mapping",
+        "task-evaluation",
+        "price"
+      ]
+    },
+    {
+      "id": "baichuan--baichuan4-air",
+      "source": "https://platform.baichuan-ai.com/homePage",
+      "status": "pending",
+      "missing": [
+        "model-tokenizer-mapping",
+        "task-evaluation",
+        "price"
+      ]
+    },
+    {
+      "id": "baichuan--baichuan4-turbo",
+      "source": "https://platform.baichuan-ai.com/homePage",
+      "status": "pending",
+      "missing": [
+        "model-tokenizer-mapping",
+        "task-evaluation",
+        "price"
+      ]
+    },
+    {
+      "id": "iflytek--spark-x2",
+      "source": "https://www.xfyun.cn/doc/spark/X1ws.html",
+      "status": "listed",
+      "missing": [
+        "model-tokenizer-mapping",
+        "task-evaluation",
+        "price"
+      ]
+    },
+    {
+      "id": "iflytek--spark-x2-5",
+      "source": "https://spark.xfyun.cn/",
+      "status": "listed",
+      "missing": [
+        "model-tokenizer-mapping",
+        "task-evaluation",
+        "price"
+      ]
+    },
+    {
+      "id": "iflytek--spark-x2-flash",
+      "source": "https://xinghuo.xfyun.cn/sparkapi",
+      "status": "listed",
+      "missing": [
+        "model-tokenizer-mapping",
+        "task-evaluation",
+        "price"
+      ]
+    },
+    {
+      "id": "lg--k-exaone-2",
+      "source": "https://arxiv.org/abs/2608.04505",
+      "status": "listed",
+      "missing": [
+        "model-tokenizer-mapping",
+        "task-evaluation",
+        "price"
+      ]
+    },
+    {
+      "id": "sensenova--6-8-flash-lite",
+      "source": "https://www.sensenova.cn/models",
+      "status": "listed",
+      "missing": [
+        "model-tokenizer-mapping",
+        "task-evaluation",
+        "price"
+      ]
+    },
+    {
+      "id": "yi--yi-lightning",
+      "source": "https://arxiv.org/abs/2412.01253",
+      "status": "pending",
+      "missing": [
+        "model-tokenizer-mapping",
+        "task-evaluation",
+        "price"
+      ]
+    }
+  ]
+}

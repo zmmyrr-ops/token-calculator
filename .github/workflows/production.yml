@@ -1,0 +1,38 @@
+name: Publish production
+on:
+  workflow_dispatch:
+    inputs:
+      release:
+        description: 'Full 40-character commit SHA already verified in staging'
+        required: true
+        type: string
+permissions:
+  contents: read
+concurrency:
+  group: mendao-production
+  cancel-in-progress: false
+jobs:
+  publish:
+    if: github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          persist-credentials: false
+      - name: Promote the exact staging images (or roll back to a verified release)
+        env:
+          RELEASE: ${{ inputs.release }}
+          DEPLOY_KEY: ${{ secrets.ECS_PRODUCTION_KEY }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          [[ "$RELEASE" =~ ^[a-f0-9]{40}$ ]] || exit 2
+          test -n "$DEPLOY_KEY" || { echo 'Configure ECS_PRODUCTION_KEY first'; exit 1; }
+          key="$RUNNER_TEMP/ecs-production-key"
+          umask 077
+          printf '%s\n' "$DEPLOY_KEY" > "$key"
+          unset DEPLOY_KEY
+          trap 'rm -f "$key"' EXIT
+          ssh -i "$key" -o IdentitiesOnly=yes -o BatchMode=yes -o StrictHostKeyChecking=yes -o UserKnownHostsFile=deploy/ecs/known_hosts -o ConnectTimeout=15 root@8.145.52.220 "deploy $RELEASE"
+          curl --fail --silent --show-error --retry 3 https://ruming.top/api/health/ready

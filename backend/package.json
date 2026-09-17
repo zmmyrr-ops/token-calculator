@@ -1,0 +1,17 @@
+{
+  "name": "@ruming/backend",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "tsx watch src/server.ts",
+    "build": "node ../scripts/build-backend.mjs",
+    "start": "node dist/server.mjs"
+  },
+  "dependencies": {
+    "express": "5.2.1",
+    "rss-parser": "^3.13.0"
+  },
+  "devDependencies": {
+    "@types/express": "^5.0.6"
+  }
+}

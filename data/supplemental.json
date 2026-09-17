@@ -1,0 +1,223 @@
+[
+  {
+    "id": "iflytek--spark-x2",
+    "canonicalId": "iflytek/spark-x2",
+    "name": "Spark X2",
+    "provider": "iflytek",
+    "providerName": "讯飞星火",
+    "description": "官方公开的星火深度推理模型。价格、完整上下文约束与模式枚举需进一步核验。",
+    "context": null,
+    "maxOutput": null,
+    "reasoning": true,
+    "modes": [
+      "default"
+    ],
+    "modality": [
+      "text"
+    ],
+    "source": "https://www.xfyun.cn/doc/spark/X1ws.html",
+    "checkedAt": "2026-09-16T00:00:00Z",
+    "channel": "官方资料",
+    "access": "api",
+    "status": "listed"
+  },
+  {
+    "id": "iflytek--spark-x2-flash",
+    "canonicalId": "iflytek/spark-x2-flash",
+    "name": "Spark X2 Flash",
+    "provider": "iflytek",
+    "providerName": "讯飞星火",
+    "description": "星火官网列出的高性价比模型，尚未核验完整计费规则。",
+    "context": null,
+    "maxOutput": null,
+    "reasoning": true,
+    "modes": [
+      "default"
+    ],
+    "modality": [
+      "text"
+    ],
+    "source": "https://xinghuo.xfyun.cn/sparkapi",
+    "checkedAt": "2026-09-16T00:00:00Z",
+    "channel": "官方资料",
+    "access": "api",
+    "status": "listed"
+  },
+  {
+    "id": "iflytek--spark-x2-5",
+    "canonicalId": "iflytek/spark-x2.5",
+    "name": "Spark X2.5",
+    "provider": "iflytek",
+    "providerName": "讯飞星火",
+    "description": "星火网页展示的深度推理模型。网页模式不能直接换算 API 单价。",
+    "context": null,
+    "maxOutput": null,
+    "reasoning": true,
+    "modes": [
+      "default"
+    ],
+    "modality": [
+      "text"
+    ],
+    "source": "https://spark.xfyun.cn/",
+    "checkedAt": "2026-09-16T00:00:00Z",
+    "channel": "星火网页",
+    "access": "web-only",
+    "status": "listed"
+  },
+  {
+    "id": "sensenova--6-8-flash-lite",
+    "canonicalId": "sensenova/6.8-flash-lite",
+    "name": "SenseNova 6.8 Flash Lite",
+    "provider": "sensenova",
+    "providerName": "商汤日日新",
+    "description": "商汤官方模型页列出的多模态智能体模型。尚未核验可计费渠道。",
+    "context": null,
+    "maxOutput": null,
+    "reasoning": true,
+    "modes": [
+      "default"
+    ],
+    "modality": [
+      "text",
+      "image"
+    ],
+    "source": "https://www.sensenova.cn/models",
+    "checkedAt": "2026-09-16T00:00:00Z",
+    "channel": "官方资料",
+    "access": "restricted",
+    "status": "listed"
+  },
+  {
+    "id": "lg--k-exaone-2",
+    "canonicalId": "lg/k-exaone-2",
+    "name": "K-EXAONE 2.0",
+    "provider": "lg",
+    "providerName": "LG EXAONE",
+    "description": "LG AI Research 技术报告公开的多语言开放权重模型。权重开放不等于推理免费。",
+    "context": null,
+    "maxOutput": null,
+    "reasoning": true,
+    "modes": [
+      "default"
+    ],
+    "modality": [
+      "text"
+    ],
+    "source": "https://arxiv.org/abs/2608.04505",
+    "checkedAt": "2026-09-16T00:00:00Z",
+    "channel": "开放权重",
+    "access": "weights",
+    "status": "listed"
+  },
+  {
+    "id": "baichuan--baichuan4-turbo",
+    "canonicalId": "baichuan/baichuan4-turbo",
+    "name": "Baichuan4-Turbo",
+    "provider": "baichuan",
+    "providerName": "百川智能",
+    "description": "公开资料收录。当前访问、精确分词映射、模式与计费字段仍需核验，不参与自动费用排名。",
+    "context": null,
+    "maxOutput": null,
+    "reasoning": false,
+    "modes": [
+      "default"
+    ],
+    "modality": [
+      "text"
+    ],
+    "source": "https://platform.baichuan-ai.com/homePage",
+    "checkedAt": "2026-09-16T00:00:00Z",
+    "channel": "官方资料",
+    "access": "api",
+    "status": "pending"
+  },
+  {
+    "id": "baichuan--baichuan4-air",
+    "canonicalId": "baichuan/baichuan4-air",
+    "name": "Baichuan4-Air",
+    "provider": "baichuan",
+    "providerName": "百川智能",
+    "description": "公开资料收录。当前访问、精确分词映射、模式与计费字段仍需核验，不参与自动费用排名。",
+    "context": null,
+    "maxOutput": null,
+    "reasoning": false,
+    "modes": [
+      "default"
+    ],
+    "modality": [
+      "text"
+    ],
+    "source": "https://platform.baichuan-ai.com/homePage",
+    "checkedAt": "2026-09-16T00:00:00Z",
+    "channel": "官方资料",
+    "access": "api",
+    "status": "pending"
+  },
+  {
+    "id": "yi--yi-lightning",
+    "canonicalId": "yi/yi-lightning",
+    "name": "Yi-Lightning",
+    "provider": "yi",
+    "providerName": "零一万物 Yi",
+    "description": "公开资料收录。当前访问、精确分词映射、模式与计费字段仍需核验，不参与自动费用排名。",
+    "context": null,
+    "maxOutput": null,
+    "reasoning": false,
+    "modes": [
+      "default"
+    ],
+    "modality": [
+      "text"
+    ],
+    "source": "https://arxiv.org/abs/2412.01253",
+    "checkedAt": "2026-09-16T00:00:00Z",
+    "channel": "官方资料",
+    "access": "restricted",
+    "status": "pending"
+  },
+  {
+    "id": "ai21--jamba-1.6-large",
+    "canonicalId": "ai21/jamba-1.6-large",
+    "name": "Jamba 1.6 Large",
+    "provider": "ai21",
+    "providerName": "AI21 Jamba",
+    "description": "公开资料收录。当前访问、精确分词映射、模式与计费字段仍需核验，不参与自动费用排名。",
+    "context": null,
+    "maxOutput": null,
+    "reasoning": false,
+    "modes": [
+      "default"
+    ],
+    "modality": [
+      "text"
+    ],
+    "source": "https://docs.ai21.com/docs/jamba-foundation-models",
+    "checkedAt": "2026-09-16T00:00:00Z",
+    "channel": "官方资料",
+    "access": "api",
+    "status": "pending"
+  },
+  {
+    "id": "ai21--jamba-1.6-mini",
+    "canonicalId": "ai21/jamba-1.6-mini",
+    "name": "Jamba 1.6 Mini",
+    "provider": "ai21",
+    "providerName": "AI21 Jamba",
+    "description": "公开资料收录。当前访问、精确分词映射、模式与计费字段仍需核验，不参与自动费用排名。",
+    "context": null,
+    "maxOutput": null,
+    "reasoning": false,
+    "modes": [
+      "default"
+    ],
+    "modality": [
+      "text"
+    ],
+    "source": "https://docs.ai21.com/docs/jamba-foundation-models",
+    "checkedAt": "2026-09-16T00:00:00Z",
+    "channel": "官方资料",
+    "access": "api",
+    "status": "pending"
+  }
+]

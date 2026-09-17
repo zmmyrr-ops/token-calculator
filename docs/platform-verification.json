@@ -1,0 +1,301 @@
+{
+  "checkedAt": "2026-09-16T23:57:03.352Z",
+  "environment": "macOS local Chrome, Vite static frontend + independent Node API, no network throttling",
+  "pages": [
+    {
+      "width": 1440,
+      "route": "/",
+      "status": 200,
+      "overflow": false,
+      "canonical": "https://ruming.top/"
+    },
+    {
+      "width": 1440,
+      "route": "/news",
+      "status": 200,
+      "overflow": false,
+      "canonical": "https://ruming.top/news"
+    },
+    {
+      "width": 1440,
+      "route": "/learn",
+      "status": 200,
+      "overflow": false,
+      "canonical": "https://ruming.top/learn"
+    },
+    {
+      "width": 1440,
+      "route": "/learn/tokens",
+      "status": 200,
+      "overflow": false,
+      "canonical": "https://ruming.top/learn/tokens"
+    },
+    {
+      "width": 1440,
+      "route": "/learn/image-to-3d",
+      "status": 200,
+      "overflow": false,
+      "canonical": "https://ruming.top/learn/image-to-3d"
+    },
+    {
+      "width": 1440,
+      "route": "/tools",
+      "status": 200,
+      "overflow": false,
+      "canonical": "https://ruming.top/tools"
+    },
+    {
+      "width": 1440,
+      "route": "/tools/meshy",
+      "status": 200,
+      "overflow": false,
+      "canonical": "https://ruming.top/tools/meshy"
+    },
+    {
+      "width": 1440,
+      "route": "/scenarios",
+      "status": 200,
+      "overflow": false,
+      "canonical": "https://ruming.top/scenarios"
+    },
+    {
+      "width": 1440,
+      "route": "/scenarios/3d",
+      "status": 200,
+      "overflow": false,
+      "canonical": "https://ruming.top/scenarios/3d"
+    },
+    {
+      "width": 1440,
+      "route": "/tutorials",
+      "status": 200,
+      "overflow": false,
+      "canonical": "https://ruming.top/tutorials"
+    },
+    {
+      "width": 1440,
+      "route": "/models",
+      "status": 200,
+      "overflow": false,
+      "canonical": "https://ruming.top/models"
+    },
+    {
+      "width": 1440,
+      "route": "/models/openai--gpt-6-astra",
+      "status": 200,
+      "overflow": false,
+      "canonical": "https://ruming.top/models/openai--gpt-6-astra"
+    },
+    {
+      "width": 1440,
+      "route": "/calculators",
+      "status": 200,
+      "overflow": false,
+      "canonical": "https://ruming.top/calculators"
+    },
+    {
+      "width": 1440,
+      "route": "/calculators/tokens",
+      "status": 200,
+      "overflow": false,
+      "canonical": "https://ruming.top/calculators/tokens"
+    },
+    {
+      "width": 1440,
+      "route": "/calculators/media",
+      "status": 200,
+      "overflow": false,
+      "canonical": "https://ruming.top/calculators/media"
+    },
+    {
+      "width": 1440,
+      "route": "/compare?ids=meshy,tripo",
+      "status": 200,
+      "overflow": false,
+      "canonical": "https://ruming.top/compare"
+    },
+    {
+      "width": 1440,
+      "route": "/saved",
+      "status": 200,
+      "overflow": false,
+      "canonical": "https://ruming.top/saved"
+    },
+    {
+      "width": 1440,
+      "route": "/search?q=token",
+      "status": 200,
+      "overflow": false,
+      "canonical": "https://ruming.top/search"
+    },
+    {
+      "width": 1440,
+      "route": "/updates",
+      "status": 200,
+      "overflow": false,
+      "canonical": "https://ruming.top/updates"
+    },
+    {
+      "width": 1440,
+      "route": "/about",
+      "status": 200,
+      "overflow": false,
+      "canonical": "https://ruming.top/about"
+    },
+    {
+      "width": 1440,
+      "route": "/privacy",
+      "status": 200,
+      "overflow": false,
+      "canonical": "https://ruming.top/privacy"
+    },
+    {
+      "width": 375,
+      "route": "/",
+      "status": 200,
+      "overflow": false,
+      "canonical": "https://ruming.top/"
+    },
+    {
+      "width": 375,
+      "route": "/news",
+      "status": 200,
+      "overflow": false,
+      "canonical": "https://ruming.top/news"
+    },
+    {
+      "width": 375,
+      "route": "/learn",
+      "status": 200,
+      "overflow": false,
+      "canonical": "https://ruming.top/learn"
+    },
+    {
+      "width": 375,
+      "route": "/learn/tokens",
+      "status": 200,
+      "overflow": false,
+      "canonical": "https://ruming.top/learn/tokens"
+    },
+    {
+      "width": 375,
+      "route": "/learn/image-to-3d",
+      "status": 200,
+      "overflow": false,
+      "canonical": "https://ruming.top/learn/image-to-3d"
+    },
+    {
+      "width": 375,
+      "route": "/tools",
+      "status": 200,
+      "overflow": false,
+      "canonical": "https://ruming.top/tools"
+    },
+    {
+      "width": 375,
+      "route": "/tools/meshy",
+      "status": 200,
+      "overflow": false,
+      "canonical": "https://ruming.top/tools/meshy"
+    },
+    {
+      "width": 375,
+      "route": "/scenarios",
+      "status": 200,
+      "overflow": false,
+      "canonical": "https://ruming.top/scenarios"
+    },
+    {
+      "width": 375,
+      "route": "/scenarios/3d",
+      "status": 200,
+      "overflow": false,
+      "canonical": "https://ruming.top/scenarios/3d"
+    },
+    {
+      "width": 375,
+      "route": "/tutorials",
+      "status": 200,
+      "overflow": false,
+      "canonical": "https://ruming.top/tutorials"
+    },
+    {
+      "width": 375,
+      "route": "/models",
+      "status": 200,
+      "overflow": false,
+      "canonical": "https://ruming.top/models"
+    },
+    {
+      "width": 375,
+      "route": "/models/openai--gpt-6-astra",
+      "status": 200,
+      "overflow": false,
+      "canonical": "https://ruming.top/models/openai--gpt-6-astra"
+    },
+    {
+      "width": 375,
+      "route": "/calculators",
+      "status": 200,
+      "overflow": false,
+      "canonical": "https://ruming.top/calculators"
+    },
+    {
+      "width": 375,
+      "route": "/calculators/tokens",
+      "status": 200,
+      "overflow": false,
+      "canonical": "https://ruming.top/calculators/tokens"
+    },
+    {
+      "width": 375,
+      "route": "/calculators/media",
+      "status": 200,
+      "overflow": false,
+      "canonical": "https://ruming.top/calculators/media"
+    },
+    {
+      "width": 375,
+      "route": "/compare?ids=meshy,tripo",
+      "status": 200,
+      "overflow": false,
+      "canonical": "https://ruming.top/compare"
+    },
+    {
+      "width": 375,
+      "route": "/saved",
+      "status": 200,
+      "overflow": false,
+      "canonical": "https://ruming.top/saved"
+    },
+    {
+      "width": 375,
+      "route": "/search?q=token",
+      "status": 200,
+      "overflow": false,
+      "canonical": "https://ruming.top/search"
+    },
+    {
+      "width": 375,
+      "route": "/updates",
+      "status": 200,
+      "overflow": false,
+      "canonical": "https://ruming.top/updates"
+    },
+    {
+      "width": 375,
+      "route": "/about",
+      "status": 200,
+      "overflow": false,
+      "canonical": "https://ruming.top/about"
+    },
+    {
+      "width": 375,
+      "route": "/privacy",
+      "status": 200,
+      "overflow": false,
+      "canonical": "https://ruming.top/privacy"
+    }
+  ],
+  "errors": []
+}

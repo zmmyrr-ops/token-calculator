@@ -1,0 +1,30 @@
+{
+  "checkedAt": "2026-09-16T16:07:07.821Z",
+  "environment": "macOS local Chrome, localhost, no network throttling",
+  "measurements": [
+    {
+      "bytes": 10000,
+      "elapsedMs": 274,
+      "tokens": "1,667"
+    },
+    {
+      "bytes": 1048576,
+      "elapsedMs": 743,
+      "tokens": "174,763"
+    },
+    {
+      "route": "/how-it-works",
+      "heading": "每个数字，都有清楚的来由。"
+    },
+    {
+      "route": "/privacy",
+      "heading": "你的文本，留在你的浏览器。"
+    },
+    {
+      "route": "/models/openai--gpt-6-astra",
+      "heading": "GPT-6 Astra"
+    }
+  ],
+  "mobileOverflow": false,
+  "errors": []
+}

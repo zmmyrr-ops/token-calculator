@@ -1,0 +1,35 @@
+services:
+  backend:
+    build:
+      context: ..
+      dockerfile: deploy/Dockerfile
+      target: backend
+    env_file: .env
+    environment:
+      HOST: 0.0.0.0
+      PORT: 4000
+      NEWS_DATA_FILE: /app/storage/news.json
+      DATABASE_FILE: /app/storage/mendao.sqlite
+    volumes:
+      - news-data:/app/storage
+    restart: unless-stopped
+    init: true
+    security_opt: ["no-new-privileges:true"]
+    cap_drop: ["ALL"]
+    logging:
+      driver: json-file
+      options: {max-size: "10m", max-file: "3"}
+  frontend:
+    build:
+      context: ..
+      dockerfile: deploy/Dockerfile
+      target: frontend
+    ports: ["127.0.0.1:3000:80"]
+    depends_on:
+      backend: {condition: service_healthy}
+    restart: unless-stopped
+    logging:
+      driver: json-file
+      options: {max-size: "10m", max-file: "3"}
+volumes:
+  news-data:

@@ -1,0 +1,15 @@
+node_modules
+.next
+.git
+.env*
+deploy/.env
+playwright-report
+test-results
+*.tsbuildinfo
+data/snapshots
+frontend/dist
+backend/dist
+backend/storage
+docs/screenshots
+
+frontend/dist-staging/

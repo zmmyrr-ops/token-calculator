@@ -1,0 +1,61 @@
+{
+  "checkedAt": "2026-09-16T16:38:15.778Z",
+  "scope": "Static design prototype only; localhost Chrome. Not platform production acceptance.",
+  "checks": [
+    {
+      "width": 1440,
+      "passed": [
+        "unified six sections",
+        "knowledge search",
+        "updates section",
+        "home layout",
+        "scene switching",
+        "workflow progress isolation",
+        "tool search",
+        "candidate comparison",
+        "empty search",
+        "budget arithmetic",
+        "invalid budget",
+        "goal keyword routing"
+      ],
+      "pageOverflow": false
+    },
+    {
+      "width": 768,
+      "passed": [
+        "unified six sections",
+        "knowledge search",
+        "updates section",
+        "home layout",
+        "scene switching",
+        "workflow progress isolation",
+        "tool search",
+        "candidate comparison",
+        "empty search",
+        "budget arithmetic",
+        "invalid budget",
+        "goal keyword routing"
+      ],
+      "pageOverflow": false
+    },
+    {
+      "width": 375,
+      "passed": [
+        "unified six sections",
+        "knowledge search",
+        "updates section",
+        "home layout",
+        "scene switching",
+        "workflow progress isolation",
+        "tool search",
+        "candidate comparison",
+        "empty search",
+        "budget arithmetic",
+        "invalid budget",
+        "goal keyword routing"
+      ],
+      "pageOverflow": false
+    }
+  ],
+  "errors": []
+}

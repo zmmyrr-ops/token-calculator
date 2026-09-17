@@ -1,0 +1,85 @@
+{
+  "source": "Python official tiktoken 0.14.0",
+  "cases": [
+    {
+      "encoding": "o200k_base",
+      "text": "hello world",
+      "count": 2
+    },
+    {
+      "encoding": "o200k_base",
+      "text": "你好，世界！",
+      "count": 4
+    },
+    {
+      "encoding": "o200k_base",
+      "text": "  ",
+      "count": 1
+    },
+    {
+      "encoding": "o200k_base",
+      "text": "a\nb\r\nc",
+      "count": 5
+    },
+    {
+      "encoding": "o200k_base",
+      "text": "const x = () => 42;",
+      "count": 8
+    },
+    {
+      "encoding": "o200k_base",
+      "text": "👩🏽‍💻 café é",
+      "count": 10
+    },
+    {
+      "encoding": "o200k_base",
+      "text": "<|endoftext|>",
+      "count": 7
+    },
+    {
+      "encoding": "o200k_base",
+      "text": "中文 English 混合",
+      "count": 5
+    },
+    {
+      "encoding": "cl100k_base",
+      "text": "hello world",
+      "count": 2
+    },
+    {
+      "encoding": "cl100k_base",
+      "text": "你好，世界！",
+      "count": 7
+    },
+    {
+      "encoding": "cl100k_base",
+      "text": "  ",
+      "count": 1
+    },
+    {
+      "encoding": "cl100k_base",
+      "text": "a\nb\r\nc",
+      "count": 5
+    },
+    {
+      "encoding": "cl100k_base",
+      "text": "const x = () => 42;",
+      "count": 8
+    },
+    {
+      "encoding": "cl100k_base",
+      "text": "👩🏽‍💻 café é",
+      "count": 13
+    },
+    {
+      "encoding": "cl100k_base",
+      "text": "<|endoftext|>",
+      "count": 7
+    },
+    {
+      "encoding": "cl100k_base",
+      "text": "中文 English 混合",
+      "count": 7
+    }
+  ]
+}

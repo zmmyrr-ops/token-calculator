@@ -1,0 +1,18 @@
+[
+  {
+    "name": "cl100k_base",
+    "file": "cl100k_base-9b9ea7feb994.json",
+    "sha256": "9b9ea7feb9945beda9196f3691a3cc2d0f339aec498bbae285ce6aded387455c",
+    "library": "js-tiktoken@1.0.21",
+    "license": "MIT",
+    "source": "https://github.com/dqbd/tiktoken"
+  },
+  {
+    "name": "o200k_base",
+    "file": "o200k_base-de7eb511338b.json",
+    "sha256": "de7eb511338b0e23589a3cae2dceb8dd66c2a9fd70dbf7ea778fd9df9f175d45",
+    "library": "js-tiktoken@1.0.21",
+    "license": "MIT",
+    "source": "https://github.com/dqbd/tiktoken"
+  }
+]

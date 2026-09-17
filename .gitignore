@@ -1,0 +1,14 @@
+node_modules/
+.next/
+.env*
+!.env.example
+!deploy/env.example
+*.tsbuildinfo
+playwright-report/
+test-results/
+.DS_Store
+frontend/dist/
+backend/dist/
+backend/storage/
+
+frontend/dist-staging/

@@ -1,0 +1,75 @@
+name: CI
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    env:
+      CI: 'true'
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@v6
+        with:
+          node-version: '24.19.0'
+          cache: npm
+      - run: npm ci --ignore-scripts --no-audit --no-fund
+      - run: npm run assets
+      - run: npm run check
+      - run: npm run build
+      - run: VITE_BASE_PATH=/staging/ npm run build -w frontend -- --outDir dist-staging
+      - run: npx playwright install --with-deps chromium
+      - name: Browser tests with an isolated database
+        shell: bash
+        run: |
+          set -euo pipefail
+          export DATABASE_FILE="$RUNNER_TEMP/mendao-ci.sqlite"
+          export NEWS_DATA_FILE="$RUNNER_TEMP/mendao-ci-news.json"
+          npm start > "$RUNNER_TEMP/mendao-ci-server.log" 2>&1 &
+          server_pid=$!
+          trap 'kill "$server_pid" 2>/dev/null || true' EXIT
+          ready=0
+          for attempt in $(seq 1 60); do
+            if curl --fail --silent http://127.0.0.1:3000/api/health/ready > /dev/null; then
+              ready=1
+              break
+            fi
+            sleep 1
+          done
+          if [ "$ready" != 1 ]; then
+            cat "$RUNNER_TEMP/mendao-ci-server.log"
+            exit 1
+          fi
+          npm run test:e2e
+      - name: Build frontend image
+        run: docker build --file deploy/Dockerfile --target frontend --tag mendao-frontend:ci .
+      - name: Build backend image
+        run: docker build --file deploy/Dockerfile --target backend --tag mendao-backend:ci .
+      - name: Load release images on ECS and deploy staging
+        if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+        env:
+          DEPLOY_KEY: ${{ secrets.ECS_STAGING_KEY }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          test -n "$DEPLOY_KEY" || { echo 'Configure ECS_STAGING_KEY first'; exit 1; }
+          key="$RUNNER_TEMP/ecs-staging-key"
+          umask 077
+          printf '%s\n' "$DEPLOY_KEY" > "$key"
+          unset DEPLOY_KEY
+          trap 'rm -f "$key"' EXIT
+          docker tag mendao-frontend:ci "mendao-frontend:$GITHUB_SHA"
+          docker tag mendao-backend:ci "mendao-backend:$GITHUB_SHA"
+          ssh_options=(-i "$key" -o IdentitiesOnly=yes -o BatchMode=yes -o StrictHostKeyChecking=yes -o UserKnownHostsFile=deploy/ecs/known_hosts -o ServerAliveInterval=20 -o ConnectTimeout=15)
+          docker save "mendao-frontend:$GITHUB_SHA" "mendao-backend:$GITHUB_SHA" | gzip -1 | ssh "${ssh_options[@]}" root@8.145.52.220 "load $GITHUB_SHA"
+          ssh "${ssh_options[@]}" root@8.145.52.220 "deploy $GITHUB_SHA"
