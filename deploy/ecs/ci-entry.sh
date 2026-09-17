@@ -8,8 +8,9 @@ case "$operation" in
   load)
     # Uploads only enter the Docker image store; no shell or arbitrary paths.
     [[ "$app_env" == staging ]] || exit 2
-    exec 8>/opt/mendao/image-load.lock
+    exec 8>/opt/mendao/deploy.lock
     flock -w 600 8
+    rm -f "/opt/mendao/verified/$release"
     docker load
     docker image inspect "mendao-backend:$release" "mendao-frontend:$release" >/dev/null
     ;;

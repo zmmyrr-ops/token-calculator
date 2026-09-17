@@ -6,7 +6,7 @@
 
 1. PR：GitHub 执行类型、lint、单测、React 构建、真实浏览器测试和两种 Docker 镜像构建，不使用部署密钥。
 2. 推送 main：通过以上检查后，对镜像标记完整提交 SHA，经 SSH 传到 ECS，自动部署 staging。
-3. 在测试站验收后，打开 GitHub Actions → Publish production → Run workflow，分支 main，填写测试通过的完整 40 位 SHA。生产提升服务器中同一套镜像，不重新构建。
+3. 在测试站验收后，打开 GitHub Actions → Publish production → Run workflow，分支 main，填写测试通过的完整 40 位 SHA。生产提升服务器中同一套镜像，不重新构建；发布时核对测试通过记录中的镜像 ID。重新导入同一 SHA 会撤销旧测试记录，必须重新通过测试环境健康检查。
 4. 生产与测试都在替换前备份数据库、检查容器健康和 HTTP 接口。更新失败且有上一版本时恢复上一镜像配置。数据库不会被自动还原，避免覆盖上线后的数据；未来破坏性 schema 变更必须另行设计迁移和兼容性。
 
 不用 ACR：GitHub 构建并通过 SSH 推送压缩镜像流，绕开 ECS 无法连接 Docker Hub 的问题。GitHub Actions 用量仍按账号实际额度计算。

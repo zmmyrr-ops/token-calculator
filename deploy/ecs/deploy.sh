@@ -9,7 +9,10 @@ exec 9>"$root/deploy.lock"
 flock -w 600 9
 # Production promotes only a version that passed staging on this server.
 if [[ "$app_env" == production ]]; then test -f "$root/verified/$release"; fi
-docker image inspect "mendao-backend:$release" "mendao-frontend:$release" > /dev/null
+image_ids=$(docker image inspect --format '{{.Id}}' "mendao-backend:$release" "mendao-frontend:$release")
+if [[ "$app_env" == production ]]; then
+  [[ "$(cat "$root/verified/$release")" == "$image_ids" ]] || { echo 'Image IDs differ from the staging verification record' >&2; exit 1; }
+fi
 port=3100; [[ "$app_env" == staging ]] && port=3101
 config="$root/$app_env/release.env"
 previous=""
@@ -37,7 +40,7 @@ healthy() {
 if "${compose[@]}" up -d --wait --wait-timeout 120 && healthy; then
   if [[ "$app_env" == staging ]]; then
     mkdir -p "$root/verified"
-    touch "$root/verified/$release"
+    printf '%s\n' "$image_ids" > "$root/verified/$release"
   fi
   printf '%s %s %s\n' "$(date -u +%FT%TZ)" "$app_env" "$release" >> "$root/deployments.log"
 else
