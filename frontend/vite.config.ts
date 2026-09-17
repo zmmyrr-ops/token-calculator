@@ -17,7 +17,14 @@ export default defineConfig({
     },
   },
   server: { strictPort: true, proxy },
-  preview: { strictPort: true, proxy },
+  preview: {
+    strictPort: true,
+    proxy: {
+      ...proxy,
+      "^/(?:$|(?:news|learn|models|tools|scenarios|tutorials|calculators|about|privacy|how-it-works|updates|community-rules|forum|admin|login|account|register|search|saved|compare)(?:[/?]|$))":
+        { target: process.env.API_PROXY_TARGET || "http://127.0.0.1:4000" },
+    },
+  },
   build: { target: "es2022" },
   worker: { format: "es" },
 });

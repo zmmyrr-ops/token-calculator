@@ -1,12 +1,13 @@
 import { test, expect } from "@playwright/test";
-test("static SPA shell and catalog API are independent", async ({
+test("published HTML and catalog API are independent", async ({
   page,
   request,
 }) => {
   const r = await request.get("/");
   const html = await r.text();
   expect(html).toContain('id="root"');
-  expect(html).not.toMatch(/<h1[\s>]/i);
+  expect(html).toMatch(/<h1[\s>]/i);
+  expect(html).toContain("data-prerendered");
   await page.goto("/models?q=Claude");
   await expect(
     page.getByRole("heading", { name: "大模型，一处比较。" }),
@@ -317,4 +318,31 @@ test("Baidu verification file and brand assets are served as static files", asyn
   );
   await expect(page.locator(".site-mark")).toBeVisible();
   expect((await request.get("/favicon.svg?v=5")).status()).toBe(200);
+});
+
+test("public article is readable without JavaScript and unknown routes return 404", async ({
+  browser,
+  request,
+}) => {
+  const context = await browser.newContext({ javaScriptEnabled: false });
+  const page = await context.newPage();
+  await page.goto(
+    (process.env.TEST_URL || "http://127.0.0.1:3000") + "/learn/tokens",
+  );
+  await expect(
+    page.getByRole("heading", {
+      name: "Token 是什么？为什么不等于字数？",
+      exact: true,
+    }),
+  ).toBeVisible();
+  await expect(
+    page.getByText("模型处理的是词元序列", { exact: true }),
+  ).toBeVisible();
+  const response = await request.get("/learn/missing-seo-page");
+  expect(response.status()).toBe(404);
+  const article = await request.get("/learn/tokens");
+  const html = await article.text();
+  expect(html).toContain('rel="canonical"');
+  expect(html).toContain("application/ld+json");
+  await context.close();
 });

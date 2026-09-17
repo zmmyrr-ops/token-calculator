@@ -68,12 +68,31 @@ export class ContentDatabase {
     const row = this.db.prepare("SELECT value FROM meta WHERE key=?").get(key);
     return row ? JSON.parse(String(row.value)) : undefined;
   }
+  private publicListeners = new Set<() => void>();
+  private publicChangeQueued = false;
+  onPublicChange(listener: () => void) {
+    this.publicListeners.add(listener);
+    return () => {
+      this.publicListeners.delete(listener);
+    };
+  }
   setMeta(key: string, value: unknown) {
     this.db
       .prepare(
         "INSERT INTO meta VALUES(?,?) ON CONFLICT(key) DO UPDATE SET value=excluded.value",
       )
       .run(key, JSON.stringify(value));
+    if (
+      ["contentVersion", "newsState", "base"].includes(key) &&
+      this.publicListeners.size &&
+      !this.publicChangeQueued
+    ) {
+      this.publicChangeQueued = true;
+      queueMicrotask(() => {
+        this.publicChangeQueued = false;
+        for (const listener of this.publicListeners) listener();
+      });
+    }
   }
   seed(data: Content) {
     if (this.meta("seeded")) return;

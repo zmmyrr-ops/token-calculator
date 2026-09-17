@@ -97,7 +97,7 @@ export function indexablePaths(data: Content) {
     ...data.resources.map((x) => "/tools/" + x.id),
     ...data.scenarios.map((x) => "/scenarios/" + x.id),
     ...data.catalog.models.map((x) => "/models/" + x.id),
-  ];
+  ].filter(p => resolveSeo(p, "", data).robots.startsWith("index"));
 }
 export function resolveSeo(pathname: string, search: string, data: Content) {
   const path = pathname.replace(/\/+$/, "") || "/";
@@ -150,7 +150,8 @@ export function resolveSeo(pathname: string, search: string, data: Content) {
     page = { title: "社区讨论", description: "AI 门道用户讨论内容。" };
     known = true;
   }
-  const excluded = !!privatePages[path] || path.startsWith("/forum/");
+  const excluded =
+    !!privatePages[path] || path === "/forum" || path.startsWith("/forum/");
   if (excluded) {
     page = {
       title: privatePages[path] || "社区讨论",

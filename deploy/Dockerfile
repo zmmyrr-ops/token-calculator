@@ -21,6 +21,8 @@ COPY frontend/package.json ./frontend/package.json
 COPY backend/package.json ./backend/package.json
 RUN npm ci --omit=dev --ignore-scripts --no-audit --no-fund && mkdir /app/storage && chown node:node /app/storage
 COPY --from=build --chown=node:node /app/backend/dist ./backend/dist
+COPY --from=build --chown=node:node /app/frontend/dist/index.html ./frontend/dist/index.html
+COPY --from=build --chown=node:node /app/frontend/dist-staging/index.html ./frontend/dist-staging/index.html
 USER node
 EXPOSE 4000
 HEALTHCHECK --interval=30s --timeout=5s CMD node -e "fetch('http://127.0.0.1:4000/api/health/ready').then(r=>process.exit(r.ok?0:1)).catch(()=>process.exit(1))"

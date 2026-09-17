@@ -1,3 +1,4 @@
+import { PublicSnapshots } from "./prerender";
 import { BaiduService, baiduCandidates } from "./baidu";
 import {
   expandContent,
@@ -290,9 +291,11 @@ app.get("/sitemap.xml", (_req, res) => {
   res
     .type("application/xml")
     .send(
-      `<?xml version="1.0" encoding="UTF-8"?><urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">${routes.map((route) => `<url><loc>${route.url.replaceAll('&', '&amp;').replaceAll('<', '&lt;').replaceAll('>', '&gt;')}</loc></url>`).join("")}</urlset>`,
+      `<?xml version="1.0" encoding="UTF-8"?><urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">${routes.map((route) => `<url><loc>${route.url.replaceAll("&", "&amp;").replaceAll("<", "&lt;").replaceAll(">", "&gt;")}</loc></url>`).join("")}</urlset>`,
     );
 });
+const snapshots = new PublicSnapshots(store);
+app.use(snapshots.router());
 app.use((_req, res) => res.status(404).json({ error: "NOT_FOUND" }));
 app.use(
   (
@@ -344,6 +347,7 @@ async function stop() {
   server.close();
   await news.stop();
   await baidu.stop();
+  snapshots.close();
   store.close();
   process.exit(0);
 }

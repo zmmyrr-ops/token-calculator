@@ -41,6 +41,20 @@ export default function Seo() {
       document.head.append(canonical);
     }
     canonical.href = seo.canonical;
+    let schema = document.getElementById("prerender-schema");
+    if (!schema) {
+      schema = document.createElement("script");
+      schema.id = "prerender-schema";
+      schema.setAttribute("type", "application/ld+json");
+      document.head.append(schema);
+    }
+    schema.textContent = JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": seo.article ? "Article" : "WebPage",
+      name: seo.title,
+      url: seo.canonical,
+      description: seo.description,
+    });
   }, [seo.title, seo.description, seo.canonical, seo.robots, seo.article]);
   return null;
 }

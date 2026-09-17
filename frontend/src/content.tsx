@@ -12,6 +12,10 @@ type Bootstrap = Content & {
   modelCount?: number;
   vendors?: [string, string][];
 };
+const snapshotRoot = document.getElementById("root");
+const initialSnapshot = snapshotRoot?.dataset.prerendered
+  ? snapshotRoot.innerHTML
+  : null;
 const Context = createContext<Bootstrap | null>(null);
 export function ContentProvider({ children }: { children: ReactNode }) {
   const { pathname } = useLocation();
@@ -40,6 +44,8 @@ export function ContentProvider({ children }: { children: ReactNode }) {
       window.removeEventListener("focus", refresh);
     };
   }, [retry, pathname]);
+  if (!data && initialSnapshot && !error)
+    return <div dangerouslySetInnerHTML={{ __html: initialSnapshot }} />;
   if (!data)
     return (
       <main className="container page-intro">
