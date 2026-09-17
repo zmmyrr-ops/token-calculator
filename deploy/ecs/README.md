@@ -21,7 +21,7 @@ GitHub 仓库写权限意味着可修改流水线并调用 Secrets；应只授�
 
 ## 环境与资源
 
-每环境独立 Compose project、网络、Node API、前端 Nginx、SQLite、会话和日志。生产前端仅绑定 127.0.0.1:3100，测试 3101。每后端限制 512 MiB / 0.65 CPU，每前端 96 MiB / 0.25 CPU；正式构建在 GitHub。测试使用 /staging/ API、资源、表单路径和单独 localStorage key、后台 Cookie 名称及路径。
+每环境独立 Compose project、网络、Node API、前端 Nginx、SQLite、会话和日志。当前为单机容器重建更新，会有短暂重启窗口，不是零停机或高可用方案。生产前端仅绑定 127.0.0.1:3100，测试 3101。每后端限制 512 MiB / 0.65 CPU，每前端 96 MiB / 0.25 CPU；正式构建在 GitHub。测试使用 /staging/ API、资源、表单路径和单独 localStorage key、后台 Cookie 名称及路径。
 
 前端镜像包含同一次提交构建的生产与测试两个静态目录，环境间提升的是同一镜像。后台来源校验使用 https://ruming.top，测试 APP_BASE_PATH=/staging。www 如需后台登录，应使用 ruming.top 规范域名。
 
@@ -42,3 +42,7 @@ GitHub 仓库写权限意味着可修改流水线并调用 Secrets；应只授�
 ## 尚需实际验收
 
 CI 成功、测试与生产上线、首次备份与回退结果以实际运行记录为准。本文是运行方式，不能代替验收记录。
+
+## 更新服务器部署脚本
+
+应用流水线不自动覆盖 root 所有的部署控制脚本。维护时先上传到新的临时文件，用 bash -n 校验，等待 /opt/mendao/deploy.lock 锁后以 mv 原子替换；不要直接 scp 覆盖运行中的 .sh 文件。Nginx 修改必须先备份、nginx -t 成功后 reload。

@@ -1,5 +1,7 @@
 # 阿里云 ECS：React 静态前端 + Node.js API
 
+**实际线上已使用 [单台 ECS CI/CD 方案](ecs/README.md)**，包含 /staging/ 测试环境与生产环境。下面保留的是原单环境手动部署方式。
+
 本站不再使用 SSR。前端容器 Nginx 提供静态资源及 SPA fallback，后端容器 Node.js 提供 JSON API 和资讯采集。宿主 Nginx 负责 HTTPS，配置见 `nginx.conf`。该配置仍代理本机 3000，但目标已变为静态前端容器。
 
 1. ECS 安装 Docker Engine、Compose 插件和 Nginx，安全组只开放 80/443（SSH 按管理要求限制）。不要对公网开放 API 4000。
@@ -14,4 +16,4 @@
 
 模型、教程、工具和场景通过 `/admin` 编辑并发布，不需构建。`catalog:sync` 只更新首次建库使用的种子快照，不会覆盖已有数据库。资讯自动写入 SQLite。备份恢复见 `docs/09-数据库与管理后台.md`。
 
-本次本机未安装 Docker，也未连接 ECS；此文件是部署步骤，不代表已上线或已通过云端验收。
+原单环境 compose 未作为本次线上部署入口；实际 ECS 使用 deploy/ecs/compose.yaml，已完成部署与验收。

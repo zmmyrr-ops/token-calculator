@@ -50,7 +50,7 @@ npm run test:e2e
 - [教程与场景完善](docs/08-教程与场景完善.md)
 - [SEO 优化策略与执行计划](docs/06-SEO优化策略.md)
 
-备案已配置为 `浙ICP备2023017888号-4`。数据库与内容管理后台已接入；用户账号同步、完整厂商审核及 ECS 实际上线仍未完成。纯 SPA 需要 JavaScript；HTML 不包含正文，搜索引擎收录与分享预览能力弱于原 SSR，这是本次架构变更的取舍。
+备案已配置为 `浙ICP备2023017888号-4`。数据库与内容管理后台已接入；用户账号同步、完整厂商审核仍未完成；ECS 已上线，详见下方 CI/CD 部署说明。纯 SPA 需要 JavaScript；HTML 不包含正文，搜索引擎收录与分享预览能力弱于原 SSR，这是本次架构变更的取舍。
 
 ## 数据库与管理后台
 
@@ -59,3 +59,11 @@ npm run test:e2e
 第一次本地启动自动迁入现有真实资料，生成用户名 `admin` 与随机初始密码，保存到 `backend/storage/admin-initial-credentials.txt`（仅文件所有者可读）。首次登录强制改密，成功后删除初始密码文件。已有数据库不会被种子资料覆盖。
 
 生产首次启动必须设置 `ADMIN_PASSWORD`（12–128 位），并正确配置 `SITE_URL`、HTTPS 和持久卷。详细操作、备份恢复及边界见 [数据库与后台](docs/09-数据库与管理后台.md)。
+
+## 已部署的测试与生产
+
+- 生产：https://ruming.top/ ，后台 /admin，沿用迁入数据库的本地管理员账号。
+- 测试：https://ruming.top/staging/ ，需独立访问密码，后台 /staging/admin。测试资料、账号、数据库独立。
+- main 推送触发 GitHub CI 与测试部署；Actions 的 Publish production 手动输入已通过测试的完整提交 SHA，提升同一镜像。
+- 部署前与每天自动备份 SQLite；保留 14 天，同机备份，OSS 异地备份待配置。
+- 详情见 [ECS CI/CD 运维说明](deploy/ecs/README.md)。
