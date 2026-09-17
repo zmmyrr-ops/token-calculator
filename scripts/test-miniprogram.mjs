@@ -1,6 +1,7 @@
 import automator from "miniprogram-automator";
-import { spawn } from "node:child_process";
+import { spawn, spawnSync } from "node:child_process";
 import { createServer } from "node:net";
+import { DatabaseSync } from "node:sqlite";
 import { mkdir, cp, writeFile, readFile } from "node:fs/promises";
 import { randomUUID, randomBytes } from "node:crypto";
 import path from "node:path";
@@ -63,6 +64,14 @@ try {
       return false;
     }
   });
+  const opened = spawnSync(
+    process.env.WECHAT_CLI ||
+      "/Applications/wechatwebdevtools.app/Contents/MacOS/cli",
+    ["open", "--project", project],
+    { encoding: "utf8", timeout: 15000 },
+  );
+  if (opened.status !== 0) throw Error("Unable to open WeChat project");
+  await new Promise((resolve) => setTimeout(resolve, 3000));
   const launch = () =>
     automator.launch({
       cliPath:
@@ -81,7 +90,18 @@ try {
   }
   mini.on("exception", (e) => errors.push(e));
   const ready = async (p) => {
-    await waitFor(async () => !(await p.data("loading")));
+    await waitFor(async () => {
+      const d = await p.data();
+      return (
+        d.error ||
+        (!d.loading &&
+          (d.page > 0 ||
+            d.item ||
+            d.post ||
+            d.user ||
+            (d.models && d.models.length)))
+      );
+    });
     assert.equal((await p.data("error")) || "", "");
     return p;
   };
@@ -128,24 +148,31 @@ try {
   assert.ok(await p.data("result"));
   await mini.screenshot({ path: path.join(dir, "calculator.png") });
   console.log("PASS: tool/model detail and budget");
-  p = await mini.redirectTo("/pages/account/index");
-  await p.waitFor(300);
-  await p.setData({
-    mode: "register",
-    username: "mini_" + Date.now(),
-    password: "test-only-long-password",
-    nickname: "自动化测试",
-    agreed: true,
+  // A real session in the isolated test DB exercises profile/forum UI; live WeChat exchange has separate tests.
+  const registration = await fetch(origin + "/api/mini/community/register", {
+    method: "POST",
+    headers: { "content-type": "application/json" },
+    body: JSON.stringify({
+      username: "mini_" + Date.now(),
+      password: "test-only-long-password",
+      nickname: "自动化测试",
+    }),
   });
-  await p.callMethod("submit");
-  await ready(p);
-  assert.ok(await p.data("user"));
+  assert.equal(registration.status, 201);
+  const testSession = await registration.json();
+  await mini.callWxMethod(
+    "setStorageSync",
+    "mendao-session:" + origin,
+    testSession.token,
+  );
+  p = await mini.redirectTo("/pages/account/index");
+  await waitFor(async () => !!(await p.data("user")));
   await p.setData({ nickname: "更新后的昵称" });
   await p.callMethod("submit");
   await ready(p);
   assert.equal((await p.data("user")).nickname, "更新后的昵称");
   console.log(
-    "PASS: registration, native bearer authentication and profile edit (isolated DB)",
+    "PASS: native bearer authentication and profile edit (isolated DB)",
   );
   p = await mini.redirectTo("/pages/compose/index");
   await p.setData({
@@ -173,6 +200,41 @@ try {
   assert.ok(
     !(await mini.callWxMethod("getStorageSync", "mendao-session:" + origin)),
   );
+  const settingsDb = new DatabaseSync(path.join(dir, "test.sqlite"));
+  const setModules = (news, forum) =>
+    settingsDb
+      .prepare(
+        "INSERT INTO meta VALUES('miniModules',?) ON CONFLICT(key) DO UPDATE SET value=excluded.value",
+      )
+      .run(JSON.stringify({ news, forum }));
+  try {
+    setModules(false, false);
+    await mini.evaluate(() => getApp().refreshSettings());
+    p = await mini.switchTab("/pages/me/index");
+    assert.ok(!(await p.data("forumEnabled")));
+    const tabs = await mini.evaluate(() => {
+      const pages = getCurrentPages();
+      return pages[pages.length - 1].getTabBar().data.tabs.map((x) => x.id);
+    });
+    assert.deepEqual(tabs, ["learn", "tools", "me"]);
+    assert.equal(
+      (await fetch(origin + "/api/mini/community/posts")).status,
+      403,
+    );
+    assert.equal((await fetch(origin + "/api/v1/mini/news")).status, 403);
+    assert.equal((await fetch(origin + "/api/community/posts")).status, 200);
+    setModules(true, true);
+    await mini.evaluate(() => getApp().refreshSettings());
+    assert.equal(
+      (await fetch(origin + "/api/mini/community/posts")).status,
+      200,
+    );
+    console.log(
+      "PASS: admin settings hide actual native tab and community entry, block mini APIs, preserve website access",
+    );
+  } finally {
+    settingsDb.close();
+  }
   await mini.navigateTo("/pages/about/index");
   assert.equal(errors.length, 0, JSON.stringify(errors));
   console.log("PASS: logout, about, no runtime exceptions");

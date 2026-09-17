@@ -1,3 +1,5 @@
+import { requireMiniModule } from "./mini-settings";
+import { exchangeWechatCode, type WechatIdentity } from "./wechat";
 import { Router, type Request, type Response } from "express";
 import { randomUUID, randomBytes, createHash } from "node:crypto";
 import { z } from "zod";
@@ -26,6 +28,7 @@ type UserRow = {
   disabled: number;
   created_at: number;
   updated_at: number;
+  source: "pc" | "miniprogram" | "system" | "legacy";
 };
 type PostRow = {
   id: string;
@@ -59,6 +62,17 @@ export function initCommunity(store: ContentDatabase) {
  CREATE INDEX IF NOT EXISTS forum_replies_post_time ON forum_replies(post_id,status,created_at);
  CREATE INDEX IF NOT EXISTS community_sessions_expiry ON community_sessions(expires);
  INSERT OR IGNORE INTO migrations VALUES(3,datetime('now'));`);
+  const columns = store.db.prepare("PRAGMA table_info(community_users)").all();
+  if (!columns.some((c) => c.name === "source")) {
+    store.db.exec(
+      "ALTER TABLE community_users ADD COLUMN source TEXT NOT NULL DEFAULT 'legacy'",
+    );
+    store.db.exec("UPDATE community_users SET source='system' WHERE demo=1");
+  }
+  store.db
+    .exec(`CREATE TABLE IF NOT EXISTS community_wechat_identities(app_id TEXT NOT NULL,openid TEXT NOT NULL,user_id TEXT NOT NULL REFERENCES community_users(id),created_at INTEGER NOT NULL,PRIMARY KEY(app_id,openid));
+  CREATE INDEX IF NOT EXISTS community_wechat_user ON community_wechat_identities(user_id);
+  INSERT OR IGNORE INTO migrations VALUES(5,datetime('now'));`);
 }
 export function readAvatar(value: unknown): Buffer | null | undefined {
   if (value === undefined) return undefined;
@@ -134,6 +148,8 @@ function paging(req: Request, size = 12) {
 export function communityRouter(
   store: ContentDatabase,
   transport: "cookie" | "bearer" = "cookie",
+  exchange: (code: string) => Promise<WechatIdentity> = (code) =>
+    exchangeWechatCode(store, code),
 ) {
   const router = Router(),
     service = communityService(store);
@@ -200,6 +216,8 @@ export function communityRouter(
     if (transport === "bearer") {
       if (req.headers.origin)
         return next(new CmsError(403, "请使用小程序客户端"));
+      if (/^\/(posts|replies)(\/|$)/.test(req.path))
+        requireMiniModule(store, "forum");
       return next();
     }
     if (!["GET", "HEAD", "OPTIONS"].includes(req.method)) {
@@ -215,6 +233,61 @@ export function communityRouter(
     const u = current(req);
     res.json({ user: u ? publicUser(u) : null });
   });
+  if (transport === "bearer")
+    router.post("/wechat-login", async (req, res) => {
+      limit("wechat-login-global", 240, 60000);
+      const { code } = z
+        .object({ code: z.string().min(1).max(512) })
+        .strict()
+        .parse(req.body);
+      limit("wechat-code:" + digest(code), 5, 300000);
+      const identity = await exchange(code);
+      const getBound = () =>
+        store.db
+          .prepare(
+            "SELECT u.* FROM community_users u JOIN community_wechat_identities w ON w.user_id=u.id WHERE w.app_id=? AND w.openid=?",
+          )
+          .get(identity.appId, identity.openId) as UserRow | undefined;
+      let user = getBound();
+      let created = false;
+      if (!user) {
+        const randomPassword = await hashPassword(
+          randomBytes(48).toString("hex"),
+        );
+        store.transaction(() => {
+          user = getBound();
+          if (user) return;
+          limit("wechat-register-global", 100, 3600000);
+          const id = randomUUID(),
+            now = Date.now();
+          store.db
+            .prepare(
+              "INSERT INTO community_users(id,username,nickname,password,avatar,demo,disabled,created_at,updated_at,source) VALUES(?,?,?,?,NULL,0,0,?,?,'miniprogram')",
+            )
+            .run(
+              id,
+              "wx_" + randomBytes(12).toString("hex"),
+              "微信用户",
+              randomPassword,
+              now,
+              now,
+            );
+          store.db
+            .prepare("INSERT INTO community_wechat_identities VALUES(?,?,?,?)")
+            .run(identity.appId, identity.openId, id, now);
+          user = service.user(id);
+          created = true;
+        });
+      }
+      if (!user || user.disabled || user.demo)
+        throw new CmsError(403, "账号已被停用，请联系管理员");
+      session(res, user.id);
+      res.json({
+        user: publicUser(user),
+        token: res.locals.sessionToken,
+        created,
+      });
+    });
   router.post("/register", async (req, res) => {
     limit("register-global", 20, 3600000);
     const d = z
@@ -233,16 +306,25 @@ export function communityRouter(
       throw new CmsError(409, "账号已被使用");
     store.transaction(() => {
       store.db
-        .prepare("INSERT INTO community_users VALUES(?,?,?,?,?,0,0,?,?)")
-        .run(id, d.username, d.nickname, hash, avatar ?? null, now, now);
+        .prepare(
+          "INSERT INTO community_users(id,username,nickname,password,avatar,demo,disabled,created_at,updated_at,source) VALUES(?,?,?,?,?,0,0,?,?,?)",
+        )
+        .run(
+          id,
+          d.username,
+          d.nickname,
+          hash,
+          avatar ?? null,
+          now,
+          now,
+          transport === "bearer" ? "miniprogram" : "pc",
+        );
       session(res, id);
     });
-    res
-      .status(201)
-      .json({
-        user: publicUser(service.user(id)!),
-        ...(transport === "bearer" ? { token: res.locals.sessionToken } : {}),
-      });
+    res.status(201).json({
+      user: publicUser(service.user(id)!),
+      ...(transport === "bearer" ? { token: res.locals.sessionToken } : {}),
+    });
   });
   const dummy = hashPassword(randomBytes(32).toString("hex"));
   router.post("/login", async (req, res) => {
@@ -498,15 +580,21 @@ export function communityAdminRouter(store: ContentDatabase) {
     const state = z
       .enum(["", "active", "disabled"])
       .parse(req.query.state ?? "");
+    const source = z
+      .enum(["", "pc", "miniprogram", "system", "legacy"])
+      .parse(req.query.source ?? "");
     const where =
-      "WHERE (instr(lower(username),lower(?))>0 OR instr(lower(nickname),lower(?))>0) AND (?='' OR demo=?) AND (?='' OR disabled=?)";
+      "WHERE (instr(lower(username),lower(?))>0 OR instr(lower(nickname),lower(?))>0 OR EXISTS(SELECT 1 FROM community_wechat_identities w WHERE w.user_id=community_users.id AND instr(w.openid,?)>0)) AND (?='' OR demo=?) AND (?='' OR disabled=?) AND (?='' OR source=?)";
     const args = [
+      q,
       q,
       q,
       type,
       type === "preset" ? 1 : 0,
       state,
       state === "disabled" ? 1 : 0,
+      source,
+      source,
     ];
     res.json({
       ...p,
@@ -521,7 +609,16 @@ export function communityAdminRouter(store: ContentDatabase) {
             `SELECT * FROM community_users ${where} ORDER BY created_at DESC,id LIMIT ? OFFSET ?`,
           )
           .all(...args, p.pageSize, p.offset) as UserRow[]
-      ).map((u) => ({ ...publicUser(u), disabled: !!u.disabled })),
+      ).map((u) => ({
+        ...publicUser(u),
+        source: u.source,
+        disabled: !!u.disabled,
+        wechat: store.db
+          .prepare(
+            "SELECT app_id AS appId,openid AS openId,created_at AS linkedAt FROM community_wechat_identities WHERE user_id=?",
+          )
+          .all(u.id),
+      })),
     });
   });
   router.post("/:kind/:id/status", (req, res) => {

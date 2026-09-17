@@ -155,6 +155,50 @@ test("isolated admin: change password, save, publish and download backup", async
         () => document.documentElement.scrollWidth <= innerWidth,
       ),
     ).toBe(true);
+    await page.getByRole("button", { name: "小程序设置", exact: true }).click();
+    await expect(page.getByLabel("开放小程序资讯")).toBeChecked();
+    await page.getByLabel("开放小程序资讯").uncheck();
+    await page.getByLabel("开放小程序社区论坛").uncheck();
+    await page.getByRole("button", { name: "保存模块设置" }).click();
+    await expect(page.getByRole("status")).toContainText("已保存");
+    expect(
+      db.meta<{ news: boolean; forum: boolean }>("miniModules"),
+    ).toMatchObject({ news: false, forum: false });
+    await page.getByLabel("开放小程序资讯").check();
+    await page.getByLabel("开放小程序社区论坛").check();
+    await page.getByRole("button", { name: "保存模块设置" }).click();
+    await expect
+      .poll(() => db.meta<{ news: boolean }>("miniModules")?.news)
+      .toBe(true);
+    const wxUser = randomUUID();
+    db.db
+      .prepare(
+        "INSERT INTO community_users(id,username,nickname,password,demo,disabled,created_at,updated_at,source) VALUES(?,?,?,'unusable',0,0,?,?,'miniprogram')",
+      )
+      .run(
+        wxUser,
+        "wx_isolated_reader",
+        "微信隔离验收",
+        Date.now(),
+        Date.now(),
+      );
+    db.db
+      .prepare("INSERT INTO community_wechat_identities VALUES(?,?,?,?)")
+      .run(
+        "wx30d01d25ba6ff5c3",
+        "isolated-openid-for-admin-test",
+        wxUser,
+        Date.now(),
+      );
+    await page.getByRole("button", { name: "用户管理", exact: true }).click();
+    await page.getByLabel("注册来源").selectOption("miniprogram");
+    await expect(page.getByText("共 1 条记录", { exact: true })).toBeVisible();
+    await page.getByText("微信关联（1）").click();
+    await expect(
+      page.getByText("OpenID：isolated-openid-for-admin-test", {
+        exact: false,
+      }),
+    ).toBeVisible();
     await page.screenshot({
       path: `docs/screenshots/admin-${test.info().project.name}.png`,
     });

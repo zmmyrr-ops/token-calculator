@@ -1,3 +1,4 @@
+import MiniSettings from "./MiniSettings";
 import BaiduDashboard from "./BaiduDashboard";
 import CommunityModeration from "./CommunityModeration";
 import AnalyticsDashboard from "./AnalyticsDashboard";
@@ -22,6 +23,7 @@ async function api(path: string, method = "GET", body?: unknown) {
   return data;
 }
 export default function Admin() {
+  const [mini, setMini] = useState(false);
   const [baidu, setBaidu] = useState(false);
   const [analytics, setAnalytics] = useState(false);
   const [community, setCommunity] = useState<false | "posts" | "users">(false);
@@ -313,9 +315,12 @@ export default function Admin() {
       <nav className="analytics-switch" aria-label="后台模块">
         <button
           className={
-            !analytics && !community && !baidu ? "button primary" : "button"
+            !analytics && !community && !baidu && !mini
+              ? "button primary"
+              : "button"
           }
           onClick={() => {
+            setMini(false);
             setAnalytics(false);
             setBaidu(false);
             setCommunity(false);
@@ -326,6 +331,7 @@ export default function Admin() {
         <button
           className={analytics ? "button primary" : "button"}
           onClick={() => {
+            setMini(false);
             setAnalytics(true);
             setBaidu(false);
             setCommunity(false);
@@ -336,6 +342,7 @@ export default function Admin() {
         <button
           className={community === "posts" ? "button primary" : "button"}
           onClick={() => {
+            setMini(false);
             setCommunity("posts");
             setAnalytics(false);
             setBaidu(false);
@@ -346,6 +353,7 @@ export default function Admin() {
         <button
           className={community === "users" ? "button primary" : "button"}
           onClick={() => {
+            setMini(false);
             setCommunity("users");
             setAnalytics(false);
             setBaidu(false);
@@ -356,6 +364,7 @@ export default function Admin() {
         <button
           className={baidu ? "button primary" : "button"}
           onClick={() => {
+            setMini(false);
             setBaidu(true);
             setAnalytics(false);
             setCommunity(false);
@@ -363,7 +372,19 @@ export default function Admin() {
         >
           百度收录
         </button>
+        <button
+          className={mini ? "button primary" : "button"}
+          onClick={() => {
+            setMini(true);
+            setBaidu(false);
+            setAnalytics(false);
+            setCommunity(false);
+          }}
+        >
+          小程序设置
+        </button>
       </nav>
+      {mini && <MiniSettings />}
       {baidu && <BaiduDashboard />}
       {community && (
         <CommunityModeration
@@ -375,7 +396,9 @@ export default function Admin() {
       <div
         className="admin-workspace"
         style={
-          analytics || community || baidu ? { display: "none" } : undefined
+          analytics || community || baidu || mini
+            ? { display: "none" }
+            : undefined
         }
       >
         <aside className="admin-sidebar">

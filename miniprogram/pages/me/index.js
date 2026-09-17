@@ -2,8 +2,17 @@ const api = require("../../utils/api");
 const saved = require("../../utils/saved");
 const nav = require("../../utils/navigation");
 Page({
-  data: { user: null, items: [], error: "" },
+  data: { user: null, items: [], error: "", forumEnabled: false },
+  onLoad() {
+    this._unwatch = getApp().watchSettings((modules) =>
+      this.setData({ forumEnabled: modules.forum }),
+    );
+  },
+  onUnload() {
+    if (this._unwatch) this._unwatch();
+  },
   async onShow() {
+    getApp().refreshSettings();
     this.setData({ items: saved.all(), error: "", user: null });
     if (api.token())
       try {

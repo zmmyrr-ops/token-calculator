@@ -1,3 +1,4 @@
+import { miniSettings, requireMiniModule } from "./mini-settings";
 import { PublicSnapshots } from "./prerender";
 import { BaiduService, baiduCandidates } from "./baidu";
 import {
@@ -261,10 +262,20 @@ app.get("/api/v1/library/:kind", (req, res) => {
       .map(({ search: _search, ...a }) => a),
   });
 });
+app.get("/api/v1/mini/settings", (_req, res) => res.json(miniSettings(store)));
+app.get("/api/v1/mini/news", (req, res) => {
+  requireMiniModule(store, "news");
+  const p = query(req);
+  const paging = pagination(p, 18);
+  if (p.category && !newsCategories.some((c) => c === p.category))
+    throw Error("INVALID_QUERY");
+  res.json(news.list({ ...p, ...paging }));
+});
 app.get("/api/v1/mini/scenarios", (_req, res) => {
   res.json({ items: store.publicContent().scenarios });
 });
 app.get("/api/v1/mini/news/:id", (req, res) => {
+  requireMiniModule(store, "news");
   const item = news.article(String(req.params.id));
   res.status(item ? 200 : 404).json(item || { error: "资讯不存在或已归档" });
 });

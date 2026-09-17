@@ -2,17 +2,14 @@ const api = require("../../utils/api");
 Page({
   data: {
     user: null,
-    mode: "login",
-    username: "",
-    password: "",
     nickname: "",
-    oldPassword: "",
     avatar: null,
     avatarDirty: false,
     avatarUrl: "",
     loading: false,
     error: "",
     agreed: false,
+    created: false,
   },
   async onLoad() {
     if (api.token())
@@ -38,86 +35,63 @@ Page({
   privacy() {
     wx.navigateTo({ url: "/pages/about/index" });
   },
-  mode() {
-    this.setData({
-      mode: this.data.mode === "login" ? "register" : "login",
-      password: "",
-      error: "",
-    });
-  },
-  async submit() {
+  async login() {
     if (this.data.loading) return;
-    const d = this.data;
-    if (!d.user && !d.agreed) {
-      this.setData({ error: "请先阅读并同意隐私说明与社区规则" });
-      return;
-    }
-    if (
-      !d.user &&
-      (!/^[a-zA-Z0-9_]{4,32}$/.test(d.username) ||
-        (d.mode === "register" && d.password.length < 12))
-    ) {
-      this.setData({
-        error: "账号需为 4–32 位字母、数字或下划线；注册密码至少 12 位",
-      });
-      return;
-    }
-    if ((d.user || d.mode === "register") && !d.nickname.trim()) {
-      this.setData({ error: "请填写昵称" });
+    if (!this.data.agreed) {
+      this.setData({ error: "请先阅读并同意隐私说明" });
       return;
     }
     this.setData({ loading: true, error: "" });
     try {
-      const data = d.user
-        ? { nickname: d.nickname }
-        : {
-            username: d.username,
-            password: d.password,
-            ...(d.mode === "register" ? { nickname: d.nickname } : {}),
-          };
-      if (d.user && d.avatarDirty) data.avatar = d.avatar;
-      const r = await api.request(
-        "/api/mini/community/" + (d.user ? "profile" : d.mode),
-        data,
-        d.user ? "PUT" : "POST",
+      const code = await new Promise((resolve, reject) =>
+        wx.login({
+          timeout: 10000,
+          success: (r) =>
+            r.code
+              ? resolve(r.code)
+              : reject(Error("未获取到微信登录凭证，请重试")),
+          fail: () => reject(Error("微信登录失败，请重试")),
+        }),
       );
-      if (r.token) api.saveToken(r.token);
+      const r = await api.request(
+        "/api/mini/community/wechat-login",
+        { code },
+        "POST",
+      );
+      if (!r.token || !r.user) throw Error("登录响应异常，请重试");
+      api.saveToken(r.token);
       this.setData({
         user: r.user,
         nickname: r.user.nickname,
-        password: "",
-        avatar: null,
-        avatarDirty: false,
         avatarUrl: api.absolute(r.user.avatar),
+        created: r.created,
       });
-      wx.showToast({ title: "已保存", icon: "success" });
+      wx.showToast({ title: "微信登录成功", icon: "success" });
     } catch (e) {
       this.setData({ error: e.message });
     } finally {
       this.setData({ loading: false });
     }
   },
-  async password() {
-    if (this.data.loading) return;
-    if (this.data.password.length < 12) {
-      this.setData({ error: "新密码至少 12 位" });
+  async submit() {
+    if (this.data.loading || !this.data.user) return;
+    if (!this.data.nickname.trim()) {
+      this.setData({ error: "请填写昵称" });
       return;
     }
     this.setData({ loading: true, error: "" });
     try {
-      await api.request(
-        "/api/mini/community/password",
-        { oldPassword: this.data.oldPassword, password: this.data.password },
-        "POST",
-      );
-      api.saveToken("");
+      const data = { nickname: this.data.nickname };
+      if (this.data.avatarDirty) data.avatar = this.data.avatar;
+      const r = await api.request("/api/mini/community/profile", data, "PUT");
       this.setData({
-        user: null,
-        password: "",
-        oldPassword: "",
-        mode: "login",
+        user: r.user,
+        nickname: r.user.nickname,
+        avatarDirty: false,
+        avatar: null,
+        avatarUrl: api.absolute(r.user.avatar),
       });
-      wx.showToast({ title: "密码已修改，请重新登录", icon: "none" });
+      wx.showToast({ title: "资料已保存", icon: "success" });
     } catch (e) {
       this.setData({ error: e.message });
     } finally {

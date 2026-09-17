@@ -1,3 +1,4 @@
+import { miniSettingsAdminRouter } from "./mini-settings";
 import { BaiduService, baiduAdminRouter } from "./baidu";
 import { communityAdminRouter, initCommunity } from "./community";
 import { analyticsSummary, pruneEvents } from "./analytics";
@@ -192,6 +193,14 @@ export function adminRouter(store: ContentDatabase, baidu?: BaiduService) {
     res.json({ ok: true });
   });
   router.use(auth);
+  router.use(
+    "/mini-settings",
+    (req, res, next) => {
+      res.locals.adminUsername = session(req)!.username;
+      next();
+    },
+    miniSettingsAdminRouter(store),
+  );
   if (baidu) router.use("/baidu", baiduAdminRouter(baidu));
   router.use(
     "/community",

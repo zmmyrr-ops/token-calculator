@@ -5,6 +5,8 @@ import type { CommunityUser, ForumPost, ForumReply } from "@shared/community";
 type Item = Partial<ForumPost & ForumReply & CommunityUser> & {
   id: string;
   disabled?: boolean;
+  source?: "pc" | "miniprogram" | "system" | "legacy";
+  wechat?: { appId: string; openId: string; linkedAt: number }[];
 };
 export default function CommunityModeration({
   usersOnly = false,
@@ -14,7 +16,8 @@ export default function CommunityModeration({
   const [q, setQ] = useState(""),
     [search, setSearch] = useState(""),
     [type, setType] = useState(""),
-    [state, setState] = useState("");
+    [state, setState] = useState(""),
+    [source, setSource] = useState("");
   const [kind, setKind] = useState(usersOnly ? "users" : "posts"),
     [page, setPage] = useState(1),
     [version, setVersion] = useState(0),
@@ -27,7 +30,7 @@ export default function CommunityModeration({
     setError("");
     fetch(
       appPath(
-        `/api/admin/community/${kind}?${new URLSearchParams({ page: String(page), q: search, type, state })}`,
+        `/api/admin/community/${kind}?${new URLSearchParams({ page: String(page), q: search, type, state, source })}`,
       ),
     )
       .then(async (r) => {
@@ -41,7 +44,7 @@ export default function CommunityModeration({
     return () => {
       active = false;
     };
-  }, [kind, page, version, search, type, state]);
+  }, [kind, page, version, search, type, state, source]);
   async function toggle(item: Item) {
     const enabled =
       kind === "users" ? !!item.disabled : item.status !== "visible";
@@ -104,7 +107,7 @@ export default function CommunityModeration({
         >
           <input
             aria-label="搜索用户"
-            placeholder="搜索账号或昵称"
+            placeholder="搜索账号、昵称或 OpenID"
             value={q}
             maxLength={100}
             onChange={(e) => setQ(e.target.value)}
@@ -133,6 +136,20 @@ export default function CommunityModeration({
             <option value="active">正常</option>
             <option value="disabled">已禁用</option>
           </select>
+          <select
+            aria-label="注册来源"
+            value={source}
+            onChange={(e) => {
+              setSource(e.target.value);
+              setPage(1);
+            }}
+          >
+            <option value="">全部来源</option>
+            <option value="pc">PC</option>
+            <option value="miniprogram">小程序</option>
+            <option value="system">系统预置</option>
+            <option value="legacy">历史未记录</option>
+          </select>
           <button className="button primary">搜索</button>
           <button
             type="button"
@@ -142,6 +159,7 @@ export default function CommunityModeration({
               setSearch("");
               setType("");
               setState("");
+              setSource("");
               setPage(1);
             }}
           >
@@ -168,9 +186,36 @@ export default function CommunityModeration({
                   <p>
                     账号：{item.username} · {item.disabled ? "已禁用" : "正常"}
                     <br />
+                    注册来源：
+                    {item.source === "miniprogram"
+                      ? "小程序"
+                      : item.source === "system"
+                        ? "系统预置"
+                        : item.source === "pc"
+                          ? "PC"
+                          : "历史未记录"}
+                    <br />
                     注册时间：
                     {new Date(item.createdAt!).toLocaleString("zh-CN")}
                   </p>
+                  {!!item.wechat?.length && (
+                    <details>
+                      <summary>微信关联（{item.wechat.length}）</summary>
+                      {item.wechat.map((w) => (
+                        <p
+                          key={w.appId + ":" + w.openId}
+                          style={{ overflowWrap: "anywhere" }}
+                        >
+                          AppID：{w.appId}
+                          <br />
+                          OpenID：{w.openId}
+                          <br />
+                          关联时间：
+                          {new Date(w.linkedAt).toLocaleString("zh-CN")}
+                        </p>
+                      ))}
+                    </details>
+                  )}
                 </>
               ) : (
                 <>

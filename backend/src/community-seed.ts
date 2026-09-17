@@ -470,7 +470,9 @@ export function seedCommunity(store: ContentDatabase) {
     const users = names.map((name, i) => {
       const id = randomUUID();
       store.db
-        .prepare("INSERT INTO community_users VALUES(?,?,?,?,NULL,1,1,?,?)")
+        .prepare(
+          "INSERT INTO community_users(id,username,nickname,password,avatar,demo,disabled,created_at,updated_at,source) VALUES(?,?,?,?,NULL,1,1,?,?,'system')",
+        )
         .run(
           id,
           "example_v2_" + String(i + 1).padStart(3, "0"),

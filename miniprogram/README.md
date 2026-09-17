@@ -1,89 +1,62 @@
 # AI 门道微信小程序
 
-**当前为个人主体：先运行 `npm run mini:personal`，导入同级生成目录 `miniprogram-personal/`。完整开发版保留在本目录，不直接用作个人主体审核包。**
+AppID：`wx30d01d25ba6ff5c3`。推荐导入本 `miniprogram/` 目录。资讯和论坛完整保留，后台控制是否开放；不再构建删除这些模块的版本。旧命令 `npm run mini:personal` 仅同步同一完整项目到兼容目录。
 
-AppID：`wx30d01d25ba6ff5c3`。原生 WXML / WXSS / JavaScript，无网页套壳，复用仓库的 Node.js API 和 SQLite 内容、社区账号。品牌沿用透明 Logo 与「看懂 AI，用出门道。」。
+## 功能与模块开关
 
-## 功能划分
+- 资讯：图文、搜索分类、分页、详情和来源链接。
+- 学习：知识、实践、视频来源与应用场景，收藏与阅读记录。
+- 工具：模型/平台查询与详情，复用网站引擎的 Token 费用预算。
+- 我的：微信登录、昵称头像、收藏、社区入口；论坛浏览、发帖、回复和删除自己的内容。
 
-- **资讯**：真实来源、图文列表、分类搜索、分页、下拉刷新、原文链接、收藏与分享。后台抓取频率沿用网站配置；用户刷新只读取现有数据，不触发抓取。
-- **学习**：基础知识、实践教程、视频来源、应用场景；原生阅读、准备清单、步骤、验收、常见问题、提示词复制、阅读完成标记。
-- **工具**：模型与平台资料、能力边界、来源与价格核验信息、Token 费用预算。预算引擎与网站共用，支持阶梯/时段价格、上下文与输出上限、价格过期检查。未知推理用量会明确提示未计入。
-- **我的**：网站账号登录/注册、昵称和头像、改密、退出、设备收藏、阅读进度与社区入口。社区支持分页、搜索、发帖、回复、删除自己的帖子/回复。
+管理后台 → **小程序设置** → 分别设置「开放小程序资讯」「开放小程序社区论坛」，点击保存。默认均开放。开关只影响小程序，网站与原数据不变。配置保存在 SQLite `meta.miniModules`，保存记入 `history` 审计；所有用户得到相同配置，不识别审核者。
 
-网站保留精确分词、大文件输入、完整多模型分析、媒体预算与管理后台。视频和第三方网站提供来源链接复制，本版不嵌入任意外站、不代播视频。暂未实现微信 OpenID 登录、云端收藏同步和社区帖子编辑；账号使用网站账号密码，注册后可设置头像。不需要 AppSecret。
+- `GET /api/v1/mini/settings` 返回公开模块状态。
+- 小程序使用自定义 TabBar；资讯关闭时移除资讯 Tab，论坛关闭时移除“我的”社区入口。
+- 启动/前台恢复时同步设置，前台每 30 秒同步；当前页面所属模块关闭时切回工具页。
+- `/api/v1/mini/news`、`/api/v1/mini/news/:id` 受资讯开关保护；`/api/mini/community/posts`、`replies` 及其详情/写入接口受论坛开关保护，关闭返回 403。
+- 账号、学习、工具不受这两个开关影响。网站公开 API 保持原有服务范围；开关不用于保护秘密数据。
+- 新闻抓取频率沿用网站配置。视频只提供来源，不内嵌第三方网页或代播。
 
-## 开发与导入
+主体仍为个人。开放功能前应确认当前主体和相应服务类目；提审需如实声明功能，开关不保证过审，也不用于审核后规避平台要求。[微信官方类目说明](https://developers.weixin.qq.com/miniprogram/product/material/)。
 
-在仓库根目录使用 Node.js 24：
+## 微信登录与用户来源
+
+小程序只显示微信登录入口，网站继续使用既有账号密码登录。流程：用户点击并同意隐私说明 → `wx.login` 获得一次性 code → `POST /api/mini/community/wechat-login { code }` → 服务端请求微信 `code2Session` → 按 **AppID + OpenID** 查找用户。
+
+- 首次创建真实用户，来源 `miniprogram`，默认昵称「微信用户」、默认头像；可自行修改。服务端生成不可知随机密码，不把密码交给小程序。
+- 再次登录使用同一用户，不重复注册。不同 AppID 的相同 OpenID 不视为同一身份。
+- 不接受客户端自报 OpenID，不按昵称自动合并已有 PC 账号；PC 账号与微信账号的显式绑定暂未实现。
+- 网站新注册来源 `pc`，系统预置账号 `system`；上线前未记录来源的历史账号标为 `legacy`（后台「历史未记录」），避免猜测。
+- 来源表示注册入口，不是用户当前设备或最近登录位置；以后从其他入口登录不覆盖注册来源。
+- 用户管理支持 PC／小程序／系统预置／历史未记录筛选；可搜索账号、昵称或 OpenID。微信关联可展开查看 AppID、OpenID 和关联时间，仅管理员接口返回。
+- `session_key` 不保存、不下发；OpenID 不在公开用户资料、帖子或登录响应中返回。本站生成独立 7 天 Bearer 会话，数据库存摘要并使用 `mini:` 命名空间；退出撤销当前会话，停用账号撤销全部会话。
+- 微信登录被停用账号不能绕过禁用状态重新建号。注册、登录与发帖有服务端限流。
+
+数据库 migration **5**：`community_users.source` 新增注册来源，`community_wechat_identities(app_id, openid, user_id, created_at)` 保存关联，`(app_id, openid)` 为联合主键。原论坛数据保留。迁移幂等；发布前按现有流程备份数据库。旧版本的用户插入语句没有列名，不适配新增列；如需回退，应使用兼容此迁移的修复版本，避免直接回到迁移前代码。
+
+[微信登录官方流程](https://developers.weixin.qq.com/miniprogram/dev/framework/open-ability/login.html)。
+
+## 服务端凭据
+
+正式与测试环境分别使用 `/opt/mendao/<环境>/storage/wechat-config.json`，容器中为 `/app/storage/wechat-config.json`，权限 0600、业务用户所有。格式为 `appId`、`appSecret` 两个键。也支持服务端 `WECHAT_APP_ID` / `WECHAT_APP_SECRET` 环境变量，或 `WECHAT_CONFIG_FILE` 指定路径。不得写入小程序、Git、网页配置或聊天。
+
+后台仅显示 AppID 和是否已配置，不返回 AppSecret。微信 API 请求固定官方 HTTPS 地址，10 秒超时，微信原始错误和密钥不直接返回客户端。凭据文件已安全配置到 ECS 测试与生产；发布后仍需通过真实微信登录验收。
+
+## 开发、测试、发布
 
 ```sh
 npm ci --ignore-scripts
-npm run mini:check
+npm run check             # 类型、lint、单元测试、目录和小程序包检查
+npm run build             # 网站 + Node API
+npm run mini:preview       # 微信开发者工具预览
+npm run mini:test          # 独立数据库内的资料、论坛等原生流程测试
 ```
 
-微信开发者工具 → 导入项目 → 选择本 `miniprogram` 目录，确认 AppID。无需「构建 npm」，依赖已经打包进 `utils/engine.js`。AppID 不是密钥；AppSecret、上传私钥不可写进此目录。
+原生项目无需「构建 npm」。`utils/engine.js` 从 `shared/engine.ts` 构建，改规则后执行 `npm run mini:build`。`config.js` 默认连接 `https://ruming.top`。现有 `/staging` 入口有 Basic Auth，不与 Bearer 混用；原生集成测试使用独立本地接口。
 
-默认 API 地址是 `https://ruming.top`，在 `config.js` 修改。配套新接口已于 2026-09-17 随 `ca7d12c99c5a461e69aa49b28e0bdabeed6a7998` 发布到测试与生产，并验证详情读取、原生会话和来源隔离。`utils/engine.js` 为生成文件，修改 `shared/engine.ts` 后执行 `npm run mini:build`，不要手工维护两套计费规则。
+`mini:test` 在 4006 启动独立数据库，用真实测试会话检查资料与论坛界面，不调用正式注册接口。微信 code 换取身份、重复建号与关闭模块由单元测试覆盖，实际微信登录需使用开发者账号验证。测试目录和截图位于被忽略的 `test-results/`。
 
-本地开发可临时改为 `http://127.0.0.1:4000`，只在开发者工具本地设置中关闭合法域名校验。手机上不能用电脑的 127.0.0.1；真机请用 HTTPS 测试服务。不要提交本地 HTTP 配置。现有 `/staging` 使用 Basic Auth，而小程序登录使用 Bearer；本版不直接支持这个 Basic Auth 测试入口，集成测试采用独立本地数据库。
+微信后台需配置 `https://ruming.top` 为 request 合法域名，按实际收集的数据填写隐私保护指引。照片仅在用户主动选择并保存后上传。开发者工具 CLI/HTTP 服务与开发者权限用于自动预览；`WECHAT_CLI` 可覆盖默认 macOS 路径。真机检查登录、拒绝/取消选图、断网、账号停用、关闭模块后旧页面与分享链接行为。
 
-## 微信后台配置与发布
-
-1. 确认小程序主体与可选服务类目，以及当前微信账号拥有该 AppID 的开发权限。
-2. 微信公众平台 → 开发管理 → 开发设置 → **request 合法域名**添加 `https://ruming.top`。本版头像通过 JSON 上传同域 API，不使用 `wx.uploadFile`；新闻图片直接显示原来源 HTTPS 图片，失败时保留可读文字卡片，不通过任意地址代理。
-3. 在微信隐私保护指引中如实填写账号、昵称、用户主动选择的照片/头像、社区内容等用途；完成隐私相关接口配置，真机确认选图授权及拒绝授权后的反馈。
-4. 确认内容/社区对应的服务类目与所需材料。后台内容维护和社区审核继续使用网站管理后台。
-5. 开启合法域名校验，在 iOS、Android 真机验收下述流程；不要把模拟器编译通过当成真机验收通过。
-6. 开发者工具「上传」版本，微信后台设为体验版，补充审核资料后提交审核；审核通过再发布。仓库 CI 不会自动提交小程序审核或发布。
-
-官方参考：[网络与合法域名](https://developers.weixin.qq.com/miniprogram/dev/framework/ability/network.html)、[开发者工具自动化](https://developers.weixin.qq.com/miniprogram/dev/devtools/auto/quick-start.html)。
-
-## 接口与会话
-
-公开列表复用 `/api/v1/news`、`/api/v1/library/learn`、`/api/v1/library/tools`、`/api/v1/catalog`。
-
-新增公开读取：
-
-- `GET /api/v1/mini/scenarios`：全部应用场景（轻量目录）。
-- `GET /api/v1/mini/{learn|tools|scenarios}/:id`：已发布内容详情。
-- `GET /api/v1/mini/news/:id`：单条资讯，未收录/已归档返回 404，分享冷启动也能读取。
-
-小程序账号与论坛复用 `/api/mini/community` 下的 `register`、`login`、`session`、`profile`、`password`、`logout`、`posts`、`replies`。请求格式和校验与网页一致。注册/登录成功返回 `{ user, token }`；其余授权请求发送 `Authorization: Bearer <token>`。
-
-- 小程序会话 7 天，服务端只保存 SHA-256 摘要并使用 `mini:` 命名空间。
-- 小程序接口忽略 Cookie，拒绝带浏览器 Origin 的请求。网页接口继续仅接受原 Cookie 会话和合法 Origin；网页登录不会返回 bearer token。
-- 退出只撤销当前会话，改密码/管理员禁用账户会撤销所有端的会话。所有端共享注册、登录、发帖限流。
-- 客户端令牌按 API 环境分开储存，仅向 `/api/mini/community/` 附加。401 清除令牌，不记录或展示令牌。
-- 收藏最多 200 条、本地阅读进度可清除；不承诺与网站或其他设备同步。
-- 未增加新数据库表。复用 `community_users`、`community_sessions`、`forum_posts`、`forum_replies`、`community_limits` 与已有内容表。管理后台仍可管理同一批真实账号和帖子。
-
-## 测试与构建
-
-```sh
-npm run check          # 类型、lint、单元测试、目录检查、小程序包检查
-npm run build          # 网站与 API 构建
-npm run mini:preview   # 已登录的本机微信工具：打开真实资讯并保存截图
-npm run mini:test      # 微信工具 + 本机 4006：独立数据库全流程测试
-```
-
-`mini:preview` 与 `mini:test` 需要微信开发者工具已登录、开启 CLI / HTTP 服务。本机默认路径 `/Applications/wechatwebdevtools.app/Contents/MacOS/cli`，可通过 `WECHAT_CLI` 指定。测试截图和隔离数据库在被忽略的 `test-results/`，测试不创建生产用户/帖子。
-
-`mini:test` 会复制项目到测试目录，临时使用本机接口并关闭该副本的域名检查；正式项目的 `urlCheck` 仍为 `true`。单元测试检查跨端会话隔离、Origin 拒绝、修改密码/退出撤销。包检查验证全部页面、JSON、JS 语法、Tab 图标及源码主包体积；最终大小以微信工具上传结果为准。
-
-验收重点：资讯翻页与空搜索、无图片降级、分享后冷启动、文章/视频/场景详情、收藏清除、推理预算留空/超限/过期价格、账号注册登录、头像选择和取消、改密失效、发帖回复、删除自己的内容及无权删除他人内容、断网与 401。
-
-## 已确认：个人主体
-
-2026-09-17 已收到用户确认。核对[微信官方类目表](https://developers.weixin.qq.com/miniprogram/product/material/)：个人主体的清单包含工具（计算器、信息查询等）、教育信息展示，没有列出社交-社区/论坛和资讯；教育信息展示说明不支持教育视频播放/直播与课程销售。
-
-因此区分两个实际构建包，不按审核者/用户身份动态切换能力：
-
-- `miniprogram/`：完整开发版，12 页，便于保留网站功能与后续具备适当主体/类目时使用。**不要直接将它作为当前个人主体正式审核包。**
-- `miniprogram-personal/`：运行 `npm run mini:personal` 生成的个人主体候选包，8 页，Tab 为 **工具、学习、我的**。生成时删除资讯、论坛、帖子和发帖页面，移除入口与处理逻辑，不提供发布/回复能力；保留资料查询、费用计算、学习说明、收藏和账号。反馈用微信原生意见反馈。此目录被 Git 忽略，可重复构建，不要手工修改。
-
-请优先导入 `miniprogram-personal/` 到微信开发者工具。运行 `npm run mini:preview -- --personal` 可查看该包。候选包并不等于保证过审，仍需在微信后台如实选择与实际内容匹配的类目、完成隐私声明和真机验收。视频仅列出来源说明，不在小程序播放。
-
-验证记录：完整开发版已通过独立 SQLite 数据库的官方微信模拟器集成测试（注册、资料修改、发帖、回复等）；本地 `npm run check` 通过 91 个单元测试。配套接口发布流水线通过网站浏览器回归与镜像构建。个人候选包源码约 124 KiB，上传大小以官方工具结果为准。
-
-个人版官方预览记录：2026-09-17 微信开发者工具 `cli preview` 成功，上传包 132356 bytes（工具显示约 129.3 KB）。完整开发版与个人版均通过官方 WXML 编译器检查。临时开发预览码位于 `test-results/miniprogram/personal-preview-qr.png`，过期后在开发者工具重新预览；这不是审核通过或正式发布。
+配套 API 按现有 GitHub Actions → ECS 测试 → 生产提升流程发布。小程序代码单独在微信开发者工具生成预览/上传，未自动提交审核或发布。

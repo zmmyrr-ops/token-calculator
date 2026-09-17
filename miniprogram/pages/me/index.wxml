@@ -8,11 +8,11 @@
       ><view class="card-title"
         >{{user ? user.nickname : '欢迎来到 AI 门道'}}</view
       ><view class="muted"
-        >{{user ? '编辑资料与账号设置 →' : '登录 / 注册，参与交流 →'}}</view
+        >{{user ? '编辑资料与账号设置 →' : '微信登录，参与交流 →'}}</view
       ></view
     ></view
   ><view wx:if="{{error}}" class="notice">{{error}}</view
-  ><view class="card" bindtap="forum"
+  ><view class="card" wx:if="{{forumEnabled}}" bindtap="forum"
     ><view class="card-title">门道社区 →</view
     ><view class="muted">分享作品，讨论遇到的问题。</view></view
   ><view class="heading"

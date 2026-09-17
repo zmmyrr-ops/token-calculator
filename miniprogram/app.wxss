@@ -208,3 +208,5 @@ button::after {
   width: 256px;
   height: 256px;
 }
+
+.page { padding-bottom: calc(180rpx + env(safe-area-inset-bottom)); }

@@ -18,8 +18,15 @@ module.exports = function (kind) {
             ? ["全部", "文章", "实践", "视频", "场景"]
             : [],
     },
-    onLoad(options) {
+    async onLoad(options) {
       if (options && options.kind) this.setData({ kind: options.kind });
+      if (this.data.kind === "news" || this.data.kind === "forum") {
+        const modules = await getApp().refreshSettings();
+        if (!modules[this.data.kind === "news" ? "news" : "forum"]) {
+          getApp().enforceModules();
+          return;
+        }
+      }
       this.load(true);
     },
     onShow() {
@@ -57,7 +64,7 @@ module.exports = function (kind) {
       try {
         let path =
           k === "news"
-            ? "/api/v1/news"
+            ? "/api/v1/mini/news"
             : k === "models"
               ? "/api/v1/catalog"
               : k === "forum"
