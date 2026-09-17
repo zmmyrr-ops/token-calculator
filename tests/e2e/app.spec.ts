@@ -205,7 +205,7 @@ test("live news API, filters, source provenance and home entry", async ({
     page.getByRole("navigation", { name: "主导航" }).getByRole("link").first(),
   ).toHaveText("AI 实时资讯");
   await expect(page.getByRole("heading", { level: 1 })).toHaveText(
-    "读懂 AI 的下一步。",
+    "看懂 AI，用出门道。",
   );
   await expect(page.locator(".news-result-count")).toBeVisible();
   await expect(page.getByText(/来源每.*分钟检查/)).toHaveCount(0);

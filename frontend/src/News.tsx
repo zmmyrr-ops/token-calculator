@@ -183,10 +183,28 @@ export function News({ compact = false }: { compact?: boolean }) {
           <div className="eyebrow">
             <Radio size={15} /> AI SIGNAL / 持续更新
           </div>
-          <h1>读懂 AI 的下一步。</h1>
+          <h1>
+            看懂 AI，<span className="news-slogan-accent">用出门道。</span>
+          </h1>
           <p>大模型、人工智能应用、硬件与研究动态。真实来源，直达原文。</p>
         </div>
-        <Cpu size={76} strokeWidth={1} />
+        <div className="news-brand-art" aria-hidden="true">
+          <div className="news-brand-grid" />
+          <div className="news-brand-orbit orbit-outer" />
+          <div className="news-brand-orbit orbit-inner" />
+          <div className="news-brand-beam" />
+          <div className="news-brand-core">
+            <img
+              src={appPath("/favicon.svg?v=3")}
+              alt=""
+              width="88"
+              height="88"
+            />
+          </div>
+          <i className="news-brand-spark spark-one" />
+          <i className="news-brand-spark spark-two" />
+          <span className="news-brand-caption">OPEN A NEW POSSIBILITY</span>
+        </div>
       </header>
       <form
         className="news-filters"

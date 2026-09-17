@@ -1772,3 +1772,148 @@ h3 {
   height: 36px;
   filter: drop-shadow(0 3px 9px #75e3d022);
 }
+
+/* Brand doorway: the favicon remains the recognizable center of the visual. */
+.news-slogan-accent {
+  color: #aabaff;
+}
+.news-brand-art {
+  position: relative;
+  width: 250px;
+  height: 190px;
+  flex: 0 0 250px;
+  isolation: isolate;
+}
+.news-brand-grid {
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(#8ccce810 1px, transparent 1px),
+    linear-gradient(90deg, #8ccce810 1px, transparent 1px);
+  background-size: 22px 22px;
+  mask-image: radial-gradient(ellipse, #000 30%, transparent 72%);
+}
+.news-brand-orbit {
+  position: absolute;
+  left: 50%;
+  top: 45%;
+  border: 1px solid #82d7d83b;
+  border-radius: 50%;
+  transform: translate(-50%, -50%) rotate(-28deg);
+}
+.orbit-outer {
+  width: 226px;
+  height: 112px;
+  box-shadow:
+    0 0 24px #70e9d008,
+    inset 0 0 24px #70e9d008;
+}
+.orbit-inner {
+  width: 190px;
+  height: 138px;
+  transform: translate(-50%, -50%) rotate(32deg);
+  border-color: #96a5ff2b;
+}
+.news-brand-beam {
+  position: absolute;
+  width: 164px;
+  height: 94px;
+  left: calc(50% - 82px);
+  top: 75px;
+  background: linear-gradient(180deg, #83e2d325, transparent);
+  clip-path: polygon(42% 0, 68% 0, 100% 100%, 0 100%);
+  filter: blur(2px);
+  z-index: -1;
+}
+.news-brand-core {
+  position: absolute;
+  left: 50%;
+  top: 45%;
+  transform: translate(-50%, -50%) rotate(-7deg);
+  padding: 10px;
+  border-radius: 27px;
+  background: linear-gradient(145deg, #21374a, #121e32);
+  border: 1px solid #b2dded40;
+  box-shadow:
+    0 15px 35px #040c1b70,
+    0 0 35px #6fe8d21a,
+    inset 0 1px 0 #ffffff15;
+}
+.news-brand-core img {
+  display: block;
+  border-radius: 20px;
+}
+.news-brand-spark {
+  position: absolute;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #91efda;
+  box-shadow: 0 0 12px #8cf5d9;
+}
+.spark-one {
+  left: 24px;
+  top: 111px;
+}
+.spark-two {
+  right: 31px;
+  top: 33px;
+  width: 4px;
+  height: 4px;
+  background: #b7c0ff;
+}
+.news-brand-caption {
+  position: absolute;
+  bottom: 3px;
+  width: 100%;
+  text-align: center;
+  font-size: 9px;
+  letter-spacing: 0.2em;
+  color: #8ca7bd;
+}
+@media (max-width: 760px) {
+  .news-hero {
+    position: relative;
+    padding-right: 0;
+  }
+  .news-hero > div:first-child {
+    position: relative;
+    z-index: 1;
+    min-width: 0;
+  }
+  .news-slogan-accent {
+    display: block;
+  }
+  .news-brand-art {
+    position: absolute;
+    right: -8px;
+    top: 22px;
+    transform: scale(0.5);
+    transform-origin: top right;
+    opacity: 0.75;
+    pointer-events: none;
+  }
+  .news-hero .eyebrow {
+    padding-right: 100px;
+  }
+  .news-hero h1 {
+    padding-right: 84px;
+  }
+}
+
+.baidu-dashboard { padding: 28px; min-width: 0; }
+.baidu-dashboard h3 { margin-top: 28px; }
+.baidu-dashboard p { line-height: 1.8; overflow-wrap: anywhere; }
+.baidu-dashboard label { display: grid; gap: 8px; margin: 16px 0; }
+.baidu-dashboard input:not([type="checkbox"]) { width: 100%; padding: 12px; border: 1px solid var(--line, #39414a); border-radius: 9px; background: transparent; color: inherit; }
+.baidu-settings { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+.baidu-dashboard .baidu-toggle { display: flex; align-items: center; }
+.baidu-summary { display:flex; flex-wrap:wrap; gap: 12px; margin: 24px 0; }
+.baidu-summary span { padding: 10px 14px; background: #748c9320; border-radius: 10px; }
+.baidu-table { overflow-x: auto; margin: 16px 0; }
+.baidu-table table { min-width: 640px; width: 100%; border-collapse: collapse; text-align: left; }
+.baidu-table td, .baidu-table th { padding: 12px; border-bottom: 1px solid #748c9330; }
+.baidu-table small { display: block; max-width: 400px; }
+.baidu-dashboard .action-row { display:flex; flex-wrap:wrap; gap:12px; align-items:center; }
+@media(max-width:600px) { .baidu-dashboard { padding:16px; } .baidu-settings { grid-template-columns:1fr; gap:0; } }
+.orb-core img { width: 74px; height: 74px; border-radius: 20px; }

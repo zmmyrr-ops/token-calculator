@@ -1,3 +1,4 @@
+import { BaiduService, baiduCandidates } from "./baidu";
 import {
   expandContent,
   simplifyStarterPresentation,
@@ -16,7 +17,6 @@ import { site } from "./content/site";
 import coverage from "../../data/coverage.json";
 import { NewsService, sources } from "./news";
 import { newsCategories } from "../../shared/news";
-import { indexablePaths } from "../../shared/seo";
 const app = express();
 app.disable("x-powered-by");
 app.set("query parser", "simple");
@@ -47,7 +47,8 @@ simplifyStarterPresentation(store);
 app.use("/api/v1/events", express.json({ limit: "2kb" }), eventsRouter(store));
 app.use(express.json({ limit: "512kb" }));
 app.use("/api/community", communityRouter(store));
-app.use("/api/admin", adminRouter(store));
+const baidu = new BaiduService(store);
+app.use("/api/admin", adminRouter(store, baidu));
 const news = new NewsService(store);
 await news.init();
 app.get("/api/health/live", (_req, res) => res.json({ status: "ok" }));
@@ -285,11 +286,11 @@ app.get("/robots.txt", (_req, res) =>
     ),
 );
 app.get("/sitemap.xml", (_req, res) => {
-  const routes = indexablePaths(store.publicContent());
+  const routes = baiduCandidates(store);
   res
     .type("application/xml")
     .send(
-      `<?xml version="1.0" encoding="UTF-8"?><urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">${routes.map((route) => `<url><loc>${site.url}${route}</loc></url>`).join("")}</urlset>`,
+      `<?xml version="1.0" encoding="UTF-8"?><urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">${routes.map((route) => `<url><loc>${route.url.replaceAll('&', '&amp;').replaceAll('<', '&lt;').replaceAll('>', '&gt;')}</loc></url>`).join("")}</urlset>`,
     );
 });
 app.use((_req, res) => res.status(404).json({ error: "NOT_FOUND" }));
@@ -336,11 +337,13 @@ const server = app.listen(
   () => {
     console.log("Node.js API listening on " + (process.env.PORT || 4000));
     news.start();
+    baidu.start();
   },
 );
 async function stop() {
   server.close();
   await news.stop();
+  await baidu.stop();
   store.close();
   process.exit(0);
 }

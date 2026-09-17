@@ -5,6 +5,7 @@
 
 .analytics-switch {
   display: flex;
+  flex-wrap: wrap;
   gap: 12px;
   padding: 20px;
   border-bottom: 1px solid #293246;

@@ -40,6 +40,8 @@ it("enforces origin, initial password change and session revocation over HTTP", 
   try {
     expect((await call("/overview")).status).toBe(401);
     expect((await call("/analytics")).status).toBe(401);
+    expect((await call("/baidu")).status).toBe(401);
+    expect((await call("/baidu/config", {} ,"https://evil.example")).status).toBe(403);
     expect(
       (
         await call(

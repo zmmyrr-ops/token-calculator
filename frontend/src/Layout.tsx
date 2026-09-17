@@ -25,7 +25,7 @@ export default function RootLayout({
           <Link href="/" className="brand">
             <img
               className="site-mark"
-              src={appPath("/favicon.svg?v=2")}
+              src={appPath("/favicon.svg?v=3")}
               alt=""
               width="36"
               height="36"

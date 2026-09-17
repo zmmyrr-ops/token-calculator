@@ -1,3 +1,4 @@
+import { BaiduService, baiduAdminRouter } from "./baidu";
 import { communityAdminRouter, initCommunity } from "./community";
 import { analyticsSummary, pruneEvents } from "./analytics";
 import {
@@ -46,7 +47,7 @@ export async function initializeAdmin(store: ContentDatabase) {
     );
   store.db.prepare("INSERT INTO admins VALUES(?,?,1)").run(username, hashed);
 }
-export function adminRouter(store: ContentDatabase) {
+export function adminRouter(store: ContentDatabase, baidu?: BaiduService) {
   initCommunity(store);
   const cookieName =
     process.env.APP_ENV === "staging" ? "mendao_staging_admin" : "mendao_admin";
@@ -191,6 +192,7 @@ export function adminRouter(store: ContentDatabase) {
     res.json({ ok: true });
   });
   router.use(auth);
+  if (baidu) router.use("/baidu", baiduAdminRouter(baidu));
   router.use(
     "/community",
     (req, res, next) => {

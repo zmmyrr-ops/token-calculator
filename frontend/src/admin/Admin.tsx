@@ -1,3 +1,4 @@
+import BaiduDashboard from "./BaiduDashboard";
 import CommunityModeration from "./CommunityModeration";
 import AnalyticsDashboard from "./AnalyticsDashboard";
 import { appPath } from "@/base";
@@ -21,6 +22,7 @@ async function api(path: string, method = "GET", body?: unknown) {
   return data;
 }
 export default function Admin() {
+  const [baidu, setBaidu] = useState(false);
   const [analytics, setAnalytics] = useState(false);
   const [community, setCommunity] = useState<false | "posts" | "users">(false);
   const [user, setUser] = useState<User | null>(null),
@@ -310,9 +312,12 @@ export default function Admin() {
       </header>
       <nav className="analytics-switch" aria-label="后台模块">
         <button
-          className={!analytics && !community ? "button primary" : "button"}
+          className={
+            !analytics && !community && !baidu ? "button primary" : "button"
+          }
           onClick={() => {
             setAnalytics(false);
+            setBaidu(false);
             setCommunity(false);
           }}
         >
@@ -322,6 +327,7 @@ export default function Admin() {
           className={analytics ? "button primary" : "button"}
           onClick={() => {
             setAnalytics(true);
+            setBaidu(false);
             setCommunity(false);
           }}
         >
@@ -332,6 +338,7 @@ export default function Admin() {
           onClick={() => {
             setCommunity("posts");
             setAnalytics(false);
+            setBaidu(false);
           }}
         >
           社区管理
@@ -341,11 +348,23 @@ export default function Admin() {
           onClick={() => {
             setCommunity("users");
             setAnalytics(false);
+            setBaidu(false);
           }}
         >
           用户管理
         </button>
+        <button
+          className={baidu ? "button primary" : "button"}
+          onClick={() => {
+            setBaidu(true);
+            setAnalytics(false);
+            setCommunity(false);
+          }}
+        >
+          百度收录
+        </button>
       </nav>
+      {baidu && <BaiduDashboard />}
       {community && (
         <CommunityModeration
           key={community}
@@ -355,7 +374,9 @@ export default function Admin() {
       {analytics && <AnalyticsDashboard />}
       <div
         className="admin-workspace"
-        style={analytics || community ? { display: "none" } : undefined}
+        style={
+          analytics || community || baidu ? { display: "none" } : undefined
+        }
       >
         <aside className="admin-sidebar">
           <div className="admin-tabs">
