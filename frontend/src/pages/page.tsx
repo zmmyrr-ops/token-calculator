@@ -86,7 +86,7 @@ export default function Home() {
           <div className="orbital" aria-hidden="true">
             <div className="orbit orbit-one" />
             <div className="orbit orbit-two" />
-            <div className="orb-core"><img src={appPath("/favicon.svg?v=3")} alt="" width="88" height="88" /></div>
+            <div className="orb-core"><img src={appPath("/brand/ai-door-v4.png")} alt="" width="88" height="88" /></div>
             <span className="orbit-label label-one">KNOWLEDGE</span>
             <span className="orbit-label label-two">MODELS</span>
             <span className="orbit-label label-three">CREATE</span>

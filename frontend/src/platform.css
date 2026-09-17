@@ -1770,7 +1770,7 @@ h3 {
   flex-shrink: 0;
   width: 36px;
   height: 36px;
-  filter: drop-shadow(0 3px 9px #75e3d022);
+  border-radius: 9px;
 }
 
 /* Brand doorway: the favicon remains the recognizable center of the visual. */
