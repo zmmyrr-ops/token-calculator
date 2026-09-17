@@ -1,3 +1,5 @@
+import { recordEvent } from "../../backend/src/analytics";
+import { randomUUID } from "node:crypto";
 import { test, expect } from "@playwright/test";
 import express from "express";
 import { mkdtempSync, rmSync, readFileSync } from "node:fs";
@@ -95,6 +97,30 @@ test("isolated admin: change password, save, publish and download backup", async
         () => document.documentElement.scrollWidth <= innerWidth,
       ),
     ).toBe(true);
+    await page.getByRole("button", { name: "数据埋点", exact: true }).click();
+    await expect(
+      page.getByRole("heading", { name: "数据埋点", exact: true }),
+    ).toBeVisible();
+    await expect(
+      page.getByText("这个时间范围还没有收到访问数据。", { exact: false }),
+    ).toBeVisible();
+    await page.getByLabel("统计时间范围").selectOption("30");
+    await expect(page.locator(".analytics-day")).toHaveCount(30);
+    expect(
+      await page.evaluate(
+        () => document.documentElement.scrollWidth <= innerWidth,
+      ),
+    ).toBe(true);
+    recordEvent(db, {
+      id: randomUUID(),
+      name: "page_view",
+      page: "/models",
+      target: "none",
+    });
+    await page.getByRole("button", { name: "刷新统计" }).click();
+    await expect(
+      page.locator(".analytics-metrics article").first().locator("strong"),
+    ).toHaveText("1");
     await page.screenshot({
       path: `docs/screenshots/admin-${test.info().project.name}.png`,
     });

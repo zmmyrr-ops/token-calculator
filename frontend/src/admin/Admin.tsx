@@ -1,3 +1,4 @@
+import AnalyticsDashboard from "./AnalyticsDashboard";
 import { appPath } from "@/base";
 import { useEffect, useState } from "react";
 import { kinds, kindLabels, type Kind, type DocumentRecord } from "@shared/cms";
@@ -19,6 +20,7 @@ async function api(path: string, method = "GET", body?: unknown) {
   return data;
 }
 export default function Admin() {
+  const [analytics, setAnalytics] = useState(false);
   const [user, setUser] = useState<User | null>(null),
     [loading, setLoading] = useState(true),
     [message, setMessage] = useState(""),
@@ -304,7 +306,25 @@ export default function Admin() {
           </button>
         </nav>
       </header>
-      <div className="admin-workspace">
+      <nav className="analytics-switch" aria-label="后台模块">
+        <button
+          className={!analytics ? "button primary" : "button"}
+          onClick={() => setAnalytics(false)}
+        >
+          内容管理
+        </button>
+        <button
+          className={analytics ? "button primary" : "button"}
+          onClick={() => setAnalytics(true)}
+        >
+          数据埋点
+        </button>
+      </nav>
+      {analytics && <AnalyticsDashboard />}
+      <div
+        className="admin-workspace"
+        style={analytics ? { display: "none" } : undefined}
+      >
         <aside className="admin-sidebar">
           <div className="admin-tabs">
             {kinds.map((k) => (

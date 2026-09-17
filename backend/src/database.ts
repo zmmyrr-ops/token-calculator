@@ -47,7 +47,11 @@ export class ContentDatabase {
    CREATE TABLE IF NOT EXISTS sessions(token TEXT PRIMARY KEY,username TEXT NOT NULL REFERENCES admins(username),expires INTEGER NOT NULL);
    CREATE TABLE IF NOT EXISTS news_items(id TEXT PRIMARY KEY,payload TEXT NOT NULL);
    CREATE TABLE IF NOT EXISTS login_limits(key TEXT PRIMARY KEY,attempts INTEGER NOT NULL,expires INTEGER NOT NULL);
-   INSERT OR IGNORE INTO migrations VALUES(1,datetime('now'));`);
+   INSERT OR IGNORE INTO migrations VALUES(1,datetime('now'));
+   CREATE TABLE IF NOT EXISTS analytics_events(seq INTEGER PRIMARY KEY AUTOINCREMENT,event_id TEXT NOT NULL UNIQUE,name TEXT NOT NULL,page TEXT NOT NULL,target TEXT NOT NULL,at INTEGER NOT NULL);
+   CREATE INDEX IF NOT EXISTS analytics_events_at ON analytics_events(at);
+   CREATE INDEX IF NOT EXISTS analytics_events_name_at ON analytics_events(name,at);
+   INSERT OR IGNORE INTO migrations VALUES(2,datetime('now'));`);
   }
   transaction<T>(fn: () => T): T {
     this.db.exec("BEGIN IMMEDIATE");

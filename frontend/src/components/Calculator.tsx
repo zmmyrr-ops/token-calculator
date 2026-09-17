@@ -1,3 +1,4 @@
+import { track } from "@/Analytics";
 import { appPath, storageKey } from "@/base";
 import { useEffect, useMemo, useRef, useState } from "react";
 import Link from "@/Link";
@@ -75,6 +76,7 @@ export default function Calculator({
   catalogVersion: string;
   modelCount: number;
 }) {
+  const trackedCalculation = useRef(false);
   const [text, setText] = useState("");
   const [undo, setUndo] = useState("");
   const [selected, setSelected] = useState(initialModels);
@@ -175,7 +177,13 @@ export default function Calculator({
           setBusy(false);
           setSlow(false);
           if (e.data.error) setError(e.data.error);
-          else setCount(e.data.count);
+          else {
+            setCount(e.data.count);
+            if (!trackedCalculation.current && e.data.count > 0) {
+              trackedCalculation.current = true;
+              track("calculator_used");
+            }
+          }
         };
         w.onerror = () => {
           w.terminate();
@@ -332,6 +340,7 @@ export default function Calculator({
     a.download = `token-budget.${format}`;
     a.click();
     setTimeout(() => URL.revokeObjectURL(url), 1000);
+    track("report_export");
     setToast("报告已导出");
   }
   async function copy() {

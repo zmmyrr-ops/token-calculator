@@ -1,3 +1,4 @@
+import { analyticsSummary, pruneEvents } from "./analytics";
 import {
   Router,
   type Request,
@@ -188,6 +189,11 @@ export function adminRouter(store: ContentDatabase) {
     res.json({ ok: true });
   });
   router.use(auth);
+  router.get("/analytics", (req, res) => {
+    const days = z.enum(["7", "30", "90"]).parse(req.query.days ?? "7");
+    pruneEvents(store);
+    res.json(analyticsSummary(store, Number(days)));
+  });
   const kind = (req: Request) => z.enum(kinds).parse(req.params.kind);
   const revision = (value: unknown) => z.number().int().positive().parse(value);
   const id = (req: Request) => String(req.params.id);

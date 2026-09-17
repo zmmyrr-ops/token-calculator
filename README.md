@@ -69,3 +69,7 @@ npm run test:e2e
 - main 推送触发 GitHub CI 与测试部署；Actions 的 Publish production 手动输入已通过测试的完整提交 SHA，提升同一镜像。
 - 部署前与每天自动备份 SQLite；保留 14 天，同机备份，OSS 异地备份待配置。
 - 详情见 [ECS CI/CD 运维说明](deploy/ecs/README.md)。
+
+## 匿名埋点统计
+
+后台顶部“数据埋点”提供 7/30/90 天访问、点击、计算使用与趋势统计。公开页面记录主要入口操作，不采集输入正文或访客标识。可在隐私页关闭。详见 [埋点模块说明](docs/12-匿名埋点与统计后台.md)。

@@ -1,3 +1,4 @@
+import Analytics from "./Analytics";
 import { basePath } from "./base";
 import { Component, useEffect, type ReactNode } from "react";
 import { createRoot } from "react-dom/client";
@@ -121,9 +122,12 @@ function Entry() {
   return pathname.startsWith("/admin") ? (
     <Admin />
   ) : (
-    <ContentProvider key={pathname}>
-      <App />
-    </ContentProvider>
+    <>
+      <Analytics />
+      <ContentProvider key={pathname}>
+        <App />
+      </ContentProvider>
+    </>
   );
 }
 createRoot(document.getElementById("root")!).render(

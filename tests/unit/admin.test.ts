@@ -39,6 +39,7 @@ it("enforces origin, initial password change and session revocation over HTTP", 
     });
   try {
     expect((await call("/overview")).status).toBe(401);
+    expect((await call("/analytics")).status).toBe(401);
     expect(
       (
         await call(
