@@ -40,8 +40,12 @@ export function qbitArticleImage(html: string): string | null {
           /^\/wp-content\/uploads\/\d{4}\/\d{2}\/[^/]+\.(?:png|jpe?g|webp|gif)$/i.test(
             u.pathname,
           )
-        )
+        ) {
+          // The publisher also exposes uploads on its public website. The CDN
+          // rejects third-party embeds; use the independently public URL.
+          u.hostname = "www.qbitai.com";
           return u.href;
+        }
       } catch {
         /* Ignore malformed image attributes. */
       }
@@ -78,5 +82,17 @@ export async function fetchQbitImage(url: string): Promise<string | null> {
     }
     chunks.push(value);
   }
-  return qbitArticleImage(Buffer.concat(chunks).toString("utf8"));
+  const image = qbitArticleImage(Buffer.concat(chunks).toString("utf8"));
+  if (!image) return null;
+  const check = await fetch(image, {
+    redirect: "error",
+    signal: AbortSignal.timeout(5000),
+  });
+  const usable =
+    check.ok &&
+    /^image\/(png|jpeg|webp|gif)(?:;|$)/i.test(
+      check.headers.get("content-type") || "",
+    );
+  await check.body?.cancel();
+  return usable ? image : null;
 }

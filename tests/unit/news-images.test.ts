@@ -8,7 +8,7 @@ describe("Qbit article image enrichment", () => {
   it("takes the article image instead of the site logo and author avatar", () => {
     const html = `<meta property="og:image" content="https://www.qbitai.com/wp-content/uploads/imgs/logo.png"><img src="https://www.qbitai.com/wp-content/uploads/2019/01/qrcode.jpg"><div class="article"><div class="article_info"><img src="http://www.qbitai.com/wp-content/themes/liangziwei/imagesnew/head.jpg"></div><p><img decoding="async" src="https://i.qbitai.com/wp-content/uploads/2026/09/cover.png"></p></div>`;
     expect(qbitArticleImage(html)).toBe(
-      "https://i.qbitai.com/wp-content/uploads/2026/09/cover.png",
+      "https://www.qbitai.com/wp-content/uploads/2026/09/cover.png",
     );
   });
   it("handles lazy images and ignores unsafe or unrelated candidates", () => {
@@ -17,7 +17,7 @@ describe("Qbit article image enrichment", () => {
         `<div class='article'><img src='data:image/png;base64,x' data-src='https://i.qbitai.com/wp-content/uploads/2026/09/cover.webp?a=1&amp;b=2'></div>`,
       ),
     ).toBe(
-      "https://i.qbitai.com/wp-content/uploads/2026/09/cover.webp?a=1&b=2",
+      "https://www.qbitai.com/wp-content/uploads/2026/09/cover.webp?a=1&b=2",
     );
     for (const src of [
       "https://evil.example/cover.png",

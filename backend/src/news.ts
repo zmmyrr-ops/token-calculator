@@ -195,6 +195,14 @@ export class NewsService {
       if (raw.version !== 1 || !Array.isArray(raw.items) || !raw.states)
         throw Error("invalid news store");
       this.store = raw;
+      // Replace prior inaccessible CDN covers through the public-site lookup.
+      for (const item of this.store.items) {
+        if (
+          item.sourceId === "qbitai" &&
+          item.imageUrl?.startsWith("https://i.qbitai.com/")
+        )
+          item.imageUrl = null;
+      }
       this.database?.saveNews(this.store);
       // Re-fetch old title-only entries once to enrich them with feed images.
       for (const source of sources) {
