@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
-import { appPath, basePath, storageKey } from "./base";
+import { appPath, basePath, storageKey, isStaging } from "./base";
 import { analyticsPage, type AnalyticsEvent } from "@shared/analytics";
 export function analyticsEnabled() {
   if (navigator.doNotTrack === "1") return false;
@@ -24,7 +24,7 @@ export function track(
     void fetch(appPath("/api/v1/events"), {
       method: "POST",
       keepalive: true,
-      credentials: "omit",
+      credentials: isStaging ? "same-origin" : "omit",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
         id: crypto.randomUUID(),
