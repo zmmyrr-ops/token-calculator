@@ -103,7 +103,7 @@ export function renderSnapshot(
     ...(route === "/" ? { alternateName: ["AI门道", "AI 门道"] } : {}),
   };
   const metadata = `<meta name="robots" content="${robots}"><link rel="canonical" href="${e(seo.canonical)}"><meta property="og:title" content="${e(seo.title)}"><meta property="og:description" content="${e(seo.description)}"><meta property="og:url" content="${e(seo.canonical)}"><script type="application/ld+json" id="prerender-schema">${JSON.stringify(structured).replaceAll("<", "\\u003c")}</script>`;
-  let content = `<div class="container"><header style="padding:24px 0">${link("/", "AI 门道")} · ${link("/news", "AI 资讯")} · ${link("/learn", "学习中心")} · ${link("/models", "模型与平台")} · ${link("/tools", "工具导航")}</header><main class="prose" style="max-width:900px;margin:24px auto;line-height:1.9">${pageBody(route, d, news, Number(new URLSearchParams(search).get("page") || 1))}</main><footer style="padding:24px 0">AI 门道 · 看懂 AI，用出门道。 ${link("https://beian.miit.gov.cn/", d.site.icp)}</footer></div>`;
+  let content = `<div class="container"><header style="padding:24px 0">${link("/", "AI 门道")} · ${link("/news", "AI 资讯")} · ${link("/learn", "学习中心")} · ${link("/models", "模型与平台")} · ${link("/tools", "工具导航")}</header><main class="prose" style="max-width:900px;margin:24px auto;line-height:1.9;overflow-wrap:anywhere">${pageBody(route, d, news, Number(new URLSearchParams(search).get("page") || 1))}</main><footer style="padding:24px 0">AI 门道 · 看懂 AI，用出门道。 ${link("https://beian.miit.gov.cn/", d.site.icp)}</footer></div>`;
   if (staging) content = content.replace(/href="\/(?!\/)/g, 'href="/staging/');
   return shell
     .replace(
@@ -207,7 +207,10 @@ export class PublicSnapshots {
     if (p === "/tutorials" || p === "/scenarios")
       return {
         status: 308,
-        location: (this.staging ? "/staging" : "") + "/learn?format=" + (p === "/tutorials" ? "practice" : "scenarios"),
+        location:
+          (this.staging ? "/staging" : "") +
+          "/learn?format=" +
+          (p === "/tutorials" ? "practice" : "scenarios"),
       };
     if (
       [

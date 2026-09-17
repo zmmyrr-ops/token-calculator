@@ -82,12 +82,23 @@ test("encoding switch and no-JS fallback", async ({ page, browser }) => {
   await expect(page.getByTestId("token-count")).toHaveText("2");
   await page.getByLabel("参考分词编码").selectOption("cl100k_base");
   await expect(page.getByTestId("token-count")).toHaveText("2");
-  const context = await browser.newContext({ javaScriptEnabled: false });
+  const context = await browser.newContext({
+    javaScriptEnabled: false,
+    viewport: { width: 390, height: 844 },
+  });
   const nojs = await context.newPage();
   await nojs.goto("http://127.0.0.1:3000/");
   await expect(nojs.locator("noscript > div")).toContainText(
     "请启用 JavaScript",
   );
+  await page.goto(
+    (process.env.TEST_URL || "http://127.0.0.1:3000") + "/models?page=2",
+  );
+  expect(
+    await page.evaluate(
+      () => document.documentElement.scrollWidth <= innerWidth,
+    ),
+  ).toBe(true);
   await context.close();
 });
 
@@ -324,7 +335,10 @@ test("public article is readable without JavaScript and unknown routes return 40
   browser,
   request,
 }) => {
-  const context = await browser.newContext({ javaScriptEnabled: false });
+  const context = await browser.newContext({
+    javaScriptEnabled: false,
+    viewport: { width: 390, height: 844 },
+  });
   const page = await context.newPage();
   await page.goto(
     (process.env.TEST_URL || "http://127.0.0.1:3000") + "/learn/tokens",
@@ -344,5 +358,13 @@ test("public article is readable without JavaScript and unknown routes return 40
   const html = await article.text();
   expect(html).toContain('rel="canonical"');
   expect(html).toContain("application/ld+json");
+  await page.goto(
+    (process.env.TEST_URL || "http://127.0.0.1:3000") + "/models?page=2",
+  );
+  expect(
+    await page.evaluate(
+      () => document.documentElement.scrollWidth <= innerWidth,
+    ),
+  ).toBe(true);
   await context.close();
 });
