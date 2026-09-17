@@ -2,6 +2,7 @@ name: CI
 on:
   push:
     branches: [main]
+    paths-ignore: ["docs/**", "README.md", "TODO.md", "deploy/ecs/README.md"]
   pull_request:
   workflow_dispatch:
 permissions:

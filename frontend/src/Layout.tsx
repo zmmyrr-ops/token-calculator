@@ -13,13 +13,15 @@ export default function RootLayout({
   const { pathname } = useLocation();
   return (
     <>
+      {isStaging && (
+        <div className="staging-banner">测试环境 · 内容与正式站独立</div>
+      )}
       <a className="skip-link" href="#main">
         跳到主要内容
       </a>
       <header className="site-header">
         <div className="container header-inner">
           <Link href="/" className="brand">
-            {isStaging && <small>测试环境 · </small>}
             <span className="logo">门</span>
             {site.name}
             <small>AI MENDAO</small>
