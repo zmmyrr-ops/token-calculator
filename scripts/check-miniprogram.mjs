@@ -13,6 +13,10 @@ async function walk(dir) {
       continue;
     }
     bytes += info.size;
+    if (f.endsWith('.wxml')) {
+      for (const match of (await readFile(f, 'utf8')).matchAll(/\{\{([\s\S]*?)\}\}/g))
+        new vm.Script('(' + match[1] + ')', {filename: f});
+    }
     if (f.endsWith(".json")) JSON.parse(await readFile(f, "utf8"));
     if (f.endsWith(".js"))
       new vm.Script(await readFile(f, "utf8"), { filename: f });

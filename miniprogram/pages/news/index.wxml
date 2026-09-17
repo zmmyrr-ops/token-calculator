@@ -37,8 +37,7 @@
       ><view class="card-title">{{item.title}}</view
       ><view class="muted">{{item.summary}}</view
       ><view class="tiny"
-        >{{item.date}}{{item.format === 'video' ? '视频教程 · 来源链接' :
-        item.format === 'practice' ? '动手实践' : ''}}</view
+        >{{item.date}}{{item.format === 'video' ? '视频教程 · 来源链接' : item.format === 'practice' ? '动手实践' : ''}}</view
       ></view
     ><image
       wx:if="{{item.imageUrl}}"

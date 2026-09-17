@@ -1,7 +1,6 @@
 <view class="page"
   ><view class="title"
-    >{{user ? '管理我的账号' : mode === 'login' ? '欢迎回来。' : '开启你的 AI
-    门道。'}}</view
+    >{{user ? '管理我的账号' : mode === 'login' ? '欢迎回来。' : '开启你的 AI 门道。'}}</view
   ><view class="muted">与网站共用账号、昵称与社区记录。</view
   ><view wx:if="{{user}}" class="card"
     ><image wx:if="{{avatarUrl}}" src="{{avatarUrl}}" class="avatar" /><view
