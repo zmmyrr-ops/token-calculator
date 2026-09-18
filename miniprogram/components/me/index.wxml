@@ -25,7 +25,7 @@
     ></view
   ><view wx:if="{{!items.length}}" class="state"
     >喜欢的教程、资讯和工具，可以随手收藏。</view
-  ><button bindtap="about">关于、隐私与反馈</button
+  ><button bindtap="about">隐私与反馈</button
   ><button bindtap="clear">清除本机收藏与阅读记录</button
   ><button wx:if="{{user}}" bindtap="logout">退出登录</button></view
 >
