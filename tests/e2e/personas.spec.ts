@@ -38,7 +38,9 @@ test("persona discovery, saved preferences, share state and usable downloads", a
   await expect(page.locator("#persona-guide")).toContainText("先备份原文件");
   const cardDownload = page.waitForEvent("download");
   await page.getByRole("button", { name: "下载分享卡片", exact: true }).click();
-  expect((await cardDownload).suggestedFilename()).toBe("velvet-card.svg");
+  const card = await cardDownload;
+  expect(card.suggestedFilename()).toBe("velvet-card.svg");
+  expect(await readFile((await card.path())!, "utf8")).toContain("data:image/webp;base64,");
   expect(
     await page.evaluate(
       () => document.documentElement.scrollWidth <= window.innerWidth,

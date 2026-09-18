@@ -202,7 +202,7 @@ test("isolated admin: change password, save, publish and download backup", async
       }),
     ).toBeVisible();
     await page.getByRole("link", {name:"AI 人格管理"}).click();
-    await page.getByRole("button", {name:"🌟 元气搭子",exact:true}).click();
+    await page.getByRole("button", {name:"元气搭子",exact:true}).click();
     await page.getByLabel("名称",{exact:true}).fill("测试人格编辑");
     await page.getByLabel("在前台发布").uncheck();
     await page.getByRole("button", {name:"保存并更新"}).click();

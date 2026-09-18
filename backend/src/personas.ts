@@ -1,3 +1,4 @@
+import { personaPlaybooks } from "../../shared/persona-playbooks";
 import { Router } from "express";
 import { z } from "zod";
 import { ContentDatabase, CmsError } from "./database";
@@ -135,6 +136,7 @@ export const personaSeeds: Persona[] = entries.map(
       description,
       traits: traits.split("|"),
       example,
+      instructions: personaPlaybooks[id],
       published: true,
     }),
 );
@@ -149,6 +151,21 @@ export function initPersonas(db: ContentDatabase) {
           "INSERT OR IGNORE INTO personas(id,data,updated_at) VALUES(?,?,?)",
         )
         .run(p.id, JSON.stringify(p), new Date().toISOString());
+    for (const row of db.db.prepare("SELECT id,data FROM personas").all()) {
+      const data = JSON.parse(String(row.data));
+      const instructions = personaPlaybooks[String(row.id)];
+      if (!data.instructions && instructions) {
+        db.db
+          .prepare(
+            "UPDATE personas SET data=?,revision=revision+1,updated_at=? WHERE id=?",
+          )
+          .run(
+            JSON.stringify({ ...data, instructions }),
+            new Date().toISOString(),
+            row.id,
+          );
+      }
+    }
   });
 }
 export function personaRows(db: ContentDatabase) {

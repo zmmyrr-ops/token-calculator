@@ -451,4 +451,120 @@
   }
 }
 /* Match the site's dark palette, including readable form and card surfaces. */
-.persona-card,.persona-guide article{background:#121e30;border-color:#2b3e51;color:#e1ebf4}.persona-card h3,.persona-workbench h2,.persona-guide h3{color:#e1ebf4}.persona-choose p,.persona-config p,.persona-preview p,.persona-guide p,.persona-guide li,.persona-preview li{color:#b1c5cc}.persona-choose small,.persona-meta{color:#9ab5b5}.persona-filters button,.persona-mode button{background:#17283a;border-color:#344a59;color:#c1d6d6}.persona-filters button[aria-pressed=true],.persona-mode button[aria-pressed=true]{background:#21564a;border-color:#5fb99c;color:#fff}.persona-workbench{border-color:#2c424f}.persona-preview{background:#142c32}.persona-config{background:#101f30}.persona-demo{background:#0d1b29}.persona-question{background:#1c3540}.persona-demo small{color:#9bbab9}.persona-demo blockquote{color:#e0ebef}.persona-config textarea{background:#0b1725;color:#c9d9e4;border-color:#314b5c}.persona-guide code,.persona-guide pre{background:#1c3040;color:#beded3}.persona-guide details{border-color:#304350}.persona-card-foot,.persona-heart[aria-pressed=true]{color:#84d7bd}.persona-meta{border-color:#2c4050}.persona-guide b{color:#8ed9c3}
+.persona-card,
+.persona-guide article {
+  background: #121e30;
+  border-color: #2b3e51;
+  color: #e1ebf4;
+}
+.persona-card h3,
+.persona-workbench h2,
+.persona-guide h3 {
+  color: #e1ebf4;
+}
+.persona-choose p,
+.persona-config p,
+.persona-preview p,
+.persona-guide p,
+.persona-guide li,
+.persona-preview li {
+  color: #b1c5cc;
+}
+.persona-choose small,
+.persona-meta {
+  color: #9ab5b5;
+}
+.persona-filters button,
+.persona-mode button {
+  background: #17283a;
+  border-color: #344a59;
+  color: #c1d6d6;
+}
+.persona-filters button[aria-pressed="true"],
+.persona-mode button[aria-pressed="true"] {
+  background: #21564a;
+  border-color: #5fb99c;
+  color: #fff;
+}
+.persona-workbench {
+  border-color: #2c424f;
+}
+.persona-preview {
+  background: #142c32;
+}
+.persona-config {
+  background: #101f30;
+}
+.persona-demo {
+  background: #0d1b29;
+}
+.persona-question {
+  background: #1c3540;
+}
+.persona-demo small {
+  color: #9bbab9;
+}
+.persona-demo blockquote {
+  color: #e0ebef;
+}
+.persona-config textarea {
+  background: #0b1725;
+  color: #c9d9e4;
+  border-color: #314b5c;
+}
+.persona-guide code,
+.persona-guide pre {
+  background: #1c3040;
+  color: #beded3;
+}
+.persona-guide details {
+  border-color: #304350;
+}
+.persona-card-foot,
+.persona-heart[aria-pressed="true"] {
+  color: #84d7bd;
+}
+.persona-meta {
+  border-color: #2c4050;
+}
+.persona-guide b {
+  color: #8ed9c3;
+}
+
+/* Original illustrated portraits, shared by gallery and configuration preview. */
+.persona-portrait {
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 1;
+  object-fit: cover;
+  border-radius: 18px;
+  margin: 0 0 18px;
+  background: #243348;
+}
+.persona-preview-avatar {
+  display: block;
+  width: 112px;
+  height: 112px;
+  object-fit: cover;
+  border-radius: 24px;
+  margin: 18px 0;
+}
+.persona-orbit > span {
+  overflow: hidden;
+  background: transparent;
+  border: 2px solid #89dfcf55;
+}
+.persona-orbit > span img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+.persona-heart {
+  background: #102331e8;
+  border: 1px solid #ffffff30;
+}
+.persona-config textarea {
+  min-height: 380px;
+}

@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { appPath } from "../base";
-import type { Persona } from "@shared/personas";
+import { personaAvatar, type Persona } from "@shared/personas";
 import "../globals.css";
 import "../platform.css";
 import "./admin.css";
@@ -81,7 +81,14 @@ export default function PersonasAdmin() {
               setMessage("");
             }}
           >
-            {p.icon} {p.name}
+            <img
+              src={appPath(personaAvatar(p.id))}
+              alt=""
+              width={36}
+              height={36}
+              style={{ borderRadius: 10 }}
+            />{" "}
+            {p.name}
             {p.published ? "" : "（已下架）"}
           </button>
         ))}
@@ -96,46 +103,67 @@ export default function PersonasAdmin() {
           }}
         >
           <fieldset disabled={busy} style={{ border: 0, padding: 0 }}>
-            {(
-              ["name", "icon", "tagline", "description", "example"] as const
-            ).map((k) => (
-              <label
-                key={k}
-                style={{ display: "grid", gap: 6, marginBottom: 16 }}
-              >
-                {
+            {(["name", "tagline", "description", "example"] as const).map(
+              (k) => (
+                <label
+                  key={k}
+                  style={{ display: "grid", gap: 6, marginBottom: 16 }}
+                >
                   {
-                    name: "名称",
-                    icon: "图标字符",
-                    tagline: "一句话介绍",
-                    description: "用途说明",
-                    example:
-                      "风格示例（统一问题：计划写了很多却不想动，怎么办？）",
-                  }[k]
-                }
-                <textarea
-                  aria-label={{ name: "名称", icon: "图标字符", tagline: "一句话介绍", description: "用途说明", example: "风格示例" }[k]}
-                  required
-                  value={draft[k]}
-                  maxLength={
-                    k === "name"
-                      ? 30
-                      : k === "icon"
-                        ? 8
+                    {
+                      name: "名称",
+                      icon: "图标字符",
+                      tagline: "一句话介绍",
+                      description: "用途说明",
+                      example:
+                        "风格示例（统一问题：计划写了很多却不想动，怎么办？）",
+                    }[k]
+                  }
+                  <textarea
+                    aria-label={
+                      {
+                        name: "名称",
+                        icon: "图标字符",
+                        tagline: "一句话介绍",
+                        description: "用途说明",
+                        example: "风格示例",
+                      }[k]
+                    }
+                    required
+                    value={draft[k]}
+                    maxLength={
+                      k === "name"
+                        ? 30
                         : k === "tagline"
                           ? 100
                           : k === "description"
                             ? 500
                             : 600
-                  }
-                  rows={k === "example" ? 4 : 2}
-                  onChange={(e) => {
-                    setDraft({ ...draft, [k]: e.target.value });
-                    setDirty(true);
-                  }}
-                />
-              </label>
-            ))}
+                    }
+                    rows={k === "example" ? 4 : 2}
+                    onChange={(e) => {
+                      setDraft({ ...draft, [k]: e.target.value });
+                      setDirty(true);
+                    }}
+                  />
+                </label>
+              ),
+            )}
+            <label style={{ display: "grid", gap: 6, marginBottom: 20 }}>
+              完整人格设定与多场景示范
+              <textarea
+                aria-label="完整人格设定"
+                rows={24}
+                minLength={100}
+                maxLength={12000}
+                required
+                value={draft.instructions || ""}
+                onChange={(e) => {
+                  setDraft({ ...draft, instructions: e.target.value });
+                  setDirty(true);
+                }}
+              />
+            </label>
             <label>
               分类
               <select

@@ -76,3 +76,59 @@ it("exports explicit skills and scoped instructions and escapes share card conte
   expect(card).toContain("&lt;script&gt;");
   expect(card).toContain("&amp;b=2");
 });
+it("backfills detailed instructions once without replacing existing editor content", () => {
+  const db = new ContentDatabase(":memory:");
+  try {
+    initPersonas(db);
+    const legacy = { ...personaSeeds[0] };
+    delete legacy.instructions;
+    db.db
+      .prepare("UPDATE personas SET data=? WHERE id=?")
+      .run(
+        JSON.stringify({ ...legacy, name: "保留编辑名称", published: false }),
+        legacy.id,
+      );
+    initPersonas(db);
+    const migrated = personaRows(db)[0];
+    expect(migrated.instructions).toContain("多场景对话示范");
+    expect(migrated.name).toBe("保留编辑名称");
+    expect(migrated.published).toBe(false);
+    initPersonas(db);
+    expect(personaRows(db)[0].revision).toBe(migrated.revision);
+    const custom = "这是管理员自定义的完整指令。".repeat(20);
+    expect(
+      personaArtifact(
+        { ...personaSeeds[0], instructions: custom },
+        "balanced",
+        "skill",
+      ),
+    ).toContain(custom);
+    for (const p of personaSeeds) {
+      const content = personaArtifact(p, "balanced", "skill");
+      expect(content).toContain("角色定位");
+      expect(content).toContain("代码报错");
+      expect(content).toContain("第一版想同时做五个功能");
+      expect(content).toContain("回答前检查");
+    }
+  } finally {
+    db.close();
+  }
+});
+it("embeds only safe image data in standalone share cards", () => {
+  expect(
+    personaCard(
+      personaSeeds[0],
+      "balanced",
+      "https://ruming.top",
+      "data:image/webp;base64,AAAA",
+    ),
+  ).toContain('<image href="data:image/webp;base64,AAAA"');
+  expect(
+    personaCard(
+      personaSeeds[0],
+      "balanced",
+      "https://ruming.top",
+      "javascript:alert(1)",
+    ),
+  ).not.toContain("javascript:");
+});

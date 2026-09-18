@@ -15,6 +15,7 @@ import {
   intensities,
   personaArtifact,
   personaCard,
+  personaAvatar,
   type Persona,
   type Intensity,
   type PersonaMode,
@@ -131,6 +132,27 @@ export default function Personas() {
       setNotice("浏览器未允许保存收藏。");
     }
   }
+  async function downloadCard() {
+    try {
+      const response = await fetch(appPath(personaAvatar(selected.id)));
+      if (!response.ok) throw Error("头像加载失败");
+      const blob = await response.blob();
+      const avatar = await new Promise<string>((resolve, reject) => {
+        const reader = new FileReader();
+        reader.onload = () => resolve(String(reader.result));
+        reader.onerror = reject;
+        reader.readAsDataURL(blob);
+      });
+      saveFile(
+        `${selected.id}-card.svg`,
+        personaCard(selected, intensity, shareUrl(), avatar),
+        "image/svg+xml;charset=utf-8",
+      );
+      setNotice("分享卡片已下载，包含专属头像，可用浏览器打开。");
+    } catch {
+      setNotice("分享卡片生成失败，请稍后重试。");
+    }
+  }
   function shareUrl() {
     const url = new URL(appPath("/personas"), location.origin);
     url.search = new URLSearchParams({
@@ -156,14 +178,22 @@ export default function Personas() {
           </a>
         </div>
         <div className="persona-orbit" aria-hidden="true">
-          <span>☁️</span>
-          <span>♟️</span>
+          <span>
+            <img src={appPath(personaAvatar("soft-cloud"))} alt="" />
+          </span>
+          <span>
+            <img src={appPath(personaAvatar("velvet"))} alt="" />
+          </span>
           <strong>
             <Sparkles size={42} />
             <small>HELLO, YOU.</small>
           </strong>
-          <span>🌶️</span>
-          <span>◈</span>
+          <span>
+            <img src={appPath(personaAvatar("roast"))} alt="" />
+          </span>
+          <span>
+            <img src={appPath(personaAvatar("butler"))} alt="" />
+          </span>
         </div>
       </header>
       <div className="persona-meta">
@@ -237,7 +267,15 @@ export default function Personas() {
                   );
                 }}
               >
-                <span className="persona-icon">{p.icon}</span>
+                <img
+                  className="persona-portrait"
+                  src={appPath(personaAvatar(p.id))}
+                  alt={`${p.name}专属插画头像`}
+                  width={256}
+                  height={256}
+                  loading="lazy"
+                  decoding="async"
+                />
                 <small>{p.category}</small>
                 <h3>{p.name}</h3>
                 <p>{p.tagline}</p>
@@ -270,7 +308,14 @@ export default function Personas() {
           <div className="persona-preview">
             <div className="eyebrow">MEET YOUR PERSONA</div>
             <h2>
-              {selected.icon} {selected.name}
+              <img
+                className="persona-preview-avatar"
+                src={appPath(personaAvatar(selected.id))}
+                alt=""
+                width={112}
+                height={112}
+              />{" "}
+              {selected.name}
             </h2>
             <p>{selected.description}</p>
             <div className="persona-demo">
@@ -294,17 +339,7 @@ export default function Personas() {
                 <Share2 size={16} />
                 分享此配置
               </button>
-              <button
-                className="button"
-                onClick={() => {
-                  saveFile(
-                    `${selected.id}-card.svg`,
-                    personaCard(selected, intensity, shareUrl()),
-                    "image/svg+xml;charset=utf-8",
-                  );
-                  setNotice("分享卡片已下载，可用浏览器打开。");
-                }}
-              >
+              <button className="button" onClick={() => void downloadCard()}>
                 <Download size={16} />
                 下载分享卡片
               </button>
@@ -351,6 +386,10 @@ export default function Personas() {
                   : mode === "project"
                     ? "合并到当前项目的 AGENTS.md，仅影响该项目；请保留现有项目规范。"
                     : "合并到 Codex 的全局 AGENTS.md，影响该配置适用的新会话；先备份原文件。"}
+            </p>
+            <p className="tiny">
+              完整设定 · {content.length.toLocaleString()} 字符 ·
+              含角色定位、语言规则、多场景示范及执行检查
             </p>
             <textarea
               aria-label="生成的人格指令"
@@ -407,7 +446,9 @@ export default function Personas() {
       <section id="persona-guide" className="persona-guide">
         <div className="eyebrow">A SMALL GUIDE TO A DIFFERENT VOICE</div>
         <h2>三分钟，给 AI 换个说话风格。</h2>
-        <a className="button" href={appPath("/guides/ai-personas.md")} download>下载完整使用教程</a>
+        <a className="button" href={appPath("/guides/ai-personas.md")} download>
+          下载完整使用教程
+        </a>
         <div className="persona-guide-grid">
           <article>
             <b>01 / 先试聊</b>
@@ -454,8 +495,9 @@ export default function Personas() {
               <li>选择“项目默认”或“全局默认”，复制配置。</li>
               <li>
                 项目默认：合并至项目根目录的 <code>AGENTS.md</code>
-                。全局默认：合并至 <code>~/.codex/AGENTS.md</code>；若自定义了{" "}
-                <code>CODEX_HOME</code>，使用对应目录。
+                。全局默认：合并至 <code>
+                  ~/.codex/AGENTS.md
+                </code>；若自定义了 <code>CODEX_HOME</code>，使用对应目录。
               </li>
               <li>
                 先备份原文件，只替换 AI
