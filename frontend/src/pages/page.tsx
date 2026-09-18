@@ -119,6 +119,9 @@ export default function Home() {
           <ArrowUpRight size={14} />
         </Link>
       </div>
+      <section className="panel" style={{padding:28,marginTop:28,background:"linear-gradient(120deg,#12323a,#24253c)"}}>
+        <div className="eyebrow">NEW / AI PERSONAS</div><h2>认真解决问题，也可以有点性格。</h2><p>元气搭子、冷静御姐、赛博管家……挑一个聊得来的人格，带进你的下一次 AI 对话。</p><Link className="button primary" href="/personas">挑选我的 AI 人格 ↗</Link>
+      </section>
       <News compact />
       <section className="portal-section" id="knowledge">
         <div className="portal-section-head">

@@ -7,8 +7,12 @@ export const eventNames = [
   "search_submit",
   "calculator_used",
   "report_export",
+  "persona_copy",
+  "persona_download",
 ] as const;
 export const eventLabels: Record<(typeof eventNames)[number], string> = {
+  persona_copy: "复制人格指令或链接",
+  persona_download: "下载人格配置",
   page_view: "页面访问",
   navigation_click: "导航点击",
   content_click: "内容入口点击",
@@ -20,6 +24,7 @@ export const eventLabels: Record<(typeof eventNames)[number], string> = {
 export const pageNames = [
   "/",
   "/news",
+  "/personas",
   "/models",
   "/models/:id",
   "/tools",

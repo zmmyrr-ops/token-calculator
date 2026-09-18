@@ -45,6 +45,7 @@ const resourceLinks = (d: Content) =>
     })),
   );
 function pageBody(route: string, d: Content, news: NewsArticle[], page = 1) {
+  if (route === "/personas") return `<h1>AI 人格合集</h1><p>给你的 AI，一点自己的性格。选择表达风格，复制本次对话指令，或下载 Codex Skill、项目与全局默认配置。</p><h2>如何使用</h2><ol><li>选择人格和风格强度。</li><li>临时使用：把完整指令粘贴到当前对话。</li><li>长期使用：备份并合并至实际加载的 AGENTS.md，重新开启会话。</li></ol><p>风格台词为人工编写的示例，不代表实时模型输出。人格只改变表达方式，不改变模型权限与事实判断。</p>`;
   const slug = decodeURIComponent(route.split("/").pop() || "");
   const a = route.startsWith("/learn/")
     ? d.knowledge.find((x) => x.slug === slug)

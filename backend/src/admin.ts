@@ -1,3 +1,4 @@
+import { personasRouter } from "./personas";
 import { miniSettingsAdminRouter } from "./mini-settings";
 import { BaiduService, baiduAdminRouter } from "./baidu";
 import { communityAdminRouter, initCommunity } from "./community";
@@ -193,6 +194,7 @@ export function adminRouter(store: ContentDatabase, baidu?: BaiduService) {
     res.json({ ok: true });
   });
   router.use(auth);
+  router.use("/personas", (req, res, next) => { res.locals.adminUsername = session(req)!.username; next(); }, personasRouter(store, true));
   router.use(
     "/mini-settings",
     (req, res, next) => {

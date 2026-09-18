@@ -8,6 +8,7 @@ export const publicPages: Record<
     description:
       "看懂 AI，用出门道。面向独立创作者，了解大模型与工具，学习游戏、3D、视频创作方法，计算词元与素材预算。",
   },
+  "/personas": { title: "AI 人格合集｜说话风格提示词与 Codex Skill", description: "选择原创 AI 人格，调节语气强度，复制临时对话提示词，下载 Codex Skill 与长期默认配置，阅读安装及恢复教程。" },
   "/forum": {
     title: "社区论坛｜AI 创作与工具讨论",
     description: "交流游戏、3D、视频、模型与提示词，分享问题与方法。",

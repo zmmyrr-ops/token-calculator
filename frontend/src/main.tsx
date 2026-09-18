@@ -1,3 +1,5 @@
+import Personas from "./Personas";
+import PersonasAdmin from "./admin/PersonasAdmin";
 import {
   CommunityProvider,
   Forum,
@@ -71,19 +73,21 @@ function App() {
     searchParams.ids = query.getAll("ids").join(",");
   useEffect(() => {
     window.scrollTo(0, 0);
-  }, [location.pathname, location.search]);
+  }, [location.pathname]);
+  useEffect(() => { if (location.pathname !== "/personas") window.scrollTo(0, 0); }, [location.pathname, location.search]);
   return (
     <Layout>
       <Seo />
       <ErrorBoundary
         key={
           location.pathname +
-          (["/news", "/tutorials"].includes(location.pathname)
+          (["/news", "/tutorials", "/personas"].includes(location.pathname)
             ? ""
             : location.search)
         }
       >
         <Routes>
+          <Route path="/personas" element={<Personas />} />
           <Route path="/forum" element={<Forum />} />
           <Route path="/forum/new" element={<NewPost />} />
           <Route path="/forum/:id" element={<PostDetail />} />
@@ -141,7 +145,7 @@ function App() {
 }
 function Entry() {
   const { pathname } = useLocation();
-  return pathname.startsWith("/admin") ? (
+  return pathname === "/admin/personas" ? <PersonasAdmin /> : pathname.startsWith("/admin") ? (
     <Admin />
   ) : (
     <CommunityProvider>

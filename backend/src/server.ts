@@ -1,3 +1,4 @@
+import { initPersonas, personasRouter } from "./personas";
 import { miniSettings, requireMiniModule } from "./mini-settings";
 import { PublicSnapshots } from "./prerender";
 import { BaiduService, baiduCandidates } from "./baidu";
@@ -44,12 +45,14 @@ store.seed({
 expandContent(store);
 await initializeAdmin(store);
 initCommunity(store);
+initPersonas(store);
 seedCommunity(store);
 simplifyStarterPresentation(store);
 app.use("/api/v1/events", express.json({ limit: "2kb" }), eventsRouter(store));
 app.use(express.json({ limit: "512kb" }));
 app.use("/api/community", communityRouter(store));
 app.use("/api/mini/community", communityRouter(store, "bearer"));
+app.use("/api/v1/personas", personasRouter(store));
 const baidu = new BaiduService(store);
 app.use("/api/admin", adminRouter(store, baidu));
 const news = new NewsService(store);
@@ -88,12 +91,12 @@ app.get("/api/v1/bootstrap", (req, res) => {
     vendors: [
       ...new Map(all.map((m) => [m.provider, m.providerName])).entries(),
     ].sort((a, b) => a[1].localeCompare(b[1])),
-    knowledge: ["/models", "/tools", "/learn", "/search", "/news"].includes(
+    knowledge: ["/models", "/tools", "/learn", "/search", "/news", "/personas"].includes(
       path,
     )
       ? []
       : data.knowledge,
-    resources: ["/models", "/tools", "/learn", "/search", "/news"].includes(
+    resources: ["/models", "/tools", "/learn", "/search", "/news", "/personas"].includes(
       path,
     )
       ? []

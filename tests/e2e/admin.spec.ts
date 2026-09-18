@@ -1,3 +1,4 @@
+import { initPersonas, personaRows } from "../../backend/src/personas";
 import { initCommunity } from "../../backend/src/community";
 import { seedCommunity } from "../../backend/src/community-seed";
 import { recordEvent } from "../../backend/src/analytics";
@@ -16,6 +17,7 @@ test("isolated admin: change password, save, publish and download backup", async
   const dir = mkdtempSync(path.join(tmpdir(), "mendao-admin-test-"));
   const db = new ContentDatabase(path.join(dir, "test.sqlite"));
   initCommunity(db);
+  initPersonas(db);
   seedCommunity(db);
   db.seed(await (await fetch("http://127.0.0.1:3000/api/v1/bootstrap")).json());
   await db.db
@@ -199,6 +201,13 @@ test("isolated admin: change password, save, publish and download backup", async
         exact: false,
       }),
     ).toBeVisible();
+    await page.getByRole("link", {name:"AI 人格管理"}).click();
+    await page.getByRole("button", {name:"🌟 元气搭子",exact:true}).click();
+    await page.getByLabel("名称",{exact:true}).fill("测试人格编辑");
+    await page.getByLabel("在前台发布").uncheck();
+    await page.getByRole("button", {name:"保存并更新"}).click();
+    await expect(page.getByRole("status")).toContainText("已保存");
+    expect(personaRows(db)[0]).toMatchObject({name:"测试人格编辑",published:false});
     await page.screenshot({
       path: `docs/screenshots/admin-${test.info().project.name}.png`,
     });

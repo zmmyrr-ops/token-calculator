@@ -53,6 +53,7 @@ export default function RootLayout({
             </Link>
             <Link href="/tools">模型与平台</Link>
             <Link href="/calculators">实用工具</Link>
+            <Link href="/personas" aria-current={pathname === "/personas" ? "page" : undefined}>AI 人格</Link>
             <Link href="/forum">社区论坛</Link>
             <Link href="/saved">我的收藏</Link>
           </nav>

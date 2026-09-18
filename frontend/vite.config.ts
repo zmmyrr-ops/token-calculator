@@ -21,7 +21,7 @@ export default defineConfig({
     strictPort: true,
     proxy: {
       ...proxy,
-      "^/(?:$|(?:news|learn|models|tools|scenarios|tutorials|calculators|about|privacy|how-it-works|updates|community-rules|forum|admin|login|account|register|search|saved|compare)(?:[/?]|$))":
+      "^/(?:$|(?:personas|news|learn|models|tools|scenarios|tutorials|calculators|about|privacy|how-it-works|updates|community-rules|forum|admin|login|account|register|search|saved|compare)(?:[/?]|$))":
         { target: process.env.API_PROXY_TARGET || "http://127.0.0.1:4000" },
     },
   },
