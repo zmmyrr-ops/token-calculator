@@ -1,7 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { mobilePrompt, parseMobileResult } from "@shared/ai-eyes-mobile";
-import { eyesCatalog } from "@shared/ai-eyes";
 import { eyesApi } from "./AiEyes";
 export function MobileEyes({ enabled }: { enabled: boolean }) {
   const navigate = useNavigate();
@@ -40,7 +39,10 @@ export function MobileEyes({ enabled }: { enabled: boolean }) {
     <section className="eyes-private eyes-mobile">
       <span className="eyes-label">豆包 · DEEPSEEK · 其他 AI</span>
       <h2>手机上，也能看看 AI 眼里的你</h2>
-      <p>不用安装插件。复制指令，发给常用的 AI，再把结果码带回来。</p>
+      <p>
+        不用安装插件。复制指令，发给常用的
+        AI，再把行为统计带回来，由本站生成画像。
+      </p>
       <div className="eyes-controls">
         <label>
           使用的 AI
@@ -88,13 +90,13 @@ export function MobileEyes({ enabled }: { enabled: boolean }) {
         <summary>查看完整指令 / 手动复制</summary>
         <textarea aria-label="手机测评指令" readOnly value={prompt} rows={9} />
       </details>
-      <h3>2. 复制 AI 回复里的 JSON 结果码</h3>
+      <h3>2. 复制 AI 回复里的行为统计 JSON</h3>
       <p>
-        只复制最后的代码块，不要复制完整聊天。回到本页粘贴，系统会检查格式。
+        只复制最后的代码块，不要复制完整聊天。回到本页粘贴，后台会根据行为关键词匹配画像，不必让AI选择人格类型。
       </p>
       <textarea
         aria-label="粘贴结果码"
-        placeholder={'{"format":"AI_EYES_MOBILE_1", ...}'}
+        placeholder={'{"format":"AI_EYES_BEHAVIOR_2", ...}'}
         value={raw}
         maxLength={8000}
         rows={7}
@@ -106,8 +108,8 @@ export function MobileEyes({ enabled }: { enabled: boolean }) {
       />
       {preview && (
         <p>
-          识别结果：
-          {eyesCatalog.items.find((p) => p.id === preview.persona_id)?.name} ·{" "}
+          已识别 {preview.sample_count} 条样本、{preview.keywords.length}{" "}
+          个行为关键词 ·{" "}
           {preview.basis === "questions" ? "基于本次问答" : "基于可见对话"}
         </p>
       )}
@@ -117,7 +119,7 @@ export function MobileEyes({ enabled }: { enabled: boolean }) {
           checked={confirmed}
           onChange={(e) => setConfirmed(e.target.checked)}
         />
-        我确认只提交人格类型与脱敏概括，不含原始聊天或个人敏感信息；了解这是可编辑的趣味结果，并非平台认证。
+        我确认只提交行为关键词和统计次数，不含原始聊天或个人敏感信息；了解这是可编辑的趣味结果，并非平台认证。
       </label>
       <button
         className="button primary"

@@ -1,3 +1,4 @@
+import { matchMobileBehavior, mobileMatcherVersion } from "./ai-eyes-mobile-match";
 import { mobileResultSchema } from "../../shared/ai-eyes-mobile";
 import { recordEyesDeletion, replayEyesDeletions } from "./ai-eyes-deletions";
 import { Router, type Request, type Response } from "express";
@@ -230,13 +231,7 @@ export function eyesRouter(store: ContentDatabase) {
     limit("ip:" + hash(req.ip || req.socket.remoteAddress || "unknown"), 30);
     const id = randomBytes(18).toString("base64url"),
       now = Date.now();
-    const result = matchSchema.parse({
-      schema_version: "4",
-      catalog_version: eyesCatalog.version,
-      persona_id: input.result.persona_id,
-      match_notes: input.result.match_notes,
-      sample_scope: "limited",
-    });
+    const result = matchMobileBehavior(input.result);
     const scope = {
       start: new Date(now).toISOString(),
       end: new Date(now).toISOString(),
@@ -245,6 +240,8 @@ export function eyesRouter(store: ContentDatabase) {
       source: "mobile_import",
       platform: input.platform,
       basis: input.result.basis,
+      matcherVersion: mobileMatcherVersion,
+      sampleCount: input.result.sample_count,
     };
     store.db
       .prepare(

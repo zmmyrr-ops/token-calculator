@@ -9,6 +9,7 @@ test("AI eyes creates a real scoped task, accepts minimal result, exports and re
     page.getByRole("heading", { name: /AI 眼里的你：\s*它会怎么形容你/ }),
   ).toBeVisible();
   await expect(page.locator(".eyes-type-grid button")).toHaveCount(0);
+  await page.getByRole("button", {name:"使用 Codex",exact:true}).click();
   await page.locator(".eyes-consent input").check();
   const created = page.waitForResponse(
     (r) =>

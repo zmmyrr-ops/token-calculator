@@ -71,6 +71,7 @@ export type EyesRun = {
     days: number;
     timeZone: string;
     source?: "mobile_import";
+    matcherVersion?: string;
     platform?: string;
     basis?: "conversation" | "questions";
   };

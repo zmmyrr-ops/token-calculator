@@ -146,7 +146,7 @@ function Result({ run, refresh }: { run: EyesRun; refresh: () => void }) {
       <aside className="eyes-private">
         <h3>为什么推荐这一型 · 仅自己可见</h3>
         <p>
-          {run.scope.source === "mobile_import" ? `${run.scope.platform} · ${run.scope.basis === "questions" ? "基于本次问答" : "基于可见对话"}。用户粘贴导入，非平台认证的历史分析。` : run.result!.sample_scope === "limited"
+          {run.scope.source === "mobile_import" ? `${run.scope.platform} · ${run.scope.basis === "questions" ? "基于本次问答" : "基于可见对话"}。${run.scope.matcherVersion ? "用户提供行为统计，由本站规则匹配" : "用户粘贴导入"}，非平台认证的历史分析。` : run.result!.sample_scope === "limited"
             ? "本次可用样本有限，结果仅供娱乐参考。"
             : "根据范围内多个会话的交流方式进行推荐。"}
         </p>
@@ -290,6 +290,7 @@ export default function AiEyes() {
   const loc = useLocation(),
     nav = useNavigate(),
     params = useParams();
+  const [entry, setEntry] = useState<"codex" | "mobile" | null>(null);
   const [days, setDays] = useState(7),
     [consent, setConsent] = useState(false),
     [error, setError] = useState(""),
@@ -582,8 +583,7 @@ export default function AiEyes() {
       ) : (
         <>
           <>
-            <MobileEyes enabled={enabled} />
-            <header className="eyes-hero">
+            <header className="eyes-hero eyes-entry-hero">
               <div>
                 <span className="eyes-label">
                   A DIFFERENT KIND OF SELF-PORTRAIT
@@ -596,6 +596,34 @@ export default function AiEyes() {
                 <p>这不是心理测试。</p>
                 <p>这是一个被你使唤了很久的 AI，对你偷偷做出的工作总结。</p>
                 <small>趣味画像 · 文案演绎，非心理测试</small>
+
+              </div>
+              <img
+                src={appPath(eyesArt("one_line_ceo"))}
+                alt="一句话 CEO 与忙碌的 AI 助手"
+              />
+            </header>
+            <div className="eyes-entry-grid" aria-label="选择使用平台">
+              <article className={"eyes-entry-card" + (entry === "codex" ? " is-selected" : "")}>
+                <span className="eyes-entry-symbol" aria-hidden="true">⌘</span>
+                <span className="eyes-label">电脑端 · 本机历史</span>
+                <h2>Codex</h2>
+                <p>让熟悉你工作方式的 AI，从本机对话里发现你的使用习惯。</p>
+                <small>复制专属指令 → 执行分析 → 自动领取</small>
+                <button className="button primary" aria-expanded={entry === "codex"} aria-controls="eyes-codex-flow" onClick={() => setEntry("codex")}>使用 Codex</button>
+              </article>
+              <article className={"eyes-entry-card eyes-entry-chat" + (entry === "mobile" ? " is-selected" : "")}>
+                <span className="eyes-entry-symbol" aria-hidden="true">✳</span>
+                <span className="eyes-label">手机 / 网页 · 通用对话</span>
+                <h2>豆包 / DeepSeek</h2>
+                <p>在常用的 AI 里统计行为关键词，带回这里揭晓你的趣味画像。</p>
+                <small>复制通用指令 → 带回统计 → 揭晓画像</small>
+                <button className="button primary" aria-expanded={entry === "mobile"} aria-controls="eyes-mobile-flow" onClick={() => setEntry("mobile")}>使用豆包 / DeepSeek</button>
+              </article>
+            </div>
+            <div id="eyes-mobile-flow" className="eyes-entry-flow" hidden={entry !== "mobile"}><MobileEyes enabled={enabled} /></div>
+            <div id="eyes-codex-flow" className="eyes-entry-flow" hidden={entry !== "codex"}>
+            <h2>用 Codex 分析本机历史</h2>
                 <div className="eyes-start">
                   <label>
                     电脑 Codex · 分析范围
@@ -624,12 +652,6 @@ export default function AiEyes() {
                     {enabled ? "看看 AI 眼里的我" : "功能维护中"}
                   </button>
                 </div>
-              </div>
-              <img
-                src={appPath(eyesArt("one_line_ceo"))}
-                alt="一句话 CEO 与忙碌的 AI 助手"
-              />
-            </header>
             <section className="eyes-how">
               <div>
                 <b>01 / 复制指令</b>
@@ -644,7 +666,6 @@ export default function AiEyes() {
                 <p>只属于你的趣味报告和专属封面。</p>
               </div>
             </section>
-          </>
           <details>
             <summary>隐私、兼容性与执行包</summary>
             <p>
@@ -669,6 +690,8 @@ export default function AiEyes() {
               <code>{eyesCatalog.sha256}</code>
             </p>
           </details>
+            </div>
+          </>
         </>
       )}
     </div>
