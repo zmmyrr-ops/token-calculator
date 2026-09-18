@@ -281,3 +281,5 @@
 }
 /* Keep consent and form labels readable against the light report surface. */
 .eyes label, .eyes .eyes-consent { color: #5a4961; }
+.eyes-mobile {margin-bottom:32px}.eyes-mobile textarea{display:block;width:100%;box-sizing:border-box;resize:vertical;padding:14px;border:1px solid #456071;border-radius:12px;background:#0b1622;color:#e8f1fa;font:inherit;overflow-wrap:anywhere}.eyes-mobile select{display:block;max-width:100%;padding:10px}.eyes-mobile details{margin:18px 0}.eyes-mobile .eyes-consent{margin:18px 0}.eyes-mobile h3{margin-top:28px}
+.eyes-mobile-consent{display:flex;align-items:flex-start;gap:10px;margin:18px 0;font-size:14px;line-height:1.8}.eyes-mobile-consent input{flex:0 0 auto;margin-top:6px}.eyes-mobile>button{display:block}.eyes-mobile textarea{background:#fffdf9;color:#382542;border-color:#d9c9d5}

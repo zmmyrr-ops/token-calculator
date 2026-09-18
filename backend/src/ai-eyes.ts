@@ -1,3 +1,4 @@
+import { mobileResultSchema } from "../../shared/ai-eyes-mobile";
 import { recordEyesDeletion, replayEyesDeletions } from "./ai-eyes-deletions";
 import { Router, type Request, type Response } from "express";
 import { createHash, randomBytes } from "node:crypto";
@@ -211,6 +212,59 @@ export function eyesRouter(store: ContentDatabase) {
         ?.enabled,
     }),
   );
+  r.post("/mobile-results", (req, res) => {
+    if (
+      !store.db.prepare("SELECT enabled FROM ai_eyes_settings").get()?.enabled
+    )
+      throw new CmsError(503, "功能维护中，稍后再来");
+    const input = z
+      .object({
+        result: mobileResultSchema,
+        platform: z.enum(["豆包", "DeepSeek", "其他 AI"]),
+        confirmed: z.literal(true),
+      })
+      .strict()
+      .parse(req.body);
+    const who = owner(req, res, true);
+    limit("owner:" + who, 6);
+    limit("ip:" + hash(req.ip || req.socket.remoteAddress || "unknown"), 30);
+    const id = randomBytes(18).toString("base64url"),
+      now = Date.now();
+    const result = matchSchema.parse({
+      schema_version: "4",
+      catalog_version: eyesCatalog.version,
+      persona_id: input.result.persona_id,
+      match_notes: input.result.match_notes,
+      sample_scope: "limited",
+    });
+    const scope = {
+      start: new Date(now).toISOString(),
+      end: new Date(now).toISOString(),
+      days: 0,
+      timeZone: "UTC",
+      source: "mobile_import",
+      platform: input.platform,
+      basis: input.result.basis,
+    };
+    store.db
+      .prepare(
+        `INSERT INTO ai_eyes_runs(id,owner,submit_hash,claim_hash,state,phase,created,deadline,expires,scope,result,result_hash,selection) VALUES(?,?,?,?,'completed','completed',?,?,?,?,?,?,?)`,
+      )
+      .run(
+        id,
+        who,
+        hash(secret()),
+        hash(secret()),
+        now,
+        now,
+        now + 30 * DAY,
+        JSON.stringify(scope),
+        JSON.stringify(result),
+        hash(JSON.stringify(result)),
+        JSON.stringify({ personaId: result.persona_id, nickname: "我" }),
+      );
+    res.status(201).json({ run: dto(read(id)) });
+  });
   r.post("/runs", (req, res) => {
     if (
       !store.db.prepare("SELECT enabled FROM ai_eyes_settings").get()?.enabled
@@ -414,6 +468,7 @@ export function eyesRouter(store: ContentDatabase) {
           selection.personaId === result.persona_id
             ? "recommended"
             : "self_selected",
+        source: JSON.parse(row.scope).source || "codex",
         catalogVersion: eyesCatalog.version,
         layoutVersion: eyesCoverVersion,
       };

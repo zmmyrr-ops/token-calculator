@@ -1,3 +1,4 @@
+import { MobileEyes } from "./MobileEyes";
 import { CloudSaveButton } from "../workspace/Workspace";
 import { useEffect, useState } from "react";
 import { Link, useLocation, useNavigate, useParams } from "react-router-dom";
@@ -77,7 +78,7 @@ function ExportPanel({ p, nickname }: { p: EyesPersona; nickname: string }) {
     <section className="eyes-exports">
       <h3>你的专属人格封面</h3>
       <p>
-        把 AI 眼里的自己保存下来。图片含小程序和网站入口，保存不会公开你的报告。
+        把 AI 眼里的自己保存下来。图片含网站入口，保存不会公开你的报告。
       </p>
       <button
         className="button primary"
@@ -145,7 +146,7 @@ function Result({ run, refresh }: { run: EyesRun; refresh: () => void }) {
       <aside className="eyes-private">
         <h3>为什么推荐这一型 · 仅自己可见</h3>
         <p>
-          {run.result!.sample_scope === "limited"
+          {run.scope.source === "mobile_import" ? `${run.scope.platform} · ${run.scope.basis === "questions" ? "基于本次问答" : "基于可见对话"}。用户粘贴导入，非平台认证的历史分析。` : run.result!.sample_scope === "limited"
             ? "本次可用样本有限，结果仅供娱乐参考。"
             : "根据范围内多个会话的交流方式进行推荐。"}
         </p>
@@ -297,7 +298,7 @@ export default function AiEyes() {
     [claim, setClaim] = useState(pendingClaim),
     [busy, setBusy] = useState(false),
     [share, setShare] = useState<
-      (EyesSelection & { selectionMode: string }) | null
+      (EyesSelection & { selectionMode: string; source?: string }) | null
     >(null),
     [refresh, setRefresh] = useState(0),
     [enabled, setEnabled] = useState(true);
@@ -460,6 +461,7 @@ export default function AiEyes() {
                     : "推荐分享"}
                 </span>
                 <h1>{publicPersona.name}</h1>
+                {share.source === "mobile_import" && <p>用户导入的 AI 趣味画像 · 非平台认证</p>}
                 <p>趣味画像 · 文案演绎，非心理测试</p>
                 <Link className="button primary" to="/ai-eyes">
                   看看 AI 眼里的我
@@ -580,6 +582,7 @@ export default function AiEyes() {
       ) : (
         <>
           <>
+            <MobileEyes enabled={enabled} />
             <header className="eyes-hero">
               <div>
                 <span className="eyes-label">
@@ -595,7 +598,7 @@ export default function AiEyes() {
                 <small>趣味画像 · 文案演绎，非心理测试</small>
                 <div className="eyes-start">
                   <label>
-                    分析范围
+                    电脑 Codex · 分析范围
                     <select
                       value={days}
                       onChange={(e) => setDays(Number(e.target.value))}

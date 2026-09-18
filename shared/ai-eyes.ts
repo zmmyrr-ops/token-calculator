@@ -65,7 +65,15 @@ export type EyesRun = {
   created: number;
   deadline: number;
   expires: number;
-  scope: { start: string; end: string; days: number; timeZone: string };
+  scope: {
+    start: string;
+    end: string;
+    days: number;
+    timeZone: string;
+    source?: "mobile_import";
+    platform?: string;
+    basis?: "conversation" | "questions";
+  };
   result: EyesMatch | null;
   selection: EyesSelection | null;
   shareId: string | null;
