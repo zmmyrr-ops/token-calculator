@@ -32,7 +32,7 @@ for (const p of catalog.items.filter(
     return btoa(str);
   }, p);
   await writeFile(
-    root + "/frontend/public/ai-eyes-art/" + p.id + "-cover-v3.png",
+    root + "/frontend/public/ai-eyes-art/" + p.id + "-cover-v4.png",
     Buffer.from(data, "base64"),
   );
   console.log(p.id, "single 1080×1440 cover verified");

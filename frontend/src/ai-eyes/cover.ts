@@ -51,9 +51,8 @@ export async function drawEyesCover(
   p: EyesPersona,
   nickname: string,
 ): Promise<Blob> {
-  const [art, mini, web, lettering] = await Promise.all([
+  const [art, web, lettering] = await Promise.all([
     load(appPath(`/ai-eyes-art/${p.id}-cutout-v2.png`)),
-    load(appPath("/ai-eyes-brand/wechat-mini.png")),
     load(appPath("/ai-eyes-brand/website.png")),
     load(appPath(`/ai-eyes-art/${p.id}-lettering-v3.png`)),
   ]);
@@ -142,24 +141,34 @@ export async function drawEyesCover(
   ctx.globalAlpha = 0.22;
   rounded(ctx, 72, 1272, 936, 1, 0, secondary);
   ctx.restore();
-  ctx.font = font(24, true);
+  ctx.font = font(36, true);
+  ctx.fillStyle = ink;
+  ctx.fillText("快来测一测，AI眼中的你是怎样的？", 78, 1296);
+  // A curved invitation arrow points to the website code without covering it.
+  ctx.strokeStyle = secondary;
+  ctx.lineWidth = 4;
+  ctx.lineCap = "round";
+  ctx.lineJoin = "round";
+  ctx.beginPath();
+  ctx.moveTo(710, 1310);
+  ctx.bezierCurveTo(762, 1294, 816, 1310, 866, 1342);
+  ctx.lineTo(845, 1341);
+  ctx.moveTo(866, 1342);
+  ctx.lineTo(858, 1322);
+  ctx.stroke();
+  ctx.font = font(18);
   ctx.fillStyle = secondary;
-  ctx.fillText("Ai门道", 78, 1310);
-  ctx.font = font(20);
-  ctx.fillText("看懂 AI，用出门道", 78, 1350);
+  ctx.fillText("Ai门道 · 看懂 AI，用出门道", 78, 1370);
   ctx.font = font(16);
   ctx.fillStyle = "#7e8070";
-  ctx.fillText("趣味画像 · 文案演绎，非心理测试", 78, 1390);
-  rounded(ctx, 736, 1288, 116, 116, 10, "#ffffff");
+  ctx.fillText("趣味画像 · 文案演绎，非心理测试", 78, 1410);
   rounded(ctx, 884, 1288, 116, 116, 10, "#ffffff");
   ctx.imageSmoothingEnabled = false;
-  ctx.drawImage(mini, 740, 1292, 108, 108);
   ctx.drawImage(web, 888, 1292, 108, 108);
   ctx.font = font(16);
   ctx.fillStyle = "#637363";
   ctx.textAlign = "center";
-  ctx.fillText("微信小程序", 794, 1410);
-  ctx.fillText("访问网页", 942, 1410);
+  ctx.fillText("扫码测一测", 942, 1410);
   const blob = await new Promise<Blob>((resolve, reject) =>
     c.toBlob(
       (b) => (b ? resolve(b) : reject(Error("封面生成失败，请重试"))),

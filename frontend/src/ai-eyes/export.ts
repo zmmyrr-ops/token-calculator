@@ -142,7 +142,7 @@ export async function exportEyes(
   const text =
     p.blocks.flatMap((b) => b.runs.map((r) => r.text)).join("") +
     nickname +
-    "Ai门道看懂 AI，用出门道微信小程序访问网页趣味画像文案演绎非心理测试AI眼里的你使用人格";
+    "快来测一测，AI眼中的你是怎样的？扫码测一测Ai门道看懂 AI，用出门道趣味画像文案演绎非心理测试AI眼里的你使用人格";
   await Promise.all([
     document.fonts.load(font(40), text),
     document.fonts.load(font(48, true), text),

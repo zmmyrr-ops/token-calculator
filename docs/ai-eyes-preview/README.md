@@ -53,3 +53,7 @@
 从第2型起 COLOR 循环为：dark navy blue with sky blue shadow；dark burgundy with coral shadow；dark forest green with mint shadow；deep plum with lavender shadow；dark raspberry with blush shadow；dark forest green with honey yellow shadow。
 
 页面与导出使用共同模板。艺术字按固定区域等比缩放；昵称与关键词分行；金句根据实际行数缩小字号，底部预留品牌及双码区域。分享快照记录 `illustrated-3`，原稿目录版本保持不变，历史正文与数据保留。新的社交封面路径带 `v3` 以更新缓存。
+
+## 第四版：单网页二维码与扫码引导
+
+全部16张封面移除小程序码，只保留用户提供的网页码。新增36px加粗单行引导“快来测一测，AI眼中的你是怎样的？”，配曲线箭头指向网页二维码。品牌与slogan合并为18px单行“Ai门道 · 看懂 AI，用出门道”，弱化品牌区。人物、艺术字、原始人格文案保持不变。生成文件改为 `*-cover-v4.png`，分享布局标记为 `illustrated-4`。

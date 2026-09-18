@@ -1,7 +1,7 @@
 import { z } from "zod";
 import catalog from "../data/ai-eyes/catalog.json" with { type: "json" };
 export { catalog as eyesCatalog };
-export const eyesCoverVersion = "illustrated-3";
+export const eyesCoverVersion = "illustrated-4";
 export type EyesPersona = (typeof catalog.items)[number];
 export type EyesBlock = EyesPersona["blocks"][number];
 export const visibleLength = (text: string) =>
