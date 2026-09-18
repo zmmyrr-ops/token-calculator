@@ -73,7 +73,7 @@ test("workspace stores private resources, versions and project progress across v
   await page.getByRole("button", { name: "分类与备注" }).click();
   await page.getByLabel("备注", { exact: true }).fill("我的建模工具");
   await page.getByRole("button", { name: "保存", exact: true }).click();
-  await expect(page.getByRole("status")).toContainText("分类与备注已保存");
+  await expect(page.locator(".ws-status")).toContainText("分类与备注已保存");
   const download = page.waitForEvent("download");
   await page.getByRole("button", { name: "导出全部资料" }).click();
   expect((await download).suggestedFilename()).toContain("工作台备份");
