@@ -1,6 +1,7 @@
 import { z } from "zod";
 import catalog from "../data/ai-eyes/catalog.json" with { type: "json" };
 export { catalog as eyesCatalog };
+export const eyesCoverVersion = "illustrated-3";
 export type EyesPersona = (typeof catalog.items)[number];
 export type EyesBlock = EyesPersona["blocks"][number];
 export const visibleLength = (text: string) =>
@@ -70,4 +71,4 @@ export type EyesRun = {
   shareId: string | null;
   error: string | null;
 };
-export const eyesArt = (id: string) => `/ai-eyes-art/${id}-v1.webp`;
+export const eyesArt = (id: string) => `/ai-eyes-art/${id}-cutout-v2.png`;

@@ -196,7 +196,11 @@ export default function Personas() {
           </span>
         </div>
       </header>
-      <p><a className="button" href={appPath("/ai-eyes")}>想知道 AI 眼里的你？看看你的 AI 使用人格 ↗</a></p>
+      <a className="persona-eyes-entry" href={appPath("/ai-eyes")}>
+        <span className="persona-eyes-symbol" aria-hidden="true"><Sparkles size={25}/></span>
+        <span><strong>你在挑选 AI 的性格，AI 也在认识你。</strong><small>看看 AI 眼里的你，领取自己的使用人格封面。</small></span>
+        <span className="persona-eyes-cta">发现我的 AI 人格 <ArrowUpRight size={18}/></span>
+      </a>
       <div className="persona-meta">
         <span>原创人格 · 可编辑提示词</span>
         <span>无需登录 · 生成指令不调用模型 API</span>

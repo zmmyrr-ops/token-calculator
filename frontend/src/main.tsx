@@ -92,7 +92,7 @@ function App() {
       >
         <Suspense fallback={<p role="status">正在加载功能…</p>}><Routes>
           <Route path="/ai-eyes" element={<AiEyes />} />
-          <Route path="/ai-eyes/types" element={<AiEyes />} />
+          <Route path="/ai-eyes/types" element={<Navigate replace to="/ai-eyes" />} />
           <Route path="/ai-eyes/runs/:id" element={<AiEyes />} />
           <Route path="/ai-eyes/s/:id" element={<AiEyes />} />
           <Route path="/ai-eyes/claim" element={<AiEyes />} />

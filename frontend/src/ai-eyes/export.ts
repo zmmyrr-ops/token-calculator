@@ -1,12 +1,11 @@
+import { drawEyesCover } from "./cover";
 import QRCode from "qrcode";
 import { zipSync } from "fflate";
 import {
   type EyesPersona,
   type EyesBlock,
-  eyesArt,
   selectionSchema,
 } from "@shared/ai-eyes";
-import { appPath } from "../base";
 import "@fontsource/noto-sans-sc/400.css";
 import "@fontsource/noto-sans-sc/700.css";
 export type Piece = { text: string; bold: boolean };
@@ -141,14 +140,20 @@ export async function exportEyes(
   selectionSchema.parse({ personaId: p.id, nickname });
   progress("正在加载字体与插画");
   const text =
-    p.blocks.flatMap((b) => b.runs.map((r) => r.text)).join("") + nickname;
+    p.blocks.flatMap((b) => b.runs.map((r) => r.text)).join("") +
+    nickname +
+    "Ai门道看懂 AI，用出门道微信小程序访问网页趣味画像文案演绎非心理测试AI眼里的你使用人格";
   await Promise.all([
     document.fonts.load(font(40), text),
     document.fonts.load(font(48, true), text),
   ]);
   await document.fonts.ready;
-  const code = await qr(url),
-    art = await image(appPath(eyesArt(p.id)));
+  if (format === "cover") {
+    const blob = await drawEyesCover(p, nickname);
+    progress("封面已生成");
+    return [blob];
+  }
+  const code = await qr(url);
   const m = canvas();
   const lines = linesFor(m.ctx, p.blocks);
   m.c.width = 1;
@@ -159,70 +164,6 @@ export async function exportEyes(
     ctx.fillText("趣味画像 · 文案演绎，非心理测试", PAD, h - 125);
     ctx.drawImage(code, WIDTH - PAD - 170, h - 242, 170, 170);
   };
-  if (format === "cover") {
-    const { c, ctx } = canvas();
-    ctx.fillStyle = "#8e49a3";
-    ctx.fillRect(0, 0, 1080, 1440);
-    ctx.fillStyle = "white";
-    ctx.beginPath();
-    ctx.roundRect(30, 110, 1020, 1170, 50);
-    ctx.fill();
-    ctx.textBaseline = "top";
-    ctx.font = font(34, true);
-    ctx.fillText("AI 眼里的你", PAD, 42);
-    const titleBlocks: EyesBlock[] = [
-      { id: "cover", kind: "h2", runs: [{ text: p.name, bold: true }] },
-    ];
-    ctx.font = font(27);
-    ctx.fillStyle = "#827287";
-    ctx.fillText(`${nickname}的 AI 使用人格 · 分享封面`, PAD, 156);
-    const bottom = paintLines(ctx, linesFor(ctx, titleBlocks), 218);
-    ctx.font = font(30);
-    ctx.fillStyle = "#803b72";
-    ctx.fillText(p.keyword, PAD, bottom + 6);
-    ctx.drawImage(art, 350, 380, 520, 520);
-    const phrase = p.blocks
-      .flatMap((b) => b.runs.map((r) => r.text))
-      .find((t) => /^“[^”]+。”$/.test(t) && t.length < 24);
-    if (phrase) {
-      ctx.font = font(27, true);
-      const bubbleLines: string[] = [];
-      let line = "";
-      for (const char of Array.from(phrase)) {
-        if (ctx.measureText(line + char).width > 218 && line) {
-          bubbleLines.push(line);
-          line = "";
-        }
-        line += char;
-      }
-      if (line) bubbleLines.push(line);
-      ctx.fillStyle = "#f1e5f6";
-      ctx.beginPath();
-      ctx.roundRect(72, 570, 260, 36 + 40 * bubbleLines.length, 24);
-      ctx.fill();
-      ctx.fillStyle = "#772888";
-      bubbleLines.forEach((text, i) => ctx.fillText(text, 93, 590 + 40 * i));
-    }
-    paintLines(
-      ctx,
-      linesFor(ctx, [
-        {
-          id: "quote",
-          kind: "p",
-          runs: [{ text: "分享金句\n" + p.quote, bold: true }],
-        },
-      ]),
-      910,
-    );
-    ctx.fillStyle = "#fff";
-    ctx.fillRect(30, 1240, 1020, 165);
-    ctx.font = font(25);
-    ctx.fillStyle = "#772888";
-    ctx.fillText("看完整人格报告 · 趣味画像 · 文案演绎", PAD, 1310);
-    ctx.drawImage(code, 838, 1230, 170, 170);
-    progress("封面已生成");
-    return [await png(c)];
-  }
   const groups = format === "pages" ? paginate(lines) : [lines];
   const longHeight = lines.reduce((s, l) => s + l.height, 0) + 340;
   if (format === "long" && longHeight > 8192)

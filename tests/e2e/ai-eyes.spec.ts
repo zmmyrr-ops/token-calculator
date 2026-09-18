@@ -6,9 +6,9 @@ test("AI eyes creates a real scoped task, accepts minimal result, exports and re
 }) => {
   await page.goto("/ai-eyes");
   await expect(
-    page.getByRole("heading", { name: /AI 眼里的你：\s*16 种 AI 使用人格/ }),
+    page.getByRole("heading", { name: /AI 眼里的你：\s*它会怎么形容你/ }),
   ).toBeVisible();
-  await expect(page.locator(".eyes-type-grid button")).toHaveCount(16);
+  await expect(page.locator(".eyes-type-grid button")).toHaveCount(0);
   await page.locator(".eyes-consent input").check();
   const created = page.waitForResponse(
     (r) =>
@@ -41,12 +41,14 @@ test("AI eyes creates a real scoped task, accepts minimal result, exports and re
   await expect(page.locator(".eyes-paper")).toContainText(
     "我负责给 AI 做 onboarding。",
   );
-  await page.getByRole("button", { name: "生成人物封面" }).click();
+  await expect(page.getByText("浏览其他类型", {exact:true})).toHaveCount(0);
+  await expect(page.getByRole("button", {name:/完整长图|完整多页卡/})).toHaveCount(0);
+  await page.getByRole("button", { name: "生成我的封面" }).click();
   await expect(page.locator(".eyes-export-preview img")).toHaveCount(1, {
     timeout: 30000,
   });
   const download = page.waitForEvent("download");
-  await page.getByRole("button", { name: "保存第 1/1 张" }).click();
+  await page.getByRole("button", { name: "保存封面" }).click();
   const file = await download;
   expect((await readFile((await file.path())!)).slice(1, 4).toString()).toBe(
     "PNG",

@@ -5,6 +5,7 @@ import { z } from "zod";
 import { ContentDatabase, CmsError } from "./database";
 import {
   eyesCatalog,
+  eyesCoverVersion,
   matchSchema,
   selectionSchema,
   type EyesRun,
@@ -414,7 +415,7 @@ export function eyesRouter(store: ContentDatabase) {
             ? "recommended"
             : "self_selected",
         catalogVersion: eyesCatalog.version,
-        layoutVersion: eyesCatalog.layoutVersion,
+        layoutVersion: eyesCoverVersion,
       };
       if (row.share_id) recordEyesDeletion(store, "share", row.share_id);
       store.db.prepare("DELETE FROM ai_eyes_shares WHERE run_id=?").run(row.id);
@@ -479,7 +480,7 @@ export function eyesAdminRouter(store: ContentDatabase) {
         ?.enabled,
       version: eyesCatalog.version,
       hash: eyesCatalog.sha256,
-      layoutVersion: eyesCatalog.layoutVersion,
+      layoutVersion: eyesCoverVersion,
       types: eyesCatalog.items.length,
       counts: store.db
         .prepare("SELECT state,count(*) count FROM ai_eyes_runs GROUP BY state")

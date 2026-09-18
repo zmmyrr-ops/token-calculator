@@ -61,3 +61,9 @@ API 基础路径 `/api/v1/ai-eyes`：`GET catalog[/version]`、`GET config`、`P
 ## 本次发布记录
 
 2026-09-18：代码 `5491df202f01c71221651ac106c47756185d5a9f`，GitHub CI `35325112285` 成功。测试环境验证创建、回调、分享全文 HTML、安全响应头、32张图片、执行包、后台权限与撤销，随后清理测试任务。生产发布前备份成功，两容器健康，正式路由与API验证通过。未在生产植入示例匹配结果。
+
+## 第三版封面（2026-09-18）
+
+`frontend/src/ai-eyes/cover.ts` 为当前1080×1440单封面模板，使用原稿段落作为半透明背景、逐型手绘标题和透明插画。二维码使用用户提供的原始图片。`scripts/verify-ai-eyes-export.mjs` 在 Vite 开发服务（默认3017，可设置TEST_URL）批量导出版本化社交封面；ONLY_IDS可筛选重出指定人格。样稿、图像模型提示词与全套预览见 `docs/ai-eyes-preview/`。
+
+网页已去除16型浏览、自选人格及长图/多页/ZIP入口。执行端仍使用全部16型完成匹配，原稿内容及历史数据保留。原稿catalog版本不变；新的分享快照使用独立 `eyesCoverVersion=illustrated-3`，社交图片使用 `*-cover-v3.png`，避免旧图缓存。

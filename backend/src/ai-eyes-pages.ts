@@ -44,7 +44,7 @@ export function eyesPages(store: ContentDatabase) {
         const data = JSON.parse(String(row.snapshot));
         const p = eyesCatalog.items.find((p) => p.id === data.personaId)!;
         title = `${data.nickname}的 AI 使用人格：${p.name}`;
-        image = `https://ruming.top/ai-eyes-art/${p.id}-cover.png`;
+        image = `https://ruming.top/ai-eyes-art/${p.id}-cover-v3.png`;
         body =
           `<main><h1>${escape(title)}</h1><p>趣味画像 · 文案演绎，非心理测试</p>` +
           p.blocks

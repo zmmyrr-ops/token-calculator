@@ -9,7 +9,7 @@ import {
 } from "@shared/ai-eyes";
 import { appPath } from "../base";
 import { analyticsEnabled } from "../Analytics";
-import { exportEyes, saveBlob, saveZip } from "./export";
+import { exportEyes, saveBlob } from "./export";
 import "./eyes.css";
 let pendingInstruction = "",
   pendingClaim = "";
@@ -49,41 +49,23 @@ function Content({ p }: { p: EyesPersona }) {
     </article>
   );
 }
-function ExportPanel({
-  p,
-  nickname,
-  shareUrl,
-}: {
-  p: EyesPersona;
-  nickname: string;
-  shareUrl?: string;
-}) {
+function ExportPanel({ p, nickname }: { p: EyesPersona; nickname: string }) {
   const [message, setMessage] = useState(""),
     [busy, setBusy] = useState(false),
-    [images, setImages] = useState<{ blob: Blob; url: string }[]>([]),
-    [mode, setMode] = useState("");
+    [image, setImage] = useState<{ blob: Blob; url: string } | null>(null);
   useEffect(
     () => () => {
-      images.forEach((x) => URL.revokeObjectURL(x.url));
+      if (image) URL.revokeObjectURL(image.url);
     },
-    [images],
+    [image],
   );
-  async function generate(format: "cover" | "pages" | "long") {
+  async function generate() {
     setBusy(true);
-    setImages([]);
-    setMode(format);
+    setImage(null);
     try {
-      const result = await exportEyes(
-        p,
-        nickname,
-        shareUrl || new URL(appPath("/ai-eyes"), location.origin).href,
-        format,
-        setMessage,
-      );
-      event("export_" + format);
-      setImages(
-        result.map((blob) => ({ blob, url: URL.createObjectURL(blob) })),
-      );
+      const [blob] = await exportEyes(p, nickname, "", "cover", setMessage);
+      setImage({ blob, url: URL.createObjectURL(blob) });
+      event("export_cover");
     } catch (e) {
       setMessage((e as Error).message);
     } finally {
@@ -92,64 +74,42 @@ function ExportPanel({
   }
   return (
     <section className="eyes-exports">
-      <h3>把这一型，带走。</h3>
-      <p>封面用于传播；完整长图和多页卡保留全文。私密下载不自动公开。</p>
-      <div className="action-row">
-        {(["cover", "long", "pages"] as const).map((m, i) => (
-          <button
-            className="button"
-            disabled={busy}
-            key={m}
-            onClick={() => void generate(m)}
-          >
-            {["生成人物封面", "生成完整长图", "生成完整多页卡"][i]}
-          </button>
-        ))}
-      </div>
+      <h3>你的专属人格封面</h3>
+      <p>
+        把 AI 眼里的自己保存下来。图片含小程序和网站入口，保存不会公开你的报告。
+      </p>
+      <button
+        className="button primary"
+        disabled={busy}
+        onClick={() => void generate()}
+      >
+        {busy ? "正在绘制封面…" : image ? "重新生成封面" : "生成我的封面"}
+      </button>
       <p role="status">{message}</p>
-      {images.length > 0 && (
-        <>
-          <div className="eyes-export-preview">
-            {images.map((x, i) => (
-              <figure key={x.url}>
-                <img
-                  src={x.url}
-                  alt={`${mode === "cover" ? "分享封面" : "完整报告"} ${i + 1}/${images.length}`}
-                />
-                <button
-                  className="button"
-                  onClick={() => {
-                    saveBlob(x.blob, `${p.id}-${mode}-${i + 1}.png`);
-                    event("download_image");
-                  }}
-                >
-                  保存第 {i + 1}/{images.length} 张
-                </button>
-              </figure>
-            ))}
-          </div>
-          {images.length > 1 && (
+      {image && (
+        <div className="eyes-export-preview">
+          <figure>
+            <img src={image.url} alt={p.name + "专属封面"} />
             <button
-              className="button primary"
-              onClick={() =>
-                void saveZip(
-                  images.map((x) => x.blob),
-                  p.id,
-                )
-                  .then(() => event("download_zip"))
-                  .catch((e) => setMessage(e.message))
-              }
+              className="button"
+              onClick={() => {
+                saveBlob(image.blob, `${p.id}-cover.png`);
+                event("download_image");
+              }}
             >
-              下载全套 ZIP（{images.length} 张）
+              保存封面
             </button>
-          )}
-        </>
+          </figure>
+        </div>
       )}
     </section>
   );
 }
 function Result({ run, refresh }: { run: EyesRun; refresh: () => void }) {
-  const [selection, setSelection] = useState<EyesSelection>(run.selection!),
+  const [selection, setSelection] = useState<EyesSelection>({
+      personaId: run.result!.persona_id,
+      nickname: run.selection?.nickname || "我",
+    }),
     [notice, setNotice] = useState(""),
     [confirming, setConfirming] = useState(false);
   const p = eyesCatalog.items.find((x) => x.id === selection.personaId)!;
@@ -191,36 +151,10 @@ function Result({ run, refresh }: { run: EyesRun; refresh: () => void }) {
         {run.result!.match_notes.map((x, i) => (
           <p key={i}>{x}</p>
         ))}
-        {run.result!.alternative_persona_id && (
-          <p>
-            备选：
-            {
-              eyesCatalog.items.find(
-                (p) => p.id === run.result!.alternative_persona_id,
-              )?.name
-            }
-          </p>
-        )}
       </aside>
       <div className="eyes-controls">
         <label>
-          浏览其他类型
-          <select
-            value={selection.personaId}
-            onChange={(e) => {
-              setSelection({ ...selection, personaId: e.target.value });
-              setConfirming(false);
-            }}
-          >
-            {eyesCatalog.items.map((x) => (
-              <option key={x.id} value={x.id}>
-                {x.name}
-              </option>
-            ))}
-          </select>
-        </label>
-        <label>
-          外围昵称（最多12个可见字符）
+          封面昵称（最多12个可见字符）
           <input
             value={selection.nickname}
             maxLength={48}
@@ -234,13 +168,13 @@ function Result({ run, refresh }: { run: EyesRun; refresh: () => void }) {
           onClick={() =>
             void eyesApi(`/runs/${run.id}/selection`, "POST", selection)
               .then(() => {
-                setNotice("选择已保存");
+                setNotice("昵称已保存");
                 refresh();
               })
               .catch((e) => setNotice(e.message))
           }
         >
-          保存选择
+          保存昵称
         </button>
       </div>
       <Content p={p} />
@@ -251,7 +185,7 @@ function Result({ run, refresh }: { run: EyesRun; refresh: () => void }) {
       />
       <section className="eyes-private">
         <h3>主动公开分享</h3>
-        <p>只公开昵称、所选类型与原文；不会公开匹配说明和聊天。</p>
+        <p>只公开昵称、你的类型与原文；不会公开匹配说明和聊天。</p>
         <button className="button primary" onClick={() => setConfirming(true)}>
           预览分享内容
         </button>
@@ -360,7 +294,6 @@ export default function AiEyes() {
     [instruction, setInstruction] = useState(pendingInstruction),
     [claim, setClaim] = useState(pendingClaim),
     [busy, setBusy] = useState(false),
-    [selected, setSelected] = useState(eyesCatalog.items[0].id),
     [share, setShare] = useState<
       (EyesSelection & { selectionMode: string }) | null
     >(null),
@@ -368,8 +301,7 @@ export default function AiEyes() {
     [enabled, setEnabled] = useState(true);
   const isRun = loc.pathname.includes("/runs/"),
     isShare = loc.pathname.includes("/s/"),
-    isClaim = loc.pathname.endsWith("/claim"),
-    isTypes = loc.pathname.endsWith("/types");
+    isClaim = loc.pathname.endsWith("/claim");
   useEffect(() => {
     setError("");
     setRun(null);
@@ -485,7 +417,6 @@ export default function AiEyes() {
     <div className="eyes">
       <div className="eyes-top">
         <Link to="/ai-eyes">AI 眼里的你</Link>
-        <Link to="/ai-eyes/types">浏览 16 型原文</Link>
         <Link to="/personas">AI 人格 Skill ↗</Link>
       </div>
       {error && (
@@ -538,11 +469,7 @@ export default function AiEyes() {
               />
             </header>
             <Content p={publicPersona} />
-            <ExportPanel
-              p={publicPersona}
-              nickname={share.nickname}
-              shareUrl={location.href.split("?")[0]}
-            />
+            <ExportPanel p={publicPersona} nickname={share.nickname} />
           </>
         ) : (
           !error && <p>正在打开报告…</p>
@@ -650,101 +577,69 @@ export default function AiEyes() {
         )
       ) : (
         <>
-          {!isTypes && (
-            <>
-              <header className="eyes-hero">
-                <div>
-                  <span className="eyes-label">
-                    A DIFFERENT KIND OF SELF-PORTRAIT
-                  </span>
-                  <h1>
-                    AI 眼里的你：
-                    <br />
-                    16 种 AI 使用人格
-                  </h1>
-                  <p>这不是心理测试。</p>
-                  <p>这是一个被你使唤了很久的 AI，对你偷偷做出的工作总结。</p>
-                  <small>趣味画像 · 文案演绎，非心理测试</small>
-                  <div className="eyes-start">
-                    <label>
-                      分析范围
-                      <select
-                        value={days}
-                        onChange={(e) => setDays(Number(e.target.value))}
-                      >
-                        <option value={7}>最近7天</option>
-                        <option value={30}>最近30天</option>
-                      </select>
-                    </label>
-                    <label className="eyes-consent">
-                      <input
-                        type="checkbox"
-                        checked={consent}
-                        onChange={(e) => setConsent(e.target.checked)}
-                      />
-                      我同意在 Codex
-                      中分析该范围内本机历史；最多10会话，清洗后的样本会进入当前模型上下文，本站仅接收类型及简短说明。
-                    </label>
-                    <button
-                      className="button primary"
-                      disabled={!consent || busy || !enabled}
-                      onClick={() => void create()}
+          <>
+            <header className="eyes-hero">
+              <div>
+                <span className="eyes-label">
+                  A DIFFERENT KIND OF SELF-PORTRAIT
+                </span>
+                <h1>
+                  AI 眼里的你：
+                  <br />
+                  它会怎么形容你？
+                </h1>
+                <p>这不是心理测试。</p>
+                <p>这是一个被你使唤了很久的 AI，对你偷偷做出的工作总结。</p>
+                <small>趣味画像 · 文案演绎，非心理测试</small>
+                <div className="eyes-start">
+                  <label>
+                    分析范围
+                    <select
+                      value={days}
+                      onChange={(e) => setDays(Number(e.target.value))}
                     >
-                      {enabled ? "看看 AI 眼里的我" : "功能维护中"}
-                    </button>
-                    <Link to="/ai-eyes/types">先看看 16 种人格 →</Link>
-                  </div>
+                      <option value={7}>最近7天</option>
+                      <option value={30}>最近30天</option>
+                    </select>
+                  </label>
+                  <label className="eyes-consent">
+                    <input
+                      type="checkbox"
+                      checked={consent}
+                      onChange={(e) => setConsent(e.target.checked)}
+                    />
+                    我同意在 Codex
+                    中分析该范围内本机历史；最多10会话，清洗后的样本会进入当前模型上下文，本站仅接收类型及简短说明。
+                  </label>
+                  <button
+                    className="button primary"
+                    disabled={!consent || busy || !enabled}
+                    onClick={() => void create()}
+                  >
+                    {enabled ? "看看 AI 眼里的我" : "功能维护中"}
+                  </button>
                 </div>
-                <img
-                  src={appPath(eyesArt("one_line_ceo"))}
-                  alt="一句话 CEO 与忙碌的 AI 助手"
-                />
-              </header>
-              <section className="eyes-how">
-                <div>
-                  <b>01 / 复制指令</b>
-                  <p>网站生成专属任务，不要求注册。</p>
-                </div>
-                <div>
-                  <b>02 / Codex 新会话发送</b>
-                  <p>需本机可读历史与 Python 3.10+；不支持的环境会说明原因。</p>
-                </div>
-                <div>
-                  <b>03 / 回来领取</b>
-                  <p>完整原文报告、人物封面与全套多页卡。</p>
-                </div>
-              </section>
-            </>
-          )}
-          <h2>先认识这 16 型</h2>
-          <p>这里是原文目录，仅浏览，不是你的个人分析结果。</p>
-          <div className="eyes-type-grid">
-            {eyesCatalog.items.map((p) => (
-              <button
-                key={p.id}
-                aria-pressed={selected === p.id}
-                onClick={() => setSelected(p.id)}
-              >
-                <img loading="lazy" src={appPath(eyesArt(p.id))} alt="" />
-                <small>{p.number}</small>
-                <strong>{p.name}</strong>
-                <span>{p.keyword}</span>
-              </button>
-            ))}
-          </div>
-          <Content p={eyesCatalog.items.find((p) => p.id === selected)!} />
-          <details>
-            <summary>16 型一句话总览 · 原文</summary>
-            <div className="eyes-overview">
-              {eyesCatalog.overview.split("\n\n").map((s, i) => (
-                <p key={i}>
-                  {s
-                    .split("**")
-                    .map((x, j) => (j % 2 ? <strong key={j}>{x}</strong> : x))}
-                </p>
-              ))}
-            </div>
-          </details>
+              </div>
+              <img
+                src={appPath(eyesArt("one_line_ceo"))}
+                alt="一句话 CEO 与忙碌的 AI 助手"
+              />
+            </header>
+            <section className="eyes-how">
+              <div>
+                <b>01 / 复制指令</b>
+                <p>网站生成专属任务，不要求注册。</p>
+              </div>
+              <div>
+                <b>02 / Codex 新会话发送</b>
+                <p>需本机可读历史与 Python 3.10+；不支持的环境会说明原因。</p>
+              </div>
+              <div>
+                <b>03 / 回来领取</b>
+                <p>只属于你的趣味报告和专属封面。</p>
+              </div>
+            </section>
+          </>
           <details>
             <summary>隐私、兼容性与执行包</summary>
             <p>
