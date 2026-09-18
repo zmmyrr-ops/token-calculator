@@ -87,7 +87,7 @@ test("encoding switch and no-JS fallback", async ({ page, browser }) => {
     viewport: { width: 390, height: 844 },
   });
   const nojs = await context.newPage();
-  await nojs.goto("http://127.0.0.1:3000/");
+  await nojs.goto((process.env.TEST_URL || "http://127.0.0.1:3000") + "/");
   await expect(nojs.locator("noscript > div")).toContainText(
     "请启用 JavaScript",
   );

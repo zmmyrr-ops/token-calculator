@@ -384,6 +384,7 @@ export default function Admin() {
           小程序设置
         </button>
         <a className="button" href={appPath("/admin/personas")}>AI 人格管理</a>
+        <a className="button" href={appPath("/admin/ai-eyes")}>AI 眼里的你</a>
       </nav>
       {mini && <MiniSettings />}
       {baidu && <BaiduDashboard />}

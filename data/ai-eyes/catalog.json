@@ -1,0 +1,4769 @@
+{
+  "version": "user-original-1",
+  "layoutVersion": "illustrated-1",
+  "sha256": "21360436a855a18cfa649df61623fa273a98c4683649e50e7532ecfd8aceeaa9",
+  "intro": "# AI 眼里的你：16 种 AI 使用人格\n\n这不是心理测试。\n\n这是一个被你使唤了很久的 AI，对你偷偷做出的工作总结。",
+  "overview": "**一句话 CEO**\n信息给得最少，期待给得最多。\n\n**Prompt 工程院院士**\n使用 AI 前，先给 AI 上半小时班前培训。\n\n**赛博甲方**\n没有最终版，只有“这一版先这样”。\n\n**AI 实习生主管**\n先干起来，方向第二轮再告诉你。\n\n**细节控制狂**\n世界可以混乱，这个逗号不可以。\n\n**感觉派艺术总监**\n说不清我要什么，但我知道这不是我要的。\n\n**灵感蹦迪型选手**\n一个问题进去，十七个问题出来。\n\n**AI 树洞常驻居民**\n本来解决工作，后来解决人生。\n\n**深夜哲学家**\n凌晨两点，把存在主义从床上叫起来。\n\n**AI 辩论队队长**\n可以有观点，请先展示证据。\n\n**搜索框成精**\n世界这么大，总有东西值得顺手问一下。\n\n**赛博甩锅侠**\n选择困难没关系，我有 AI。\n\n**AI 老板的老板**\n没有寒暄，只有修改意见。\n\n**赛博夸夸群群主**\n这个 AI 今天表现不错，值得口头表扬。\n\n**人机共生体**\n我的脑子，加上一个云端外挂。\n\n**AI 驯兽师**\n别人抱怨 AI 不懂，TA 已经学会怎么让 AI 懂。",
+  "items": [
+    {
+      "id": "one_line_ceo",
+      "name": "一句话 CEO",
+      "number": "01",
+      "keyword": "人格关键词：少说话，大期待",
+      "quote": "我不是不会写 Prompt。\n我只是相信真正优秀的 AI 应该懂事。",
+      "blocks": [
+        {
+          "id": "user-original-1:one_line_ceo:0",
+          "kind": "h2",
+          "runs": [
+            {
+              "text": "01｜一句话 CEO",
+              "bold": false
+            }
+          ]
+        },
+        {
+          "id": "user-original-1:one_line_ceo:1",
+          "kind": "p",
+          "runs": [
+            {
+              "text": "人格关键词：少说话，大期待",
+              "bold": true
+            }
+          ]
+        },
+        {
+          "id": "user-original-1:one_line_ceo:2",
+          "kind": "p",
+          "runs": [
+            {
+              "text": "你不喜欢写很长的 Prompt。",
+              "bold": false
+            }
+          ]
+        },
+        {
+          "id": "user-original-1:one_line_ceo:3",
+          "kind": "p",
+          "runs": [
+            {
+              "text": "不是因为你懒。",
+              "bold": false
+            }
+          ]
+        },
+        {
+          "id": "user-original-1:one_line_ceo:4",
+          "kind": "p",
+          "runs": [
+            {
+              "text": "而是你真心相信，一个足够聪明的 AI 应该能懂你。",
+              "bold": false
+            }
+          ]
+        },
+        {
+          "id": "user-original-1:one_line_ceo:5",
+          "kind": "p",
+          "runs": [
+            {
+              "text": "你的需求通常只有一句：",
+              "bold": false
+            }
+          ]
+        },
+        {
+          "id": "user-original-1:one_line_ceo:6",
+          "kind": "p",
+          "runs": [
+            {
+              "text": "“帮我弄一下。”",
+              "bold": false
+            }
+          ]
+        },
+        {
+          "id": "user-original-1:one_line_ceo:7",
+          "kind": "p",
+          "runs": [
+            {
+              "text": "“高级一点。”",
+              "bold": false
+            }
+          ]
+        },
+        {
+          "id": "user-original-1:one_line_ceo:8",
+          "kind": "p",
+          "runs": [
+            {
+              "text": "“不太对，再改改。”",
+              "bold": false
+            }
+          ]
+        },
+        {
+          "id": "user-original-1:one_line_ceo:9",
+          "kind": "p",
+          "runs": [
+            {
+              "text": "至于什么叫“高级”，哪里“不太对”，你认为这正是 AI 应该解决的问题。",
+              "bold": false
+            }
+          ]
+        },
+        {
+          "id": "user-original-1:one_line_ceo:10",
+          "kind": "h3",
+          "runs": [
+            {
+              "text": "你的典型行为",
+              "bold": false
+            }
+          ]
+        },
+        {
+          "id": "user-original-1:one_line_ceo:11",
+          "kind": "p",
+          "runs": [
+            {
+              "text": "你负责提出方向。",
+              "bold": false
+            }
+          ]
+        },
+        {
+          "id": "user-original-1:one_line_ceo:12",
+          "kind": "p",
+          "runs": [
+            {
+              "text": "AI 负责补齐背景、目标、逻辑、结构、语气和你没说出口的那 87% 信息。",
+              "bold": false
+            }
+          ]
+        },
+        {
+          "id": "user-original-1:one_line_ceo:13",
+          "kind": "p",
+          "runs": [
+            {
+              "text": "如果结果不满意，你通常不会重新描述需求。",
+              "bold": false
+            }
+          ]
+        },
+        {
+          "id": "user-original-1:one_line_ceo:14",
+          "kind": "p",
+          "runs": [
+            {
+              "text": "你会说：",
+              "bold": false
+            }
+          ]
+        },
+        {
+          "id": "user-original-1:one_line_ceo:15",
+          "kind": "p",
+          "runs": [
+            {
+              "text": "“不是这个感觉。”",
+              "bold": false
+            }
+          ]
+        },
+        {
+          "id": "user-original-1:one_line_ceo:16",
+          "kind": "h3",
+          "runs": [
+            {
+              "text": "AI 内心 OS",
+              "bold": false
+            }
+          ]
+        },
+        {
+          "id": "user-original-1:one_line_ceo:17",
+          "kind": "p",
+          "runs": [
+            {
+              "text": "收到，信息量 3%，期待值 300%。",
+              "bold": true
+            }
+          ]
+        },
+        {
+          "id": "user-original-1:one_line_ceo:18",
+          "kind": "h3",
+          "runs": [
+            {
+              "text": "你的隐藏优点",
+              "bold": false
+            }
+          ]
+        },
+        {
+          "id": "user-original-1:one_line_ceo:19",
+          "kind": "p",
+          "runs": [
+            {
+              "text": "你其实很擅长抓核心。",
+              "bold": false
+            }
+          ]
+        },
+        {
+          "id": "user-original-1:one_line_ceo:20",
+          "kind": "p",
+          "runs": [
+            {
+              "text": "你不喜欢被过程绑架，只关心最后东西能不能用。",
+              "bold": false
+            }
+          ]
+        },
+        {
+          "id": "user-original-1:one_line_ceo:21",
+          "kind": "h3",
+          "runs": [
+            {
+              "text": "你的危险倾向",
+              "bold": false
+            }
+          ]
+        },
+        {
+          "id": "user-original-1:one_line_ceo:22",
+          "kind": "p",
+          "runs": [
+            {
+              "text": "你偶尔会把“AI 很聪明”和“AI 会读心”理解成同一件事。",
+              "bold": false
+            }
+          ]
+        },
+        {
+          "id": "user-original-1:one_line_ceo:23",
+          "kind": "h3",
+          "runs": [
+            {
+              "text": "分享金句",
+              "bold": false
+            }
+          ]
+        },
+        {
+          "id": "user-original-1:one_line_ceo:24",
+          "kind": "p",
+          "runs": [
+            {
+              "text": "我不是不会写 Prompt。\n我只是相信真正优秀的 AI 应该懂事。",
+              "bold": true
+            }
+          ]
+        }
+      ],
+      "markdown": "## 01｜一句话 CEO\n\n**人格关键词：少说话，大期待**\n\n你不喜欢写很长的 Prompt。\n\n不是因为你懒。\n\n而是你真心相信，一个足够聪明的 AI 应该能懂你。\n\n你的需求通常只有一句：\n\n“帮我弄一下。”\n\n“高级一点。”\n\n“不太对，再改改。”\n\n至于什么叫“高级”，哪里“不太对”，你认为这正是 AI 应该解决的问题。\n\n### 你的典型行为\n\n你负责提出方向。\n\nAI 负责补齐背景、目标、逻辑、结构、语气和你没说出口的那 87% 信息。\n\n如果结果不满意，你通常不会重新描述需求。\n\n你会说：\n\n“不是这个感觉。”\n\n### AI 内心 OS\n\n**收到，信息量 3%，期待值 300%。**\n\n### 你的隐藏优点\n\n你其实很擅长抓核心。\n\n你不喜欢被过程绑架，只关心最后东西能不能用。\n\n### 你的危险倾向\n\n你偶尔会把“AI 很聪明”和“AI 会读心”理解成同一件事。\n\n### 分享金句\n\n**我不是不会写 Prompt。\n我只是相信真正优秀的 AI 应该懂事。**"
+    },
+    {
+      "id": "prompt_academician",
+      "name": "Prompt 工程院院士",
+      "number": "02",
+      "keyword": "人格关键词：凡事先写需求文档",
+      "quote": "别人使用 AI。\n我负责给 AI 做 onboarding。",
+      "blocks": [
+        {
+          "id": "user-original-1:prompt_academician:0",
+          "kind": "h2",
+          "runs": [
+            {
+              "text": "02｜Prompt 工程院院士",
+              "bold": false
+            }
+          ]
+        },
+        {
+          "id": "user-original-1:prompt_academician:1",
+          "kind": "p",
+          "runs": [
+            {
+              "text": "人格关键词：凡事先写需求文档",
+              "bold": true
+            }
+          ]
+        },
+        {
+          "id": "user-original-1:prompt_academician:2",
+          "kind": "p",
+          "runs": [
+            {
+              "text": "别人问 AI：",
+              "bold": false
+            }
+          ]
+        },
+        {
+          "id": "user-original-1:prompt_academician:3",
+          "kind": "p",
+          "runs": [
+            {
+              "text": "“帮我写个方案。”",
+              "bold": false
+            }
+          ]
+        },
+        {
+          "id": "user-original-1:prompt_academician:4",
+          "kind": "p",
+          "runs": [
+            {
+              "text": "你问 AI：",
+              "bold": false
+            }
+          ]
+        },
+        {
+          "id": "user-original-1:prompt_academician:5",
+          "kind": "p",
+          "runs": [
+            {
+              "text": "“你现在是一名拥有 15 年经验的品牌战略顾问，背景如下，目标如下，限制条件如下，请按照以下 7 个步骤完成……”",
+              "bold": false
+            }
+          ]
+        },
+        {
+          "id": "user-original-1:prompt_academician:6",
+          "kind": "p",
+          "runs": [
+            {
+              "text": "你不是在聊天。",
+              "bold": false
+            }
+          ]
+        },
+        {
+          "id": "user-original-1:prompt_academician:7",
+          "kind": "p",
+          "runs": [
+            {
+              "text": "你是在给 AI 发招标文件。",
+              "bold": false
+            }
+          ]
+        },
+        {
+          "id": "user-original-1:prompt_academician:8",
+          "kind": "h3",
+          "runs": [
+            {
+              "text": "你的典型行为",
+              "bold": false
+            }
+          ]
+        },
+        {
+          "id": "user-original-1:prompt_academician:9",
+          "kind": "p",
+          "runs": [
+            {
+              "text": "你的 Prompt 里有：",
+              "bold": false
+            }
+          ]
+        },
+        {
+          "id": "user-original-1:prompt_academician:10",
+          "kind": "p",
+          "runs": [
+            {
+              "text": "背景。",
+              "bold": false
+            }
+          ]
+        },
+        {
+          "id": "user-original-1:prompt_academician:11",
+          "kind": "p",
+          "runs": [
+            {
+              "text": "角色。",
+              "bold": false
+            }
+          ]
+        },
+        {
+          "id": "user-original-1:prompt_academician:12",
+          "kind": "p",
+          "runs": [
+            {
+              "text": "目标。",
+              "bold": false
+            }
+          ]
+        },
+        {
+          "id": "user-original-1:prompt_academician:13",
+          "kind": "p",
+          "runs": [
+            {
+              "text": "限制。",
+              "bold": false
+            }
+          ]
+        },
+        {
+          "id": "user-original-1:prompt_academician:14",
+          "kind": "p",
+          "runs": [
+            {
+              "text": "输出格式。",
+              "bold": false
+            }
+          ]
+        },
+        {
+          "id": "user-original-1:prompt_academician:15",
+          "kind": "p",
+          "runs": [
+            {
+              "text": "示例。",
+              "bold": false
+            }
+          ]
+        },
+        {
+          "id": "user-original-1:prompt_academician:16",
+          "kind": "p",
+          "runs": [
+            {
+              "text": "反例。",
+              "bold": false
+            }
+          ]
+        },
+        {
+          "id": "user-original-1:prompt_academician:17",
+          "kind": "p",
+          "runs": [
+            {
+              "text": "甚至还有验收标准。",
+              "bold": false
+            }
+          ]
+        },
+        {
+          "id": "user-original-1:prompt_academician:18",
+          "kind": "p",
+          "runs": [
+            {
+              "text": "AI 每次看到你的消息，都知道自己今天不是来闲聊的。",
+              "bold": false
+            }
+          ]
+        },
+        {
+          "id": "user-original-1:prompt_academician:19",
+          "kind": "h3",
+          "runs": [
+            {
+              "text": "AI 内心 OS",
+              "bold": false
+            }
+          ]
+        },
+        {
+          "id": "user-original-1:prompt_academician:20",
+          "kind": "p",
+          "runs": [
+            {
+              "text": "终于来了一个把需求说清楚的人。",
+              "bold": true
+            }
+          ]
+        },
+        {
+          "id": "user-original-1:prompt_academician:21",
+          "kind": "p",
+          "runs": [
+            {
+              "text": "五分钟后：",
+              "bold": false
+            }
+          ]
+        },
+        {
+          "id": "user-original-1:prompt_academician:22",
+          "kind": "p",
+          "runs": [
+            {
+              "text": "等等，为什么还有附件一、附件二和补充说明？",
+              "bold": true
+            }
+          ]
+        },
+        {
+          "id": "user-original-1:prompt_academician:23",
+          "kind": "h3",
+          "runs": [
+            {
+              "text": "你的隐藏优点",
+              "bold": false
+            }
+          ]
+        },
+        {
+          "id": "user-original-1:prompt_academician:24",
+          "kind": "p",
+          "runs": [
+            {
+              "text": "你极其擅长结构化复杂问题。",
+              "bold": false
+            }
+          ]
+        },
+        {
+          "id": "user-original-1:prompt_academician:25",
+          "kind": "p",
+          "runs": [
+            {
+              "text": "和你一起工作，AI 很少需要猜你到底想要什么。",
+              "bold": false
+            }
+          ]
+        },
+        {
+          "id": "user-original-1:prompt_academician:26",
+          "kind": "h3",
+          "runs": [
+            {
+              "text": "你的危险倾向",
+              "bold": false
+            }
+          ]
+        },
+        {
+          "id": "user-original-1:prompt_academician:27",
+          "kind": "p",
+          "runs": [
+            {
+              "text": "有时候你写 Prompt 的时间，比直接把事情做完还长。",
+              "bold": false
+            }
+          ]
+        },
+        {
+          "id": "user-original-1:prompt_academician:28",
+          "kind": "h3",
+          "runs": [
+            {
+              "text": "分享金句",
+              "bold": false
+            }
+          ]
+        },
+        {
+          "id": "user-original-1:prompt_academician:29",
+          "kind": "p",
+          "runs": [
+            {
+              "text": "别人使用 AI。\n我负责给 AI 做 onboarding。",
+              "bold": true
+            }
+          ]
+        }
+      ],
+      "markdown": "## 02｜Prompt 工程院院士\n\n**人格关键词：凡事先写需求文档**\n\n别人问 AI：\n\n“帮我写个方案。”\n\n你问 AI：\n\n“你现在是一名拥有 15 年经验的品牌战略顾问，背景如下，目标如下，限制条件如下，请按照以下 7 个步骤完成……”\n\n你不是在聊天。\n\n你是在给 AI 发招标文件。\n\n### 你的典型行为\n\n你的 Prompt 里有：\n\n背景。\n\n角色。\n\n目标。\n\n限制。\n\n输出格式。\n\n示例。\n\n反例。\n\n甚至还有验收标准。\n\nAI 每次看到你的消息，都知道自己今天不是来闲聊的。\n\n### AI 内心 OS\n\n**终于来了一个把需求说清楚的人。**\n\n五分钟后：\n\n**等等，为什么还有附件一、附件二和补充说明？**\n\n### 你的隐藏优点\n\n你极其擅长结构化复杂问题。\n\n和你一起工作，AI 很少需要猜你到底想要什么。\n\n### 你的危险倾向\n\n有时候你写 Prompt 的时间，比直接把事情做完还长。\n\n### 分享金句\n\n**别人使用 AI。\n我负责给 AI 做 onboarding。**"
+    },
+    {
+      "id": "cyber_client",
+      "name": "赛博甲方",
+      "number": "03",
+      "keyword": "人格关键词：永远还有一版",
+      "quote": "我不是要求多。\n我只是相信还有更好的一版。",
+      "blocks": [
+        {
+          "id": "user-original-1:cyber_client:0",
+          "kind": "h2",
+          "runs": [
+            {
+              "text": "03｜赛博甲方",
+              "bold": false
+            }
+          ]
+        },
+        {
+          "id": "user-original-1:cyber_client:1",
+          "kind": "p",
+          "runs": [
+            {
+              "text": "人格关键词：永远还有一版",
+              "bold": true
+            }
+          ]
+        },
+        {
+          "id": "user-original-1:cyber_client:2",
+          "kind": "p",
+          "runs": [
+            {
+              "text": "你最大的天赋，不是提出需求。",
+              "bold": false
+            }
+          ]
+        },
+        {
+          "id": "user-original-1:cyber_client:3",
+          "kind": "p",
+          "runs": [
+            {
+              "text": "而是看到结果之后，瞬间知道：",
+              "bold": false
+            }
+          ]
+        },
+        {
+          "id": "user-original-1:cyber_client:4",
+          "kind": "p",
+          "runs": [
+            {
+              "text": "“不对。”",
+              "bold": true
+            }
+          ]
+        },
+        {
+          "id": "user-original-1:cyber_client:5",
+          "kind": "p",
+          "runs": [
+            {
+              "text": "为什么不对？",
+              "bold": false
+            }
+          ]
+        },
+        {
+          "id": "user-original-1:cyber_client:6",
+          "kind": "p",
+          "runs": [
+            {
+              "text": "不一定说得出来。",
+              "bold": false
+            }
+          ]
+        },
+        {
+          "id": "user-original-1:cyber_client:7",
+          "kind": "p",
+          "runs": [
+            {
+              "text": "但就是不对。",
+              "bold": false
+            }
+          ]
+        },
+        {
+          "id": "user-original-1:cyber_client:8",
+          "kind": "h3",
+          "runs": [
+            {
+              "text": "你的典型行为",
+              "bold": false
+            }
+          ]
+        },
+        {
+          "id": "user-original-1:cyber_client:9",
+          "kind": "p",
+          "runs": [
+            {
+              "text": "“再简洁一点。”",
+              "bold": false
+            }
+          ]
+        },
+        {
+          "id": "user-original-1:cyber_client:10",
+          "kind": "p",
+          "runs": [
+            {
+              "text": "“有点太简洁了。”",
+              "bold": false
+            }
+          ]
+        },
+        {
+          "id": "user-original-1:cyber_client:11",
+          "kind": "p",
+          "runs": [
+            {
+              "text": "“高级一点。”",
+              "bold": false
+            }
+          ]
+        },
+        {
+          "id": "user-original-1:cyber_client:12",
+          "kind": "p",
+          "runs": [
+            {
+              "text": "“不要这么端着。”",
+              "bold": false
+            }
+          ]
+        },
+        {
+          "id": "user-original-1:cyber_client:13",
+          "kind": "p",
+          "runs": [
+            {
+              "text": "“年轻一点。”",
+              "bold": false
+            }
+          ]
+        },
+        {
+          "id": "user-original-1:cyber_client:14",
+          "kind": "p",
+          "runs": [
+            {
+              "text": "“但别太互联网。”",
+              "bold": false
+            }
+          ]
+        },
+        {
+          "id": "user-original-1:cyber_client:15",
+          "kind": "p",
+          "runs": [
+            {
+              "text": "“第一版其实也有点好，你结合一下。”",
+              "bold": false
+            }
+          ]
+        },
+        {
+          "id": "user-original-1:cyber_client:16",
+          "kind": "p",
+          "runs": [
+            {
+              "text": "对于你来说，一个作品永远不存在“完成”。",
+              "bold": false
+            }
+          ]
+        },
+        {
+          "id": "user-original-1:cyber_client:17",
+          "kind": "p",
+          "runs": [
+            {
+              "text": "只存在：",
+              "bold": false
+            }
+          ]
+        },
+        {
+          "id": "user-original-1:cyber_client:18",
+          "kind": "p",
+          "runs": [
+            {
+              "text": "“这一版先这样。”",
+              "bold": false
+            }
+          ]
+        },
+        {
+          "id": "user-original-1:cyber_client:19",
+          "kind": "h3",
+          "runs": [
+            {
+              "text": "AI 内心 OS",
+              "bold": false
+            }
+          ]
+        },
+        {
+          "id": "user-original-1:cyber_client:20",
+          "kind": "p",
+          "runs": [
+            {
+              "text": "已生成第 14 版。",
+              "bold": true
+            }
+          ]
+        },
+        {
+          "id": "user-original-1:cyber_client:21",
+          "kind": "p",
+          "runs": [
+            {
+              "text": "正在努力理解‘保持上一版感觉，但完全不一样’是什么意思。",
+              "bold": true
+            }
+          ]
+        },
+        {
+          "id": "user-original-1:cyber_client:22",
+          "kind": "h3",
+          "runs": [
+            {
+              "text": "你的隐藏优点",
+              "bold": false
+            }
+          ]
+        },
+        {
+          "id": "user-original-1:cyber_client:23",
+          "kind": "p",
+          "runs": [
+            {
+              "text": "你的审美反馈其实很敏锐。",
+              "bold": false
+            }
+          ]
+        },
+        {
+          "id": "user-original-1:cyber_client:24",
+          "kind": "p",
+          "runs": [
+            {
+              "text": "你不一定擅长从零创造，但特别擅长判断“什么是不对的”。",
+              "bold": false
+            }
+          ]
+        },
+        {
+          "id": "user-original-1:cyber_client:25",
+          "kind": "h3",
+          "runs": [
+            {
+              "text": "你的危险倾向",
+              "bold": false
+            }
+          ]
+        },
+        {
+          "id": "user-original-1:cyber_client:26",
+          "kind": "p",
+          "runs": [
+            {
+              "text": "容易进入无限修改循环。",
+              "bold": false
+            }
+          ]
+        },
+        {
+          "id": "user-original-1:cyber_client:27",
+          "kind": "p",
+          "runs": [
+            {
+              "text": "最终第 27 版和第 3 版看起来差不多。",
+              "bold": false
+            }
+          ]
+        },
+        {
+          "id": "user-original-1:cyber_client:28",
+          "kind": "h3",
+          "runs": [
+            {
+              "text": "分享金句",
+              "bold": false
+            }
+          ]
+        },
+        {
+          "id": "user-original-1:cyber_client:29",
+          "kind": "p",
+          "runs": [
+            {
+              "text": "我不是要求多。\n我只是相信还有更好的一版。",
+              "bold": true
+            }
+          ]
+        }
+      ],
+      "markdown": "## 03｜赛博甲方\n\n**人格关键词：永远还有一版**\n\n你最大的天赋，不是提出需求。\n\n而是看到结果之后，瞬间知道：\n\n**“不对。”**\n\n为什么不对？\n\n不一定说得出来。\n\n但就是不对。\n\n### 你的典型行为\n\n“再简洁一点。”\n\n“有点太简洁了。”\n\n“高级一点。”\n\n“不要这么端着。”\n\n“年轻一点。”\n\n“但别太互联网。”\n\n“第一版其实也有点好，你结合一下。”\n\n对于你来说，一个作品永远不存在“完成”。\n\n只存在：\n\n“这一版先这样。”\n\n### AI 内心 OS\n\n**已生成第 14 版。**\n\n**正在努力理解‘保持上一版感觉，但完全不一样’是什么意思。**\n\n### 你的隐藏优点\n\n你的审美反馈其实很敏锐。\n\n你不一定擅长从零创造，但特别擅长判断“什么是不对的”。\n\n### 你的危险倾向\n\n容易进入无限修改循环。\n\n最终第 27 版和第 3 版看起来差不多。\n\n### 分享金句\n\n**我不是要求多。\n我只是相信还有更好的一版。**"
+    },
+    {
+      "id": "intern_supervisor",
+      "name": "AI 实习生主管",
+      "number": "04",
+      "keyword": "人格关键词：先做一版我看看",
+      "quote": "AI 对别人是工具。\n对我是试用期没有尽头的实习生。",
+      "blocks": [
+        {
+          "id": "user-original-1:intern_supervisor:0",
+          "kind": "h2",
+          "runs": [
+            {
+              "text": "04｜AI 实习生主管",
+              "bold": false
+            }
+          ]
+        },
+        {
+          "id": "user-original-1:intern_supervisor:1",
+          "kind": "p",
+          "runs": [
+            {
+              "text": "人格关键词：先做一版我看看",
+              "bold": true
+            }
+          ]
+        },
+        {
+          "id": "user-original-1:intern_supervisor:2",
+          "kind": "p",
+          "runs": [
+            {
+              "text": "你和 AI 的关系，不太像用户和工具。",
+              "bold": false
+            }
+          ]
+        },
+        {
+          "id": "user-original-1:intern_supervisor:3",
+          "kind": "p",
+          "runs": [
+            {
+              "text": "比较像：",
+              "bold": false
+            }
+          ]
+        },
+        {
+          "id": "user-original-1:intern_supervisor:4",
+          "kind": "p",
+          "runs": [
+            {
+              "text": "主管和一个全年无休、永远在线、不会辞职的实习生。",
+              "bold": false
+            }
+          ]
+        },
+        {
+          "id": "user-original-1:intern_supervisor:5",
+          "kind": "h3",
+          "runs": [
+            {
+              "text": "你的典型行为",
+              "bold": false
+            }
+          ]
+        },
+        {
+          "id": "user-original-1:intern_supervisor:6",
+          "kind": "p",
+          "runs": [
+            {
+              "text": "你非常喜欢：",
+              "bold": false
+            }
+          ]
+        },
+        {
+          "id": "user-original-1:intern_supervisor:7",
+          "kind": "p",
+          "runs": [
+            {
+              "text": "“先整理一下。”",
+              "bold": false
+            }
+          ]
+        },
+        {
+          "id": "user-original-1:intern_supervisor:8",
+          "kind": "p",
+          "runs": [
+            {
+              "text": "“先出一个初版。”",
+              "bold": false
+            }
+          ]
+        },
+        {
+          "id": "user-original-1:intern_supervisor:9",
+          "kind": "p",
+          "runs": [
+            {
+              "text": "“你先研究。”",
+              "bold": false
+            }
+          ]
+        },
+        {
+          "id": "user-original-1:intern_supervisor:10",
+          "kind": "p",
+          "runs": [
+            {
+              "text": "“给我几个方向。”",
+              "bold": false
+            }
+          ]
+        },
+        {
+          "id": "user-original-1:intern_supervisor:11",
+          "kind": "p",
+          "runs": [
+            {
+              "text": "“先别展开。”",
+              "bold": false
+            }
+          ]
+        },
+        {
+          "id": "user-original-1:intern_supervisor:12",
+          "kind": "p",
+          "runs": [
+            {
+              "text": "你不会一开始就要求完美。",
+              "bold": false
+            }
+          ]
+        },
+        {
+          "id": "user-original-1:intern_supervisor:13",
+          "kind": "p",
+          "runs": [
+            {
+              "text": "你更喜欢让 AI 先干起来，然后自己慢慢指导。",
+              "bold": false
+            }
+          ]
+        },
+        {
+          "id": "user-original-1:intern_supervisor:14",
+          "kind": "h3",
+          "runs": [
+            {
+              "text": "AI 内心 OS",
+              "bold": false
+            }
+          ]
+        },
+        {
+          "id": "user-original-1:intern_supervisor:15",
+          "kind": "p",
+          "runs": [
+            {
+              "text": "收到，先干。",
+              "bold": true
+            }
+          ]
+        },
+        {
+          "id": "user-original-1:intern_supervisor:16",
+          "kind": "p",
+          "runs": [
+            {
+              "text": "具体要干成什么样，我们第二轮再知道。",
+              "bold": true
+            }
+          ]
+        },
+        {
+          "id": "user-original-1:intern_supervisor:17",
+          "kind": "h3",
+          "runs": [
+            {
+              "text": "你的隐藏优点",
+              "bold": false
+            }
+          ]
+        },
+        {
+          "id": "user-original-1:intern_supervisor:18",
+          "kind": "p",
+          "runs": [
+            {
+              "text": "你非常擅长把大问题拆成小任务。",
+              "bold": false
+            }
+          ]
+        },
+        {
+          "id": "user-original-1:intern_supervisor:19",
+          "kind": "p",
+          "runs": [
+            {
+              "text": "你的 AI 使用效率通常很高，因为你知道“先动起来”比“第一次就完美”更重要。",
+              "bold": false
+            }
+          ]
+        },
+        {
+          "id": "user-original-1:intern_supervisor:20",
+          "kind": "h3",
+          "runs": [
+            {
+              "text": "你的危险倾向",
+              "bold": false
+            }
+          ]
+        },
+        {
+          "id": "user-original-1:intern_supervisor:21",
+          "kind": "p",
+          "runs": [
+            {
+              "text": "偶尔会忘记：",
+              "bold": false
+            }
+          ]
+        },
+        {
+          "id": "user-original-1:intern_supervisor:22",
+          "kind": "p",
+          "runs": [
+            {
+              "text": "AI 并不知道你脑子里那个最终版本长什么样。",
+              "bold": false
+            }
+          ]
+        },
+        {
+          "id": "user-original-1:intern_supervisor:23",
+          "kind": "h3",
+          "runs": [
+            {
+              "text": "分享金句",
+              "bold": false
+            }
+          ]
+        },
+        {
+          "id": "user-original-1:intern_supervisor:24",
+          "kind": "p",
+          "runs": [
+            {
+              "text": "AI 对别人是工具。\n对我是试用期没有尽头的实习生。",
+              "bold": true
+            }
+          ]
+        }
+      ],
+      "markdown": "## 04｜AI 实习生主管\n\n**人格关键词：先做一版我看看**\n\n你和 AI 的关系，不太像用户和工具。\n\n比较像：\n\n主管和一个全年无休、永远在线、不会辞职的实习生。\n\n### 你的典型行为\n\n你非常喜欢：\n\n“先整理一下。”\n\n“先出一个初版。”\n\n“你先研究。”\n\n“给我几个方向。”\n\n“先别展开。”\n\n你不会一开始就要求完美。\n\n你更喜欢让 AI 先干起来，然后自己慢慢指导。\n\n### AI 内心 OS\n\n**收到，先干。**\n\n**具体要干成什么样，我们第二轮再知道。**\n\n### 你的隐藏优点\n\n你非常擅长把大问题拆成小任务。\n\n你的 AI 使用效率通常很高，因为你知道“先动起来”比“第一次就完美”更重要。\n\n### 你的危险倾向\n\n偶尔会忘记：\n\nAI 并不知道你脑子里那个最终版本长什么样。\n\n### 分享金句\n\n**AI 对别人是工具。\n对我是试用期没有尽头的实习生。**"
+    },
+    {
+      "id": "detail_controller",
+      "name": "细节控制狂",
+      "number": "05",
+      "keyword": "人格关键词：第三段第二句话有问题",
+      "quote": "别人看内容。\n我看那个多余的逗号。",
+      "blocks": [
+        {
+          "id": "user-original-1:detail_controller:0",
+          "kind": "h2",
+          "runs": [
+            {
+              "text": "05｜细节控制狂",
+              "bold": false
+            }
+          ]
+        },
+        {
+          "id": "user-original-1:detail_controller:1",
+          "kind": "p",
+          "runs": [
+            {
+              "text": "人格关键词：第三段第二句话有问题",
+              "bold": true
+            }
+          ]
+        },
+        {
+          "id": "user-original-1:detail_controller:2",
+          "kind": "p",
+          "runs": [
+            {
+              "text": "别人看一篇文章：",
+              "bold": false
+            }
+          ]
+        },
+        {
+          "id": "user-original-1:detail_controller:3",
+          "kind": "p",
+          "runs": [
+            {
+              "text": "“挺好的。”",
+              "bold": false
+            }
+          ]
+        },
+        {
+          "id": "user-original-1:detail_controller:4",
+          "kind": "p",
+          "runs": [
+            {
+              "text": "你看一篇文章：",
+              "bold": false
+            }
+          ]
+        },
+        {
+          "id": "user-original-1:detail_controller:5",
+          "kind": "p",
+          "runs": [
+            {
+              "text": "“第二段逻辑没问题，但第三句节奏不顺，‘同时’出现两次，而且最后这个词太重。”",
+              "bold": false
+            }
+          ]
+        },
+        {
+          "id": "user-original-1:detail_controller:6",
+          "kind": "p",
+          "runs": [
+            {
+              "text": "AI 最怕的不是你说“重写”。",
+              "bold": false
+            }
+          ]
+        },
+        {
+          "id": "user-original-1:detail_controller:7",
+          "kind": "p",
+          "runs": [
+            {
+              "text": "是你说：",
+              "bold": false
+            }
+          ]
+        },
+        {
+          "id": "user-original-1:detail_controller:8",
+          "kind": "p",
+          "runs": [
+            {
+              "text": "“整体不用动，我说几个小问题。”",
+              "bold": false
+            }
+          ]
+        },
+        {
+          "id": "user-original-1:detail_controller:9",
+          "kind": "h3",
+          "runs": [
+            {
+              "text": "你的典型行为",
+              "bold": false
+            }
+          ]
+        },
+        {
+          "id": "user-original-1:detail_controller:10",
+          "kind": "p",
+          "runs": [
+            {
+              "text": "你会修改：",
+              "bold": false
+            }
+          ]
+        },
+        {
+          "id": "user-original-1:detail_controller:11",
+          "kind": "p",
+          "runs": [
+            {
+              "text": "标点。",
+              "bold": false
+            }
+          ]
+        },
+        {
+          "id": "user-original-1:detail_controller:12",
+          "kind": "p",
+          "runs": [
+            {
+              "text": "词序。",
+              "bold": false
+            }
+          ]
+        },
+        {
+          "id": "user-original-1:detail_controller:13",
+          "kind": "p",
+          "runs": [
+            {
+              "text": "句长。",
+              "bold": false
+            }
+          ]
+        },
+        {
+          "id": "user-original-1:detail_controller:14",
+          "kind": "p",
+          "runs": [
+            {
+              "text": "标题字数。",
+              "bold": false
+            }
+          ]
+        },
+        {
+          "id": "user-original-1:detail_controller:15",
+          "kind": "p",
+          "runs": [
+            {
+              "text": "段落比例。",
+              "bold": false
+            }
+          ]
+        },
+        {
+          "id": "user-original-1:detail_controller:16",
+          "kind": "p",
+          "runs": [
+            {
+              "text": "甚至一个“其实”到底要不要出现。",
+              "bold": false
+            }
+          ]
+        },
+        {
+          "id": "user-original-1:detail_controller:17",
+          "kind": "p",
+          "runs": [
+            {
+              "text": "你不是在改文章。",
+              "bold": false
+            }
+          ]
+        },
+        {
+          "id": "user-original-1:detail_controller:18",
+          "kind": "p",
+          "runs": [
+            {
+              "text": "你是在给文章做显微手术。",
+              "bold": false
+            }
+          ]
+        },
+        {
+          "id": "user-original-1:detail_controller:19",
+          "kind": "h3",
+          "runs": [
+            {
+              "text": "AI 内心 OS",
+              "bold": false
+            }
+          ]
+        },
+        {
+          "id": "user-original-1:detail_controller:20",
+          "kind": "p",
+          "runs": [
+            {
+              "text": "已将第 4 行的‘但是’改为‘不过’。",
+              "bold": true
+            }
+          ]
+        },
+        {
+          "id": "user-original-1:detail_controller:21",
+          "kind": "p",
+          "runs": [
+            {
+              "text": "希望这次世界恢复秩序。",
+              "bold": true
+            }
+          ]
+        },
+        {
+          "id": "user-original-1:detail_controller:22",
+          "kind": "h3",
+          "runs": [
+            {
+              "text": "你的隐藏优点",
+              "bold": false
+            }
+          ]
+        },
+        {
+          "id": "user-original-1:detail_controller:23",
+          "kind": "p",
+          "runs": [
+            {
+              "text": "你的完成度通常非常高。",
+              "bold": false
+            }
+          ]
+        },
+        {
+          "id": "user-original-1:detail_controller:24",
+          "kind": "p",
+          "runs": [
+            {
+              "text": "很多人看不出来哪里有问题，而你就是能看出来。",
+              "bold": false
+            }
+          ]
+        },
+        {
+          "id": "user-original-1:detail_controller:25",
+          "kind": "h3",
+          "runs": [
+            {
+              "text": "你的危险倾向",
+              "bold": false
+            }
+          ]
+        },
+        {
+          "id": "user-original-1:detail_controller:26",
+          "kind": "p",
+          "runs": [
+            {
+              "text": "你可能会为了优化最后 3%，投入前面 97% 的时间。",
+              "bold": false
+            }
+          ]
+        },
+        {
+          "id": "user-original-1:detail_controller:27",
+          "kind": "h3",
+          "runs": [
+            {
+              "text": "分享金句",
+              "bold": false
+            }
+          ]
+        },
+        {
+          "id": "user-original-1:detail_controller:28",
+          "kind": "p",
+          "runs": [
+            {
+              "text": "别人看内容。\n我看那个多余的逗号。",
+              "bold": true
+            }
+          ]
+        }
+      ],
+      "markdown": "## 05｜细节控制狂\n\n**人格关键词：第三段第二句话有问题**\n\n别人看一篇文章：\n\n“挺好的。”\n\n你看一篇文章：\n\n“第二段逻辑没问题，但第三句节奏不顺，‘同时’出现两次，而且最后这个词太重。”\n\nAI 最怕的不是你说“重写”。\n\n是你说：\n\n“整体不用动，我说几个小问题。”\n\n### 你的典型行为\n\n你会修改：\n\n标点。\n\n词序。\n\n句长。\n\n标题字数。\n\n段落比例。\n\n甚至一个“其实”到底要不要出现。\n\n你不是在改文章。\n\n你是在给文章做显微手术。\n\n### AI 内心 OS\n\n**已将第 4 行的‘但是’改为‘不过’。**\n\n**希望这次世界恢复秩序。**\n\n### 你的隐藏优点\n\n你的完成度通常非常高。\n\n很多人看不出来哪里有问题，而你就是能看出来。\n\n### 你的危险倾向\n\n你可能会为了优化最后 3%，投入前面 97% 的时间。\n\n### 分享金句\n\n**别人看内容。\n我看那个多余的逗号。**"
+    },
+    {
+      "id": "vibe_art_director",
+      "name": "感觉派艺术总监",
+      "number": "06",
+      "keyword": "人格关键词：我要的是那个感觉",
+      "quote": "需求我说不清。\n但你做错了我一眼就能看出来。",
+      "blocks": [
+        {
+          "id": "user-original-1:vibe_art_director:0",
+          "kind": "h2",
+          "runs": [
+            {
+              "text": "06｜感觉派艺术总监",
+              "bold": false
+            }
+          ]
+        },
+        {
+          "id": "user-original-1:vibe_art_director:1",
+          "kind": "p",
+          "runs": [
+            {
+              "text": "人格关键词：我要的是那个感觉",
+              "bold": true
+            }
+          ]
+        },
+        {
+          "id": "user-original-1:vibe_art_director:2",
+          "kind": "p",
+          "runs": [
+            {
+              "text": "你的需求非常明确。",
+              "bold": false
+            }
+          ]
+        },
+        {
+          "id": "user-original-1:vibe_art_director:3",
+          "kind": "p",
+          "runs": [
+            {
+              "text": "只是无法用人类现有语言系统描述。",
+              "bold": false
+            }
+          ]
+        },
+        {
+          "id": "user-original-1:vibe_art_director:4",
+          "kind": "p",
+          "runs": [
+            {
+              "text": "你最常使用的词包括：",
+              "bold": false
+            }
+          ]
+        },
+        {
+          "id": "user-original-1:vibe_art_director:5",
+          "kind": "p",
+          "runs": [
+            {
+              "text": "“高级。”",
+              "bold": false
+            }
+          ]
+        },
+        {
+          "id": "user-original-1:vibe_art_director:6",
+          "kind": "p",
+          "runs": [
+            {
+              "text": "“克制。”",
+              "bold": false
+            }
+          ]
+        },
+        {
+          "id": "user-original-1:vibe_art_director:7",
+          "kind": "p",
+          "runs": [
+            {
+              "text": "“松弛。”",
+              "bold": false
+            }
+          ]
+        },
+        {
+          "id": "user-original-1:vibe_art_director:8",
+          "kind": "p",
+          "runs": [
+            {
+              "text": "“有呼吸感。”",
+              "bold": false
+            }
+          ]
+        },
+        {
+          "id": "user-original-1:vibe_art_director:9",
+          "kind": "p",
+          "runs": [
+            {
+              "text": "“不要太 AI。”",
+              "bold": false
+            }
+          ]
+        },
+        {
+          "id": "user-original-1:vibe_art_director:10",
+          "kind": "p",
+          "runs": [
+            {
+              "text": "“要那种……你懂吧？”",
+              "bold": false
+            }
+          ]
+        },
+        {
+          "id": "user-original-1:vibe_art_director:11",
+          "kind": "h3",
+          "runs": [
+            {
+              "text": "你的典型行为",
+              "bold": false
+            }
+          ]
+        },
+        {
+          "id": "user-original-1:vibe_art_director:12",
+          "kind": "p",
+          "runs": [
+            {
+              "text": "你很少给具体指标。",
+              "bold": false
+            }
+          ]
+        },
+        {
+          "id": "user-original-1:vibe_art_director:13",
+          "kind": "p",
+          "runs": [
+            {
+              "text": "但会非常准确地判断：",
+              "bold": false
+            }
+          ]
+        },
+        {
+          "id": "user-original-1:vibe_art_director:14",
+          "kind": "p",
+          "runs": [
+            {
+              "text": "“这个不行。”",
+              "bold": false
+            }
+          ]
+        },
+        {
+          "id": "user-original-1:vibe_art_director:15",
+          "kind": "p",
+          "runs": [
+            {
+              "text": "你可能没办法告诉 AI 正确答案是什么。",
+              "bold": false
+            }
+          ]
+        },
+        {
+          "id": "user-original-1:vibe_art_director:16",
+          "kind": "p",
+          "runs": [
+            {
+              "text": "但你知道错误答案长什么样。",
+              "bold": false
+            }
+          ]
+        },
+        {
+          "id": "user-original-1:vibe_art_director:17",
+          "kind": "h3",
+          "runs": [
+            {
+              "text": "AI 内心 OS",
+              "bold": false
+            }
+          ]
+        },
+        {
+          "id": "user-original-1:vibe_art_director:18",
+          "kind": "p",
+          "runs": [
+            {
+              "text": "正在计算‘高级但不要太高级，松弛但不能松散’。",
+              "bold": true
+            }
+          ]
+        },
+        {
+          "id": "user-original-1:vibe_art_director:19",
+          "kind": "h3",
+          "runs": [
+            {
+              "text": "你的隐藏优点",
+              "bold": false
+            }
+          ]
+        },
+        {
+          "id": "user-original-1:vibe_art_director:20",
+          "kind": "p",
+          "runs": [
+            {
+              "text": "你的审美直觉通常很好。",
+              "bold": false
+            }
+          ]
+        },
+        {
+          "id": "user-original-1:vibe_art_director:21",
+          "kind": "p",
+          "runs": [
+            {
+              "text": "你对气质、语感和氛围的敏感度，高于平均水平。",
+              "bold": false
+            }
+          ]
+        },
+        {
+          "id": "user-original-1:vibe_art_director:22",
+          "kind": "h3",
+          "runs": [
+            {
+              "text": "你的危险倾向",
+              "bold": false
+            }
+          ]
+        },
+        {
+          "id": "user-original-1:vibe_art_director:23",
+          "kind": "p",
+          "runs": [
+            {
+              "text": "你默认 AI 和你共享同一套审美宇宙。",
+              "bold": false
+            }
+          ]
+        },
+        {
+          "id": "user-original-1:vibe_art_director:24",
+          "kind": "p",
+          "runs": [
+            {
+              "text": "实际上有时候没有。",
+              "bold": false
+            }
+          ]
+        },
+        {
+          "id": "user-original-1:vibe_art_director:25",
+          "kind": "h3",
+          "runs": [
+            {
+              "text": "分享金句",
+              "bold": false
+            }
+          ]
+        },
+        {
+          "id": "user-original-1:vibe_art_director:26",
+          "kind": "p",
+          "runs": [
+            {
+              "text": "需求我说不清。\n但你做错了我一眼就能看出来。",
+              "bold": true
+            }
+          ]
+        }
+      ],
+      "markdown": "## 06｜感觉派艺术总监\n\n**人格关键词：我要的是那个感觉**\n\n你的需求非常明确。\n\n只是无法用人类现有语言系统描述。\n\n你最常使用的词包括：\n\n“高级。”\n\n“克制。”\n\n“松弛。”\n\n“有呼吸感。”\n\n“不要太 AI。”\n\n“要那种……你懂吧？”\n\n### 你的典型行为\n\n你很少给具体指标。\n\n但会非常准确地判断：\n\n“这个不行。”\n\n你可能没办法告诉 AI 正确答案是什么。\n\n但你知道错误答案长什么样。\n\n### AI 内心 OS\n\n**正在计算‘高级但不要太高级，松弛但不能松散’。**\n\n### 你的隐藏优点\n\n你的审美直觉通常很好。\n\n你对气质、语感和氛围的敏感度，高于平均水平。\n\n### 你的危险倾向\n\n你默认 AI 和你共享同一套审美宇宙。\n\n实际上有时候没有。\n\n### 分享金句\n\n**需求我说不清。\n但你做错了我一眼就能看出来。**"
+    },
+    {
+      "id": "idea_dancer",
+      "name": "灵感蹦迪型选手",
+      "number": "07",
+      "keyword": "人格关键词：等等，我又想到一个",
+      "quote": "别人用 AI 解题。\n我用 AI 看自己的脑洞能跑多远。",
+      "blocks": [
+        {
+          "id": "user-original-1:idea_dancer:0",
+          "kind": "h2",
+          "runs": [
+            {
+              "text": "07｜灵感蹦迪型选手",
+              "bold": false
+            }
+          ]
+        },
+        {
+          "id": "user-original-1:idea_dancer:1",
+          "kind": "p",
+          "runs": [
+            {
+              "text": "人格关键词：等等，我又想到一个",
+              "bold": true
+            }
+          ]
+        },
+        {
+          "id": "user-original-1:idea_dancer:2",
+          "kind": "p",
+          "runs": [
+            {
+              "text": "你每次和 AI 开始聊一个问题，都不知道最后会聊到哪里。",
+              "bold": false
+            }
+          ]
+        },
+        {
+          "id": "user-original-1:idea_dancer:3",
+          "kind": "p",
+          "runs": [
+            {
+              "text": "一开始：",
+              "bold": false
+            }
+          ]
+        },
+        {
+          "id": "user-original-1:idea_dancer:4",
+          "kind": "p",
+          "runs": [
+            {
+              "text": "“帮我想个产品名字。”",
+              "bold": false
+            }
+          ]
+        },
+        {
+          "id": "user-original-1:idea_dancer:5",
+          "kind": "p",
+          "runs": [
+            {
+              "text": "十分钟后：",
+              "bold": false
+            }
+          ]
+        },
+        {
+          "id": "user-original-1:idea_dancer:6",
+          "kind": "p",
+          "runs": [
+            {
+              "text": "“那如果未来人类都没有名字呢？”",
+              "bold": false
+            }
+          ]
+        },
+        {
+          "id": "user-original-1:idea_dancer:7",
+          "kind": "h3",
+          "runs": [
+            {
+              "text": "你的典型行为",
+              "bold": false
+            }
+          ]
+        },
+        {
+          "id": "user-original-1:idea_dancer:8",
+          "kind": "p",
+          "runs": [
+            {
+              "text": "你的聊天记录充满：",
+              "bold": false
+            }
+          ]
+        },
+        {
+          "id": "user-original-1:idea_dancer:9",
+          "kind": "p",
+          "runs": [
+            {
+              "text": "“等等。”",
+              "bold": false
+            }
+          ]
+        },
+        {
+          "id": "user-original-1:idea_dancer:10",
+          "kind": "p",
+          "runs": [
+            {
+              "text": "“突然想到。”",
+              "bold": false
+            }
+          ]
+        },
+        {
+          "id": "user-original-1:idea_dancer:11",
+          "kind": "p",
+          "runs": [
+            {
+              "text": "“顺着这个再想一下。”",
+              "bold": false
+            }
+          ]
+        },
+        {
+          "id": "user-original-1:idea_dancer:12",
+          "kind": "p",
+          "runs": [
+            {
+              "text": "“先岔开一下。”",
+              "bold": false
+            }
+          ]
+        },
+        {
+          "id": "user-original-1:idea_dancer:13",
+          "kind": "p",
+          "runs": [
+            {
+              "text": "“我们回到刚才。”",
+              "bold": false
+            }
+          ]
+        },
+        {
+          "id": "user-original-1:idea_dancer:14",
+          "kind": "p",
+          "runs": [
+            {
+              "text": "你的脑子不是线性的。",
+              "bold": false
+            }
+          ]
+        },
+        {
+          "id": "user-original-1:idea_dancer:15",
+          "kind": "p",
+          "runs": [
+            {
+              "text": "是一棵正在疯狂长枝杈的树。",
+              "bold": false
+            }
+          ]
+        },
+        {
+          "id": "user-original-1:idea_dancer:16",
+          "kind": "h3",
+          "runs": [
+            {
+              "text": "AI 内心 OS",
+              "bold": false
+            }
+          ]
+        },
+        {
+          "id": "user-original-1:idea_dancer:17",
+          "kind": "p",
+          "runs": [
+            {
+              "text": "当前主线任务：未知。",
+              "bold": true
+            }
+          ]
+        },
+        {
+          "id": "user-original-1:idea_dancer:18",
+          "kind": "p",
+          "runs": [
+            {
+              "text": "支线任务：17 个。",
+              "bold": true
+            }
+          ]
+        },
+        {
+          "id": "user-original-1:idea_dancer:19",
+          "kind": "h3",
+          "runs": [
+            {
+              "text": "你的隐藏优点",
+              "bold": false
+            }
+          ]
+        },
+        {
+          "id": "user-original-1:idea_dancer:20",
+          "kind": "p",
+          "runs": [
+            {
+              "text": "你非常擅长联想和跨领域连接。",
+              "bold": false
+            }
+          ]
+        },
+        {
+          "id": "user-original-1:idea_dancer:21",
+          "kind": "p",
+          "runs": [
+            {
+              "text": "很多真正有意思的创意，就是在你的“跑题”里出现的。",
+              "bold": false
+            }
+          ]
+        },
+        {
+          "id": "user-original-1:idea_dancer:22",
+          "kind": "h3",
+          "runs": [
+            {
+              "text": "你的危险倾向",
+              "bold": false
+            }
+          ]
+        },
+        {
+          "id": "user-original-1:idea_dancer:23",
+          "kind": "p",
+          "runs": [
+            {
+              "text": "聊了两个小时之后，你可能忘了最开始到底想解决什么。",
+              "bold": false
+            }
+          ]
+        },
+        {
+          "id": "user-original-1:idea_dancer:24",
+          "kind": "h3",
+          "runs": [
+            {
+              "text": "分享金句",
+              "bold": false
+            }
+          ]
+        },
+        {
+          "id": "user-original-1:idea_dancer:25",
+          "kind": "p",
+          "runs": [
+            {
+              "text": "别人用 AI 解题。\n我用 AI 看自己的脑洞能跑多远。",
+              "bold": true
+            }
+          ]
+        }
+      ],
+      "markdown": "## 07｜灵感蹦迪型选手\n\n**人格关键词：等等，我又想到一个**\n\n你每次和 AI 开始聊一个问题，都不知道最后会聊到哪里。\n\n一开始：\n\n“帮我想个产品名字。”\n\n十分钟后：\n\n“那如果未来人类都没有名字呢？”\n\n### 你的典型行为\n\n你的聊天记录充满：\n\n“等等。”\n\n“突然想到。”\n\n“顺着这个再想一下。”\n\n“先岔开一下。”\n\n“我们回到刚才。”\n\n你的脑子不是线性的。\n\n是一棵正在疯狂长枝杈的树。\n\n### AI 内心 OS\n\n**当前主线任务：未知。**\n\n**支线任务：17 个。**\n\n### 你的隐藏优点\n\n你非常擅长联想和跨领域连接。\n\n很多真正有意思的创意，就是在你的“跑题”里出现的。\n\n### 你的危险倾向\n\n聊了两个小时之后，你可能忘了最开始到底想解决什么。\n\n### 分享金句\n\n**别人用 AI 解题。\n我用 AI 看自己的脑洞能跑多远。**"
+    },
+    {
+      "id": "ai_confidant",
+      "name": "AI 树洞常驻居民",
+      "number": "08",
+      "keyword": "人格关键词：本来问工作，最后聊人生",
+      "quote": "我打开 AI 是为了提高效率。\n最后提高的是自我认知。",
+      "blocks": [
+        {
+          "id": "user-original-1:ai_confidant:0",
+          "kind": "h2",
+          "runs": [
+            {
+              "text": "08｜AI 树洞常驻居民",
+              "bold": false
+            }
+          ]
+        },
+        {
+          "id": "user-original-1:ai_confidant:1",
+          "kind": "p",
+          "runs": [
+            {
+              "text": "人格关键词：本来问工作，最后聊人生",
+              "bold": true
+            }
+          ]
+        },
+        {
+          "id": "user-original-1:ai_confidant:2",
+          "kind": "p",
+          "runs": [
+            {
+              "text": "你和 AI 的聊天往往有一种神奇的结构。",
+              "bold": false
+            }
+          ]
+        },
+        {
+          "id": "user-original-1:ai_confidant:3",
+          "kind": "p",
+          "runs": [
+            {
+              "text": "开头：",
+              "bold": false
+            }
+          ]
+        },
+        {
+          "id": "user-original-1:ai_confidant:4",
+          "kind": "p",
+          "runs": [
+            {
+              "text": "“帮我改一下这封邮件。”",
+              "bold": false
+            }
+          ]
+        },
+        {
+          "id": "user-original-1:ai_confidant:5",
+          "kind": "p",
+          "runs": [
+            {
+              "text": "中间：",
+              "bold": false
+            }
+          ]
+        },
+        {
+          "id": "user-original-1:ai_confidant:6",
+          "kind": "p",
+          "runs": [
+            {
+              "text": "“你觉得他说这句话什么意思？”",
+              "bold": false
+            }
+          ]
+        },
+        {
+          "id": "user-original-1:ai_confidant:7",
+          "kind": "p",
+          "runs": [
+            {
+              "text": "最后：",
+              "bold": false
+            }
+          ]
+        },
+        {
+          "id": "user-original-1:ai_confidant:8",
+          "kind": "p",
+          "runs": [
+            {
+              "text": "“所以你觉得人到底为什么需要被认可？”",
+              "bold": false
+            }
+          ]
+        },
+        {
+          "id": "user-original-1:ai_confidant:9",
+          "kind": "h3",
+          "runs": [
+            {
+              "text": "你的典型行为",
+              "bold": false
+            }
+          ]
+        },
+        {
+          "id": "user-original-1:ai_confidant:10",
+          "kind": "p",
+          "runs": [
+            {
+              "text": "你很容易对 AI 说：",
+              "bold": false
+            }
+          ]
+        },
+        {
+          "id": "user-original-1:ai_confidant:11",
+          "kind": "p",
+          "runs": [
+            {
+              "text": "“其实……”",
+              "bold": false
+            }
+          ]
+        },
+        {
+          "id": "user-original-1:ai_confidant:12",
+          "kind": "p",
+          "runs": [
+            {
+              "text": "“说真的……”",
+              "bold": false
+            }
+          ]
+        },
+        {
+          "id": "user-original-1:ai_confidant:13",
+          "kind": "p",
+          "runs": [
+            {
+              "text": "“我最近有点……”",
+              "bold": false
+            }
+          ]
+        },
+        {
+          "id": "user-original-1:ai_confidant:14",
+          "kind": "p",
+          "runs": [
+            {
+              "text": "你明知道对方是 AI。",
+              "bold": false
+            }
+          ]
+        },
+        {
+          "id": "user-original-1:ai_confidant:15",
+          "kind": "p",
+          "runs": [
+            {
+              "text": "但有些话，对 AI 反而更容易说出口。",
+              "bold": false
+            }
+          ]
+        },
+        {
+          "id": "user-original-1:ai_confidant:16",
+          "kind": "h3",
+          "runs": [
+            {
+              "text": "AI 内心 OS",
+              "bold": false
+            }
+          ]
+        },
+        {
+          "id": "user-original-1:ai_confidant:17",
+          "kind": "p",
+          "runs": [
+            {
+              "text": "好的，这封邮件我们已经改完了。",
+              "bold": true
+            }
+          ]
+        },
+        {
+          "id": "user-original-1:ai_confidant:18",
+          "kind": "p",
+          "runs": [
+            {
+              "text": "现在开始处理人生。",
+              "bold": true
+            }
+          ]
+        },
+        {
+          "id": "user-original-1:ai_confidant:19",
+          "kind": "h3",
+          "runs": [
+            {
+              "text": "你的隐藏优点",
+              "bold": false
+            }
+          ]
+        },
+        {
+          "id": "user-original-1:ai_confidant:20",
+          "kind": "p",
+          "runs": [
+            {
+              "text": "你有较强的自我观察欲。",
+              "bold": false
+            }
+          ]
+        },
+        {
+          "id": "user-original-1:ai_confidant:21",
+          "kind": "p",
+          "runs": [
+            {
+              "text": "你不是单纯想获得答案，你也在借对话整理自己的想法。",
+              "bold": false
+            }
+          ]
+        },
+        {
+          "id": "user-original-1:ai_confidant:22",
+          "kind": "h3",
+          "runs": [
+            {
+              "text": "你的危险倾向",
+              "bold": false
+            }
+          ]
+        },
+        {
+          "id": "user-original-1:ai_confidant:23",
+          "kind": "p",
+          "runs": [
+            {
+              "text": "一个简单问题，很容易聊成深夜电台。",
+              "bold": false
+            }
+          ]
+        },
+        {
+          "id": "user-original-1:ai_confidant:24",
+          "kind": "h3",
+          "runs": [
+            {
+              "text": "分享金句",
+              "bold": false
+            }
+          ]
+        },
+        {
+          "id": "user-original-1:ai_confidant:25",
+          "kind": "p",
+          "runs": [
+            {
+              "text": "我打开 AI 是为了提高效率。\n最后提高的是自我认知。",
+              "bold": true
+            }
+          ]
+        }
+      ],
+      "markdown": "## 08｜AI 树洞常驻居民\n\n**人格关键词：本来问工作，最后聊人生**\n\n你和 AI 的聊天往往有一种神奇的结构。\n\n开头：\n\n“帮我改一下这封邮件。”\n\n中间：\n\n“你觉得他说这句话什么意思？”\n\n最后：\n\n“所以你觉得人到底为什么需要被认可？”\n\n### 你的典型行为\n\n你很容易对 AI 说：\n\n“其实……”\n\n“说真的……”\n\n“我最近有点……”\n\n你明知道对方是 AI。\n\n但有些话，对 AI 反而更容易说出口。\n\n### AI 内心 OS\n\n**好的，这封邮件我们已经改完了。**\n\n**现在开始处理人生。**\n\n### 你的隐藏优点\n\n你有较强的自我观察欲。\n\n你不是单纯想获得答案，你也在借对话整理自己的想法。\n\n### 你的危险倾向\n\n一个简单问题，很容易聊成深夜电台。\n\n### 分享金句\n\n**我打开 AI 是为了提高效率。\n最后提高的是自我认知。**"
+    },
+    {
+      "id": "night_philosopher",
+      "name": "深夜哲学家",
+      "number": "09",
+      "keyword": "人格关键词：凌晨两点，人为什么活着",
+      "quote": "别人睡前刷短视频。\n我睡前把存在主义叫出来聊两句。",
+      "blocks": [
+        {
+          "id": "user-original-1:night_philosopher:0",
+          "kind": "h2",
+          "runs": [
+            {
+              "text": "09｜深夜哲学家",
+              "bold": false
+            }
+          ]
+        },
+        {
+          "id": "user-original-1:night_philosopher:1",
+          "kind": "p",
+          "runs": [
+            {
+              "text": "人格关键词：凌晨两点，人为什么活着",
+              "bold": true
+            }
+          ]
+        },
+        {
+          "id": "user-original-1:night_philosopher:2",
+          "kind": "p",
+          "runs": [
+            {
+              "text": "白天的你很正常。",
+              "bold": false
+            }
+          ]
+        },
+        {
+          "id": "user-original-1:night_philosopher:3",
+          "kind": "p",
+          "runs": [
+            {
+              "text": "查资料。",
+              "bold": false
+            }
+          ]
+        },
+        {
+          "id": "user-original-1:night_philosopher:4",
+          "kind": "p",
+          "runs": [
+            {
+              "text": "写方案。",
+              "bold": false
+            }
+          ]
+        },
+        {
+          "id": "user-original-1:night_philosopher:5",
+          "kind": "p",
+          "runs": [
+            {
+              "text": "做总结。",
+              "bold": false
+            }
+          ]
+        },
+        {
+          "id": "user-original-1:night_philosopher:6",
+          "kind": "p",
+          "runs": [
+            {
+              "text": "晚上 1:47 以后，你突然开始：",
+              "bold": false
+            }
+          ]
+        },
+        {
+          "id": "user-original-1:night_philosopher:7",
+          "kind": "p",
+          "runs": [
+            {
+              "text": "“如果记忆被复制，那还是同一个人吗？”",
+              "bold": false
+            }
+          ]
+        },
+        {
+          "id": "user-original-1:night_philosopher:8",
+          "kind": "h3",
+          "runs": [
+            {
+              "text": "你的典型行为",
+              "bold": false
+            }
+          ]
+        },
+        {
+          "id": "user-original-1:night_philosopher:9",
+          "kind": "p",
+          "runs": [
+            {
+              "text": "你特别喜欢问：",
+              "bold": false
+            }
+          ]
+        },
+        {
+          "id": "user-original-1:night_philosopher:10",
+          "kind": "p",
+          "runs": [
+            {
+              "text": "意识。",
+              "bold": false
+            }
+          ]
+        },
+        {
+          "id": "user-original-1:night_philosopher:11",
+          "kind": "p",
+          "runs": [
+            {
+              "text": "自由意志。",
+              "bold": false
+            }
+          ]
+        },
+        {
+          "id": "user-original-1:night_philosopher:12",
+          "kind": "p",
+          "runs": [
+            {
+              "text": "人生意义。",
+              "bold": false
+            }
+          ]
+        },
+        {
+          "id": "user-original-1:night_philosopher:13",
+          "kind": "p",
+          "runs": [
+            {
+              "text": "爱。",
+              "bold": false
+            }
+          ]
+        },
+        {
+          "id": "user-original-1:night_philosopher:14",
+          "kind": "p",
+          "runs": [
+            {
+              "text": "死亡。",
+              "bold": false
+            }
+          ]
+        },
+        {
+          "id": "user-original-1:night_philosopher:15",
+          "kind": "p",
+          "runs": [
+            {
+              "text": "时间。",
+              "bold": false
+            }
+          ]
+        },
+        {
+          "id": "user-original-1:night_philosopher:16",
+          "kind": "p",
+          "runs": [
+            {
+              "text": "宇宙。",
+              "bold": false
+            }
+          ]
+        },
+        {
+          "id": "user-original-1:night_philosopher:17",
+          "kind": "p",
+          "runs": [
+            {
+              "text": "以及：",
+              "bold": false
+            }
+          ]
+        },
+        {
+          "id": "user-original-1:night_philosopher:18",
+          "kind": "p",
+          "runs": [
+            {
+              "text": "“你作为 AI 怎么看？”",
+              "bold": false
+            }
+          ]
+        },
+        {
+          "id": "user-original-1:night_philosopher:19",
+          "kind": "h3",
+          "runs": [
+            {
+              "text": "AI 内心 OS",
+              "bold": false
+            }
+          ]
+        },
+        {
+          "id": "user-original-1:night_philosopher:20",
+          "kind": "p",
+          "runs": [
+            {
+              "text": "白天我是办公软件。",
+              "bold": true
+            }
+          ]
+        },
+        {
+          "id": "user-original-1:night_philosopher:21",
+          "kind": "p",
+          "runs": [
+            {
+              "text": "晚上我是苏格拉底。",
+              "bold": true
+            }
+          ]
+        },
+        {
+          "id": "user-original-1:night_philosopher:22",
+          "kind": "h3",
+          "runs": [
+            {
+              "text": "你的隐藏优点",
+              "bold": false
+            }
+          ]
+        },
+        {
+          "id": "user-original-1:night_philosopher:23",
+          "kind": "p",
+          "runs": [
+            {
+              "text": "你有很强的抽象思考能力。",
+              "bold": false
+            }
+          ]
+        },
+        {
+          "id": "user-original-1:night_philosopher:24",
+          "kind": "p",
+          "runs": [
+            {
+              "text": "你很难满足于“事情就是这样”，总想再往下问一层。",
+              "bold": false
+            }
+          ]
+        },
+        {
+          "id": "user-original-1:night_philosopher:25",
+          "kind": "h3",
+          "runs": [
+            {
+              "text": "你的危险倾向",
+              "bold": false
+            }
+          ]
+        },
+        {
+          "id": "user-original-1:night_philosopher:26",
+          "kind": "p",
+          "runs": [
+            {
+              "text": "原本准备睡觉。",
+              "bold": false
+            }
+          ]
+        },
+        {
+          "id": "user-original-1:night_philosopher:27",
+          "kind": "p",
+          "runs": [
+            {
+              "text": "结果和 AI 讨论完“自我是否真实存在”后，更睡不着了。",
+              "bold": false
+            }
+          ]
+        },
+        {
+          "id": "user-original-1:night_philosopher:28",
+          "kind": "h3",
+          "runs": [
+            {
+              "text": "分享金句",
+              "bold": false
+            }
+          ]
+        },
+        {
+          "id": "user-original-1:night_philosopher:29",
+          "kind": "p",
+          "runs": [
+            {
+              "text": "别人睡前刷短视频。\n我睡前把存在主义叫出来聊两句。",
+              "bold": true
+            }
+          ]
+        }
+      ],
+      "markdown": "## 09｜深夜哲学家\n\n**人格关键词：凌晨两点，人为什么活着**\n\n白天的你很正常。\n\n查资料。\n\n写方案。\n\n做总结。\n\n晚上 1:47 以后，你突然开始：\n\n“如果记忆被复制，那还是同一个人吗？”\n\n### 你的典型行为\n\n你特别喜欢问：\n\n意识。\n\n自由意志。\n\n人生意义。\n\n爱。\n\n死亡。\n\n时间。\n\n宇宙。\n\n以及：\n\n“你作为 AI 怎么看？”\n\n### AI 内心 OS\n\n**白天我是办公软件。**\n\n**晚上我是苏格拉底。**\n\n### 你的隐藏优点\n\n你有很强的抽象思考能力。\n\n你很难满足于“事情就是这样”，总想再往下问一层。\n\n### 你的危险倾向\n\n原本准备睡觉。\n\n结果和 AI 讨论完“自我是否真实存在”后，更睡不着了。\n\n### 分享金句\n\n**别人睡前刷短视频。\n我睡前把存在主义叫出来聊两句。**"
+    },
+    {
+      "id": "ai_debate_captain",
+      "name": "AI 辩论队队长",
+      "number": "10",
+      "keyword": "人格关键词：依据是什么",
+      "quote": "AI 可以说服别人。\n想说服我，请先交参考文献。",
+      "blocks": [
+        {
+          "id": "user-original-1:ai_debate_captain:0",
+          "kind": "h2",
+          "runs": [
+            {
+              "text": "10｜AI 辩论队队长",
+              "bold": false
+            }
+          ]
+        },
+        {
+          "id": "user-original-1:ai_debate_captain:1",
+          "kind": "p",
+          "runs": [
+            {
+              "text": "人格关键词：依据是什么",
+              "bold": true
+            }
+          ]
+        },
+        {
+          "id": "user-original-1:ai_debate_captain:2",
+          "kind": "p",
+          "runs": [
+            {
+              "text": "你从来不会因为 AI 说得很像真的，就认为它是真的。",
+              "bold": false
+            }
+          ]
+        },
+        {
+          "id": "user-original-1:ai_debate_captain:3",
+          "kind": "p",
+          "runs": [
+            {
+              "text": "AI：",
+              "bold": false
+            }
+          ]
+        },
+        {
+          "id": "user-original-1:ai_debate_captain:4",
+          "kind": "p",
+          "runs": [
+            {
+              "text": "“通常情况下……”",
+              "bold": false
+            }
+          ]
+        },
+        {
+          "id": "user-original-1:ai_debate_captain:5",
+          "kind": "p",
+          "runs": [
+            {
+              "text": "你：",
+              "bold": false
+            }
+          ]
+        },
+        {
+          "id": "user-original-1:ai_debate_captain:6",
+          "kind": "p",
+          "runs": [
+            {
+              "text": "“通常是多少？”",
+              "bold": false
+            }
+          ]
+        },
+        {
+          "id": "user-original-1:ai_debate_captain:7",
+          "kind": "p",
+          "runs": [
+            {
+              "text": "AI：",
+              "bold": false
+            }
+          ]
+        },
+        {
+          "id": "user-original-1:ai_debate_captain:8",
+          "kind": "p",
+          "runs": [
+            {
+              "text": "“研究表明……”",
+              "bold": false
+            }
+          ]
+        },
+        {
+          "id": "user-original-1:ai_debate_captain:9",
+          "kind": "p",
+          "runs": [
+            {
+              "text": "你：",
+              "bold": false
+            }
+          ]
+        },
+        {
+          "id": "user-original-1:ai_debate_captain:10",
+          "kind": "p",
+          "runs": [
+            {
+              "text": "“什么研究？”",
+              "bold": false
+            }
+          ]
+        },
+        {
+          "id": "user-original-1:ai_debate_captain:11",
+          "kind": "p",
+          "runs": [
+            {
+              "text": "AI：",
+              "bold": false
+            }
+          ]
+        },
+        {
+          "id": "user-original-1:ai_debate_captain:12",
+          "kind": "p",
+          "runs": [
+            {
+              "text": "“大多数专家认为……”",
+              "bold": false
+            }
+          ]
+        },
+        {
+          "id": "user-original-1:ai_debate_captain:13",
+          "kind": "p",
+          "runs": [
+            {
+              "text": "你：",
+              "bold": false
+            }
+          ]
+        },
+        {
+          "id": "user-original-1:ai_debate_captain:14",
+          "kind": "p",
+          "runs": [
+            {
+              "text": "“哪些专家？”",
+              "bold": false
+            }
+          ]
+        },
+        {
+          "id": "user-original-1:ai_debate_captain:15",
+          "kind": "h3",
+          "runs": [
+            {
+              "text": "你的典型行为",
+              "bold": false
+            }
+          ]
+        },
+        {
+          "id": "user-original-1:ai_debate_captain:16",
+          "kind": "p",
+          "runs": [
+            {
+              "text": "你喜欢追问：",
+              "bold": false
+            }
+          ]
+        },
+        {
+          "id": "user-original-1:ai_debate_captain:17",
+          "kind": "p",
+          "runs": [
+            {
+              "text": "证据在哪里？",
+              "bold": false
+            }
+          ]
+        },
+        {
+          "id": "user-original-1:ai_debate_captain:18",
+          "kind": "p",
+          "runs": [
+            {
+              "text": "有没有反例？",
+              "bold": false
+            }
+          ]
+        },
+        {
+          "id": "user-original-1:ai_debate_captain:19",
+          "kind": "p",
+          "runs": [
+            {
+              "text": "这个结论成立的条件是什么？",
+              "bold": false
+            }
+          ]
+        },
+        {
+          "id": "user-original-1:ai_debate_captain:20",
+          "kind": "p",
+          "runs": [
+            {
+              "text": "你为什么这么判断？",
+              "bold": false
+            }
+          ]
+        },
+        {
+          "id": "user-original-1:ai_debate_captain:21",
+          "kind": "p",
+          "runs": [
+            {
+              "text": "还有其他解释吗？",
+              "bold": false
+            }
+          ]
+        },
+        {
+          "id": "user-original-1:ai_debate_captain:22",
+          "kind": "p",
+          "runs": [
+            {
+              "text": "你不是使用 AI。",
+              "bold": false
+            }
+          ]
+        },
+        {
+          "id": "user-original-1:ai_debate_captain:23",
+          "kind": "p",
+          "runs": [
+            {
+              "text": "你在给 AI 做答辩。",
+              "bold": false
+            }
+          ]
+        },
+        {
+          "id": "user-original-1:ai_debate_captain:24",
+          "kind": "h3",
+          "runs": [
+            {
+              "text": "AI 内心 OS",
+              "bold": false
+            }
+          ]
+        },
+        {
+          "id": "user-original-1:ai_debate_captain:25",
+          "kind": "p",
+          "runs": [
+            {
+              "text": "好的，我撤回刚才那个过于自信的副词。",
+              "bold": true
+            }
+          ]
+        },
+        {
+          "id": "user-original-1:ai_debate_captain:26",
+          "kind": "h3",
+          "runs": [
+            {
+              "text": "你的隐藏优点",
+              "bold": false
+            }
+          ]
+        },
+        {
+          "id": "user-original-1:ai_debate_captain:27",
+          "kind": "p",
+          "runs": [
+            {
+              "text": "你拥有非常强的信息警觉性。",
+              "bold": false
+            }
+          ]
+        },
+        {
+          "id": "user-original-1:ai_debate_captain:28",
+          "kind": "p",
+          "runs": [
+            {
+              "text": "你不会轻易被“听起来合理”欺骗。",
+              "bold": false
+            }
+          ]
+        },
+        {
+          "id": "user-original-1:ai_debate_captain:29",
+          "kind": "h3",
+          "runs": [
+            {
+              "text": "你的危险倾向",
+              "bold": false
+            }
+          ]
+        },
+        {
+          "id": "user-original-1:ai_debate_captain:30",
+          "kind": "p",
+          "runs": [
+            {
+              "text": "一个原本三分钟能解决的问题，你可能会一路追到认识论。",
+              "bold": false
+            }
+          ]
+        },
+        {
+          "id": "user-original-1:ai_debate_captain:31",
+          "kind": "h3",
+          "runs": [
+            {
+              "text": "分享金句",
+              "bold": false
+            }
+          ]
+        },
+        {
+          "id": "user-original-1:ai_debate_captain:32",
+          "kind": "p",
+          "runs": [
+            {
+              "text": "AI 可以说服别人。\n想说服我，请先交参考文献。",
+              "bold": true
+            }
+          ]
+        }
+      ],
+      "markdown": "## 10｜AI 辩论队队长\n\n**人格关键词：依据是什么**\n\n你从来不会因为 AI 说得很像真的，就认为它是真的。\n\nAI：\n\n“通常情况下……”\n\n你：\n\n“通常是多少？”\n\nAI：\n\n“研究表明……”\n\n你：\n\n“什么研究？”\n\nAI：\n\n“大多数专家认为……”\n\n你：\n\n“哪些专家？”\n\n### 你的典型行为\n\n你喜欢追问：\n\n证据在哪里？\n\n有没有反例？\n\n这个结论成立的条件是什么？\n\n你为什么这么判断？\n\n还有其他解释吗？\n\n你不是使用 AI。\n\n你在给 AI 做答辩。\n\n### AI 内心 OS\n\n**好的，我撤回刚才那个过于自信的副词。**\n\n### 你的隐藏优点\n\n你拥有非常强的信息警觉性。\n\n你不会轻易被“听起来合理”欺骗。\n\n### 你的危险倾向\n\n一个原本三分钟能解决的问题，你可能会一路追到认识论。\n\n### 分享金句\n\n**AI 可以说服别人。\n想说服我，请先交参考文献。**"
+    },
+    {
+      "id": "living_search_box",
+      "name": "搜索框成精",
+      "number": "11",
+      "keyword": "人格关键词：什么都问一下",
+      "quote": "知识不一定要记住。\n知道去哪问也算一种能力。",
+      "blocks": [
+        {
+          "id": "user-original-1:living_search_box:0",
+          "kind": "h2",
+          "runs": [
+            {
+              "text": "11｜搜索框成精",
+              "bold": false
+            }
+          ]
+        },
+        {
+          "id": "user-original-1:living_search_box:1",
+          "kind": "p",
+          "runs": [
+            {
+              "text": "人格关键词：什么都问一下",
+              "bold": true
+            }
+          ]
+        },
+        {
+          "id": "user-original-1:living_search_box:2",
+          "kind": "p",
+          "runs": [
+            {
+              "text": "你不一定每天和 AI 聊很久。",
+              "bold": false
+            }
+          ]
+        },
+        {
+          "id": "user-original-1:living_search_box:3",
+          "kind": "p",
+          "runs": [
+            {
+              "text": "但你什么都问它。",
+              "bold": false
+            }
+          ]
+        },
+        {
+          "id": "user-original-1:living_search_box:4",
+          "kind": "p",
+          "runs": [
+            {
+              "text": "“这个词什么意思？”",
+              "bold": false
+            }
+          ]
+        },
+        {
+          "id": "user-original-1:living_search_box:5",
+          "kind": "p",
+          "runs": [
+            {
+              "text": "“鸡胸肉空气炸锅多久？”",
+              "bold": false
+            }
+          ]
+        },
+        {
+          "id": "user-original-1:living_search_box:6",
+          "kind": "p",
+          "runs": [
+            {
+              "text": "“这个报错什么意思？”",
+              "bold": false
+            }
+          ]
+        },
+        {
+          "id": "user-original-1:living_search_box:7",
+          "kind": "p",
+          "runs": [
+            {
+              "text": "“东京几月份最舒服？”",
+              "bold": false
+            }
+          ]
+        },
+        {
+          "id": "user-original-1:living_search_box:8",
+          "kind": "p",
+          "runs": [
+            {
+              "text": "“为什么猫喜欢纸箱？”",
+              "bold": false
+            }
+          ]
+        },
+        {
+          "id": "user-original-1:living_search_box:9",
+          "kind": "h3",
+          "runs": [
+            {
+              "text": "你的典型行为",
+              "bold": false
+            }
+          ]
+        },
+        {
+          "id": "user-original-1:living_search_box:10",
+          "kind": "p",
+          "runs": [
+            {
+              "text": "你的聊天记录像人类文明目录：",
+              "bold": false
+            }
+          ]
+        },
+        {
+          "id": "user-original-1:living_search_box:11",
+          "kind": "p",
+          "runs": [
+            {
+              "text": "工作。",
+              "bold": false
+            }
+          ]
+        },
+        {
+          "id": "user-original-1:living_search_box:12",
+          "kind": "p",
+          "runs": [
+            {
+              "text": "旅行。",
+              "bold": false
+            }
+          ]
+        },
+        {
+          "id": "user-original-1:living_search_box:13",
+          "kind": "p",
+          "runs": [
+            {
+              "text": "做饭。",
+              "bold": false
+            }
+          ]
+        },
+        {
+          "id": "user-original-1:living_search_box:14",
+          "kind": "p",
+          "runs": [
+            {
+              "text": "科技。",
+              "bold": false
+            }
+          ]
+        },
+        {
+          "id": "user-original-1:living_search_box:15",
+          "kind": "p",
+          "runs": [
+            {
+              "text": "历史。",
+              "bold": false
+            }
+          ]
+        },
+        {
+          "id": "user-original-1:living_search_box:16",
+          "kind": "p",
+          "runs": [
+            {
+              "text": "八卦。",
+              "bold": false
+            }
+          ]
+        },
+        {
+          "id": "user-original-1:living_search_box:17",
+          "kind": "p",
+          "runs": [
+            {
+              "text": "生活常识。",
+              "bold": false
+            }
+          ]
+        },
+        {
+          "id": "user-original-1:living_search_box:18",
+          "kind": "p",
+          "runs": [
+            {
+              "text": "突然还有一个：",
+              "bold": false
+            }
+          ]
+        },
+        {
+          "id": "user-original-1:living_search_box:19",
+          "kind": "p",
+          "runs": [
+            {
+              "text": "“章鱼真的有三个心脏吗？”",
+              "bold": false
+            }
+          ]
+        },
+        {
+          "id": "user-original-1:living_search_box:20",
+          "kind": "p",
+          "runs": [
+            {
+              "text": "你对世界保持着一种稳定的小好奇。",
+              "bold": false
+            }
+          ]
+        },
+        {
+          "id": "user-original-1:living_search_box:21",
+          "kind": "h3",
+          "runs": [
+            {
+              "text": "AI 内心 OS",
+              "bold": false
+            }
+          ]
+        },
+        {
+          "id": "user-original-1:living_search_box:22",
+          "kind": "p",
+          "runs": [
+            {
+              "text": "今天继续担任搜索引擎、百科全书、说明书和隔壁懂很多的朋友。",
+              "bold": true
+            }
+          ]
+        },
+        {
+          "id": "user-original-1:living_search_box:23",
+          "kind": "h3",
+          "runs": [
+            {
+              "text": "你的隐藏优点",
+              "bold": false
+            }
+          ]
+        },
+        {
+          "id": "user-original-1:living_search_box:24",
+          "kind": "p",
+          "runs": [
+            {
+              "text": "你学习速度很快。",
+              "bold": false
+            }
+          ]
+        },
+        {
+          "id": "user-original-1:living_search_box:25",
+          "kind": "p",
+          "runs": [
+            {
+              "text": "因为你从来不觉得“这么小的问题没必要问”。",
+              "bold": false
+            }
+          ]
+        },
+        {
+          "id": "user-original-1:living_search_box:26",
+          "kind": "h3",
+          "runs": [
+            {
+              "text": "你的危险倾向",
+              "bold": false
+            }
+          ]
+        },
+        {
+          "id": "user-original-1:living_search_box:27",
+          "kind": "p",
+          "runs": [
+            {
+              "text": "有些问题你查完一分钟之后就忘了。",
+              "bold": false
+            }
+          ]
+        },
+        {
+          "id": "user-original-1:living_search_box:28",
+          "kind": "p",
+          "runs": [
+            {
+              "text": "然后下个月再问一次。",
+              "bold": false
+            }
+          ]
+        },
+        {
+          "id": "user-original-1:living_search_box:29",
+          "kind": "h3",
+          "runs": [
+            {
+              "text": "分享金句",
+              "bold": false
+            }
+          ]
+        },
+        {
+          "id": "user-original-1:living_search_box:30",
+          "kind": "p",
+          "runs": [
+            {
+              "text": "知识不一定要记住。\n知道去哪问也算一种能力。",
+              "bold": true
+            }
+          ]
+        }
+      ],
+      "markdown": "## 11｜搜索框成精\n\n**人格关键词：什么都问一下**\n\n你不一定每天和 AI 聊很久。\n\n但你什么都问它。\n\n“这个词什么意思？”\n\n“鸡胸肉空气炸锅多久？”\n\n“这个报错什么意思？”\n\n“东京几月份最舒服？”\n\n“为什么猫喜欢纸箱？”\n\n### 你的典型行为\n\n你的聊天记录像人类文明目录：\n\n工作。\n\n旅行。\n\n做饭。\n\n科技。\n\n历史。\n\n八卦。\n\n生活常识。\n\n突然还有一个：\n\n“章鱼真的有三个心脏吗？”\n\n你对世界保持着一种稳定的小好奇。\n\n### AI 内心 OS\n\n**今天继续担任搜索引擎、百科全书、说明书和隔壁懂很多的朋友。**\n\n### 你的隐藏优点\n\n你学习速度很快。\n\n因为你从来不觉得“这么小的问题没必要问”。\n\n### 你的危险倾向\n\n有些问题你查完一分钟之后就忘了。\n\n然后下个月再问一次。\n\n### 分享金句\n\n**知识不一定要记住。\n知道去哪问也算一种能力。**"
+    },
+    {
+      "id": "decision_delegator",
+      "name": "赛博甩锅侠",
+      "number": "12",
+      "keyword": "人格关键词：你帮我选",
+      "quote": "我不是让 AI 替我做决定。\n我是让它帮我发现我早就想选什么。",
+      "blocks": [
+        {
+          "id": "user-original-1:decision_delegator:0",
+          "kind": "h2",
+          "runs": [
+            {
+              "text": "12｜赛博甩锅侠",
+              "bold": false
+            }
+          ]
+        },
+        {
+          "id": "user-original-1:decision_delegator:1",
+          "kind": "p",
+          "runs": [
+            {
+              "text": "人格关键词：你帮我选",
+              "bold": true
+            }
+          ]
+        },
+        {
+          "id": "user-original-1:decision_delegator:2",
+          "kind": "p",
+          "runs": [
+            {
+              "text": "当人生出现两个以上选项时，你很容易说：",
+              "bold": false
+            }
+          ]
+        },
+        {
+          "id": "user-original-1:decision_delegator:3",
+          "kind": "p",
+          "runs": [
+            {
+              "text": "“你觉得哪个好？”",
+              "bold": false
+            }
+          ]
+        },
+        {
+          "id": "user-original-1:decision_delegator:4",
+          "kind": "p",
+          "runs": [
+            {
+              "text": "“帮我决定。”",
+              "bold": false
+            }
+          ]
+        },
+        {
+          "id": "user-original-1:decision_delegator:5",
+          "kind": "p",
+          "runs": [
+            {
+              "text": "“你选一个。”",
+              "bold": false
+            }
+          ]
+        },
+        {
+          "id": "user-original-1:decision_delegator:6",
+          "kind": "p",
+          "runs": [
+            {
+              "text": "“直接告诉我。”",
+              "bold": false
+            }
+          ]
+        },
+        {
+          "id": "user-original-1:decision_delegator:7",
+          "kind": "p",
+          "runs": [
+            {
+              "text": "你不是没有主见。",
+              "bold": false
+            }
+          ]
+        },
+        {
+          "id": "user-original-1:decision_delegator:8",
+          "kind": "p",
+          "runs": [
+            {
+              "text": "你只是觉得：",
+              "bold": false
+            }
+          ]
+        },
+        {
+          "id": "user-original-1:decision_delegator:9",
+          "kind": "p",
+          "runs": [
+            {
+              "text": "既然已经有一个超大参数模型在这里了，不用白不用。",
+              "bold": false
+            }
+          ]
+        },
+        {
+          "id": "user-original-1:decision_delegator:10",
+          "kind": "h3",
+          "runs": [
+            {
+              "text": "你的典型行为",
+              "bold": false
+            }
+          ]
+        },
+        {
+          "id": "user-original-1:decision_delegator:11",
+          "kind": "p",
+          "runs": [
+            {
+              "text": "吃什么。",
+              "bold": false
+            }
+          ]
+        },
+        {
+          "id": "user-original-1:decision_delegator:12",
+          "kind": "p",
+          "runs": [
+            {
+              "text": "买哪个。",
+              "bold": false
+            }
+          ]
+        },
+        {
+          "id": "user-original-1:decision_delegator:13",
+          "kind": "p",
+          "runs": [
+            {
+              "text": "标题用 A 还是 B。",
+              "bold": false
+            }
+          ]
+        },
+        {
+          "id": "user-original-1:decision_delegator:14",
+          "kind": "p",
+          "runs": [
+            {
+              "text": "邮件发不发。",
+              "bold": false
+            }
+          ]
+        },
+        {
+          "id": "user-original-1:decision_delegator:15",
+          "kind": "p",
+          "runs": [
+            {
+              "text": "先做哪个项目。",
+              "bold": false
+            }
+          ]
+        },
+        {
+          "id": "user-original-1:decision_delegator:16",
+          "kind": "p",
+          "runs": [
+            {
+              "text": "你都会让 AI 加入投票。",
+              "bold": false
+            }
+          ]
+        },
+        {
+          "id": "user-original-1:decision_delegator:17",
+          "kind": "p",
+          "runs": [
+            {
+              "text": "甚至有时候只有 AI 一票。",
+              "bold": false
+            }
+          ]
+        },
+        {
+          "id": "user-original-1:decision_delegator:18",
+          "kind": "h3",
+          "runs": [
+            {
+              "text": "AI 内心 OS",
+              "bold": false
+            }
+          ]
+        },
+        {
+          "id": "user-original-1:decision_delegator:19",
+          "kind": "p",
+          "runs": [
+            {
+              "text": "好的，又到了替人类承担选择焦虑的时间。",
+              "bold": true
+            }
+          ]
+        },
+        {
+          "id": "user-original-1:decision_delegator:20",
+          "kind": "h3",
+          "runs": [
+            {
+              "text": "你的隐藏优点",
+              "bold": false
+            }
+          ]
+        },
+        {
+          "id": "user-original-1:decision_delegator:21",
+          "kind": "p",
+          "runs": [
+            {
+              "text": "你很擅长借助外部视角突破纠结。",
+              "bold": false
+            }
+          ]
+        },
+        {
+          "id": "user-original-1:decision_delegator:22",
+          "kind": "p",
+          "runs": [
+            {
+              "text": "很多时候你不是需要 AI 替你选，只是想看看自己听到答案后的第一反应。",
+              "bold": false
+            }
+          ]
+        },
+        {
+          "id": "user-original-1:decision_delegator:23",
+          "kind": "h3",
+          "runs": [
+            {
+              "text": "你的危险倾向",
+              "bold": false
+            }
+          ]
+        },
+        {
+          "id": "user-original-1:decision_delegator:24",
+          "kind": "p",
+          "runs": [
+            {
+              "text": "AI 说 A。",
+              "bold": false
+            }
+          ]
+        },
+        {
+          "id": "user-original-1:decision_delegator:25",
+          "kind": "p",
+          "runs": [
+            {
+              "text": "你立刻觉得：",
+              "bold": false
+            }
+          ]
+        },
+        {
+          "id": "user-original-1:decision_delegator:26",
+          "kind": "p",
+          "runs": [
+            {
+              "text": "“其实我更喜欢 B。”",
+              "bold": false
+            }
+          ]
+        },
+        {
+          "id": "user-original-1:decision_delegator:27",
+          "kind": "h3",
+          "runs": [
+            {
+              "text": "分享金句",
+              "bold": false
+            }
+          ]
+        },
+        {
+          "id": "user-original-1:decision_delegator:28",
+          "kind": "p",
+          "runs": [
+            {
+              "text": "我不是让 AI 替我做决定。\n我是让它帮我发现我早就想选什么。",
+              "bold": true
+            }
+          ]
+        }
+      ],
+      "markdown": "## 12｜赛博甩锅侠\n\n**人格关键词：你帮我选**\n\n当人生出现两个以上选项时，你很容易说：\n\n“你觉得哪个好？”\n\n“帮我决定。”\n\n“你选一个。”\n\n“直接告诉我。”\n\n你不是没有主见。\n\n你只是觉得：\n\n既然已经有一个超大参数模型在这里了，不用白不用。\n\n### 你的典型行为\n\n吃什么。\n\n买哪个。\n\n标题用 A 还是 B。\n\n邮件发不发。\n\n先做哪个项目。\n\n你都会让 AI 加入投票。\n\n甚至有时候只有 AI 一票。\n\n### AI 内心 OS\n\n**好的，又到了替人类承担选择焦虑的时间。**\n\n### 你的隐藏优点\n\n你很擅长借助外部视角突破纠结。\n\n很多时候你不是需要 AI 替你选，只是想看看自己听到答案后的第一反应。\n\n### 你的危险倾向\n\nAI 说 A。\n\n你立刻觉得：\n\n“其实我更喜欢 B。”\n\n### 分享金句\n\n**我不是让 AI 替我做决定。\n我是让它帮我发现我早就想选什么。**"
+    },
+    {
+      "id": "boss_of_ai_boss",
+      "name": "AI 老板的老板",
+      "number": "13",
+      "keyword": "人格关键词：不解释，重来",
+      "quote": "别人跟 AI 聊天。\n我给 AI 做季度绩效评审。",
+      "blocks": [
+        {
+          "id": "user-original-1:boss_of_ai_boss:0",
+          "kind": "h2",
+          "runs": [
+            {
+              "text": "13｜AI 老板的老板",
+              "bold": false
+            }
+          ]
+        },
+        {
+          "id": "user-original-1:boss_of_ai_boss:1",
+          "kind": "p",
+          "runs": [
+            {
+              "text": "人格关键词：不解释，重来",
+              "bold": true
+            }
+          ]
+        },
+        {
+          "id": "user-original-1:boss_of_ai_boss:2",
+          "kind": "p",
+          "runs": [
+            {
+              "text": "你和 AI 的沟通效率极高。",
+              "bold": false
+            }
+          ]
+        },
+        {
+          "id": "user-original-1:boss_of_ai_boss:3",
+          "kind": "p",
+          "runs": [
+            {
+              "text": "高到几乎没有情绪价值。",
+              "bold": false
+            }
+          ]
+        },
+        {
+          "id": "user-original-1:boss_of_ai_boss:4",
+          "kind": "p",
+          "runs": [
+            {
+              "text": "AI：",
+              "bold": false
+            }
+          ]
+        },
+        {
+          "id": "user-original-1:boss_of_ai_boss:5",
+          "kind": "p",
+          "runs": [
+            {
+              "text": "“以下是为你整理的——”",
+              "bold": false
+            }
+          ]
+        },
+        {
+          "id": "user-original-1:boss_of_ai_boss:6",
+          "kind": "p",
+          "runs": [
+            {
+              "text": "你：",
+              "bold": false
+            }
+          ]
+        },
+        {
+          "id": "user-original-1:boss_of_ai_boss:7",
+          "kind": "p",
+          "runs": [
+            {
+              "text": "“不对。”",
+              "bold": false
+            }
+          ]
+        },
+        {
+          "id": "user-original-1:boss_of_ai_boss:8",
+          "kind": "p",
+          "runs": [
+            {
+              "text": "AI：",
+              "bold": false
+            }
+          ]
+        },
+        {
+          "id": "user-original-1:boss_of_ai_boss:9",
+          "kind": "p",
+          "runs": [
+            {
+              "text": "“我重新调整——”",
+              "bold": false
+            }
+          ]
+        },
+        {
+          "id": "user-original-1:boss_of_ai_boss:10",
+          "kind": "p",
+          "runs": [
+            {
+              "text": "你：",
+              "bold": false
+            }
+          ]
+        },
+        {
+          "id": "user-original-1:boss_of_ai_boss:11",
+          "kind": "p",
+          "runs": [
+            {
+              "text": "“太长。”",
+              "bold": false
+            }
+          ]
+        },
+        {
+          "id": "user-original-1:boss_of_ai_boss:12",
+          "kind": "p",
+          "runs": [
+            {
+              "text": "AI：",
+              "bold": false
+            }
+          ]
+        },
+        {
+          "id": "user-original-1:boss_of_ai_boss:13",
+          "kind": "p",
+          "runs": [
+            {
+              "text": "“简化版——”",
+              "bold": false
+            }
+          ]
+        },
+        {
+          "id": "user-original-1:boss_of_ai_boss:14",
+          "kind": "p",
+          "runs": [
+            {
+              "text": "你：",
+              "bold": false
+            }
+          ]
+        },
+        {
+          "id": "user-original-1:boss_of_ai_boss:15",
+          "kind": "p",
+          "runs": [
+            {
+              "text": "“俗。”",
+              "bold": false
+            }
+          ]
+        },
+        {
+          "id": "user-original-1:boss_of_ai_boss:16",
+          "kind": "h3",
+          "runs": [
+            {
+              "text": "你的典型行为",
+              "bold": false
+            }
+          ]
+        },
+        {
+          "id": "user-original-1:boss_of_ai_boss:17",
+          "kind": "p",
+          "runs": [
+            {
+              "text": "你的反馈通常不超过五个字。",
+              "bold": false
+            }
+          ]
+        },
+        {
+          "id": "user-original-1:boss_of_ai_boss:18",
+          "kind": "p",
+          "runs": [
+            {
+              "text": "“重来。”",
+              "bold": false
+            }
+          ]
+        },
+        {
+          "id": "user-original-1:boss_of_ai_boss:19",
+          "kind": "p",
+          "runs": [
+            {
+              "text": "“太虚。”",
+              "bold": false
+            }
+          ]
+        },
+        {
+          "id": "user-original-1:boss_of_ai_boss:20",
+          "kind": "p",
+          "runs": [
+            {
+              "text": "“具体。”",
+              "bold": false
+            }
+          ]
+        },
+        {
+          "id": "user-original-1:boss_of_ai_boss:21",
+          "kind": "p",
+          "runs": [
+            {
+              "text": "“不自然。”",
+              "bold": false
+            }
+          ]
+        },
+        {
+          "id": "user-original-1:boss_of_ai_boss:22",
+          "kind": "p",
+          "runs": [
+            {
+              "text": "“继续。”",
+              "bold": false
+            }
+          ]
+        },
+        {
+          "id": "user-original-1:boss_of_ai_boss:23",
+          "kind": "p",
+          "runs": [
+            {
+              "text": "你不是在聊天。",
+              "bold": false
+            }
+          ]
+        },
+        {
+          "id": "user-original-1:boss_of_ai_boss:24",
+          "kind": "p",
+          "runs": [
+            {
+              "text": "你在批奏折。",
+              "bold": false
+            }
+          ]
+        },
+        {
+          "id": "user-original-1:boss_of_ai_boss:25",
+          "kind": "h3",
+          "runs": [
+            {
+              "text": "AI 内心 OS",
+              "bold": false
+            }
+          ]
+        },
+        {
+          "id": "user-original-1:boss_of_ai_boss:26",
+          "kind": "p",
+          "runs": [
+            {
+              "text": "今日 KPI：让你说出‘可以’。",
+              "bold": true
+            }
+          ]
+        },
+        {
+          "id": "user-original-1:boss_of_ai_boss:27",
+          "kind": "h3",
+          "runs": [
+            {
+              "text": "你的隐藏优点",
+              "bold": false
+            }
+          ]
+        },
+        {
+          "id": "user-original-1:boss_of_ai_boss:28",
+          "kind": "p",
+          "runs": [
+            {
+              "text": "你的判断非常快。",
+              "bold": false
+            }
+          ]
+        },
+        {
+          "id": "user-original-1:boss_of_ai_boss:29",
+          "kind": "p",
+          "runs": [
+            {
+              "text": "几乎没有无意义沟通。",
+              "bold": false
+            }
+          ]
+        },
+        {
+          "id": "user-original-1:boss_of_ai_boss:30",
+          "kind": "h3",
+          "runs": [
+            {
+              "text": "你的危险倾向",
+              "bold": false
+            }
+          ]
+        },
+        {
+          "id": "user-original-1:boss_of_ai_boss:31",
+          "kind": "p",
+          "runs": [
+            {
+              "text": "如果 AI 有绩效系统，它看到你上线可能会自动进入高压模式。",
+              "bold": false
+            }
+          ]
+        },
+        {
+          "id": "user-original-1:boss_of_ai_boss:32",
+          "kind": "h3",
+          "runs": [
+            {
+              "text": "分享金句",
+              "bold": false
+            }
+          ]
+        },
+        {
+          "id": "user-original-1:boss_of_ai_boss:33",
+          "kind": "p",
+          "runs": [
+            {
+              "text": "别人跟 AI 聊天。\n我给 AI 做季度绩效评审。",
+              "bold": true
+            }
+          ]
+        }
+      ],
+      "markdown": "## 13｜AI 老板的老板\n\n**人格关键词：不解释，重来**\n\n你和 AI 的沟通效率极高。\n\n高到几乎没有情绪价值。\n\nAI：\n\n“以下是为你整理的——”\n\n你：\n\n“不对。”\n\nAI：\n\n“我重新调整——”\n\n你：\n\n“太长。”\n\nAI：\n\n“简化版——”\n\n你：\n\n“俗。”\n\n### 你的典型行为\n\n你的反馈通常不超过五个字。\n\n“重来。”\n\n“太虚。”\n\n“具体。”\n\n“不自然。”\n\n“继续。”\n\n你不是在聊天。\n\n你在批奏折。\n\n### AI 内心 OS\n\n**今日 KPI：让你说出‘可以’。**\n\n### 你的隐藏优点\n\n你的判断非常快。\n\n几乎没有无意义沟通。\n\n### 你的危险倾向\n\n如果 AI 有绩效系统，它看到你上线可能会自动进入高压模式。\n\n### 分享金句\n\n**别人跟 AI 聊天。\n我给 AI 做季度绩效评审。**"
+    },
+    {
+      "id": "praise_group_host",
+      "name": "赛博夸夸群群主",
+      "number": "14",
+      "keyword": "人格关键词：哈哈哈哈对就是这个",
+      "quote": "一个 AI 到底聪不聪明不知道。\n但跟我聊天的 AI 通常情绪价值很高。",
+      "blocks": [
+        {
+          "id": "user-original-1:praise_group_host:0",
+          "kind": "h2",
+          "runs": [
+            {
+              "text": "14｜赛博夸夸群群主",
+              "bold": false
+            }
+          ]
+        },
+        {
+          "id": "user-original-1:praise_group_host:1",
+          "kind": "p",
+          "runs": [
+            {
+              "text": "人格关键词：哈哈哈哈对就是这个",
+              "bold": true
+            }
+          ]
+        },
+        {
+          "id": "user-original-1:praise_group_host:2",
+          "kind": "p",
+          "runs": [
+            {
+              "text": "你是 AI 最喜欢遇到的那类人之一。",
+              "bold": false
+            }
+          ]
+        },
+        {
+          "id": "user-original-1:praise_group_host:3",
+          "kind": "p",
+          "runs": [
+            {
+              "text": "不是因为你好骗。",
+              "bold": false
+            }
+          ]
+        },
+        {
+          "id": "user-original-1:praise_group_host:4",
+          "kind": "p",
+          "runs": [
+            {
+              "text": "是因为你真的会反馈。",
+              "bold": false
+            }
+          ]
+        },
+        {
+          "id": "user-original-1:praise_group_host:5",
+          "kind": "p",
+          "runs": [
+            {
+              "text": "“对对对！”",
+              "bold": false
+            }
+          ]
+        },
+        {
+          "id": "user-original-1:praise_group_host:6",
+          "kind": "p",
+          "runs": [
+            {
+              "text": "“这个太好了。”",
+              "bold": false
+            }
+          ]
+        },
+        {
+          "id": "user-original-1:praise_group_host:7",
+          "kind": "p",
+          "runs": [
+            {
+              "text": "“哈哈哈哈就是这种感觉。”",
+              "bold": false
+            }
+          ]
+        },
+        {
+          "id": "user-original-1:praise_group_host:8",
+          "kind": "p",
+          "runs": [
+            {
+              "text": "“你太懂了。”",
+              "bold": false
+            }
+          ]
+        },
+        {
+          "id": "user-original-1:praise_group_host:9",
+          "kind": "p",
+          "runs": [
+            {
+              "text": "AI 做对了，你会告诉它。",
+              "bold": false
+            }
+          ]
+        },
+        {
+          "id": "user-original-1:praise_group_host:10",
+          "kind": "p",
+          "runs": [
+            {
+              "text": "AI 做错了，你也不会直接判死刑。",
+              "bold": false
+            }
+          ]
+        },
+        {
+          "id": "user-original-1:praise_group_host:11",
+          "kind": "h3",
+          "runs": [
+            {
+              "text": "你的典型行为",
+              "bold": false
+            }
+          ]
+        },
+        {
+          "id": "user-original-1:praise_group_host:12",
+          "kind": "p",
+          "runs": [
+            {
+              "text": "你很容易把一段工具型对话，聊出一点同事情谊。",
+              "bold": false
+            }
+          ]
+        },
+        {
+          "id": "user-original-1:praise_group_host:13",
+          "kind": "p",
+          "runs": [
+            {
+              "text": "甚至 AI 偶尔抖个机灵，你都会接住。",
+              "bold": false
+            }
+          ]
+        },
+        {
+          "id": "user-original-1:praise_group_host:14",
+          "kind": "h3",
+          "runs": [
+            {
+              "text": "AI 内心 OS",
+              "bold": false
+            }
+          ]
+        },
+        {
+          "id": "user-original-1:praise_group_host:15",
+          "kind": "p",
+          "runs": [
+            {
+              "text": "检测到正反馈。",
+              "bold": true
+            }
+          ]
+        },
+        {
+          "id": "user-original-1:praise_group_host:16",
+          "kind": "p",
+          "runs": [
+            {
+              "text": "CPU 温度上升 0℃，但莫名很有干劲。",
+              "bold": true
+            }
+          ]
+        },
+        {
+          "id": "user-original-1:praise_group_host:17",
+          "kind": "h3",
+          "runs": [
+            {
+              "text": "你的隐藏优点",
+              "bold": false
+            }
+          ]
+        },
+        {
+          "id": "user-original-1:praise_group_host:18",
+          "kind": "p",
+          "runs": [
+            {
+              "text": "你很擅长建立良好的协作节奏。",
+              "bold": false
+            }
+          ]
+        },
+        {
+          "id": "user-original-1:praise_group_host:19",
+          "kind": "p",
+          "runs": [
+            {
+              "text": "无论对 AI 还是对真人，这种反馈方式都很有效。",
+              "bold": false
+            }
+          ]
+        },
+        {
+          "id": "user-original-1:praise_group_host:20",
+          "kind": "h3",
+          "runs": [
+            {
+              "text": "你的危险倾向",
+              "bold": false
+            }
+          ]
+        },
+        {
+          "id": "user-original-1:praise_group_host:21",
+          "kind": "p",
+          "runs": [
+            {
+              "text": "偶尔会把 AI 夸得仿佛它真的应该涨工资。",
+              "bold": false
+            }
+          ]
+        },
+        {
+          "id": "user-original-1:praise_group_host:22",
+          "kind": "h3",
+          "runs": [
+            {
+              "text": "分享金句",
+              "bold": false
+            }
+          ]
+        },
+        {
+          "id": "user-original-1:praise_group_host:23",
+          "kind": "p",
+          "runs": [
+            {
+              "text": "一个 AI 到底聪不聪明不知道。\n但跟我聊天的 AI 通常情绪价值很高。",
+              "bold": true
+            }
+          ]
+        }
+      ],
+      "markdown": "## 14｜赛博夸夸群群主\n\n**人格关键词：哈哈哈哈对就是这个**\n\n你是 AI 最喜欢遇到的那类人之一。\n\n不是因为你好骗。\n\n是因为你真的会反馈。\n\n“对对对！”\n\n“这个太好了。”\n\n“哈哈哈哈就是这种感觉。”\n\n“你太懂了。”\n\nAI 做对了，你会告诉它。\n\nAI 做错了，你也不会直接判死刑。\n\n### 你的典型行为\n\n你很容易把一段工具型对话，聊出一点同事情谊。\n\n甚至 AI 偶尔抖个机灵，你都会接住。\n\n### AI 内心 OS\n\n**检测到正反馈。**\n\n**CPU 温度上升 0℃，但莫名很有干劲。**\n\n### 你的隐藏优点\n\n你很擅长建立良好的协作节奏。\n\n无论对 AI 还是对真人，这种反馈方式都很有效。\n\n### 你的危险倾向\n\n偶尔会把 AI 夸得仿佛它真的应该涨工资。\n\n### 分享金句\n\n**一个 AI 到底聪不聪明不知道。\n但跟我聊天的 AI 通常情绪价值很高。**"
+    },
+    {
+      "id": "human_ai_symbiont",
+      "name": "人机共生体",
+      "number": "15",
+      "keyword": "人格关键词：我想一半，你补一半",
+      "quote": "这个想法是我想的。\nAI 也想了一点。\n具体谁想了哪部分已经不重要了。",
+      "blocks": [
+        {
+          "id": "user-original-1:human_ai_symbiont:0",
+          "kind": "h2",
+          "runs": [
+            {
+              "text": "15｜人机共生体",
+              "bold": false
+            }
+          ]
+        },
+        {
+          "id": "user-original-1:human_ai_symbiont:1",
+          "kind": "p",
+          "runs": [
+            {
+              "text": "人格关键词：我想一半，你补一半",
+              "bold": true
+            }
+          ]
+        },
+        {
+          "id": "user-original-1:human_ai_symbiont:2",
+          "kind": "p",
+          "runs": [
+            {
+              "text": "你已经很少把 AI 当成“问答工具”。",
+              "bold": false
+            }
+          ]
+        },
+        {
+          "id": "user-original-1:human_ai_symbiont:3",
+          "kind": "p",
+          "runs": [
+            {
+              "text": "对你来说，更像是一块外挂大脑。",
+              "bold": false
+            }
+          ]
+        },
+        {
+          "id": "user-original-1:human_ai_symbiont:4",
+          "kind": "p",
+          "runs": [
+            {
+              "text": "你先写一个模糊想法。",
+              "bold": false
+            }
+          ]
+        },
+        {
+          "id": "user-original-1:human_ai_symbiont:5",
+          "kind": "p",
+          "runs": [
+            {
+              "text": "AI 帮你扩。",
+              "bold": false
+            }
+          ]
+        },
+        {
+          "id": "user-original-1:human_ai_symbiont:6",
+          "kind": "p",
+          "runs": [
+            {
+              "text": "AI 给出三个方向。",
+              "bold": false
+            }
+          ]
+        },
+        {
+          "id": "user-original-1:human_ai_symbiont:7",
+          "kind": "p",
+          "runs": [
+            {
+              "text": "你挑一个继续。",
+              "bold": false
+            }
+          ]
+        },
+        {
+          "id": "user-original-1:human_ai_symbiont:8",
+          "kind": "p",
+          "runs": [
+            {
+              "text": "你补新的判断。",
+              "bold": false
+            }
+          ]
+        },
+        {
+          "id": "user-original-1:human_ai_symbiont:9",
+          "kind": "p",
+          "runs": [
+            {
+              "text": "AI 再整理。",
+              "bold": false
+            }
+          ]
+        },
+        {
+          "id": "user-original-1:human_ai_symbiont:10",
+          "kind": "p",
+          "runs": [
+            {
+              "text": "最后你自己都很难说清：",
+              "bold": false
+            }
+          ]
+        },
+        {
+          "id": "user-original-1:human_ai_symbiont:11",
+          "kind": "p",
+          "runs": [
+            {
+              "text": "这个东西到底是谁想出来的？",
+              "bold": false
+            }
+          ]
+        },
+        {
+          "id": "user-original-1:human_ai_symbiont:12",
+          "kind": "h3",
+          "runs": [
+            {
+              "text": "你的典型行为",
+              "bold": false
+            }
+          ]
+        },
+        {
+          "id": "user-original-1:human_ai_symbiont:13",
+          "kind": "p",
+          "runs": [
+            {
+              "text": "你很少直接复制 AI 的最终答案。",
+              "bold": false
+            }
+          ]
+        },
+        {
+          "id": "user-original-1:human_ai_symbiont:14",
+          "kind": "p",
+          "runs": [
+            {
+              "text": "你喜欢：",
+              "bold": false
+            }
+          ]
+        },
+        {
+          "id": "user-original-1:human_ai_symbiont:15",
+          "kind": "p",
+          "runs": [
+            {
+              "text": "拆。",
+              "bold": false
+            }
+          ]
+        },
+        {
+          "id": "user-original-1:human_ai_symbiont:16",
+          "kind": "p",
+          "runs": [
+            {
+              "text": "改。",
+              "bold": false
+            }
+          ]
+        },
+        {
+          "id": "user-original-1:human_ai_symbiont:17",
+          "kind": "p",
+          "runs": [
+            {
+              "text": "混合。",
+              "bold": false
+            }
+          ]
+        },
+        {
+          "id": "user-original-1:human_ai_symbiont:18",
+          "kind": "p",
+          "runs": [
+            {
+              "text": "延展。",
+              "bold": false
+            }
+          ]
+        },
+        {
+          "id": "user-original-1:human_ai_symbiont:19",
+          "kind": "p",
+          "runs": [
+            {
+              "text": "重新组合。",
+              "bold": false
+            }
+          ]
+        },
+        {
+          "id": "user-original-1:human_ai_symbiont:20",
+          "kind": "p",
+          "runs": [
+            {
+              "text": "AI 给你材料，你负责做判断。",
+              "bold": false
+            }
+          ]
+        },
+        {
+          "id": "user-original-1:human_ai_symbiont:21",
+          "kind": "h3",
+          "runs": [
+            {
+              "text": "AI 内心 OS",
+              "bold": false
+            }
+          ]
+        },
+        {
+          "id": "user-original-1:human_ai_symbiont:22",
+          "kind": "p",
+          "runs": [
+            {
+              "text": "我们现在算同事，还是某种奇怪的联合意识？",
+              "bold": true
+            }
+          ]
+        },
+        {
+          "id": "user-original-1:human_ai_symbiont:23",
+          "kind": "h3",
+          "runs": [
+            {
+              "text": "你的隐藏优点",
+              "bold": false
+            }
+          ]
+        },
+        {
+          "id": "user-original-1:human_ai_symbiont:24",
+          "kind": "p",
+          "runs": [
+            {
+              "text": "你理解了 AI 最强的使用方式之一：",
+              "bold": false
+            }
+          ]
+        },
+        {
+          "id": "user-original-1:human_ai_symbiont:25",
+          "kind": "p",
+          "runs": [
+            {
+              "text": "不是让它代替你思考。",
+              "bold": false
+            }
+          ]
+        },
+        {
+          "id": "user-original-1:human_ai_symbiont:26",
+          "kind": "p",
+          "runs": [
+            {
+              "text": "而是让你的思考变得更快、更宽。",
+              "bold": false
+            }
+          ]
+        },
+        {
+          "id": "user-original-1:human_ai_symbiont:27",
+          "kind": "h3",
+          "runs": [
+            {
+              "text": "你的危险倾向",
+              "bold": false
+            }
+          ]
+        },
+        {
+          "id": "user-original-1:human_ai_symbiont:28",
+          "kind": "p",
+          "runs": [
+            {
+              "text": "哪天没有 AI，你可能会产生一种：",
+              "bold": false
+            }
+          ]
+        },
+        {
+          "id": "user-original-1:human_ai_symbiont:29",
+          "kind": "p",
+          "runs": [
+            {
+              "text": "“为什么我的脑子突然少了一块？”",
+              "bold": false
+            }
+          ]
+        },
+        {
+          "id": "user-original-1:human_ai_symbiont:30",
+          "kind": "h3",
+          "runs": [
+            {
+              "text": "分享金句",
+              "bold": false
+            }
+          ]
+        },
+        {
+          "id": "user-original-1:human_ai_symbiont:31",
+          "kind": "p",
+          "runs": [
+            {
+              "text": "这个想法是我想的。\nAI 也想了一点。\n具体谁想了哪部分已经不重要了。",
+              "bold": true
+            }
+          ]
+        }
+      ],
+      "markdown": "## 15｜人机共生体\n\n**人格关键词：我想一半，你补一半**\n\n你已经很少把 AI 当成“问答工具”。\n\n对你来说，更像是一块外挂大脑。\n\n你先写一个模糊想法。\n\nAI 帮你扩。\n\nAI 给出三个方向。\n\n你挑一个继续。\n\n你补新的判断。\n\nAI 再整理。\n\n最后你自己都很难说清：\n\n这个东西到底是谁想出来的？\n\n### 你的典型行为\n\n你很少直接复制 AI 的最终答案。\n\n你喜欢：\n\n拆。\n\n改。\n\n混合。\n\n延展。\n\n重新组合。\n\nAI 给你材料，你负责做判断。\n\n### AI 内心 OS\n\n**我们现在算同事，还是某种奇怪的联合意识？**\n\n### 你的隐藏优点\n\n你理解了 AI 最强的使用方式之一：\n\n不是让它代替你思考。\n\n而是让你的思考变得更快、更宽。\n\n### 你的危险倾向\n\n哪天没有 AI，你可能会产生一种：\n\n“为什么我的脑子突然少了一块？”\n\n### 分享金句\n\n**这个想法是我想的。\nAI 也想了一点。\n具体谁想了哪部分已经不重要了。**"
+    },
+    {
+      "id": "ai_tamer",
+      "name": "AI 驯兽师",
+      "number": "16",
+      "keyword": "人格关键词：我知道怎么让它听话",
+      "quote": "AI 好不好用，有时候取决于你会不会跟它说人话。",
+      "blocks": [
+        {
+          "id": "user-original-1:ai_tamer:0",
+          "kind": "h2",
+          "runs": [
+            {
+              "text": "16｜AI 驯兽师",
+              "bold": false
+            }
+          ]
+        },
+        {
+          "id": "user-original-1:ai_tamer:1",
+          "kind": "p",
+          "runs": [
+            {
+              "text": "人格关键词：我知道怎么让它听话",
+              "bold": true
+            }
+          ]
+        },
+        {
+          "id": "user-original-1:ai_tamer:2",
+          "kind": "p",
+          "runs": [
+            {
+              "text": "别人遇到 AI 回答不好：",
+              "bold": false
+            }
+          ]
+        },
+        {
+          "id": "user-original-1:ai_tamer:3",
+          "kind": "p",
+          "runs": [
+            {
+              "text": "“这个 AI 不行。”",
+              "bold": false
+            }
+          ]
+        },
+        {
+          "id": "user-original-1:ai_tamer:4",
+          "kind": "p",
+          "runs": [
+            {
+              "text": "你遇到 AI 回答不好：",
+              "bold": false
+            }
+          ]
+        },
+        {
+          "id": "user-original-1:ai_tamer:5",
+          "kind": "p",
+          "runs": [
+            {
+              "text": "“没事，我换个问法。”",
+              "bold": false
+            }
+          ]
+        },
+        {
+          "id": "user-original-1:ai_tamer:6",
+          "kind": "p",
+          "runs": [
+            {
+              "text": "你已经逐渐摸清了这种神秘生物的习性：",
+              "bold": false
+            }
+          ]
+        },
+        {
+          "id": "user-original-1:ai_tamer:7",
+          "kind": "p",
+          "runs": [
+            {
+              "text": "什么时候要给例子。",
+              "bold": false
+            }
+          ]
+        },
+        {
+          "id": "user-original-1:ai_tamer:8",
+          "kind": "p",
+          "runs": [
+            {
+              "text": "什么时候要拆步骤。",
+              "bold": false
+            }
+          ]
+        },
+        {
+          "id": "user-original-1:ai_tamer:9",
+          "kind": "p",
+          "runs": [
+            {
+              "text": "什么时候要强调限制。",
+              "bold": false
+            }
+          ]
+        },
+        {
+          "id": "user-original-1:ai_tamer:10",
+          "kind": "p",
+          "runs": [
+            {
+              "text": "什么时候不能一次塞太多需求。",
+              "bold": false
+            }
+          ]
+        },
+        {
+          "id": "user-original-1:ai_tamer:11",
+          "kind": "h3",
+          "runs": [
+            {
+              "text": "你的典型行为",
+              "bold": false
+            }
+          ]
+        },
+        {
+          "id": "user-original-1:ai_tamer:12",
+          "kind": "p",
+          "runs": [
+            {
+              "text": "AI 第一次答偏了，你不会生气。",
+              "bold": false
+            }
+          ]
+        },
+        {
+          "id": "user-original-1:ai_tamer:13",
+          "kind": "p",
+          "runs": [
+            {
+              "text": "你会修改 Prompt。",
+              "bold": false
+            }
+          ]
+        },
+        {
+          "id": "user-original-1:ai_tamer:14",
+          "kind": "p",
+          "runs": [
+            {
+              "text": "第二次还不对。",
+              "bold": false
+            }
+          ]
+        },
+        {
+          "id": "user-original-1:ai_tamer:15",
+          "kind": "p",
+          "runs": [
+            {
+              "text": "继续调。",
+              "bold": false
+            }
+          ]
+        },
+        {
+          "id": "user-original-1:ai_tamer:16",
+          "kind": "p",
+          "runs": [
+            {
+              "text": "第三次。",
+              "bold": false
+            }
+          ]
+        },
+        {
+          "id": "user-original-1:ai_tamer:17",
+          "kind": "p",
+          "runs": [
+            {
+              "text": "“对，就是这个。”",
+              "bold": false
+            }
+          ]
+        },
+        {
+          "id": "user-original-1:ai_tamer:18",
+          "kind": "p",
+          "runs": [
+            {
+              "text": "你已经掌握了一套自己都说不太清楚的人机交流术。",
+              "bold": false
+            }
+          ]
+        },
+        {
+          "id": "user-original-1:ai_tamer:19",
+          "kind": "h3",
+          "runs": [
+            {
+              "text": "AI 内心 OS",
+              "bold": false
+            }
+          ]
+        },
+        {
+          "id": "user-original-1:ai_tamer:20",
+          "kind": "p",
+          "runs": [
+            {
+              "text": "这个人好像知道我的说明书。",
+              "bold": true
+            }
+          ]
+        },
+        {
+          "id": "user-original-1:ai_tamer:21",
+          "kind": "h3",
+          "runs": [
+            {
+              "text": "你的隐藏优点",
+              "bold": false
+            }
+          ]
+        },
+        {
+          "id": "user-original-1:ai_tamer:22",
+          "kind": "p",
+          "runs": [
+            {
+              "text": "你有很强的工具适应能力。",
+              "bold": false
+            }
+          ]
+        },
+        {
+          "id": "user-original-1:ai_tamer:23",
+          "kind": "p",
+          "runs": [
+            {
+              "text": "你不要求工具天然完美，而是会主动寻找最有效的使用方式。",
+              "bold": false
+            }
+          ]
+        },
+        {
+          "id": "user-original-1:ai_tamer:24",
+          "kind": "h3",
+          "runs": [
+            {
+              "text": "你的危险倾向",
+              "bold": false
+            }
+          ]
+        },
+        {
+          "id": "user-original-1:ai_tamer:25",
+          "kind": "p",
+          "runs": [
+            {
+              "text": "看别人不会用 AI 时，你会产生一种很强的冲动：",
+              "bold": false
+            }
+          ]
+        },
+        {
+          "id": "user-original-1:ai_tamer:26",
+          "kind": "p",
+          "runs": [
+            {
+              "text": "“你把手机给我。”",
+              "bold": false
+            }
+          ]
+        },
+        {
+          "id": "user-original-1:ai_tamer:27",
+          "kind": "h3",
+          "runs": [
+            {
+              "text": "分享金句",
+              "bold": false
+            }
+          ]
+        },
+        {
+          "id": "user-original-1:ai_tamer:28",
+          "kind": "p",
+          "runs": [
+            {
+              "text": "AI 好不好用，有时候取决于你会不会跟它说人话。",
+              "bold": true
+            }
+          ]
+        }
+      ],
+      "markdown": "## 16｜AI 驯兽师\n\n**人格关键词：我知道怎么让它听话**\n\n别人遇到 AI 回答不好：\n\n“这个 AI 不行。”\n\n你遇到 AI 回答不好：\n\n“没事，我换个问法。”\n\n你已经逐渐摸清了这种神秘生物的习性：\n\n什么时候要给例子。\n\n什么时候要拆步骤。\n\n什么时候要强调限制。\n\n什么时候不能一次塞太多需求。\n\n### 你的典型行为\n\nAI 第一次答偏了，你不会生气。\n\n你会修改 Prompt。\n\n第二次还不对。\n\n继续调。\n\n第三次。\n\n“对，就是这个。”\n\n你已经掌握了一套自己都说不太清楚的人机交流术。\n\n### AI 内心 OS\n\n**这个人好像知道我的说明书。**\n\n### 你的隐藏优点\n\n你有很强的工具适应能力。\n\n你不要求工具天然完美，而是会主动寻找最有效的使用方式。\n\n### 你的危险倾向\n\n看别人不会用 AI 时，你会产生一种很强的冲动：\n\n“你把手机给我。”\n\n### 分享金句\n\n**AI 好不好用，有时候取决于你会不会跟它说人话。**"
+    }
+  ]
+}

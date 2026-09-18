@@ -1,3 +1,5 @@
+const AiEyes = lazy(() => import("./ai-eyes/AiEyes"));
+import EyesAdmin from "./ai-eyes/Admin";
 import Personas from "./Personas";
 import PersonasAdmin from "./admin/PersonasAdmin";
 import {
@@ -11,7 +13,7 @@ import {
 } from "./Community";
 import Analytics from "./Analytics";
 import { basePath } from "./base";
-import { Component, useEffect, type ReactNode } from "react";
+import { Component, useEffect, lazy, Suspense, type ReactNode } from "react";
 import { createRoot } from "react-dom/client";
 import { BrowserRouter, Routes, Route, useLocation } from "react-router-dom";
 import { ContentProvider } from "./content";
@@ -74,19 +76,26 @@ function App() {
   useEffect(() => {
     window.scrollTo(0, 0);
   }, [location.pathname]);
-  useEffect(() => { if (location.pathname !== "/personas") window.scrollTo(0, 0); }, [location.pathname, location.search]);
+  useEffect(() => {
+    if (location.pathname !== "/personas") window.scrollTo(0, 0);
+  }, [location.pathname, location.search]);
   return (
     <Layout>
       <Seo />
       <ErrorBoundary
         key={
-          location.pathname +
+          (location.pathname.startsWith("/ai-eyes") ? "/ai-eyes" : location.pathname) +
           (["/news", "/tutorials", "/personas"].includes(location.pathname)
             ? ""
             : location.search)
         }
       >
-        <Routes>
+        <Suspense fallback={<p role="status">正在加载功能…</p>}><Routes>
+          <Route path="/ai-eyes" element={<AiEyes />} />
+          <Route path="/ai-eyes/types" element={<AiEyes />} />
+          <Route path="/ai-eyes/runs/:id" element={<AiEyes />} />
+          <Route path="/ai-eyes/s/:id" element={<AiEyes />} />
+          <Route path="/ai-eyes/claim" element={<AiEyes />} />
           <Route path="/personas" element={<Personas />} />
           <Route path="/forum" element={<Forum />} />
           <Route path="/forum/new" element={<NewPost />} />
@@ -138,14 +147,18 @@ function App() {
           <Route path="/updates" element={<Page19 />} />
           <Route path="/news" element={<News />} />
           <Route path="*" element={<NotFound />} />
-        </Routes>
+        </Routes></Suspense>
       </ErrorBoundary>
     </Layout>
   );
 }
 function Entry() {
   const { pathname } = useLocation();
-  return pathname === "/admin/personas" ? <PersonasAdmin /> : pathname.startsWith("/admin") ? (
+  return pathname === "/admin/ai-eyes" ? (
+    <EyesAdmin />
+  ) : pathname === "/admin/personas" ? (
+    <PersonasAdmin />
+  ) : pathname.startsWith("/admin") ? (
     <Admin />
   ) : (
     <CommunityProvider>

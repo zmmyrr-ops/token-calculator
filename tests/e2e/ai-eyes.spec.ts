@@ -1,0 +1,75 @@
+import { test, expect } from "@playwright/test";
+import { readFile } from "node:fs/promises";
+test("AI eyes creates a real scoped task, accepts minimal result, exports and revokes sharing", async ({
+  page,
+  request,
+}) => {
+  await page.goto("/ai-eyes");
+  await expect(
+    page.getByRole("heading", { name: /AI 眼里的你：\s*16 种 AI 使用人格/ }),
+  ).toBeVisible();
+  await expect(page.locator(".eyes-type-grid button")).toHaveCount(16);
+  await page.locator(".eyes-consent input").check();
+  const created = page.waitForResponse(
+    (r) =>
+      r.url().endsWith("/api/v1/ai-eyes/runs") &&
+      r.request().method() === "POST",
+  );
+  await page
+    .getByRole("button", { name: "看看 AI 眼里的我", exact: true })
+    .click();
+  const data = await (await created).json();
+  await expect(page.getByLabel("专属执行指令")).toHaveValue(
+    new RegExp(data.run.id),
+  );
+  const path = "/api/v1/ai-eyes/runs/" + data.run.id;
+  const result = await request.post(path + "/result", {
+    headers: { Authorization: "Bearer " + data.submitToken },
+    data: {
+      schema_version: "4",
+      catalog_version: "user-original-1",
+      persona_id: "prompt_academician",
+      alternative_persona_id: null,
+      match_notes: ["善于提前整理背景和验收条件。"],
+      sample_scope: "limited",
+    },
+  });
+  expect(result.ok()).toBe(true);
+  await expect(
+    page.getByRole("heading", { level: 1, name: "Prompt 工程院院士" }),
+  ).toBeVisible({ timeout: 15000 });
+  await expect(page.locator(".eyes-paper")).toContainText(
+    "我负责给 AI 做 onboarding。",
+  );
+  await page.getByRole("button", { name: "生成人物封面" }).click();
+  await expect(page.locator(".eyes-export-preview img")).toHaveCount(1, {
+    timeout: 30000,
+  });
+  const download = page.waitForEvent("download");
+  await page.getByRole("button", { name: "保存第 1/1 张" }).click();
+  const file = await download;
+  expect((await readFile((await file.path())!)).slice(1, 4).toString()).toBe(
+    "PNG",
+  );
+  await page.getByRole("button", { name: "预览分享内容" }).click();
+  await page.getByRole("button", { name: "确认公开（替换旧分享）" }).click();
+  const link = page.getByRole("link", { name: "打开当前公开报告" });
+  await expect(link).toBeVisible();
+  const url = await link.getAttribute("href");
+  const publicData = await (
+    await request.get("/api/v1/ai-eyes/shares/" + url!.split("/").pop())
+  ).json();
+  expect(publicData.match_notes).toBeUndefined();
+  await page.getByRole("button", { name: "撤销分享", exact: true }).click();
+  await expect(link).toHaveCount(0);
+  expect(
+    (
+      await request.get("/api/v1/ai-eyes/shares/" + url!.split("/").pop())
+    ).status(),
+  ).toBe(404);
+  expect(
+    await page.evaluate(
+      () => document.documentElement.scrollWidth <= innerWidth,
+    ),
+  ).toBe(true);
+});

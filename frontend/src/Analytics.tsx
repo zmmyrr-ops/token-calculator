@@ -20,6 +20,7 @@ export function track(
 ) {
   const path = pathWithoutBase(location.pathname);
   if (
+    path.startsWith("/ai-eyes") ||
     path.startsWith("/admin") ||
     ["/login", "/register", "/account"].includes(path) ||
     !analyticsEnabled()

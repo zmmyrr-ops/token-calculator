@@ -3,6 +3,7 @@ test("SEO metadata updates across routes and page links remain crawlable", async
   page,
   request,
 }) => {
+  const canonicalOrigin = process.env.SITE_URL || "https://ruming.top";
   const robots = await (await request.get("/robots.txt")).text();
   expect(robots).toContain("Allow: /api/v1/bootstrap");
   expect(robots).not.toContain("Disallow: /search");
@@ -10,12 +11,12 @@ test("SEO metadata updates across routes and page links remain crawlable", async
     (await request.get("/api/v1/bootstrap")).headers()["x-robots-tag"],
   ).toBe("noindex");
   const sitemap = await (await request.get("/sitemap.xml")).text();
-  expect(sitemap).toContain("https://ruming.top/news");
+  expect(sitemap).toContain(canonicalOrigin + "/news");
   expect(sitemap).not.toContain("/saved");
   await page.goto("/news?page=2");
   await expect(page.locator("link[rel=canonical]")).toHaveAttribute(
     "href",
-    "https://ruming.top/news?page=2",
+    canonicalOrigin + "/news?page=2",
   );
   await expect(page).toHaveTitle(/第 2 页/);
   await expect(
@@ -38,7 +39,7 @@ test("SEO metadata updates across routes and page links remain crawlable", async
   );
   await expect(page.locator('meta[property="og:url"]')).toHaveAttribute(
     "content",
-    "https://ruming.top/learn/tokens",
+    canonicalOrigin + "/learn/tokens",
   );
   await page.goto("/not-a-real-route");
   await expect(page.locator("meta[name=robots]")).toHaveAttribute(

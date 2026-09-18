@@ -1,3 +1,4 @@
+import {eyesAdminRouter, initEyes} from "./ai-eyes";
 import { personasRouter } from "./personas";
 import { miniSettingsAdminRouter } from "./mini-settings";
 import { BaiduService, baiduAdminRouter } from "./baidu";
@@ -194,6 +195,8 @@ export function adminRouter(store: ContentDatabase, baidu?: BaiduService) {
     res.json({ ok: true });
   });
   router.use(auth);
+  initEyes(store);
+  router.use("/ai-eyes", eyesAdminRouter(store));
   router.use("/personas", (req, res, next) => { res.locals.adminUsername = session(req)!.username; next(); }, personasRouter(store, true));
   router.use(
     "/mini-settings",

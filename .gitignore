@@ -18,3 +18,7 @@ miniprogram/project.private.config.json
 
 # Generated personal-subject mini program package
 miniprogram-personal/
+
+# Python execution bundle caches
+__pycache__/
+*.pyc

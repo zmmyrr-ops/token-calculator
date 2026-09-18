@@ -5,8 +5,8 @@ const proxy = {
     target: process.env.API_PROXY_TARGET || "http://127.0.0.1:4000",
     changeOrigin: true,
   },
-  "/sitemap.xml": { target: "http://127.0.0.1:4000" },
-  "/robots.txt": { target: "http://127.0.0.1:4000" },
+  "/sitemap.xml": { target: process.env.API_PROXY_TARGET || "http://127.0.0.1:4000" },
+  "/robots.txt": { target: process.env.API_PROXY_TARGET || "http://127.0.0.1:4000" },
 };
 export default defineConfig({
   base: process.env.VITE_BASE_PATH || "/",
@@ -21,7 +21,7 @@ export default defineConfig({
     strictPort: true,
     proxy: {
       ...proxy,
-      "^/(?:$|(?:personas|news|learn|models|tools|scenarios|tutorials|calculators|about|privacy|how-it-works|updates|community-rules|forum|admin|login|account|register|search|saved|compare)(?:[/?]|$))":
+      "^/(?:$|(?:ai-eyes|personas|news|learn|models|tools|scenarios|tutorials|calculators|about|privacy|how-it-works|updates|community-rules|forum|admin|login|account|register|search|saved|compare)(?:[/?]|$))":
         { target: process.env.API_PROXY_TARGET || "http://127.0.0.1:4000" },
     },
   },

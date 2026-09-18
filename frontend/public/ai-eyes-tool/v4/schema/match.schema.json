@@ -1,0 +1,76 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "catalog_version",
+    "persona_id",
+    "alternative_persona_id",
+    "match_notes",
+    "sample_scope"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "4"
+    },
+    "catalog_version": {
+      "const": "user-original-1"
+    },
+    "persona_id": {
+      "enum": [
+        "one_line_ceo",
+        "prompt_academician",
+        "cyber_client",
+        "intern_supervisor",
+        "detail_controller",
+        "vibe_art_director",
+        "idea_dancer",
+        "ai_confidant",
+        "night_philosopher",
+        "ai_debate_captain",
+        "living_search_box",
+        "decision_delegator",
+        "boss_of_ai_boss",
+        "praise_group_host",
+        "human_ai_symbiont",
+        "ai_tamer"
+      ]
+    },
+    "alternative_persona_id": {
+      "enum": [
+        null,
+        "one_line_ceo",
+        "prompt_academician",
+        "cyber_client",
+        "intern_supervisor",
+        "detail_controller",
+        "vibe_art_director",
+        "idea_dancer",
+        "ai_confidant",
+        "night_philosopher",
+        "ai_debate_captain",
+        "living_search_box",
+        "decision_delegator",
+        "boss_of_ai_boss",
+        "praise_group_host",
+        "human_ai_symbiont",
+        "ai_tamer"
+      ]
+    },
+    "match_notes": {
+      "type": "array",
+      "maxItems": 2,
+      "items": {
+        "type": "string",
+        "maxLength": 48
+      }
+    },
+    "sample_scope": {
+      "enum": [
+        "limited",
+        "multiple_sessions"
+      ]
+    }
+  }
+}

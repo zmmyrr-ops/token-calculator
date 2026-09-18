@@ -6,6 +6,10 @@ React 前端 + Node.js 后端，**纯客户端渲染，不使用 SSR / Next.js**
 
 完整交接资料：[项目开发与运维手册](docs/00-项目开发与运维手册.md)，包含数据库、配置、构建测试、发布回滚、备份恢复和排障。
 
+## AI 眼里的你
+
+新增独立入口 `/ai-eyes`，提供16型完整原文报告、人物插画、私密 PNG/ZIP 导出及可撤销公开分享。用户在网站创建任务，将指令发给本机 Codex，由当前模型匹配；网站只接收固定类型及简短说明。后台 `/admin/ai-eyes`。详见 [使用、数据结构和维护说明](docs/ai-eyes-development.md) 与 [交付清单](docs/ai-eyes-todo.md)。
+
 ## 项目模块
 
 - `frontend/`：React 19 + Vite 8 + React Router；静态页面、深色科技风、移动端、词元 Worker、收藏与素材预算。

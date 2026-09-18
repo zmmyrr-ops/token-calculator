@@ -19,7 +19,7 @@ test("isolated admin: change password, save, publish and download backup", async
   initCommunity(db);
   initPersonas(db);
   seedCommunity(db);
-  db.seed(await (await fetch("http://127.0.0.1:3000/api/v1/bootstrap")).json());
+  db.seed(await (await fetch((process.env.TEST_URL || "http://127.0.0.1:3000") + "/api/v1/bootstrap")).json());
   await db.db
     .prepare("INSERT INTO admins VALUES(?,?,1)")
     .run("admin", await hashPassword("isolated-initial-password"));
@@ -208,6 +208,13 @@ test("isolated admin: change password, save, publish and download backup", async
     await page.getByRole("button", {name:"保存并更新"}).click();
     await expect(page.getByRole("status")).toContainText("已保存");
     expect(personaRows(db)[0]).toMatchObject({name:"测试人格编辑",published:false});
+    await page.goto("/admin/ai-eyes");
+    await expect(page.getByRole("heading", {name:"AI 眼里的你 · 管理"})).toBeVisible();
+    await page.getByLabel("开放新任务", {exact:false}).uncheck();
+    await expect.poll(()=>db.db.prepare("SELECT enabled FROM ai_eyes_settings").get()?.enabled).toBe(0);
+    await page.getByLabel("开放新任务", {exact:false}).check();
+    await expect.poll(()=>db.db.prepare("SELECT enabled FROM ai_eyes_settings").get()?.enabled).toBe(1);
+    expect(db.db.prepare("SELECT count(*) n FROM ai_eyes_audit").get()?.n).toBe(2);
     await page.screenshot({
       path: `docs/screenshots/admin-${test.info().project.name}.png`,
     });

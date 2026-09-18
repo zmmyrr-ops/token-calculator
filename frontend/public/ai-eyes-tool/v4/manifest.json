@@ -1,0 +1,11 @@
+{
+  "version": "4",
+  "files": {
+    "instructions.md": "05c255443450bcf4f6baf3f4998307fbc6f5919861fadc016527ae3c935067f1",
+    "persona_catalog.json": "ac6b7c761180b87187278be9aa0fc94925c960759ac7c0011dec30073e19fdb1",
+    "schema/match.schema.json": "65a5a2ba3df95640d02ec12abef1dcd59889ad9c78d0bcbefc4d495e61a0394e",
+    "scripts/collect_sample.py": "7c00664ab1ff15edf85a05364089a2888a0f6cc6ef8344e6c6d54861993c5cc3",
+    "scripts/submit_match.py": "ba65bc13389ecbfbfaa5ceba09df495137a5992aab33054c2a97a87fdecdce3f",
+    "scripts/validate_match.py": "05ab077673c6a07dd0eeffc01cb16b2d69fb85644faf3b3ffd4825053d966c02"
+  }
+}

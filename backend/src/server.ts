@@ -1,3 +1,5 @@
+import { eyesPages } from "./ai-eyes-pages";
+import { initEyes, eyesRouter, pruneEyes } from "./ai-eyes";
 import { initPersonas, personasRouter } from "./personas";
 import { miniSettings, requireMiniModule } from "./mini-settings";
 import { PublicSnapshots } from "./prerender";
@@ -46,9 +48,13 @@ expandContent(store);
 await initializeAdmin(store);
 initCommunity(store);
 initPersonas(store);
+initEyes(store);
+const eyesCleanup = setInterval(() => pruneEyes(store), 3600000);
+eyesCleanup.unref();
 seedCommunity(store);
 simplifyStarterPresentation(store);
 app.use("/api/v1/events", express.json({ limit: "2kb" }), eventsRouter(store));
+app.use("/api/v1/ai-eyes", express.json({ limit: "16kb" }), eyesRouter(store));
 app.use(express.json({ limit: "512kb" }));
 app.use("/api/community", communityRouter(store));
 app.use("/api/mini/community", communityRouter(store, "bearer"));
@@ -91,16 +97,32 @@ app.get("/api/v1/bootstrap", (req, res) => {
     vendors: [
       ...new Map(all.map((m) => [m.provider, m.providerName])).entries(),
     ].sort((a, b) => a[1].localeCompare(b[1])),
-    knowledge: ["/models", "/tools", "/learn", "/search", "/news", "/personas"].includes(
-      path,
-    )
-      ? []
-      : data.knowledge,
-    resources: ["/models", "/tools", "/learn", "/search", "/news", "/personas"].includes(
-      path,
-    )
-      ? []
-      : data.resources,
+    knowledge:
+      path.startsWith("/ai-eyes") ||
+      [
+        "/models",
+        "/tools",
+        "/learn",
+        "/search",
+        "/news",
+        "/personas",
+        "/ai-eyes",
+      ].includes(path)
+        ? []
+        : data.knowledge,
+    resources:
+      path.startsWith("/ai-eyes") ||
+      [
+        "/models",
+        "/tools",
+        "/learn",
+        "/search",
+        "/news",
+        "/personas",
+        "/ai-eyes",
+      ].includes(path)
+        ? []
+        : data.resources,
     coverage: { ...data.coverage, excluded: [], entries: [] },
   });
 });
@@ -288,8 +310,12 @@ app.get("/api/v1/mini/:kind/:id", (req, res) => {
   if (req.params.kind === "tools") requireMiniModule(store, "platforms");
   if (req.params.kind === "models") {
     requireMiniModule(store, "models");
-    const model = store.publicContent().catalog.models.find((m) => m.id === req.params.id);
-    return res.status(model ? 200 : 404).json(model || { error: "模型不存在或已下架" });
+    const model = store
+      .publicContent()
+      .catalog.models.find((m) => m.id === req.params.id);
+    return res
+      .status(model ? 200 : 404)
+      .json(model || { error: "模型不存在或已下架" });
   }
   const data = store.publicContent();
   const item =
@@ -337,6 +363,7 @@ app.get("/sitemap.xml", (_req, res) => {
     );
 });
 const snapshots = new PublicSnapshots(store);
+app.use(eyesPages(store));
 app.use(snapshots.router());
 app.use((_req, res) => res.status(404).json({ error: "NOT_FOUND" }));
 app.use(
@@ -389,6 +416,7 @@ async function stop() {
   server.close();
   await news.stop();
   await baidu.stop();
+  clearInterval(eyesCleanup);
   snapshots.close();
   store.close();
   process.exit(0);

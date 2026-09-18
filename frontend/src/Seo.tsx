@@ -8,7 +8,29 @@ export default function Seo() {
     location = useLocation();
   const seo = resolveSeo(location.pathname, location.search, data);
   useEffect(() => {
-    document.title = seo.title;
+    const eyes = location.pathname.startsWith("/ai-eyes");
+    let referrer = document.head.querySelector<HTMLMetaElement>(
+      'meta[name="referrer"]',
+    );
+    if (!referrer) {
+      referrer = document.createElement("meta");
+      referrer.name = "referrer";
+      document.head.append(referrer);
+    }
+    referrer.content = eyes ? "no-referrer" : "strict-origin-when-cross-origin";
+    if (eyes) {
+      document.head
+        .querySelector('meta[name="robots"]')
+        ?.setAttribute("content", "noindex,nofollow");
+      document.head.querySelector('link[rel="canonical"]')?.remove();
+      document.getElementById("prerender-schema")?.remove();
+      if (!location.pathname.startsWith("/ai-eyes/s/"))
+        document.title = "AI 眼里的你 · AI 门道";
+      return;
+    }
+    document.title = eyes
+      ? "AI 眼里的你 · 16 种 AI 使用人格 - AI 门道"
+      : seo.title;
     const meta = (key: string, value: string, property = false) => {
       const attr = property ? "property" : "name";
       let el = document.head.querySelector<HTMLMetaElement>(
@@ -22,7 +44,7 @@ export default function Seo() {
       el.content = value;
     };
     meta("description", seo.description);
-    meta("robots", isStaging ? "noindex, nofollow" : seo.robots);
+    meta("robots", isStaging || eyes ? "noindex, nofollow" : seo.robots);
     meta("og:title", seo.title, true);
     meta("og:description", seo.description, true);
     meta("og:url", seo.canonical, true);
@@ -55,6 +77,13 @@ export default function Seo() {
       url: seo.canonical,
       description: seo.description,
     });
-  }, [seo.title, seo.description, seo.canonical, seo.robots, seo.article]);
+  }, [
+    location.pathname,
+    seo.title,
+    seo.description,
+    seo.canonical,
+    seo.robots,
+    seo.article,
+  ]);
   return null;
 }

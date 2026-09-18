@@ -7,7 +7,7 @@
   },
   "scripts": {
     "dev": "node scripts/dev.mjs",
-    "build": "npm run typecheck && npm run build -w frontend && npm run build -w backend",
+    "build": "npm run eyes:bundle && npm run typecheck && npm run build -w frontend && npm run build -w backend",
     "start": "node scripts/dev.mjs --production",
     "typecheck": "tsc --noEmit",
     "lint": "eslint frontend/src backend/src shared tests --max-warnings=0",
@@ -25,12 +25,16 @@
     "mini:check": "npm run mini:build && node scripts/check-miniprogram.mjs",
     "mini:preview": "node scripts/mini-preview.mjs",
     "mini:test": "npm run build -w backend && node scripts/test-miniprogram.mjs",
-    "mini:personal": "npm run mini:build && node scripts/build-mini-personal.mjs && node scripts/check-miniprogram.mjs miniprogram-personal"
+    "mini:personal": "npm run mini:build && node scripts/build-mini-personal.mjs && node scripts/check-miniprogram.mjs miniprogram-personal",
+    "eyes:bundle": "node scripts/build-ai-eyes-tool.mjs"
   },
   "dependencies": {
+    "@fontsource/noto-sans-sc": "5.3.0",
     "decimal.js": "10.6.0",
+    "fflate": "0.8.3",
     "js-tiktoken": "1.0.21",
     "lucide-react": "0.577.0",
+    "qrcode": "1.5.4",
     "react": "19.3.0",
     "react-dom": "19.3.0",
     "zod": "4.3.6"
@@ -39,6 +43,7 @@
     "@eslint/js": "^9.39.4",
     "@playwright/test": "1.58.2",
     "@types/node": "24.10.1",
+    "@types/qrcode": "1.5.6",
     "@types/react": "19.2.14",
     "@types/react-dom": "19.2.3",
     "esbuild": "^0.27.3",

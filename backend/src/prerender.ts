@@ -224,6 +224,8 @@ export class PublicSnapshots {
         "/compare",
         "/forum",
       ].includes(p) ||
+      p.startsWith("/ai-eyes") ||
+      p.startsWith("/admin/") ||
       p.startsWith("/forum/")
     )
       return { status: 200, html: this.empty, noindex: true };
