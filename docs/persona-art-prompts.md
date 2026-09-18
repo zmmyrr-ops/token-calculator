@@ -1,6 +1,6 @@
 # 人格头像生成记录
 
-使用内置 image_gen 模型逐张生成，共 12 张。网页成品存于 frontend/public/personas/*-v1.webp（512 × 512），保留原图于生成记录路径。以下为实际提示词。
+使用内置 image_gen 模型逐张生成，共 12 张。网页成品存于 frontend/public/persona-avatars/*-v1.webp（512 × 512），保留原图于生成记录路径。以下为实际提示词。
 
 ## spark
 

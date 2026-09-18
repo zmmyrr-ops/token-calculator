@@ -45,7 +45,7 @@ CI：https://github.com/zmmyrr-ops/token-calculator/actions/runs/35302501271 。
 
 ## 专属头像与详细人格设定（2026-09-18）
 
-12 个人格使用独立绘制的成年虚构角色插画，源提示词见 `docs/persona-art-prompts.md`。网页头像保存在 `frontend/public/personas/`，使用版本化 WebP 文件名；列表、配置区、页头及管理后台共用头像，分享 SVG 内嵌图片，不依赖在线资源。
+12 个人格使用独立绘制的成年虚构角色插画，源提示词见 `docs/persona-art-prompts.md`。网页头像保存在 `frontend/public/persona-avatars/`，使用版本化 WebP 文件名；列表、配置区、页头及管理后台共用头像，分享 SVG 内嵌图片，不依赖在线资源。
 
 数据库 `personas.data.instructions` 保存可编辑的完整人格正文，涵盖角色定位、语言节奏、处理方法、禁忌及技术排错、产品取舍、情绪支持、停止人格四类示范。后台「完整人格设定与多场景示范」可编辑（100–12000 字符），所有复制及下载模式使用同一份正文。
 

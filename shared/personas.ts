@@ -71,5 +71,5 @@ export function personaCard(
 }
 
 export function personaAvatar(id: string) {
-  return Object.hasOwn(personaPlaybooks, id) ? `/personas/${id}-v1.webp` : "";
+  return Object.hasOwn(personaPlaybooks, id) ? `/persona-avatars/${id}-v1.webp` : "";
 }
