@@ -36,3 +36,9 @@ SQLite `personas`：`id` 主键、`data` JSON、`revision` 整数、`updated_at`
 `npx playwright test tests/e2e/personas.spec.ts tests/e2e/admin.spec.ts`：桌面/移动浏览器的配置、下载、分享还原、收藏和后台编辑。
 
 按现有 main → GitHub Actions → staging → production 同镜像提升流程发布。没有修改小程序功能入口；该模块是网站独立页面。
+
+## 本次发布记录
+
+2026-09-18：版本 `610233f473069a7843171190b0ee7f3882631dff` 已部署测试和生产环境。
+CI：https://github.com/zmmyrr-ops/token-calculator/actions/runs/35302501271 。
+96 项单元测试通过；桌面/移动端的人格与后台流程验证通过。发布前已自动备份数据库。
