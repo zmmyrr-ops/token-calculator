@@ -1,3 +1,4 @@
+import { taskPacks } from "../../shared/task-packs";
 import { Router } from "express";
 import { readFileSync } from "node:fs";
 import path from "node:path";
@@ -45,6 +46,8 @@ const resourceLinks = (d: Content) =>
     })),
   );
 function pageBody(route: string, d: Content, news: NewsArticle[], page = 1) {
+  if (route === "/task-packs") return `<h1>场景任务包</h1>${paragraph("选择游戏、3D或视频创作目标，按步骤实践，登录后保存进度与成果。")}${cards(taskPacks.map(p=>({url:"/task-packs/"+p.id,title:p.title,summary:p.summary})))}`;
+  if (route.startsWith("/task-packs/")) { const p=taskPacks.find(p=>p.id===route.split("/").pop());if(p)return `<h1>${e(p.title)}</h1>${paragraph(p.summary)}<h2>交付成果</h2>${paragraph(p.deliverable)}${list(p.preparation)}${p.steps.map(s=>`<h2>${e(s.title)}</h2>${list(s.actions)}${paragraph(s.check)}`).join("")}`; }
   if (route === "/personas") return `<h1>AI 人格合集</h1><p>给你的 AI，一点自己的性格。选择表达风格，复制本次对话指令，或下载 Codex Skill、项目与全局默认配置。</p><h2>如何使用</h2><ol><li>选择人格和风格强度。</li><li>临时使用：把完整指令粘贴到当前对话。</li><li>长期使用：备份并合并至实际加载的 AGENTS.md，重新开启会话。</li></ol><p>风格台词为人工编写的示例，不代表实时模型输出。人格只改变表达方式，不改变模型权限与事实判断。</p>`;
   const slug = decodeURIComponent(route.split("/").pop() || "");
   const a = route.startsWith("/learn/")
@@ -224,6 +227,7 @@ export class PublicSnapshots {
         "/compare",
         "/forum",
       ].includes(p) ||
+      p === "/workspace" || p.startsWith("/workspace/") ||
       p.startsWith("/ai-eyes") ||
       p.startsWith("/admin/") ||
       p.startsWith("/forum/")

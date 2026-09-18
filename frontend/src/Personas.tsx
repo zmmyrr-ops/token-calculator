@@ -1,3 +1,4 @@
+import { CloudSaveButton } from "./workspace/Workspace";
 import { useEffect, useState } from "react";
 import { useSearchParams } from "react-router-dom";
 import {
@@ -425,6 +426,7 @@ export default function Personas() {
                 下载配置
               </button>
             </div>
+            <CloudSaveButton item={{title:selected.name,kind:"人格",href:`/personas?persona=${selected.id}&strength=${intensity}&mode=${mode}`}}/>
             {mode === "skill" && (
               <button
                 className="button"

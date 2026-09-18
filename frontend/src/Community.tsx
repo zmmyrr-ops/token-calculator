@@ -8,7 +8,7 @@ import {
 } from "react";
 import { useNavigate, useParams, useSearchParams } from "react-router-dom";
 import Link from "./Link";
-import { appPath } from "./base";
+import { appPath, storageKey } from "./base";
 import {
   forumCategories,
   type CommunityUser,
@@ -35,6 +35,7 @@ const Auth = createContext<{
   loading: boolean;
   setUser: (u: CommunityUser | null) => void;
 }>({ user: null, loading: true, setUser: () => {} });
+export function useCommunityAuth() { return useContext(Auth); }
 export function CommunityProvider({ children }: { children: ReactNode }) {
   const [user, setUser] = useState<CommunityUser | null>(null),
     [loading, setLoading] = useState(true);
@@ -558,7 +559,7 @@ export function Forum() {
     </div>
   );
 }
-function PostFields({ post }: { post?: ForumPost }) {
+function PostFields({ post }: { post?: Pick<ForumPost, "title" | "body" | "category"> }) {
   return (
     <>
       <label>
@@ -587,6 +588,7 @@ function PostFields({ post }: { post?: ForumPost }) {
         正文
         <textarea
           name="body"
+          aria-label="正文"
           minLength={10}
           maxLength={20000}
           rows={12}
@@ -600,6 +602,9 @@ function PostFields({ post }: { post?: ForumPost }) {
   );
 }
 export function NewPost() {
+  const [draft] = useState<Pick<ForumPost,"title"|"body"|"category">|undefined>(()=>{
+    try { if(new URLSearchParams(location.search).get("from")!=="workspace")return; const key=storageKey("workspace-forum-draft");const raw=sessionStorage.getItem(key);sessionStorage.removeItem(key);if(!raw)return;const v=JSON.parse(raw);if(typeof v.title!=="string"||typeof v.body!=="string")return;return {title:v.title.slice(0,120),body:v.body.slice(0,20000),category:forumCategories.includes(v.category)?v.category:forumCategories[0]}; }catch{return}
+  });
   const { user, loading } = useContext(Auth);
   const nav = useNavigate();
   const [error, setError] = useState(""),
@@ -637,7 +642,7 @@ export function NewPost() {
           }
         }}
       >
-        <PostFields />
+        <PostFields post={draft}/>
         {error && <p role="alert">{error}</p>}
         <button className="button primary" disabled={busy}>
           {busy ? "发布中…" : "发布讨论"}

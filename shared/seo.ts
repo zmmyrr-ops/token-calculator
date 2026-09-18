@@ -1,3 +1,4 @@
+import { taskPacks } from "./task-packs";
 import type { Content } from "./content";
 export const publicPages: Record<
   string,
@@ -17,6 +18,8 @@ export const publicPages: Record<
     title: "社区规则",
     description: "AI 门道社区内容、账号及讨论规则。",
   },
+  "/task-packs": {title:"场景任务包｜从创作目标到第一份成果",description:"游戏角色、3D资产、短视频与游戏宣传图任务包，保存进度、提示词、笔记和成果。"},
+  ...Object.fromEntries(taskPacks.map(p=>["/task-packs/"+p.id,{title:p.title+"｜AI门道场景任务包",description:p.summary}])),
   "/news": {
     title: "AI 资讯｜大模型、应用与硬件动态",
     description:
@@ -86,6 +89,7 @@ const privatePages: Record<string, string> = {
   "/login": "用户登录",
   "/register": "注册账号",
   "/account": "个人账号",
+  "/workspace": "我的 AI 工作台",
   "/forum/new": "发起讨论",
   "/search": "搜索 AI 门道",
   "/saved": "我的收藏",
@@ -152,10 +156,10 @@ export function resolveSeo(pathname: string, search: string, data: Content) {
     known = true;
   }
   const excluded =
-    !!privatePages[path] || path === "/forum" || path.startsWith("/forum/");
+    !!privatePages[path] || path.startsWith("/workspace/") || path === "/forum" || path.startsWith("/forum/");
   if (excluded) {
     page = {
-      title: privatePages[path] || "社区讨论",
+      title: privatePages[path] || (path.startsWith("/workspace/") ? "我的 AI 工作台" : "社区讨论"),
       description: "在 AI 门道查找、保存与比较相关内容。",
     };
     known = true;

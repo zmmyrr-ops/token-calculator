@@ -1,3 +1,4 @@
+import { initWorkspace, workspaceRouter } from "./workspace";
 import { requireMiniModule } from "./mini-settings";
 import { exchangeWechatCode, type WechatIdentity } from "./wechat";
 import { Router, type Request, type Response } from "express";
@@ -62,6 +63,7 @@ export function initCommunity(store: ContentDatabase) {
  CREATE INDEX IF NOT EXISTS forum_replies_post_time ON forum_replies(post_id,status,created_at);
  CREATE INDEX IF NOT EXISTS community_sessions_expiry ON community_sessions(expires);
  INSERT OR IGNORE INTO migrations VALUES(3,datetime('now'));`);
+  initWorkspace(store);
   const columns = store.db.prepare("PRAGMA table_info(community_users)").all();
   if (!columns.some((c) => c.name === "source")) {
     store.db.exec(
@@ -229,6 +231,7 @@ export function communityRouter(
     }
     next();
   });
+  if (transport === "cookie") router.use("/workspace", workspaceRouter(store, auth, readAvatar));
   router.get("/session", (req, res) => {
     const u = current(req);
     res.json({ user: u ? publicUser(u) : null });

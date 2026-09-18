@@ -98,7 +98,7 @@ app.get("/api/v1/bootstrap", (req, res) => {
       ...new Map(all.map((m) => [m.provider, m.providerName])).entries(),
     ].sort((a, b) => a[1].localeCompare(b[1])),
     knowledge:
-      path.startsWith("/ai-eyes") ||
+      path.startsWith("/ai-eyes") || path.startsWith("/workspace") || path.startsWith("/task-packs") ||
       [
         "/models",
         "/tools",
@@ -111,7 +111,7 @@ app.get("/api/v1/bootstrap", (req, res) => {
         ? []
         : data.knowledge,
     resources:
-      path.startsWith("/ai-eyes") ||
+      path.startsWith("/ai-eyes") || path.startsWith("/workspace") || path.startsWith("/task-packs") ||
       [
         "/models",
         "/tools",

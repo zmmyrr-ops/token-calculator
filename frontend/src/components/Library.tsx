@@ -1,3 +1,5 @@
+import { CloudSaveButton } from "../workspace/Workspace";
+import { useCommunityAuth } from "../Community";
 import { storageKey } from "@/base";
 import { useMemo, useState, useSyncExternalStore } from "react";
 import Link from "@/Link";
@@ -59,6 +61,10 @@ function useLibrary() {
   return { data, save, message, setMessage };
 }
 export function SaveButton({ item }: { item: SavedItem }) {
+  const {user}=useCommunityAuth();
+  return user ? <CloudSaveButton item={item}/> : <LocalSaveButton item={item}/>;
+}
+function LocalSaveButton({ item }: { item: SavedItem }) {
   const { data, save, message, setMessage } = useLibrary();
   const exists = data.items.some((x) => x.id === item.id);
   return (
@@ -139,6 +145,7 @@ export default function LibraryPage() {
   }
   return (
     <>
+      <p>已有账号？<Link href="/workspace">进入工作台，导入本机收藏并跨设备使用 →</Link></p>
       <div className="action-row">
         <button className="button" onClick={exportData}>
           <Download size={16} /> 导出备份

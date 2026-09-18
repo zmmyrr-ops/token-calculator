@@ -36,7 +36,7 @@ export default function Learn({
           <Compass size={32} />
           <strong>从一个小成果开始</strong>
           <span>游戏原型 · 3D 资产 · 短片制作</span>
-          <Link href="/learn?format=scenarios">选择你的制作路线 →</Link>
+          <Link href="/task-packs">选择场景任务包 →</Link>
         </aside>
       </header>
       <nav className="learning-tabs" aria-label="学习中心分类">

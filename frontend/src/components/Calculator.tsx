@@ -1,3 +1,4 @@
+import { CloudSaveButton } from "../workspace/Workspace";
 import { track } from "@/Analytics";
 import { appPath, storageKey } from "@/base";
 import { useEffect, useMemo, useRef, useState } from "react";
@@ -948,6 +949,7 @@ export default function Calculator({
           </p>
         </section>
       </div>
+      {count !== null && mainResult && <section className="panel"><CloudSaveButton item={{title:"Token预算 · "+new Date().toLocaleDateString(),kind:"预算",href:"/calculators/tokens?budget="+count+"-"+s.currency+"-"+s.encoding,note:JSON.stringify({inputTokens:count,encoding:s.encoding,currency:s.currency,scope:"估算情景，不是实际账单；不含输入原文",results:results.slice(0,8)},null,2).slice(0,4000)}}/><p className="micro">主动保存后仅将词元数量与费用估算发送到工作台，不包含输入原文。</p></section>}
       <div className="export-bar">
         <label className="check-label">
           <input

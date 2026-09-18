@@ -72,6 +72,7 @@ export default function Home() {
               搜索 <ArrowRight size={16} />
             </button>
           </form>
+          <div className="action-row" style={{marginTop:18}}><Link className="button primary" href="/task-packs">开始一个场景任务</Link><Link className="button" href="/workspace">我的 AI 工作台 →</Link></div>
           <div className="portal-hot">
             试着探索 <Link href="/learn/tokens">Token 是什么</Link>
             <Link href="/learn/image-to-3d">图片转 3D</Link>

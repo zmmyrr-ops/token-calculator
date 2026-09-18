@@ -1,3 +1,4 @@
+import { CloudSaveButton } from "../workspace/Workspace";
 import { useEffect, useState } from "react";
 import { Link, useLocation, useNavigate, useParams } from "react-router-dom";
 import {
@@ -214,6 +215,7 @@ function Result({ run, refresh }: { run: EyesRun; refresh: () => void }) {
         )}
         {run.shareId && (
           <p>
+            <CloudSaveButton item={{title:p.name+" · AI眼里的你",kind:"画像",href:"/ai-eyes/s/"+run.shareId,note:"公开报告，撤销分享或报告过期后将无法访问。"}}/>
             <a href={appPath("/ai-eyes/s/" + run.shareId)}>打开当前公开报告</a>{" "}
             ·{" "}
             <button

@@ -1,3 +1,4 @@
+import Workspace, { PromptPage, ProjectPage, TaskPacks } from "./workspace/Workspace";
 const AiEyes = lazy(() => import("./ai-eyes/AiEyes"));
 import EyesAdmin from "./ai-eyes/Admin";
 import Personas from "./Personas";
@@ -96,6 +97,11 @@ function App() {
           <Route path="/ai-eyes/runs/:id" element={<AiEyes />} />
           <Route path="/ai-eyes/s/:id" element={<AiEyes />} />
           <Route path="/ai-eyes/claim" element={<AiEyes />} />
+          <Route path="/workspace" element={<Workspace />} />
+          <Route path="/workspace/prompts/:id" element={<PromptPage />} />
+          <Route path="/workspace/projects/:id" element={<ProjectPage />} />
+          <Route path="/task-packs" element={<TaskPacks />} />
+          <Route path="/task-packs/:id" element={<TaskPacks />} />
           <Route path="/personas" element={<Personas />} />
           <Route path="/forum" element={<Forum />} />
           <Route path="/forum/new" element={<NewPost />} />
