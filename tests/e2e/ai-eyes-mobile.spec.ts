@@ -10,9 +10,11 @@ test("mobile AI result import validates, persists, exports and marks sharing", a
   });
   await expect(codex).toBeVisible();
   await expect(mobile).toBeVisible();
-  const a = await codex.boundingBox(),
-    b = await mobile.boundingBox();
-  expect(Math.abs(a!.y - b!.y)).toBeLessThan(4);
+  await page.evaluate(() => document.fonts.ready.then(() => undefined));
+  await expect.poll(async () => {
+    const a = await codex.boundingBox(), b = await mobile.boundingBox();
+    return Math.abs(a!.y - b!.y);
+  }).toBeLessThan(4);
   await expect(page.locator("#eyes-codex-flow")).toBeHidden();
   await mobile.click();
 
