@@ -20,6 +20,10 @@ export default function About() {
         词元计算正文、收藏、实践进度和手动预算在浏览器中处理。收藏不跨设备同步，可自行导入导出。了解详情请阅读
         <Link href="/privacy">隐私说明</Link>。
       </p>
+      <h2>联系方式</h2>
+      <p>
+        <a href="tel:16628717656">16628717656</a>（微信同号）
+      </p>
       <h2>网站信息</h2>
       <dl className="detail-spec">
         <dt>域名</dt>

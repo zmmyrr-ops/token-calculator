@@ -77,7 +77,7 @@ function pageBody(route: string, d: Content, news: NewsArticle[], page = 1) {
   if (route === "/news")
     return `<h1>AI 实时资讯${page > 1 ? " · 第 " + page + " 页" : ""}</h1>${newsLinks(news.slice((page - 1) * 18, page * 18))}${pages("/news", page, Math.ceil(news.length / 18))}`;
   const seo = resolveSeo(route, "", d);
-  return `<h1>${e(seo.title)}</h1>${paragraph(seo.description)}${route.startsWith("/calculators") ? `${link("/calculators/tokens", "Token 计算器")} · ${link("/calculators/media", "AI 素材预算计算器")}${paragraph("交互计算需要启用 JavaScript，输入正文在浏览器本地处理。")}` : ""}${route === "/about" ? paragraph("主办者：" + d.site.organizer + "。域名：" + d.site.domain) : ""}<h2>继续浏览</h2>${link("/learn", "学习中心")} · ${link("/models", "模型目录")} · ${link("/tools", "工具平台")}`;
+  return `<h1>${e(seo.title)}</h1>${paragraph(seo.description)}${route.startsWith("/calculators") ? `${link("/calculators/tokens", "Token 计算器")} · ${link("/calculators/media", "AI 素材预算计算器")}${paragraph("交互计算需要启用 JavaScript，输入正文在浏览器本地处理。")}` : ""}${route === "/about" ? paragraph("主办者：" + d.site.organizer + "。域名：" + d.site.domain) + '<h2>联系方式</h2><p><a href="tel:16628717656">16628717656</a>（微信同号）</p>' : ""}<h2>继续浏览</h2>${link("/learn", "学习中心")} · ${link("/models", "模型目录")} · ${link("/tools", "工具平台")}`;
 }
 function newsLinks(news: NewsArticle[]) {
   return `<ul>${news.map((n) => `<li>${link(n.url, n.title)}${paragraph(n.sourceName + (n.publishedAt ? " · " + n.publishedAt.slice(0, 10) : ""))}</li>`).join("")}</ul>`;
