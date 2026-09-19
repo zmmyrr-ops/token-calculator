@@ -73,7 +73,7 @@ export default function Article({ params }: { params: { slug: string } }) {
       {tutorialLinks.some((t) => t.slug === slug) && (
         <figure>
           <img
-            src={appPath("/tutorials/" + slug + ".png")}
+            src={appPath("/guide-images/" + slug + ".png")}
             alt={entry.title + "：本站操作界面"}
             loading="lazy"
             width="1100"

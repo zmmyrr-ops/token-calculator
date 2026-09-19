@@ -25,7 +25,7 @@ GET/PUT /api/admin/seo复用管理员会话与来源校验。仅接受indexableP
 - /learn/ai-persona-setup-guide
 - /learn/token-cost-practical-guide
 
-正文存documents，后续可在内容管理编辑发布；迁移不覆盖人工修改，也不复活已删除内容。教程引用本站功能与Codex官方配置文档，明确趣味画像、统计范围与费用估算限制。截图在frontend/public/tutorials，更新界面时应同步检查。
+正文存documents，后续可在内容管理编辑发布；迁移不覆盖人工修改，也不复活已删除内容。教程引用本站功能与Codex官方配置文档，明确趣味画像、统计范围与费用估算限制。截图在frontend/public/guide-images，更新界面时应同步检查。
 
 ## 验证清单
 
