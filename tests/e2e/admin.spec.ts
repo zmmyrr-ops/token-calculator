@@ -1,3 +1,4 @@
+import {initMiniEyes} from "../../backend/src/mini-eyes";
 import {LearningCollector} from "../../backend/src/learning-collector";
 import { initPersonas, personaRows } from "../../backend/src/personas";
 import { initCommunity } from "../../backend/src/community";
@@ -43,6 +44,7 @@ test("isolated admin: change password, save, publish and download backup", async
   await new Promise<void>((r) => server.once("listening", r));
   const port = (server.address() as { port: number }).port;
   try {
+    expect((await fetch(`http://127.0.0.1:${port}/api/admin/ai-eyes/results`)).status).toBe(401);
     await page.route("**/api/admin/**", async (route) => {
       const url = new URL(route.request().url());
       url.port = String(port);
@@ -209,8 +211,17 @@ test("isolated admin: change password, save, publish and download backup", async
     await page.getByRole("button", {name:"保存并更新"}).click();
     await expect(page.getByRole("status")).toContainText("已保存");
     expect(personaRows(db)[0]).toMatchObject({name:"测试人格编辑",published:false});
+    initMiniEyes(db);
+    db.db.prepare("INSERT INTO mini_eyes_results VALUES(?,?,?)").run(wxUser,JSON.stringify({platform:"DeepSeek",created:Date.now(),result:{persona_id:"one_line_ceo",match_notes:["private"]}}),Date.now()+86400000);
     await page.goto("/admin/ai-eyes");
     await expect(page.getByRole("heading", {name:"AI 眼里的你 · 管理"})).toBeVisible();
+    await page.getByLabel("画像使用入口").selectOption("miniprogram");
+    await page.getByLabel("画像分析平台").selectOption("DeepSeek");
+    const records=page.getByRole("region",{name:"画像记录"});
+    await expect(records.getByText("微信隔离验收",{exact:false})).toBeVisible();
+    await expect(records.getByText("一句话 CEO",{exact:true})).toBeVisible();
+    await page.getByLabel("画像分析平台").selectOption("豆包");
+    await expect(records.getByText("当前筛选下暂无画像记录。")).toBeVisible();
     await page.getByLabel("开放新任务", {exact:false}).uncheck();
     await expect.poll(()=>db.db.prepare("SELECT enabled FROM ai_eyes_settings").get()?.enabled).toBe(0);
     await page.getByLabel("开放新任务", {exact:false}).check();

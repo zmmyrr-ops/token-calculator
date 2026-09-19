@@ -1,3 +1,4 @@
+import { eyesAdminResults } from "./ai-eyes-admin-results";
 import { matchMobileBehavior, mobileMatcherVersion } from "./ai-eyes-mobile-match";
 import { mobileResultSchema } from "../../shared/ai-eyes-mobile";
 import { recordEyesDeletion, replayEyesDeletions } from "./ai-eyes-deletions";
@@ -525,6 +526,7 @@ export function eyesRouter(store: ContentDatabase) {
 }
 export function eyesAdminRouter(store: ContentDatabase) {
   const r = Router();
+  r.get("/results", (req,res) => { res.set("Cache-Control", "no-store"); res.json(eyesAdminResults(store, req.query)); });
   r.get("/", (_req, res) => {
     pruneEyes(store);
     res.json({

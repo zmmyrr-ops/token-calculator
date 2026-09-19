@@ -1,3 +1,4 @@
+import AdminResults from "./AdminResults";
 import { useEffect, useState } from "react";
 import { appPath } from "../base";
 import "./eyes.css";
@@ -80,12 +81,13 @@ export default function EyesAdmin() {
             原稿不在这里直接改写；更新内容须创建新版本并校验原文。执行包：Python
             3.10+、已知 JSONL 事件格式。删除与过期清理每小时运行；备份保留14天。
           </p>
-          <h2>任务概况</h2>
+          <AdminResults />
+          <h2>网页任务概况（含 Codex 与豆包 / DeepSeek）</h2>
           <p>
             {data.counts.map((x) => `${x.state}：${x.count}`).join(" / ") ||
               "尚无任务"}
           </p>
-          <h2>最近100个任务（不展示匹配说明）</h2>
+          <h2>最近100个网页任务 · 执行状态</h2>
           <div style={{ overflowX: "auto" }}>
             <table>
               <thead>
