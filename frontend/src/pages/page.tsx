@@ -79,32 +79,19 @@ export default function Home() {
             <Link href="/models">模型怎么选</Link>
           </div>
         </div>
-        <aside className="portal-feature">
-          <div className="portal-feature-top">
-            <span>从入门到实践</span>
-            <BookOpen size={20} />
+        <aside className="home-eyes" aria-labelledby="home-eyes-title">
+          <div className="home-eyes-copy">
+            <span className="home-eyes-tag">AI 使用人格 · 趣味画像</span>
+            <h2 id="home-eyes-title">AI 眼里的你</h2>
+            <p className="home-eyes-question">聊了这么久，<br />它会怎么形容你？</p>
+            <p className="home-eyes-description">让熟悉你的 AI 总结使用习惯，<br />领取属于你的插画封面。</p>
           </div>
-          <div className="orbital" aria-hidden="true">
-            <div className="orbit orbit-one" />
-            <div className="orbit orbit-two" />
-            <div className="orb-core"><img src={appPath("/brand/ai-door-v5.png")} alt="" width="88" height="88" /></div>
-            <span className="orbit-label label-one">KNOWLEDGE</span>
-            <span className="orbit-label label-two">MODELS</span>
-            <span className="orbit-label label-three">CREATE</span>
+          <img className="home-eyes-art" src={appPath("/ai-eyes-art/one_line_ceo-v1.webp")} alt="人物与 AI 机器人插画" width="768" height="768" fetchPriority="high" />
+          <div className="home-eyes-bottom">
+            <Link className="home-eyes-cta" href="/ai-eyes">看看 AI 眼里的我 <ArrowUpRight size={20} /></Link>
+            <span>Codex · 豆包 · DeepSeek</span>
+            <small>趣味解读，非心理测评</small>
           </div>
-          <h2>
-            知识不是终点，
-            <br />
-            用起来才是。
-          </h2>
-          <p>
-            概念、模型、教程和费用工具，
-            <br />
-            连接在同一张知识地图里。
-          </p>
-          <Link href="/learn/models-and-platforms">
-            从模型与平台开始了解 <ArrowUpRight size={17} />
-          </Link>
         </aside>
       </section>
       <div className="portal-strip">
@@ -121,7 +108,7 @@ export default function Home() {
         </Link>
       </div>
       <section className="panel" style={{padding:28,marginTop:28,background:"linear-gradient(120deg,#12323a,#24253c)"}}>
-        <div className="eyebrow">NEW / AI PERSONAS</div><h2>认真解决问题，也可以有点性格。</h2><p>元气搭子、冷静御姐、赛博管家……挑一个聊得来的人格，带进你的下一次 AI 对话。</p><Link className="button primary" href="/personas">挑选我的 AI 人格 ↗</Link> <Link className="button" href="/ai-eyes">看看 AI 眼里的我 ↗</Link>
+        <div className="eyebrow">NEW / AI PERSONAS</div><h2>认真解决问题，也可以有点性格。</h2><p>元气搭子、冷静御姐、赛博管家……挑一个聊得来的人格，带进你的下一次 AI 对话。</p><Link className="button primary" href="/personas">挑选我的 AI 人格 ↗</Link>
       </section>
       <News compact />
       <section className="portal-section" id="knowledge">
