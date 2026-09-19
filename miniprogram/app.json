@@ -8,7 +8,8 @@
     "pages/forum/index",
     "pages/post/index",
     "pages/compose/index",
-    "pages/about/index"
+    "pages/about/index",
+    "pages/ai-eyes/index"
   ],
   "window": {
     "navigationBarTitleText": "AI 门道",

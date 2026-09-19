@@ -6,6 +6,7 @@ import Link from "@/Link";
 const tabs = [
   ["", "全部内容"],
   ["article", "知识文章"],
+  ["curated", "精选分享"],
   ["practice", "实操教程"],
   ["video", "视频课程"],
   ["scenarios", "应用场景"],
@@ -37,6 +38,7 @@ export default function Learn({
           <strong>从一个小成果开始</strong>
           <span>游戏原型 · 3D 资产 · 短片制作</span>
           <Link href="/task-packs">选择场景任务包 →</Link>
+          <Link href="/learn?format=curated">浏览新收录的知识分享 →</Link>
         </aside>
       </header>
       <nav className="learning-tabs" aria-label="学习中心分类">
@@ -133,12 +135,13 @@ export default function Learn({
                     </span>
                   </Link>
                   <small>
-                    {a.category} · {a.video?.publisher || "编辑整理"}
+                    {a.category} · {a.curation?.publisher || a.video?.publisher || "编辑整理"}
                   </small>
                   <h2>
                     <Link href={`/learn/${a.slug}`}>{a.title}</Link>
                   </h2>
                   <p>{a.summary}</p>
+                  {a.curation && <small>{a.curation.language} · {a.curation.author || "来源订阅"}{a.curation.publishedAt ? " · 原文 " + a.curation.publishedAt.slice(0,10) : ""}</small>}
                   {a.video && (
                     <small>
                       {a.video.language} · 核验 {a.video.checkedAt}

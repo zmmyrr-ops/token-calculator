@@ -1,3 +1,4 @@
+import {LearningCollector,learningAdminRouter} from "./learning-collector";
 import {eyesAdminRouter, initEyes} from "./ai-eyes";
 import { personasRouter } from "./personas";
 import { miniSettingsAdminRouter } from "./mini-settings";
@@ -50,7 +51,7 @@ export async function initializeAdmin(store: ContentDatabase) {
     );
   store.db.prepare("INSERT INTO admins VALUES(?,?,1)").run(username, hashed);
 }
-export function adminRouter(store: ContentDatabase, baidu?: BaiduService) {
+export function adminRouter(store: ContentDatabase, baidu?: BaiduService, learning?: LearningCollector) {
   initCommunity(store);
   const cookieName =
     process.env.APP_ENV === "staging" ? "mendao_staging_admin" : "mendao_admin";
@@ -195,6 +196,7 @@ export function adminRouter(store: ContentDatabase, baidu?: BaiduService) {
     res.json({ ok: true });
   });
   router.use(auth);
+  if (learning) router.use("/learning-collector", learningAdminRouter(learning));
   initEyes(store);
   router.use("/ai-eyes", eyesAdminRouter(store));
   router.use("/personas", (req, res, next) => { res.locals.adminUsername = session(req)!.username; next(); }, personasRouter(store, true));

@@ -9,7 +9,7 @@ import type { site } from "../backend/src/content/site";
 import type coverage from "../data/coverage.json";
 export type Content = {
   catalog: typeof catalog;
-  knowledge: typeof knowledge;
+  knowledge: Array<(typeof knowledge)[number] & {curation?: import("./cms").Curation}>;
   resources: typeof resources;
   scenarios: typeof scenarios;
   tutorialSlugs: typeof tutorialSlugs;

@@ -13,10 +13,11 @@ export default function Article({ params }: { params: { slug: string } }) {
       <Link href="/learn">知识库</Link>
       <span> / {entry.category}</span>
       <div className="eyebrow" style={{ marginTop: 32 }}>
-        {entry.category} · 编辑整理
+        {entry.category} · {entry.curation?.publisher || "编辑整理"}
       </div>
       <h1>{entry.title}</h1>
       <p className="portal-article-summary">{entry.summary}</p>
+      {entry.curation && <section className="learning-note"><p>{entry.curation.author ? "作者："+entry.curation.author+" · " : ""}{entry.curation.language}{entry.curation.publishedAt ? " · 原文发布："+entry.curation.publishedAt.slice(0,10) : ""}</p><a className="button primary" href={entry.curation.url} target="_blank" rel="noreferrer">前往原文学习 ↗</a><p>本站收录短摘要与学习导读，完整内容与版权归原发布方。</p></section>}
       <SaveButton
         item={{
           id: "article:" + entry.slug,

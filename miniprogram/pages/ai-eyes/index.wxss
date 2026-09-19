@@ -1,0 +1,51 @@
+.eyes-mini .hero {
+  background: #efe5f5;
+  color: #4c2758;
+}
+.eyes-mini .card {
+  margin-top: 24rpx;
+}
+.picker {
+  padding: 20rpx;
+  background: #f3f5f6;
+  margin: 16rpx 0;
+  border-radius: 12rpx;
+}
+.eyes-mini textarea {
+  box-sizing: border-box;
+  width: 100%;
+  min-height: 220rpx;
+  background: #f4f7f8;
+  padding: 20rpx;
+  margin: 20rpx 0;
+}
+.eyes-mini label {
+  font-size: 25rpx;
+  line-height: 1.8;
+}
+.cover {
+  width: 100%;
+  margin: 20rpx 0;
+}
+.block {
+  line-height: 1.9;
+  margin: 14rpx 0;
+  white-space: pre-wrap;
+}
+.h2,
+.h3 {
+  font-weight: 700;
+  margin-top: 28rpx;
+}
+.reason {
+  margin-top: 16rpx;
+  color: #62526a;
+}
+.prompt {
+  display: block;
+  white-space: pre-wrap;
+  word-break: break-all;
+  font-size: 24rpx;
+  line-height: 1.8;
+  margin-top: 20rpx;
+}

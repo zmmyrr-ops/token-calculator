@@ -1,3 +1,4 @@
+import {LearningCollector} from "../../backend/src/learning-collector";
 import { initPersonas, personaRows } from "../../backend/src/personas";
 import { initCommunity } from "../../backend/src/community";
 import { seedCommunity } from "../../backend/src/community-seed";
@@ -25,7 +26,7 @@ test("isolated admin: change password, save, publish and download backup", async
     .run("admin", await hashPassword("isolated-initial-password"));
   const app = express();
   app.use(express.json());
-  app.use("/api/admin", adminRouter(db));
+  app.use("/api/admin", adminRouter(db, undefined, new LearningCollector(db, async () => '<rss version="2.0"><channel><title>Empty</title></channel></rss>')));
   app.use(
     (
       e: Error,
@@ -215,6 +216,14 @@ test("isolated admin: change password, save, publish and download backup", async
     await page.getByLabel("开放新任务", {exact:false}).check();
     await expect.poll(()=>db.db.prepare("SELECT enabled FROM ai_eyes_settings").get()?.enabled).toBe(1);
     expect(db.db.prepare("SELECT count(*) n FROM ai_eyes_audit").get()?.n).toBe(2);
+    await page.getByRole("link", {name:"← 管理后台",exact:true}).click();
+    await page.getByRole("button", {name:"知识采集",exact:true}).click();
+    await expect(page.getByRole("heading", {name:"学习中心 · 知识采集"})).toBeVisible();
+    await page.getByRole("button", {name:"暂停定时采集",exact:true}).click();
+    await expect(page.getByRole("button", {name:"开启定时采集",exact:true})).toBeVisible();
+    await page.getByRole("button", {name:"立即采集",exact:true}).click();
+    await expect(page.getByText(/上次开始：/)).toBeVisible();
+    await page.getByRole("button", {name:"内容管理",exact:true}).click();
     await page.screenshot({
       path: `docs/screenshots/admin-${test.info().project.name}.png`,
     });

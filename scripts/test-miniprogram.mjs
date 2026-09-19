@@ -43,6 +43,7 @@ const server = spawn(process.execPath, ["backend/dist/server.mjs"], {
   env: {
     ...process.env,
     PORT: "4006",
+    LEARNING_SYNC: "off",
     HOST: "127.0.0.1",
     DATABASE_FILE: path.join(dir, "test.sqlite"),
     NEWS_DATA_FILE: path.join(dir, "news.json"),
@@ -181,6 +182,20 @@ try {
   console.log(
     "PASS: native bearer authentication and profile edit (isolated DB)",
   );
+  p = await mini.redirectTo("/pages/ai-eyes/index");
+  await waitFor(async () => !(await p.data("loading")));
+  assert.ok(await p.data("user"));
+  assert.ok(!(await p.data("prompt")).includes("one_line_ceo"));
+  await p.setData({raw:JSON.stringify({format:"AI_EYES_BEHAVIOR_2",basis:"questions",sample_count:5,keywords:[{keyword:"简短指令",count:5},{keyword:"委托决策",count:1}]}),agreed:true});
+  await p.callMethod("submit");
+  await waitFor(async () => !(await p.data("busy")));
+  assert.equal(await p.data("error"), "");
+  assert.equal((await p.data("result")).persona.id,"one_line_ceo");
+  await mini.screenshot({path:path.join(dir,"ai-eyes.png")});
+  p = await mini.redirectTo("/pages/ai-eyes/index");
+  await waitFor(async () => !(await p.data("loading")));
+  assert.equal((await p.data("result")).persona.id,"one_line_ceo");
+  console.log("PASS: mini AI behavior import, server classification and saved private result");
   p = await mini.redirectTo("/pages/compose/index");
   await p.setData({
     title: "小程序自动化集成测试",

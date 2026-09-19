@@ -1,0 +1,83 @@
+<view class="page eyes-mini">
+  <view class="hero"
+    ><view class="eyebrow">AI PORTRAIT</view
+    ><view class="title">AI 眼里的你</view
+    ><view>豆包 / DeepSeek 统计习惯，AI 门道揭晓画像。</view
+    ><view class="muted">趣味画像，非心理测评或平台认证。</view></view
+  >
+  <view wx:if="{{loading}}" class="state">正在读取…</view>
+  <view wx:if="{{error}}" class="notice">{{error}}</view>
+  <view wx:if="{{result}}" class="card"
+    ><view class="title">{{result.persona.name}}</view
+    ><view>{{result.persona.keyword}}</view
+    ><view class="muted"
+      >{{result.platform}} · {{result.basisLabel}} · 本站规则匹配</view
+    ><view wx:for="{{result.result.match_notes}}" wx:key="*this" class="reason"
+      >{{item}}</view
+    ><image
+      class="cover"
+      src="{{result.cover}}"
+      mode="widthFix"
+      bindtap="preview"
+      show-menu-by-longpress
+    /><button bindtap="save" loading="{{busy}}" disabled="{{busy}}">
+      保存封面到相册</button
+    ><view
+      wx:for="{{result.persona.blocks}}"
+      wx:key="index"
+      class="block {{item.kind}}"
+      >{{item.text}}</view
+    ><button bindtap="remove" disabled="{{busy}}">删除这份画像</button
+    ><view class="muted"
+      >只保存账号下最新一份画像30天。重新生成将替换旧结果；分享按钮只邀请朋友测试，不公开你的统计。</view
+    ></view
+  >
+  <view class="card"
+    ><view class="card-title">1. 复制指令给 AI</view
+    ><picker range="{{platforms}}" value="{{platform}}" bindchange="platform"
+      ><view class="picker">使用 {{platforms[platform]}} ▾</view></picker
+    ><picker
+      range="{{['熟悉我的 AI 来统计','聊几句认识我']}}"
+      value="{{mode}}"
+      bindchange="mode"
+      ><view class="picker"
+        >{{mode === 0 ? '已有对话统计' : '简短问答统计'}} ▾</view
+      ></picker
+    ><view class="muted"
+      >在聊得较多的对话里发送，或者回答5～8个问题。指令不含人格类型，不要求读取整个账号历史。</view
+    ><button bindtap="copy">复制测评指令</button
+    ><view bindtap="prompt" class="muted"
+      >{{promptOpen ? '收起指令' : '查看指令 / 手动复制'}}</view
+    ><text wx:if="{{promptOpen}}" selectable class="prompt"
+      >{{prompt}}</text
+    ></view
+  >
+  <view class="card"
+    ><view class="card-title">2. 粘贴行为统计</view
+    ><view class="muted">只复制 AI 返回的 JSON 代码块，不要粘贴整段聊天。</view
+    ><textarea
+      value="{{raw}}"
+      bindinput="raw"
+      maxlength="8000"
+      placeholder="粘贴 AI_EYES_BEHAVIOR_2 格式的 JSON"
+      auto-height
+    /><checkbox-group bindchange="agree"
+      ><label
+        ><checkbox
+          value="yes"
+          checked="{{agreed}}"
+        />我同意提交行为关键词与次数，不含原始聊天或敏感信息。</label
+      ></checkbox-group
+    ><button wx:if="{{!user}}" bindtap="login">微信登录后生成画像</button
+    ><button
+      wx:else
+      bindtap="submit"
+      disabled="{{busy || !agreed || !raw || loading}}"
+      loading="{{busy}}"
+    >
+      生成我的画像</button
+    ><view class="muted"
+      >第三方 AI 只统计行为，本站负责匹配结果；不会调用付费模型接口。</view
+    ></view
+  >
+</view>

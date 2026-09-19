@@ -8,6 +8,7 @@ require("../../utils/panel")({
   list(e) {
     nav.list(e.currentTarget.dataset.kind);
   },
+  eyes() { wx.navigateTo({ url: "/pages/ai-eyes/index" }); },
   budget() {
     wx.navigateTo({ url: "/pages/calculator/index" });
   },

@@ -3,6 +3,10 @@
   "rules": [
     {
       "action": "disallow",
+      "page": "pages/ai-eyes/index"
+    },
+    {
+      "action": "disallow",
       "page": "pages/account/index"
     },
     {

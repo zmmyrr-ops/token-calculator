@@ -1,3 +1,5 @@
+import {pruneMiniEyes} from "./mini-eyes";
+import { LearningCollector } from "./learning-collector";
 import { eyesPages } from "./ai-eyes-pages";
 import { initEyes, eyesRouter, pruneEyes } from "./ai-eyes";
 import { initPersonas, personasRouter } from "./personas";
@@ -49,7 +51,7 @@ await initializeAdmin(store);
 initCommunity(store);
 initPersonas(store);
 initEyes(store);
-const eyesCleanup = setInterval(() => pruneEyes(store), 3600000);
+const eyesCleanup = setInterval(() => {pruneEyes(store);pruneMiniEyes(store);}, 3600000);
 eyesCleanup.unref();
 seedCommunity(store);
 simplifyStarterPresentation(store);
@@ -59,8 +61,9 @@ app.use(express.json({ limit: "512kb" }));
 app.use("/api/community", communityRouter(store));
 app.use("/api/mini/community", communityRouter(store, "bearer"));
 app.use("/api/v1/personas", personasRouter(store));
+const learning = new LearningCollector(store);
 const baidu = new BaiduService(store);
-app.use("/api/admin", adminRouter(store, baidu));
+app.use("/api/admin", adminRouter(store, baidu, learning));
 const news = new NewsService(store);
 await news.init();
 app.get("/api/health/live", (_req, res) => res.json({ status: "ok" }));
@@ -268,8 +271,9 @@ app.get(["/api/v1/library/:kind", "/api/v1/mini/tools"], (req, res) => {
           summary: a.summary,
           category: a.category,
           search: a.title + a.keywords,
-          format: a.video ? "video" : a.practice ? "practice" : "article",
+          format: a.curation ? "curated" : a.video ? "video" : a.practice ? "practice" : "article",
           video: a.video,
+          curation: a.curation,
         }));
   const filtered = entries.filter(
     (a) =>
@@ -409,12 +413,14 @@ const server = app.listen(
   () => {
     console.log("Node.js API listening on " + (process.env.PORT || 4000));
     news.start();
+    if(process.env.LEARNING_SYNC !== "off") learning.start();
     baidu.start();
   },
 );
 async function stop() {
   server.close();
   await news.stop();
+  await learning.stop();
   await baidu.stop();
   clearInterval(eyesCleanup);
   snapshots.close();

@@ -1,3 +1,4 @@
+import { miniEyesRouter } from "./mini-eyes";
 import { initWorkspace, workspaceRouter } from "./workspace";
 import { requireMiniModule } from "./mini-settings";
 import { exchangeWechatCode, type WechatIdentity } from "./wechat";
@@ -232,6 +233,7 @@ export function communityRouter(
     next();
   });
   if (transport === "cookie") router.use("/workspace", workspaceRouter(store, auth, readAvatar));
+  if (transport === "bearer") router.use("/eyes", miniEyesRouter(store, auth, limit));
   router.get("/session", (req, res) => {
     const u = current(req);
     res.json({ user: u ? publicUser(u) : null });

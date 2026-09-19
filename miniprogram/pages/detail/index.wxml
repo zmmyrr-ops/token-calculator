@@ -13,7 +13,7 @@
       mode="aspectFill"
       binderror="imageError"
     /><view class="muted">{{item.summary || item.description}}</view
-    ><button bindtap="save">
+    ><view wx:if="{{item.curation}}" class="card"><view>来源：{{item.curation.publisher}}</view><view wx:if="{{item.curation.author}}">作者：{{item.curation.author}}</view><view class="muted">{{item.curation.language}} · 外部知识索引</view><button data-url="{{item.curation.url}}" bindtap="copy">复制原文链接</button></view><button bindtap="save">
       {{saved ? '已收藏 · 点击取消' : '收藏到我的门道'}}
     </button>
     <block wx:if="{{kind === 'news'}}"

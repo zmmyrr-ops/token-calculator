@@ -44,7 +44,10 @@ export const practiceSchema = z.object({
   prompt: text,
   toolRoles: z.array(z.object({ id, role: text })).max(100),
 });
+export const curationSchema = z.object({publisher:short,author:short,url:link,publishedAt:z.string().max(40),collectedAt:z.string().max(40),language:short});
+export type Curation = z.infer<typeof curationSchema>;
 export const knowledgeSchema = z.object({
+  curation:curationSchema.optional(),
   slug: id,
   title: short.min(1),
   category: short,

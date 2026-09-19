@@ -15,7 +15,7 @@ module.exports = function (kind) {
         kind === "news"
           ? ["全部", "大模型", "软件应用", "硬件算力", "研究进展", "产业动态"]
           : kind === "learn"
-            ? ["全部", "文章", "实践", "视频", "场景"]
+            ? ["全部", "文章", "精选分享", "实践", "视频", "场景"]
             : [],
     },
     async onLoad(options) {
@@ -75,7 +75,7 @@ module.exports = function (kind) {
           data.category = this.data.filter;
         if (k === "learn")
           data.format =
-            { 文章: "article", 实践: "practice", 视频: "video" }[
+            { 文章: "article", 精选分享:"curated", 实践: "practice", 视频: "video" }[
               this.data.filter
             ] || "";
         if (k === "learn" && this.data.filter === "场景")

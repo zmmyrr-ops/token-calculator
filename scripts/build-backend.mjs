@@ -1,7 +1,8 @@
 import { build } from "esbuild";
 await build({
-  entryPoints: ["src/server.ts"],
-  outfile: "dist/server.mjs",
+  entryPoints: ["src/server.ts","src/sync-learning.ts"],
+  outdir: "dist",
+  outExtension: {".js":".mjs"},
   bundle: true,
   platform: "node",
   target: "node24",
