@@ -392,6 +392,7 @@ export default function Admin() {
           小程序设置
         </button>
         <button className={learning ? "button primary" : "button"} onClick={() => {setLearning(true);setMini(false);setBaidu(false);setAnalytics(false);setCommunity(false);}}>知识采集</button>
+        <a className="button" href={appPath("/admin/seo")}>SEO 管理</a>
         <a className="button" href={appPath("/admin/personas")}>AI 人格管理</a>
         <a className="button" href={appPath("/admin/ai-eyes")}>AI 眼里的你</a>
       </nav>

@@ -8,6 +8,7 @@ import type {
 import type { site } from "../backend/src/content/site";
 import type coverage from "../data/coverage.json";
 export type Content = {
+  seoOverrides?: Record<string, import("./seo-settings").SeoOverride>;
   catalog: typeof catalog;
   knowledge: Array<(typeof knowledge)[number] & {curation?: import("./cms").Curation}>;
   resources: typeof resources;

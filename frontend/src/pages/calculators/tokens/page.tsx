@@ -1,3 +1,4 @@
+import FeatureGuide from "@/components/FeatureGuide";
 import { useContent } from "@/content";
 import { ArrowUpRight, ShieldCheck, Zap, Scale } from "lucide-react";
 import Calculator from "@/components/Calculator";
@@ -65,6 +66,7 @@ export default function TokenCalculatorPage() {
           </p>
         </div>
       </section>
+      <FeatureGuide path="/calculators/tokens" />
     </>
   );
 }

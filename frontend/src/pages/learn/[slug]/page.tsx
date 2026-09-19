@@ -1,3 +1,5 @@
+import { appPath } from "@/base";
+import { tutorialLinks } from "@shared/feature-guides";
 import { useContent } from "@/content";
 import Link from "@/Link";
 import { PracticeBrief, PracticeActions } from "@/components/Practice";
@@ -17,7 +19,28 @@ export default function Article({ params }: { params: { slug: string } }) {
       </div>
       <h1>{entry.title}</h1>
       <p className="portal-article-summary">{entry.summary}</p>
-      {entry.curation && <section className="learning-note"><p>{entry.curation.author ? "作者："+entry.curation.author+" · " : ""}{entry.curation.language}{entry.curation.publishedAt ? " · 原文发布："+entry.curation.publishedAt.slice(0,10) : ""}</p><a className="button primary" href={entry.curation.url} target="_blank" rel="noreferrer">前往原文学习 ↗</a><p>本站收录短摘要与学习导读，完整内容与版权归原发布方。</p></section>}
+      {entry.curation && (
+        <section className="learning-note">
+          <p>
+            {entry.curation.author
+              ? "作者：" + entry.curation.author + " · "
+              : ""}
+            {entry.curation.language}
+            {entry.curation.publishedAt
+              ? " · 原文发布：" + entry.curation.publishedAt.slice(0, 10)
+              : ""}
+          </p>
+          <a
+            className="button primary"
+            href={entry.curation.url}
+            target="_blank"
+            rel="noreferrer"
+          >
+            前往原文学习 ↗
+          </a>
+          <p>本站收录短摘要与学习导读，完整内容与版权归原发布方。</p>
+        </section>
+      )}
       <SaveButton
         item={{
           id: "article:" + entry.slug,
@@ -46,6 +69,21 @@ export default function Article({ params }: { params: { slug: string } }) {
             本站不转载视频，原站可能要求登录；字幕、费用及可访问性以原站为准。
           </p>
         </section>
+      )}
+      {tutorialLinks.some((t) => t.slug === slug) && (
+        <figure>
+          <img
+            src={appPath("/tutorials/" + slug + ".png")}
+            alt={entry.title + "：本站操作界面"}
+            loading="lazy"
+            width="1100"
+            height="760"
+            style={{ maxWidth: "100%", height: "auto", borderRadius: 16 }}
+          />
+          <figcaption>
+            本站操作界面（2026年9月）；界面可能随版本调整。
+          </figcaption>
+        </figure>
       )}
       {entry.practice && (
         <>
@@ -155,6 +193,25 @@ export default function Article({ params }: { params: { slug: string } }) {
           </ul>
         </section>
       )}
+      <section className="portal-related">
+        <h2>配套工具与教程</h2>
+        {tutorialLinks
+          .filter((t) => t.slug === slug)
+          .map((t) => (
+            <Link key={t.url} href={t.url}>
+              打开配套工具 →
+            </Link>
+          ))}
+        {tutorialLinks
+          .filter(
+            (t) => t.slug !== slug && knowledge.some((a) => a.slug === t.slug),
+          )
+          .map((t) => (
+            <Link key={t.slug} href={"/learn/" + t.slug}>
+              {t.title}
+            </Link>
+          ))}
+      </section>
       <section className="portal-related">
         <h2>继续探索</h2>
         <Link href="/calculators/tokens">计算词元与费用 →</Link>

@@ -1,3 +1,4 @@
+import {featureGuides, tutorialLinks} from "../../shared/feature-guides";
 import { taskPacks } from "../../shared/task-packs";
 import { Router } from "express";
 import { readFileSync } from "node:fs";
@@ -46,6 +47,8 @@ const resourceLinks = (d: Content) =>
     })),
   );
 function pageBody(route: string, d: Content, news: NewsArticle[], page = 1) {
+  const guide = featureGuides[route];
+  if (guide) return `<h1>${e(guide.title)}</h1>${paragraph(guide.intro)}<h2>使用步骤</h2>${list(guide.steps)}${sections(guide.faq)}${link("/learn/"+guide.tutorial,"查看完整教程")}`;
   if (route === "/task-packs") return `<h1>场景任务包</h1>${paragraph("选择游戏、3D或视频创作目标，按步骤实践，登录后保存进度与成果。")}${cards(taskPacks.map(p=>({url:"/task-packs/"+p.id,title:p.title,summary:p.summary})))}`;
   if (route.startsWith("/task-packs/")) { const p=taskPacks.find(p=>p.id===route.split("/").pop());if(p)return `<h1>${e(p.title)}</h1>${paragraph(p.summary)}<h2>交付成果</h2>${paragraph(p.deliverable)}${list(p.preparation)}${p.steps.map(s=>`<h2>${e(s.title)}</h2>${list(s.actions)}${paragraph(s.check)}`).join("")}`; }
   if (route === "/personas") return `<h1>AI 人格合集</h1><p>给你的 AI，一点自己的性格。选择表达风格，复制本次对话指令，或下载 Codex Skill、项目与全局默认配置。</p><h2>如何使用</h2><ol><li>选择人格和风格强度。</li><li>临时使用：把完整指令粘贴到当前对话。</li><li>长期使用：备份并合并至实际加载的 AGENTS.md，重新开启会话。</li></ol><p>风格台词为人工编写的示例，不代表实时模型输出。人格只改变表达方式，不改变模型权限与事实判断。</p>`;
@@ -54,7 +57,7 @@ function pageBody(route: string, d: Content, news: NewsArticle[], page = 1) {
     ? d.knowledge.find((x) => x.slug === slug)
     : undefined;
   if (a)
-    return `<h1>${e(a.title)}</h1>${paragraph(a.summary)}${sections(a.sections)}${a.practice ? `<h2>动手实践</h2>${paragraph(a.practice.result)}${list(a.practice.preparation)}${a.practice.steps.map((s, i) => `<h3>第 ${i + 1} 步</h3>${list(s.actions)}${paragraph(s.check)}`).join("")}<h2>常见问题</h2>${a.practice.pitfalls.map((x) => `<h3>${e(x.problem)}</h3>${paragraph(x.solution)}`).join("")}<h2>交付成果</h2>${list(a.practice.deliverables)}` : ""}${a.video ? `<h2>教程视频</h2>${paragraph(a.video.publisher + " · " + a.video.language)}${paragraph(a.video.audience)}${link(a.video.url, "前往原站观看视频")}` : ""}${a.sources?.length ? `<h2>资料来源</h2>${cards(a.sources.map((s) => ({ url: s.url, title: s.title })))}` : ""}`;
+    return `<h1>${e(a.title)}</h1>${paragraph(a.summary)}${tutorialLinks.some(t=>t.slug===a.slug)?`<figure><img src="/tutorials/${e(a.slug)}.png" alt="${e(a.title)}：本站操作界面" width="1100" height="760" style="max-width:100%;height:auto"><figcaption>本站操作界面（2026年9月）</figcaption></figure>`:""}${sections(a.sections)}<h2>配套工具与教程</h2>${cards(tutorialLinks.filter(t=>t.slug===a.slug).map(t=>({url:t.url,title:"打开配套工具"})))}${cards(tutorialLinks.filter(t=>t.slug!==a.slug && d.knowledge.some(a=>a.slug===t.slug)).map(t=>({url:"/learn/"+t.slug,title:t.title})))}${a.practice ? `<h2>动手实践</h2>${paragraph(a.practice.result)}${list(a.practice.preparation)}${a.practice.steps.map((s, i) => `<h3>第 ${i + 1} 步</h3>${list(s.actions)}${paragraph(s.check)}`).join("")}<h2>常见问题</h2>${a.practice.pitfalls.map((x) => `<h3>${e(x.problem)}</h3>${paragraph(x.solution)}`).join("")}<h2>交付成果</h2>${list(a.practice.deliverables)}` : ""}${a.video ? `<h2>教程视频</h2>${paragraph(a.video.publisher + " · " + a.video.language)}${paragraph(a.video.audience)}${link(a.video.url, "前往原站观看视频")}` : ""}${a.sources?.length ? `<h2>资料来源</h2>${cards(a.sources.map((s) => ({ url: s.url, title: s.title })))}` : ""}`;
   const t = route.startsWith("/tools/")
     ? d.resources.find((x) => x.id === slug)
     : undefined;
@@ -106,7 +109,7 @@ export function renderSnapshot(
     description: seo.description,
     ...(route === "/" ? { alternateName: ["AI门道", "AI 门道"] } : {}),
   };
-  const metadata = `<meta name="robots" content="${robots}"><link rel="canonical" href="${e(seo.canonical)}"><meta property="og:title" content="${e(seo.title)}"><meta property="og:description" content="${e(seo.description)}"><meta property="og:url" content="${e(seo.canonical)}"><script type="application/ld+json" id="prerender-schema">${JSON.stringify(structured).replaceAll("<", "\\u003c")}</script>`;
+  const metadata = `<meta name="robots" content="${robots}"><link rel="canonical" href="${e(seo.canonical)}"><meta property="og:title" content="${e(seo.title)}"><meta property="og:description" content="${e(seo.description)}"><meta property="og:url" content="${e(seo.canonical)}"><meta property="og:image" content="${e(seo.image)}"><script type="application/ld+json" id="prerender-schema">${JSON.stringify(structured).replaceAll("<", "\\u003c")}</script>`;
   let content = `<div class="container"><header style="padding:24px 0">${link("/", "AI 门道")} · ${link("/news", "AI 资讯")} · ${link("/learn", "学习中心")} · ${link("/models", "模型与平台")} · ${link("/tools", "工具导航")}</header><main class="prose" style="max-width:900px;margin:24px auto;line-height:1.9;overflow-wrap:anywhere">${pageBody(route, d, news, Number(new URLSearchParams(search).get("page") || 1))}</main><footer style="padding:24px 0">AI 门道 · 看懂 AI，用出门道。 ${link("https://beian.miit.gov.cn/", d.site.icp)}</footer></div>`;
   if (staging) content = content.replace(/href="\/(?!\/)/g, 'href="/staging/');
   return shell
@@ -228,7 +231,7 @@ export class PublicSnapshots {
         "/forum",
       ].includes(p) ||
       p === "/workspace" || p.startsWith("/workspace/") ||
-      p.startsWith("/ai-eyes") ||
+      p.startsWith("/ai-eyes/") ||
       p.startsWith("/admin/") ||
       p.startsWith("/forum/")
     )

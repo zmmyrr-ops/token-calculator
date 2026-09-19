@@ -1,3 +1,4 @@
+import {seoAdminRouter} from "./seo-admin";
 import {LearningCollector,learningAdminRouter} from "./learning-collector";
 import {eyesAdminRouter, initEyes} from "./ai-eyes";
 import { personasRouter } from "./personas";
@@ -196,6 +197,7 @@ export function adminRouter(store: ContentDatabase, baidu?: BaiduService, learni
     res.json({ ok: true });
   });
   router.use(auth);
+  router.use("/seo", (req,res,next)=>{res.locals.adminUsername=session(req)!.username;next();}, seoAdminRouter(store));
   if (learning) router.use("/learning-collector", learningAdminRouter(learning));
   initEyes(store);
   router.use("/ai-eyes", eyesAdminRouter(store));

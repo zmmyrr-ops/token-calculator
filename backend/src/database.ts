@@ -183,6 +183,7 @@ export class ContentDatabase {
     const knowledge = values("knowledge") as Content["knowledge"];
     return {
       ...base,
+      seoOverrides: this.meta<Content["seoOverrides"]>("seoOverrides") || {},
       catalog: {
         ...base.catalog,
         version:

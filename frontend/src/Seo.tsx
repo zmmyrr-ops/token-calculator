@@ -8,7 +8,7 @@ export default function Seo() {
     location = useLocation();
   const seo = resolveSeo(location.pathname, location.search, data);
   useEffect(() => {
-    const eyes = location.pathname.startsWith("/ai-eyes");
+    const eyes = location.pathname.replace(/\/+$/, "").startsWith("/ai-eyes/");
     let referrer = document.head.querySelector<HTMLMetaElement>(
       'meta[name="referrer"]',
     );
@@ -48,6 +48,8 @@ export default function Seo() {
     meta("og:title", seo.title, true);
     meta("og:description", seo.description, true);
     meta("og:url", seo.canonical, true);
+    meta("og:image", seo.image, true);
+    meta("twitter:image", seo.image);
     meta("og:type", seo.article ? "article" : "website", true);
     meta("og:site_name", "AI 门道", true);
     meta("og:locale", "zh_CN", true);
@@ -84,6 +86,7 @@ export default function Seo() {
     seo.canonical,
     seo.robots,
     seo.article,
+    seo.image,
   ]);
   return null;
 }

@@ -9,6 +9,7 @@ export const publicPages: Record<
     description:
       "看懂 AI，用出门道。面向独立创作者，了解大模型与工具，学习游戏、3D、视频创作方法，计算词元与素材预算。",
   },
+  "/ai-eyes": {title:"AI眼里的你怎么测？豆包、DeepSeek、Codex 使用指南",description:"用豆包或DeepSeek统计AI使用习惯，或选择Codex本机分析，生成自己的趣味画像与插画封面。查看步骤、数据范围与常见问题。"},
   "/personas": { title: "AI 人格合集｜说话风格提示词与 Codex Skill", description: "选择原创 AI 人格，调节语气强度，复制临时对话提示词，下载 Codex Skill 与长期默认配置，阅读安装及恢复教程。" },
   "/forum": {
     title: "社区论坛｜AI 创作与工具讨论",
@@ -183,7 +184,8 @@ export function resolveSeo(pathname: string, search: string, data: Content) {
   if (paginated && !invalidPage && pageNumber > 1)
     canonical += "?page=" + pageNumber;
   const noindex = !known || excluded || invalidPage || filtered;
-  const title = page?.title || "页面未找到";
+  const custom = known && !excluded ? data.seoOverrides?.[path] : undefined;
+  const title = custom?.title || page?.title || "页面未找到";
   return {
     title:
       (title.includes("AI 门道") ? title : title + " - AI 门道") +
@@ -191,7 +193,8 @@ export function resolveSeo(pathname: string, search: string, data: Content) {
         ? " · 第 " + pageNumber + " 页"
         : ""),
     description:
-      page?.description || "该页面不存在，请返回 AI 门道浏览其他内容。",
+      custom?.description || page?.description || "该页面不存在，请返回 AI 门道浏览其他内容。",
+    image: new URL(custom?.image || "/brand/ai-door-v5.png", data.site.url).href,
     canonical,
     robots: noindex ? "noindex, follow" : "index, follow",
     article,

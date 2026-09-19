@@ -106,13 +106,13 @@ export function baiduCandidates(store: ContentDatabase) {
               : undefined;
       return {
         url: origin + p,
-        fingerprint: hash(
+        fingerprint: hash({ seo: resolveSeo(p, "", data), content:
           entity || {
             p,
             version: data.catalog.version,
             recent: ["/", "/news"].includes(p) ? recent : undefined,
           },
-        ),
+        }),
       };
     });
 }

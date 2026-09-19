@@ -1,3 +1,4 @@
+import {seedSeoTutorials} from "./seo-tutorials";
 import {pruneMiniEyes} from "./mini-eyes";
 import { LearningCollector } from "./learning-collector";
 import { eyesPages } from "./ai-eyes-pages";
@@ -47,6 +48,7 @@ store.seed({
   coverage,
 });
 expandContent(store);
+seedSeoTutorials(store);
 await initializeAdmin(store);
 initCommunity(store);
 initPersonas(store);
@@ -95,6 +97,7 @@ app.get("/api/v1/bootstrap", (req, res) => {
       : [];
   res.json({
     ...data,
+    seoOverrides: data.seoOverrides?.[path] ? {[path]:data.seoOverrides[path]} : {},
     catalog: { ...data.catalog, models },
     modelCount: all.length,
     vendors: [

@@ -1,3 +1,4 @@
+import SeoAdmin from "./admin/SeoAdmin";
 import Workspace, { PromptPage, ProjectPage, TaskPacks } from "./workspace/Workspace";
 const AiEyes = lazy(() => import("./ai-eyes/AiEyes"));
 import EyesAdmin from "./ai-eyes/Admin";
@@ -160,7 +161,7 @@ function App() {
 }
 function Entry() {
   const { pathname } = useLocation();
-  return pathname === "/admin/ai-eyes" ? (
+  return pathname === "/admin/seo" ? <SeoAdmin /> : pathname === "/admin/ai-eyes" ? (
     <EyesAdmin />
   ) : pathname === "/admin/personas" ? (
     <PersonasAdmin />

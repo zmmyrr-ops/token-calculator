@@ -1,3 +1,4 @@
+import FeatureGuide from "../components/FeatureGuide";
 import { MobileEyes } from "./MobileEyes";
 import { CloudSaveButton } from "../workspace/Workspace";
 import { useEffect, useState } from "react";
@@ -583,6 +584,7 @@ export default function AiEyes() {
       ) : (
         <>
           <>
+            <a href="#eyes-usage-guide" className="eyes-label">使用步骤与常见问题 ↓</a>
             <header className="eyes-hero eyes-entry-hero">
               <div>
                 <span className="eyes-label">
@@ -691,6 +693,7 @@ export default function AiEyes() {
             </p>
           </details>
             </div>
+            <div id="eyes-usage-guide"><FeatureGuide path="/ai-eyes" /></div>
           </>
         </>
       )}

@@ -1,3 +1,4 @@
+import FeatureGuide from "@/components/FeatureGuide";
 import { CloudSaveButton } from "./workspace/Workspace";
 import { useEffect, useState } from "react";
 import { useSearchParams } from "react-router-dom";
@@ -563,6 +564,7 @@ export default function Personas() {
           </a>
         </p>
       </section>
+      <FeatureGuide path="/personas" />
     </div>
   );
 }

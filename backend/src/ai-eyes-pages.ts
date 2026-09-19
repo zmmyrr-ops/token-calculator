@@ -15,7 +15,7 @@ export function eyesPages(store: ContentDatabase) {
   const r = Router();
   r.use((req, res, next) => {
     const route = req.path.replace(/^\/staging/, "");
-    if (!/^\/ai-eyes(?:\/|$)/.test(route)) return next();
+    if (!/^\/ai-eyes(?:\/|$)/.test(route) || route.replace(/\/+$/, "") === "/ai-eyes") return next();
     const staging = process.env.APP_ENV === "staging";
     const shell = readFileSync(
       process.env.FRONTEND_SHELL ||

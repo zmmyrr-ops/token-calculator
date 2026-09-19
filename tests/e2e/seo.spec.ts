@@ -47,3 +47,16 @@ test("SEO metadata updates across routes and page links remain crawlable", async
     "noindex, follow",
   );
 });
+
+
+test("portrait landing has public HTML while personal results stay private",async({page,request})=>{
+ const landing=await request.get('/ai-eyes');const html=await landing.text();
+ expect(landing.headers()['x-robots-tag']||'').not.toContain('noindex');
+ expect(html).toContain('<h1>AI眼里的你');expect(html).toContain('/learn/ai-portrait-mobile-guide');
+ expect(html).toContain('content="index, follow"');
+ const privatePage=await request.get('/ai-eyes/claim');expect(privatePage.headers()['x-robots-tag']).toContain('noindex');
+ await page.goto('/ai-eyes');await expect(page.locator('meta[name="robots"]')).toHaveAttribute('content','index, follow');
+ await expect(page.getByRole('link',{name:'查看完整教程 →'})).toBeVisible();
+ await page.getByRole('link',{name:'查看完整教程 →'}).click();await expect(page.getByRole('heading',{level:1})).toContainText('AI眼里的你怎么测');
+ await expect(page.getByRole('link',{name:'打开配套工具 →'})).toBeVisible();
+});

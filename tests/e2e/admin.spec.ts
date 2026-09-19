@@ -235,6 +235,17 @@ test("isolated admin: change password, save, publish and download backup", async
     await page.getByRole("button", {name:"立即采集",exact:true}).click();
     await expect(page.getByText(/上次开始：/)).toBeVisible();
     await page.getByRole("button", {name:"内容管理",exact:true}).click();
+    await page.getByRole("link", {name:"SEO 管理",exact:true}).click();
+    await page.getByLabel("查找SEO页面").fill("/ai-eyes");
+    await page.locator(".admin-items button").first().click();
+    await page.getByLabel("搜索标题",{exact:true}).fill("画像使用教程·隔离验证");
+    await page.getByLabel("搜索摘要",{exact:true}).fill("豆包与DeepSeek的完整操作步骤");
+    await page.getByRole("button",{name:"保存并发布SEO"}).click();
+    await expect(page.getByRole("status")).toContainText("已发布");
+    expect(db.publicContent().seoOverrides?.["/ai-eyes"].title).toBe("画像使用教程·隔离验证");
+    expect(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth)).toBe(true);
+    await page.screenshot({path:`test-results/seo-admin-${test.info().project.name}.png`});
+    await page.getByRole("link",{name:"← 管理后台",exact:true}).click();
     await page.screenshot({
       path: `docs/screenshots/admin-${test.info().project.name}.png`,
     });
