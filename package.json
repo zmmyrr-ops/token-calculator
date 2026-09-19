@@ -16,7 +16,7 @@
     "catalog:sync": "node scripts/sync-catalog.mjs",
     "catalog:check": "tsx scripts/validate-catalog.ts",
     "assets": "node scripts/copy-tokenizers.mjs",
-    "check": "npm run typecheck && npm run lint && npm test && npm run catalog:check && npm run mini:check && npm run mini:personal",
+    "check": "npm run typecheck && npm run lint && npm test && npm run catalog:check && npm run mini:check",
     "dev:frontend": "npm run dev -w frontend",
     "dev:backend": "npm run dev -w backend",
     "news:sync": "tsx backend/src/sync-news.ts",
@@ -25,7 +25,6 @@
     "mini:check": "npm run mini:build && node scripts/check-miniprogram.mjs",
     "mini:preview": "node scripts/mini-preview.mjs",
     "mini:test": "npm run build -w backend && node scripts/test-miniprogram.mjs",
-    "mini:personal": "npm run mini:build && node scripts/build-mini-personal.mjs && node scripts/check-miniprogram.mjs miniprogram-personal",
     "eyes:bundle": "node scripts/build-ai-eyes-tool.mjs",
     "learning:sync": "tsx backend/src/sync-learning.ts"
   },
