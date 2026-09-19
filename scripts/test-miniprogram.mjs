@@ -6,6 +6,7 @@ import { mkdir, cp, writeFile, readFile } from "node:fs/promises";
 import { randomUUID, randomBytes } from "node:crypto";
 import path from "node:path";
 import assert from "node:assert/strict";
+const eyesOnly = process.argv.includes("--eyes-only");
 const canonicalProject = path.resolve("miniprogram");
 const cliPath = process.env.WECHAT_CLI ||
   "/Applications/wechatwebdevtools.app/Contents/MacOS/cli";
@@ -113,7 +114,9 @@ try {
     await home.waitFor(200);
     return home.$("#active-panel");
   }
-  let p = await ready(await homeTab("learn"));
+  let p;
+  if (!eyesOnly) {
+  p = await ready(await homeTab("learn"));
   assert.ok((await p.data("items")).length > 0);
   const article = (await p.data("items"))[0];
   const before = (await p.data("items")).length;
@@ -156,6 +159,7 @@ try {
   assert.ok(await p.data("result"));
   await mini.screenshot({ path: path.join(dir, "calculator.png") });
   console.log("PASS: tool/model detail and budget");
+  }
   // A real session in the isolated test DB exercises profile/forum UI; live WeChat exchange has separate tests.
   const registration = await fetch(origin + "/api/mini/community/register", {
     method: "POST",
@@ -184,18 +188,20 @@ try {
   );
   p = await mini.redirectTo("/pages/ai-eyes/index");
   await waitFor(async () => !(await p.data("loading")));
-  assert.ok(await p.data("user"));
+  assert.ok(await p.data("user"), JSON.stringify({error:await p.data("error"),exceptions:errors}));
   assert.ok(!(await p.data("prompt")).includes("one_line_ceo"));
   await p.setData({raw:JSON.stringify({format:"AI_EYES_BEHAVIOR_2",basis:"questions",sample_count:5,keywords:[{keyword:"简短指令",count:5},{keyword:"委托决策",count:1}]}),agreed:true});
-  await p.callMethod("submit");
+  await (await p.$("#generate-portrait")).tap();
+  await waitFor(async () => !!(await p.data("result")) || !!(await p.data("submitError")));
   await waitFor(async () => !(await p.data("busy")));
-  assert.equal(await p.data("error"), "");
+  assert.equal(await p.data("submitError"), "");
   assert.equal((await p.data("result")).persona.id,"one_line_ceo");
   await mini.screenshot({path:path.join(dir,"ai-eyes.png")});
   p = await mini.redirectTo("/pages/ai-eyes/index");
   await waitFor(async () => !(await p.data("loading")));
   assert.equal((await p.data("result")).persona.id,"one_line_ceo");
   console.log("PASS: mini AI behavior import, server classification and saved private result");
+  if (!eyesOnly) {
   p = await mini.redirectTo("/pages/compose/index");
   await p.setData({
     title: "小程序自动化集成测试",
@@ -268,6 +274,7 @@ try {
   await mini.navigateTo("/pages/about/index");
   assert.equal(errors.length, 0, JSON.stringify(errors));
   console.log("PASS: logout, about, no runtime exceptions");
+  }
   console.log("Screenshots: " + dir);
 } finally {
   try {

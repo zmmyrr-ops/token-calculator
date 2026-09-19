@@ -56,7 +56,8 @@ export function parseMobileResult(raw: string) {
     .replace(/^```(?:json)?\s*/i, "")
     .replace(/\s*```$/, "");
   try {
-    return mobileResultSchema.parse(JSON.parse(text));
+    // WeChat may expose Function but prevent generated validators from executing.
+    return mobileResultSchema.parse(JSON.parse(text), { jitless: true });
   } catch {
     throw Error(
       "行为统计格式不正确或样本不足。请使用新版指令，复制完整JSON；至少3条有效消息（问答至少5条）、2个不重复关键词，次数不得超过样本数。",

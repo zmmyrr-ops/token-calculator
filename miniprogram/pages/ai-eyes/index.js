@@ -15,6 +15,7 @@ Page({
     user: null,
     result: null,
     error: "",
+    submitError: "",
     promptOpen: false,
     prompt: mobilePrompt("conversation"),
   },
@@ -62,10 +63,10 @@ Page({
     });
   },
   raw(e) {
-    this.setData({ raw: e.detail.value, agreed: false, error: "" });
+    this.setData({ raw: e.detail.value, agreed: false, error: "", submitError: "" });
   },
   agree(e) {
-    this.setData({ agreed: e.detail.value.includes("yes") });
+    this.setData({ agreed: e.detail.value.includes("yes"), submitError: "" });
   },
   copy() {
     api.copy(this.data.prompt);
@@ -73,17 +74,29 @@ Page({
   prompt() {
     this.setData({ promptOpen: !this.data.promptOpen });
   },
+  submitFailure(message) {
+    this.setData({ submitError: message });
+    wx.showModal({ title: "暂时无法生成", content: message, showCancel: false });
+  },
   async submit() {
     if (this.data.busy) return;
+    if (this.data.loading) {
+      this.submitFailure("正在确认登录状态，请稍后再试。");
+      return;
+    }
     if (!this.data.user) {
       this.login();
       return;
     }
-    if (!this.data.agreed) {
-      this.setData({ error: "请先确认只提交行为统计" });
+    if (!this.data.raw.trim()) {
+      this.submitFailure("请先把豆包或 DeepSeek 返回的完整 JSON 粘贴到上方输入框。");
       return;
     }
-    this.setData({ busy: true, error: "" });
+    if (!this.data.agreed) {
+      this.submitFailure("请先勾选上方的确认框，同意只提交行为关键词与次数。");
+      return;
+    }
+    this.setData({ busy: true, error: "", submitError: "" });
     try {
       const result = parseMobileResult(this.data.raw);
       const r = await api.request(
@@ -95,11 +108,13 @@ Page({
         },
         "POST",
       );
+      if (!r.result || !r.result.persona) throw Error("未收到完整画像，请稍后重试。");
       this.showResult(r.result);
       this.setData({ raw: "", agreed: false });
       wx.pageScrollTo({ scrollTop: 0 });
     } catch (e) {
-      this.setData({ error: e.message });
+      if (!api.token()) this.setData({ user: null });
+      this.submitFailure(e.message || "生成失败，请稍后重试。");
     } finally {
       this.setData({ busy: false });
     }

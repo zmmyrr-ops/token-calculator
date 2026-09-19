@@ -1,13 +1,16 @@
 import { readFileSync } from "node:fs";
 import vm from "node:vm";
 import { it, expect } from "vitest";
-import * as protocol from "../../shared/ai-eyes-mobile";
+const bundleModule = { exports: {} };
+vm.runInNewContext(readFileSync("miniprogram/utils/eyes-protocol.js", "utf8"), { module: bundleModule, Function: function DisabledWechatFunction() { return () => undefined; } });
+const protocol = bundleModule.exports;
 type PageController = {
   data: {
     raw: string;
     agreed: boolean;
     busy: boolean;
     error: string;
+    submitError: string;
     user: unknown;
     result: unknown;
     platform: number;
@@ -22,6 +25,8 @@ type PageController = {
 };
 it("mini page preserves pasted statistics across login refresh and sends only validated consented data", async () => {
   let definition: PageController;
+  const modals: { content: string }[] = [];
+  let postError = "";
   const calls: { path: string; method: string; data: unknown }[] = [];
   const portrait = {
     persona: { id: "one_line_ceo" },
@@ -34,6 +39,7 @@ it("mini page preserves pasted statistics across login refresh and sends only va
     absolute: (s: string) => "https://example.test" + s,
     request: async (path: string, data: unknown, method = "GET") => {
       calls.push({ path, data, method });
+      if (method === "POST" && postError) throw Error(postError);
       return path.endsWith("/session")
         ? { user: { id: "u" } }
         : { result: method === "POST" ? portrait : null };
@@ -44,7 +50,7 @@ it("mini page preserves pasted statistics across login refresh and sends only va
     {
       Page: (p: PageController) => (definition = p),
       require: (id: string) => (id.endsWith("/api") ? api : protocol),
-      wx: { pageScrollTo: () => {} },
+      wx: { pageScrollTo: () => {}, showModal: (d: {content:string}) => modals.push(d) },
       Promise,
       Error,
       Number,
@@ -70,9 +76,29 @@ it("mini page preserves pasted statistics across login refresh and sends only va
   expect(page.data.raw).toContain("sample_count");
   await page.submit();
   expect(calls.some((c) => c.method === "POST")).toBe(false);
+  expect(modals.at(-1)?.content).toContain("勾选");
+  expect(page.data.submitError).toContain("勾选");
+  const valid = page.data.raw;
+  page.data.raw = "";
+  await page.submit();
+  expect(modals.at(-1)?.content).toContain("粘贴");
+  page.data.raw = "not json";
   page.data.agreed = true;
   await page.submit();
-  expect(calls.filter((c) => c.method === "POST")).toHaveLength(1);
+  expect(page.data.submitError).toContain("格式不正确");
+  expect(page.data.busy).toBe(false);
+  expect(calls.some(c => c.method === "POST")).toBe(false);
+  page.data.raw = valid;
+  postError = "网络连接失败";
+  await page.submit();
+  expect(page.data.submitError).toBe(postError);
+  expect(modals.at(-1)?.content).toBe(postError);
+  expect(page.data.raw).toBe(valid);
+  expect(page.data.busy).toBe(false);
+  postError = "";
+  await page.submit();
+  expect(calls.filter((c) => c.method === "POST")).toHaveLength(2);
+  expect(page.data.submitError).toBe("");
   expect(page.data.raw).toBe("");
   expect(page.data.busy).toBe(false);
   expect(page.data.result).toMatchObject({

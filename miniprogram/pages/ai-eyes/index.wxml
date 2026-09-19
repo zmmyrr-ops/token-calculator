@@ -72,11 +72,12 @@
     ><button
       wx:else
       bindtap="submit"
-      disabled="{{busy || !agreed || !raw || loading}}"
+      id="generate-portrait"
+      disabled="{{busy}}"
       loading="{{busy}}"
     >
-      生成我的画像</button
-    ><view class="muted"
+      {{busy ? '正在生成画像…' : '生成我的画像'}}</button
+    ><view wx:if="{{submitError}}" class="notice">{{submitError}}</view><view class="muted"
       >第三方 AI 只统计行为，本站负责匹配结果；不会调用付费模型接口。</view
     ></view
   >
