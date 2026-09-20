@@ -1,4 +1,4 @@
-<view class="page eyes-mini">
+<view wx:if="{{enabled}}" class="page eyes-mini">
   <view class="hero"
     ><view class="eyebrow">AI PORTRAIT</view
     ><view class="title">AI 眼里的你</view

@@ -2,7 +2,7 @@ const api = require("./utils/api");
 App({
   globalData: {
     name: "AI 门道",
-    modules: { news: false, forum: false, models: false, platforms: false },
+    modules: { news: false, forum: false, models: false, platforms: false, eyes: false },
     settingsReady: false,
   },
   onLaunch() {
@@ -29,6 +29,7 @@ App({
     const route = page.route;
     const modules = this.globalData.modules;
     if (
+      (!modules.eyes && route === "pages/ai-eyes/index") ||
       ((!modules.models && page.data.kind === "models") ||
        (!modules.platforms && page.data.kind === "tools")) ||
       (!modules.news &&
@@ -52,6 +53,7 @@ App({
           forum: data.forum === true,
           models: data.models === true,
           platforms: data.platforms === true,
+          eyes: data.eyes === true,
         };
         this.globalData.settingsReady = true;
         this._listeners.forEach((fn) => fn(this.globalData.modules));

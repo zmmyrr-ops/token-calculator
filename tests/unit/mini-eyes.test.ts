@@ -97,7 +97,14 @@ it("mini portrait requires native session and consent, stores only own latest re
       (await call("/web/eyes", "POST", input, token, "https://ruming.top"))
         .status,
     ).toBe(404);
-    await call("/mini/eyes", "DELETE", undefined, token);
+    db.setMeta("miniModules", { minimalMode: true });
+    expect((await call("/mini/eyes", "GET", undefined, token)).status).toBe(403);
+    expect((await call("/mini/eyes", "POST", input, token)).status).toBe(403);
+    expect(db.db.prepare("SELECT count(*) n FROM mini_eyes_results").get()?.n).toBe(1);
+    expect((await call("/mini/eyes", "DELETE", undefined, token)).status).toBe(200);
+    db.setMeta("miniModules", { minimalMode: false, eyes: false });
+    expect((await call("/mini/eyes", "POST", input, token)).status).toBe(403);
+    db.setMeta("miniModules", { minimalMode: false, eyes: true });
     expect(
       (await (await call("/mini/eyes", "GET", undefined, token)).json()).result,
     ).toBeNull();

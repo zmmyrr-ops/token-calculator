@@ -1,4 +1,5 @@
 import { Router, type Request } from "express";
+import { requireMiniModule } from "./mini-settings";
 import { z } from "zod";
 import { ContentDatabase, CmsError } from "./database";
 import { mobileResultSchema } from "../../shared/ai-eyes-mobile";
@@ -26,6 +27,7 @@ export function miniEyesRouter(
   const r = Router();
   r.use((req, res, next) => {
     res.set("Cache-Control", "no-store");
+    if (req.method !== "DELETE") requireMiniModule(store, "eyes");
     res.locals.userId = auth(req).id;
     store.db
       .prepare("DELETE FROM mini_eyes_results WHERE expires<=?")

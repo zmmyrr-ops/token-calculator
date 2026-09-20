@@ -244,10 +244,10 @@ it("minimal mode consistently closes browsing modules while preserving configure
   const db = new ContentDatabase(":memory:");
   try {
     db.setMeta("miniModules", { news: true, forum: true, models: true, platforms: true, minimalMode: true });
-    expect(miniSettings(db)).toMatchObject({ news: false, forum: false, models: false, platforms: false });
-    for (const key of ["news", "forum", "models", "platforms"] as const)
+    expect(miniSettings(db)).toMatchObject({ news: false, forum: false, models: false, platforms: false, eyes: false });
+    for (const key of ["news", "forum", "models", "platforms", "eyes"] as const)
       expect(() => requireMiniModule(db, key)).toThrow("暂未开放");
     db.setMeta("miniModules", { news: true, forum: true, models: true, platforms: true, minimalMode: false });
-    expect(miniSettings(db)).toMatchObject({ news: true, forum: true, models: true, platforms: true });
+    expect(miniSettings(db)).toMatchObject({ news: true, forum: true, models: true, platforms: true, eyes: true });
   } finally { db.close(); }
 });

@@ -5,6 +5,7 @@ const {
 } = require("../../utils/eyes-protocol");
 Page({
   data: {
+    enabled: false,
     platforms: ["豆包", "DeepSeek", "其他 AI"],
     platform: 0,
     mode: 0,
@@ -19,7 +20,17 @@ Page({
     promptOpen: false,
     prompt: mobilePrompt("conversation"),
   },
+  onLoad() {
+    this._unwatch = getApp().watchSettings((m) => this.setData({ enabled: m.eyes === true }));
+  },
+  onUnload() { if (this._unwatch) this._unwatch(); },
   async onShow() {
+    const modules = await getApp().refreshSettings();
+    this.setData({ enabled: modules.eyes === true });
+    if (!modules.eyes) {
+      getApp().enforceModules();
+      return;
+    }
     this.setData({ loading: true, result: null, user: null, error: "" });
     try {
       if (api.token()) {
@@ -79,7 +90,7 @@ Page({
     wx.showModal({ title: "暂时无法生成", content: message, showCancel: false });
   },
   async submit() {
-    if (this.data.busy) return;
+    if (!this.data.enabled || this.data.busy) return;
     if (this.data.loading) {
       this.submitFailure("正在确认登录状态，请稍后再试。");
       return;

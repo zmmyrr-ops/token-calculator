@@ -6,6 +6,7 @@ vm.runInNewContext(readFileSync("miniprogram/utils/eyes-protocol.js", "utf8"), {
 const protocol = bundleModule.exports;
 type PageController = {
   data: {
+    enabled: boolean;
     raw: string;
     agreed: boolean;
     busy: boolean;
@@ -27,6 +28,8 @@ it("mini page preserves pasted statistics across login refresh and sends only va
   let definition: PageController;
   const modals: { content: string }[] = [];
   let postError = "";
+  let enabled = true;
+  let redirected = false;
   const calls: { path: string; method: string; data: unknown }[] = [];
   const portrait = {
     persona: { id: "one_line_ceo" },
@@ -48,6 +51,7 @@ it("mini page preserves pasted statistics across login refresh and sends only va
   vm.runInNewContext(
     readFileSync("miniprogram/pages/ai-eyes/index.js", "utf8"),
     {
+      getApp: () => ({ refreshSettings: async () => ({ eyes: enabled }), enforceModules: () => { redirected = true; } }),
       Page: (p: PageController) => (definition = p),
       require: (id: string) => (id.endsWith("/api") ? api : protocol),
       wx: { pageScrollTo: () => {}, showModal: (d: {content:string}) => modals.push(d) },
@@ -106,4 +110,11 @@ it("mini page preserves pasted statistics across login refresh and sends only va
     cover: "https://example.test/cover.png",
   });
   expect(page.data.prompt).not.toContain("one_line_ceo");
+  enabled = false;
+  calls.length = 0;
+  await page.onShow();
+  await page.submit();
+  expect(redirected).toBe(true);
+  expect(page.data.enabled).toBe(false);
+  expect(calls).toHaveLength(0);
 });

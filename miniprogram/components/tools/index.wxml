@@ -16,7 +16,7 @@
     ><view class="tag">03 / BUDGET</view
     ><view class="card-title">Token 费用预算 →</view
     ><view class="muted">输入用量，按公开渠道价格估算费用。</view></view
-  ><view class="card" style="margin-top:24rpx" bindtap="eyes"><view class="tag">AI PORTRAIT</view><view class="card-title">AI 眼里的你 →</view><view class="muted">用豆包 / DeepSeek，发现你的 AI 使用人格。</view></view><view class="notice"
+  ><view wx:if="{{eyesEnabled}}" class="card" style="margin-top:24rpx" bindtap="eyes"><view class="tag">AI PORTRAIT</view><view class="card-title">AI 眼里的你 →</view><view class="muted">用豆包 / DeepSeek，发现你的 AI 使用人格。</view></view><view class="notice"
     >长文本精确分词、文件分析与完整对比，请在网页版词元计算器使用。</view
   ><button bindtap="copy">复制网页版计算器链接</button></view
 >
