@@ -13,7 +13,7 @@ export default function Article({ params }: { params: { slug: string } }) {
   if (!entry) return <NotFound />;
   return (
     <article className="prose portal-article">
-      <Link href="/learn">知识库</Link>
+      <Link href="/learn">学习中心</Link>
       <span> / {entry.category}</span>
       <div className="eyebrow" style={{ marginTop: 32 }}>
         {entry.category} · {entry.curation?.publisher || "编辑整理"}
@@ -86,13 +86,51 @@ export default function Article({ params }: { params: { slug: string } }) {
           </figcaption>
         </figure>
       )}
-      {entry.workshop && <section className="workshop-materials">
-        {entry.workshop.image && <figure className="workshop-preview"><img src={appPath(entry.workshop.image)} alt={entry.title+"：示例运行画面"} loading="lazy"/><figcaption>示例运行画面，几何图形均由代码绘制。</figcaption></figure>}
-        <h2>开始前准备</h2><p>{entry.workshop.version} · {entry.workshop.duration}</p>
-        <div className="action-row"><a className="button primary" href={appPath(entry.workshop.download)} download>下载完整源码与中文说明</a>{entry.workshop.demo && <a className="button" href={appPath(entry.workshop.demo)} target="_blank" rel="noreferrer">打开成品试玩 ↗</a>}</div>
-        <p className="micro">{entry.workshop.verification}</p>
-        <nav className="practice-toc" aria-label="实战章节">{entry.sections.map((s,i)=><a key={s.title} href={"#stage-"+(i+1)}>{s.title}</a>)}</nav>
-      </section>}
+      {entry.workshop && (
+        <section className="workshop-materials">
+          {entry.workshop.image && (
+            <figure className="workshop-preview">
+              <img
+                src={appPath(entry.workshop.image)}
+                alt={entry.title + "：示例运行画面"}
+                loading="lazy"
+              />
+              <figcaption>示例运行画面，几何图形均由代码绘制。</figcaption>
+            </figure>
+          )}
+          <h2>开始前准备</h2>
+          <p>
+            {entry.workshop.version} · {entry.workshop.duration}
+          </p>
+          <div className="action-row">
+            <a
+              className="button primary"
+              href={appPath(entry.workshop.download)}
+              download
+            >
+              下载完整源码与中文说明
+            </a>
+            {entry.workshop.demo && (
+              <a
+                className="button"
+                href={appPath(entry.workshop.demo)}
+                target="_blank"
+                rel="noreferrer"
+              >
+                打开成品试玩 ↗
+              </a>
+            )}
+          </div>
+          <p className="micro">{entry.workshop.verification}</p>
+          <nav className="practice-toc" aria-label="实战章节">
+            {entry.sections.map((s, i) => (
+              <a key={s.title} href={"#stage-" + (i + 1)}>
+                {s.title}
+              </a>
+            ))}
+          </nav>
+        </section>
+      )}
       {entry.practice && (
         <>
           <PracticeBrief practice={entry.practice} />
@@ -105,6 +143,18 @@ export default function Article({ params }: { params: { slug: string } }) {
           </nav>
         </>
       )}
+      {!entry.practice &&
+        !entry.workshop &&
+        !entry.curation &&
+        !entry.video && (
+          <nav className="practice-toc" aria-label="文章目录">
+            {entry.sections.map((s, i) => (
+              <a key={s.title} href={"#stage-" + (i + 1)}>
+                {s.title}
+              </a>
+            ))}
+          </nav>
+        )}
       {entry.sections.map((s, i) => (
         <section
           key={s.title}
@@ -112,26 +162,29 @@ export default function Article({ params }: { params: { slug: string } }) {
           className="practice-stage"
         >
           <h2>{s.title}</h2>
-          <p style={{whiteSpace:"pre-line"}}>{s.body}</p>
-          {s.code && <TutorialCode code={s.code} language={s.language}/>}
-          {entry.practice?.steps[i] && (
-            <>
-              <h3>动手操作</h3>
-              <ol>
-                {entry.practice.steps[i].actions.map((x) => (
-                  <li key={x}>{x}</li>
-                ))}
-              </ol>
-              <div className="practice-check">
-                <strong>本阶段验收</strong>
-                <p>{entry.practice.steps[i].check}</p>
-              </div>
-            </>
-          )}
+          <p style={{ whiteSpace: "pre-line" }}>{s.body}</p>
+          {s.code && <TutorialCode code={s.code} language={s.language} />}
         </section>
       ))}
       {entry.practice && (
         <>
+          <section className="practice-stage">
+            <h2>配套实践清单</h2>
+            {entry.practice.steps.map((step, i) => (
+              <section key={i}>
+                <h3>第 {i + 1} 步</h3>
+                <ol>
+                  {step.actions.map((action) => (
+                    <li key={action}>{action}</li>
+                  ))}
+                </ol>
+                <div className="practice-check">
+                  <strong>本阶段验收</strong>
+                  <p>{step.check}</p>
+                </div>
+              </section>
+            ))}
+          </section>
           <section>
             <h2>常见问题与排查</h2>
             <div className="practice-faq">

@@ -1944,3 +1944,22 @@ h3 {
 .workshop-materials{margin:28px 0;padding:22px;border:1px solid #34515d;border-radius:14px;background:#112633}.tutorial-code{min-width:0;max-width:100%;margin:20px 0;border:1px solid #344657;border-radius:10px;overflow:hidden}.tutorial-code>div{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:10px 16px;background:#1a2b3c;font-size:12px}.tutorial-code button{background:none;color:#9debd5;border:1px solid #507064;border-radius:5px;padding:6px 10px;cursor:pointer}.tutorial-code pre{margin:0;padding:18px;max-height:560px;overflow:auto;white-space:pre;font:13px/1.75 ui-monospace,monospace;background:#09111d;color:#d4e6f1}.tutorial-code code{white-space:pre;overflow-wrap:normal}.workshop-materials .practice-toc{margin-bottom:0}
 
 .workshop-preview{margin:0 0 24px}.workshop-preview img{display:block;max-width:100%;max-height:420px;height:auto;margin:auto;border-radius:8px}.workshop-preview figcaption{font-size:12px;margin-top:10px;color:#99adbf}
+
+/* Learning: compact navigation, substantial reading space. */
+.learning-center .learning-hero { padding: 30px 0 22px; gap: 24px; }
+.learning-center .learning-hero h1 { font-size: clamp(26px, 3.3vw, 38px); }
+.learning-center .learning-hero aside { gap: 9px; padding: 16px 24px; }
+.learning-center .learning-hero aside > svg { display: none; }
+.learning-center .hub-filter { flex-wrap: wrap; gap: 10px; }
+.learning-center .hub-filter input { min-width: 180px; flex: 1 1 240px; }
+.learning-center .hub-filter select { max-width: 100%; min-width: 150px; }
+.learning-center .learning-card .learning-art { height: 54px; min-height: 54px; display: flex; align-items: center; justify-content: space-between; padding: 12px 18px; }
+.learning-center .learning-card .learning-art svg { width: 25px; height: 25px; }
+.learning-center .learning-card .learning-art span { position: static; font-size: 10px; letter-spacing: 1.4px; }
+.learning-center .learning-card .format-curated { background: #142534; }
+@media(max-width: 600px) {
+  .learning-center .learning-hero aside { display: none; }
+  .learning-center .hub-filter select { flex: 1 1 140px; min-width: 0; width: 100%; }
+  .learning-center .learning-tabs { gap: 8px; }
+  .learning-center .learning-tabs .button { padding: 10px 13px; }
+}

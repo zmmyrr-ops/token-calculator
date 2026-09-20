@@ -1,3 +1,4 @@
+import { learningCategory } from "../../shared/learning";
 import { DatabaseSync, backup } from "node:sqlite";
 import { mkdirSync, chmodSync } from "node:fs";
 import path from "node:path";
@@ -180,7 +181,9 @@ export class ContentDatabase {
       rows
         .filter((r) => r.kind === kind)
         .map((r) => JSON.parse(String(r.published)));
-    const knowledge = values("knowledge") as Content["knowledge"];
+    const knowledge = (values("knowledge") as Content["knowledge"]).map(
+      (a) => ({ ...a, category: learningCategory(a.category) }),
+    );
     return {
       ...base,
       seoOverrides: this.meta<Content["seoOverrides"]>("seoOverrides") || {},
@@ -193,7 +196,9 @@ export class ContentDatabase {
       knowledge,
       resources: values("resource"),
       scenarios: values("scenario"),
-      tutorialSlugs: knowledge.filter((a) => a.practice || a.workshop).map((a) => a.slug),
+      tutorialSlugs: knowledge
+        .filter((a) => a.practice || a.workshop)
+        .map((a) => a.slug),
     };
   }
   private audit(

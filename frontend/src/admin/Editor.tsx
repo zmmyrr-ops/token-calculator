@@ -1,3 +1,4 @@
+import { learningCategories, learningCategory } from "@shared/learning";
 import { useState } from "react";
 import type { Kind } from "@shared/cms";
 type Value =
@@ -104,7 +105,7 @@ export function blankEntity(kind: Kind): Record<string, Value> {
     return {
       slug: "",
       title: "",
-      category: "基础知识",
+      category: "入门与选型",
       summary: "",
       keywords: "",
       sections: [{ title: "", body: "" }],
@@ -231,15 +232,34 @@ export function Fields({
   if (value !== null && typeof value === "object")
     return (
       <div className="admin-fields">
-        {Object.entries(value).map(([k, v]) => (
-          <Fields
-            key={k}
-            path={path ? path + "." + k : k}
-            value={v}
-            locked={locked && ["id", "slug"].includes(k) && !path}
-            onChange={(next) => onChange({ ...value, [k]: next })}
-          />
-        ))}
+        {Object.entries(value).map(([k, v]) =>
+          !path &&
+          k === "category" &&
+          "slug" in value &&
+          "sections" in value ? (
+            <label key={k}>
+              分类
+              <select
+                value={learningCategory(String(v))}
+                onChange={(e) =>
+                  onChange({ ...value, category: e.target.value })
+                }
+              >
+                {learningCategories.map((c) => (
+                  <option key={c}>{c}</option>
+                ))}
+              </select>
+            </label>
+          ) : (
+            <Fields
+              key={k}
+              path={path ? path + "." + k : k}
+              value={v}
+              locked={locked && ["id", "slug"].includes(k) && !path}
+              onChange={(next) => onChange({ ...value, [k]: next })}
+            />
+          ),
+        )}
       </div>
     );
   if (typeof value === "boolean")

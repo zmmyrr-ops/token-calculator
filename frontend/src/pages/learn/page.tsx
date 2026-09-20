@@ -1,3 +1,4 @@
+import { learningCategoryFilter } from "@shared/learning";
 import { BookOpen, Play, Layers, Compass, ArrowUpRight } from "lucide-react";
 import { usePage, Pagination } from "@/usePage";
 import { useContent } from "@/content";
@@ -5,10 +6,8 @@ import type { Content } from "@shared/content";
 import Link from "@/Link";
 const tabs = [
   ["", "全部内容"],
-  ["article", "知识文章"],
-  ["curated", "精选分享"],
-  ["practice", "实操教程"],
-  ["video", "视频课程"],
+  ["internal", "站内学习"],
+  ["external", "外部资料"],
   ["scenarios", "应用场景"],
 ];
 type Entry = Content["knowledge"][number] & { format: string };
@@ -19,7 +18,12 @@ export default function Learn({
 }) {
   const format = p.format || "",
     q = p.q || "",
-    category = p.category || "";
+    category = learningCategoryFilter(p.category || "");
+  const selectedTab = ["article", "practice"].includes(format)
+    ? "internal"
+    : ["video", "curated"].includes(format)
+      ? "external"
+      : format;
   const { scenarios } = useContent();
   const { data, page, status } = usePage<Entry>("/api/v1/library/learn", p);
   const entries = data?.items ?? [];
@@ -28,9 +32,9 @@ export default function Learn({
       <header className="learning-hero">
         <div>
           <div className="eyebrow">AI MENDAO / LEARNING LAB</div>
-          <h1>从看懂 AI，到做出作品。</h1>
+          <h1>学会一件事，做出一个成果。</h1>
           <p>
-            知识、实操、视频与应用路线，在一个地方串起来。先选目标，再学方法，最后交付自己的成果。
+            按主题找方法，按步骤做练习。站内文章提供示例与检查方法，外部资料保留来源和原文入口。
           </p>
         </div>
         <aside>
@@ -44,10 +48,22 @@ export default function Learn({
       <nav className="learning-tabs" aria-label="学习中心分类">
         {tabs.map(([id, label]) => (
           <Link
-            className={format === id ? "button primary" : "button"}
-            aria-current={format === id ? "page" : undefined}
+            className={
+              format === id ||
+              (id === "internal" && ["article", "practice"].includes(format)) ||
+              (id === "external" && ["video", "curated"].includes(format))
+                ? "button primary"
+                : "button"
+            }
+            aria-current={selectedTab === id ? "page" : undefined}
             key={id}
-            href={id ? `/learn?format=${id}` : "/learn"}
+            href={
+              "/learn?" +
+              new URLSearchParams({
+                ...(q ? { q } : {}),
+                ...(id ? { format: id } : {}),
+              })
+            }
           >
             {label}
           </Link>
@@ -77,7 +93,15 @@ export default function Learn({
       ) : (
         <>
           <form className="hub-filter" key={format + category + q}>
-            {format && <input type="hidden" name="format" value={format} />}
+            <select name="format" aria-label="内容形式" defaultValue={format}>
+              <option value="">所有形式</option>
+              <option value="internal">全部站内学习</option>
+              <option value="article">知识文章</option>
+              <option value="practice">实操教程</option>
+              <option value="external">全部外部资料</option>
+              <option value="video">视频课程</option>
+              <option value="curated">原文导读</option>
+            </select>
             <input
               name="q"
               defaultValue={q}
@@ -86,11 +110,15 @@ export default function Learn({
               placeholder="搜索目标、问题、课程或工具"
             />
             <select
+              key={category + (data?.categories.join() || "")}
               name="category"
               aria-label="文章分类"
               defaultValue={category}
             >
               <option value="">全部主题</option>
+              {category && !data?.categories.includes(category) && (
+                <option value={category}>{category}（当前形式暂无内容）</option>
+              )}
               {(data?.categories ?? []).map((c) => (
                 <option key={c}>{c}</option>
               ))}
@@ -106,7 +134,7 @@ export default function Learn({
           {status}
           {data && (
             <p className="muted">
-              共 {data.total} 项内容 · 视频前往原发布者页面观看
+              共 {data.total} 项内容 · 原文导读与视频需前往发布者页面阅读或观看
             </p>
           )}
           <div className="resource-grid">
@@ -131,17 +159,27 @@ export default function Learn({
                         ? "VIDEO COURSE"
                         : a.format === "practice"
                           ? "BUILD & CHECK"
-                          : "KNOWLEDGE"}
+                          : a.format === "curated"
+                            ? "SOURCE GUIDE"
+                            : "KNOWLEDGE"}
                     </span>
                   </Link>
                   <small>
-                    {a.category} · {a.curation?.publisher || a.video?.publisher || "编辑整理"}
+                    {a.category} ·{" "}
+                    {a.curation?.publisher || a.video?.publisher || "编辑整理"}
                   </small>
                   <h2>
                     <Link href={`/learn/${a.slug}`}>{a.title}</Link>
                   </h2>
                   <p>{a.summary}</p>
-                  {a.curation && <small>{a.curation.language} · {a.curation.author || "来源订阅"}{a.curation.publishedAt ? " · 原文 " + a.curation.publishedAt.slice(0,10) : ""}</small>}
+                  {a.curation && (
+                    <small>
+                      {a.curation.language} · {a.curation.author || "来源订阅"}
+                      {a.curation.publishedAt
+                        ? " · 原文 " + a.curation.publishedAt.slice(0, 10)
+                        : ""}
+                    </small>
+                  )}
                   {a.video && (
                     <small>
                       {a.video.language} · 核验 {a.video.checkedAt}
@@ -155,7 +193,9 @@ export default function Learn({
                       ? "查看课程与跟做任务"
                       : a.format === "practice"
                         ? "开始实践"
-                        : "阅读方法"}
+                        : a.curation
+                          ? "查看导读与原文"
+                          : "阅读方法"}
                     <ArrowUpRight size={16} />
                   </Link>
                 </article>

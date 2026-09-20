@@ -1,8 +1,18 @@
-import {upgradeGameWorkshops} from "./game-workshops";
-import {expandGameContent} from "./game-expansion";
-import {resourceCategories,resourceCategoryMatches} from "../../shared/resource-categories";
-import {seedSeoTutorials} from "./seo-tutorials";
-import {pruneMiniEyes} from "./mini-eyes";
+import {
+  learningCategories,
+  learningCategoryFilter,
+  learningFormat,
+  learningMatchesFormat,
+} from "../../shared/learning";
+import { upgradeLearningContent } from "./learning-upgrade";
+import { upgradeGameWorkshops } from "./game-workshops";
+import { expandGameContent } from "./game-expansion";
+import {
+  resourceCategories,
+  resourceCategoryMatches,
+} from "../../shared/resource-categories";
+import { seedSeoTutorials } from "./seo-tutorials";
+import { pruneMiniEyes } from "./mini-eyes";
 import { LearningCollector } from "./learning-collector";
 import { eyesPages } from "./ai-eyes-pages";
 import { initEyes, eyesRouter, pruneEyes } from "./ai-eyes";
@@ -54,11 +64,15 @@ expandContent(store);
 seedSeoTutorials(store);
 expandGameContent(store);
 upgradeGameWorkshops(store);
+upgradeLearningContent(store);
 await initializeAdmin(store);
 initCommunity(store);
 initPersonas(store);
 initEyes(store);
-const eyesCleanup = setInterval(() => {pruneEyes(store);pruneMiniEyes(store);}, 3600000);
+const eyesCleanup = setInterval(() => {
+  pruneEyes(store);
+  pruneMiniEyes(store);
+}, 3600000);
 eyesCleanup.unref();
 seedCommunity(store);
 simplifyStarterPresentation(store);
@@ -102,14 +116,18 @@ app.get("/api/v1/bootstrap", (req, res) => {
       : [];
   res.json({
     ...data,
-    seoOverrides: data.seoOverrides?.[path] ? {[path]:data.seoOverrides[path]} : {},
+    seoOverrides: data.seoOverrides?.[path]
+      ? { [path]: data.seoOverrides[path] }
+      : {},
     catalog: { ...data.catalog, models },
     modelCount: all.length,
     vendors: [
       ...new Map(all.map((m) => [m.provider, m.providerName])).entries(),
     ].sort((a, b) => a[1].localeCompare(b[1])),
     knowledge:
-      path.startsWith("/ai-eyes") || path.startsWith("/workspace") || path.startsWith("/task-packs") ||
+      path.startsWith("/ai-eyes") ||
+      path.startsWith("/workspace") ||
+      path.startsWith("/task-packs") ||
       [
         "/models",
         "/tools",
@@ -122,7 +140,9 @@ app.get("/api/v1/bootstrap", (req, res) => {
         ? []
         : data.knowledge,
     resources:
-      path.startsWith("/ai-eyes") || path.startsWith("/workspace") || path.startsWith("/task-packs") ||
+      path.startsWith("/ai-eyes") ||
+      path.startsWith("/workspace") ||
+      path.startsWith("/task-packs") ||
       [
         "/models",
         "/tools",
@@ -273,31 +293,67 @@ app.get(["/api/v1/library/:kind", "/api/v1/mini/tools"], (req, res) => {
           access: t.access,
           icon: t.icon,
           tags: t.tags,
-          search: [t.name,t.summary,t.category,...(t.tags||[]),...t.capabilities].join(" "),
+          search: [
+            t.name,
+            t.summary,
+            t.category,
+            ...(t.tags || []),
+            ...t.capabilities,
+          ].join(" "),
         }))
       : data.knowledge.map((a) => ({
           slug: a.slug,
           title: a.title,
           summary: a.summary,
           category: a.category,
-          search: a.title + a.keywords,
-          format: a.curation ? "curated" : a.video ? "video" : (a.practice || a.workshop) ? "practice" : "article",
+          search: [
+            a.title,
+            a.summary,
+            a.category,
+            a.keywords,
+            ...a.sections.map((s) => s.title + " " + s.body),
+          ].join(" "),
+          format: learningFormat(a),
           video: a.video,
           curation: a.curation,
         }));
+  if (kind === "learn")
+    entries.sort(
+      (a, b) =>
+        ("format" in a && a.format === "curated" ? 1 : 0) -
+        ("format" in b && b.format === "curated" ? 1 : 0),
+    );
   const filtered = entries.filter(
     (a) =>
       (!p.format ||
-        p.format === "scenarios" ||
-        ("format" in a && a.format === p.format)) &&
-      (kind === "tools" ? resourceCategoryMatches(a.category,p.category||"") : (!p.category || a.category === p.category)) &&
-      a.search.toLowerCase().includes((p.q || "").toLowerCase()),
+        ("format" in a && learningMatchesFormat(a.format, p.format))) &&
+      (kind === "tools"
+        ? resourceCategoryMatches(a.category, p.category || "")
+        : !p.category || a.category === learningCategoryFilter(p.category)) &&
+      (p.q || "")
+        .trim()
+        .toLowerCase()
+        .split(/\s+/)
+        .every((word) => a.search.toLowerCase().includes(word)),
   );
   res.json({
     total: filtered.length,
     page,
     pageSize,
-    categories: [...new Set(entries.map((a) => a.category))].sort((a,b)=> kind === "tools" ? (resourceCategories.indexOf(a)<0?99:resourceCategories.indexOf(a))-(resourceCategories.indexOf(b)<0?99:resourceCategories.indexOf(b)) : 0),
+    categories:
+      kind === "learn"
+        ? learningCategories.filter((c) =>
+            entries.some(
+              (a) =>
+                a.category === c &&
+                "format" in a &&
+                learningMatchesFormat(a.format, p.format || ""),
+            ),
+          )
+        : [...new Set(entries.map((a) => a.category))].sort(
+            (a, b) =>
+              resourceCategories.indexOf(a) - resourceCategories.indexOf(b),
+          ),
     items: filtered
       .slice((page - 1) * pageSize, page * pageSize)
       .map(({ search: _search, ...a }) => a),
@@ -423,7 +479,7 @@ const server = app.listen(
   () => {
     console.log("Node.js API listening on " + (process.env.PORT || 4000));
     news.start();
-    if(process.env.LEARNING_SYNC !== "off") learning.start();
+    if (process.env.LEARNING_SYNC !== "off") learning.start();
     baidu.start();
   },
 );

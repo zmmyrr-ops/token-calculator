@@ -1,4 +1,5 @@
-import {resourceCategory} from "./resource-categories";
+import { learningCategory } from "./learning";
+import { resourceCategory } from "./resource-categories";
 import { z } from "zod";
 import { ModelSchema } from "./types";
 export const kinds = ["knowledge", "resource", "scenario", "model"] as const;
@@ -45,18 +46,47 @@ export const practiceSchema = z.object({
   prompt: text,
   toolRoles: z.array(z.object({ id, role: text })).max(100),
 });
-export const curationSchema = z.object({publisher:short,author:short,url:link,publishedAt:z.string().max(40),collectedAt:z.string().max(40),language:short});
+export const curationSchema = z.object({
+  publisher: short,
+  author: short,
+  url: link,
+  publishedAt: z.string().max(40),
+  collectedAt: z.string().max(40),
+  language: short,
+});
 export type Curation = z.infer<typeof curationSchema>;
 export const knowledgeSchema = z.object({
-  workshop: z.object({image:z.string().regex(/^\/workshop-files\/[a-z0-9-]+\.png$/).optional(),version:short,duration:short,verification:text,download:z.string().regex(/^\/workshop-files\/[a-z0-9-]+\.zip$/),demo:z.string().regex(/^\/workshop-files\/[a-z0-9-]+\/index\.html$/).optional()}).optional(),
-  curation:curationSchema.optional(),
+  workshop: z
+    .object({
+      image: z
+        .string()
+        .regex(/^\/workshop-files\/[a-z0-9-]+\.png$/)
+        .optional(),
+      version: short,
+      duration: short,
+      verification: text,
+      download: z.string().regex(/^\/workshop-files\/[a-z0-9-]+\.zip$/),
+      demo: z
+        .string()
+        .regex(/^\/workshop-files\/[a-z0-9-]+\/index\.html$/)
+        .optional(),
+    })
+    .optional(),
+  curation: curationSchema.optional(),
   slug: id,
   title: short.min(1),
-  category: short,
+  category: short.transform(learningCategory),
   summary: text,
   keywords: text,
   sections: z
-    .array(z.object({ title: short, body: text, code:text.optional(), language:short.optional() }))
+    .array(
+      z.object({
+        title: short,
+        body: text,
+        code: text.optional(),
+        language: short.optional(),
+      }),
+    )
     .min(1)
     .max(100),
   sources: z
@@ -76,11 +106,21 @@ export const knowledgeSchema = z.object({
     .optional(),
 });
 export const resourceSchema = z.object({
-  icon: z.string().max(2000).refine(s => !s || /^\/platform-icons\/[a-zA-Z0-9_.-]+$/.test(s) || /^https:\/\//.test(s), "请使用站内图标或HTTPS图片").optional(),
+  icon: z
+    .string()
+    .max(2000)
+    .refine(
+      (s) =>
+        !s ||
+        /^\/platform-icons\/[a-zA-Z0-9_.-]+$/.test(s) ||
+        /^https:\/\//.test(s),
+      "请使用站内图标或HTTPS图片",
+    )
+    .optional(),
   tags: z.array(short).max(10).optional(),
   id,
   name: short.min(1),
-  category: short.transform(value=>resourceCategory(value)),
+  category: short.transform((value) => resourceCategory(value)),
   summary: text,
   input: text,
   output: text,

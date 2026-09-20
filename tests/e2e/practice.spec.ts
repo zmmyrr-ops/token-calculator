@@ -12,7 +12,8 @@ test("practice discovery, scenario links and actionable export", async ({
   ).toBeVisible();
   await page.getByRole("link", { name: "重置", exact: true }).click();
   await expect(page.locator(".learning-card")).toHaveCount(8);
-  await page.getByRole("link", { name: "视频课程", exact: true }).click();
+  await page.getByLabel("内容形式").selectOption("video");
+  await page.getByRole("button", {name:"筛选",exact:true}).click();
   await expect(page.locator(".learning-card")).toHaveCount(6);
   await page.getByRole("link", { name: /Blender 官方基础视频/ }).click();
   await expect(

@@ -1,3 +1,4 @@
+import { learningCategory } from "../../shared/learning";
 import Parser from "rss-parser";
 import { createHash, randomUUID } from "node:crypto";
 import { Router } from "express";
@@ -121,7 +122,7 @@ export function learningEntry(
   return knowledgeSchema.parse({
     slug,
     title,
-    category,
+    category: learningCategory(category),
     summary,
     keywords: category + " " + title + " " + source.name + " " + author,
     curation: {
