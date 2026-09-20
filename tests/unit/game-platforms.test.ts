@@ -1,3 +1,4 @@
+import {upgradeGameWorkshops} from "../../backend/src/game-workshops";
 import { it, expect } from "vitest";
 import { ContentDatabase } from "../../backend/src/database";
 import { expandGameContent } from "../../backend/src/game-expansion";
@@ -72,6 +73,11 @@ it("consolidates the directory, preserves drafts and does not recreate removed c
     ])
       expect(data.resources.some((r) => r.id === id)).toBe(true);
     expect(resourceCategoryMatches(g.category, "游戏引擎")).toBe(true);
+    upgradeGameWorkshops(db);
+    const workshops=db.publicContent().knowledge.filter(a=>a.workshop);
+    expect(workshops).toHaveLength(3);
+    expect(workshops.every(a=>a.sections.length>=9&&a.sections.some(s=>(s.code?.length||0)>1000))).toBe(true);
+    const workshopVersion=db.meta("contentVersion");upgradeGameWorkshops(db);expect(db.meta("contentVersion")).toBe(workshopVersion);
     const v = db.meta("contentVersion");
     db.db.prepare("DELETE FROM documents WHERE id='pixijs'").run();
     expandGameContent(db);
@@ -82,4 +88,20 @@ it("consolidates the directory, preserves drafts and does not recreate removed c
   } finally {
     db.close();
   }
+});
+it('keeps manually edited articles and unpublished drafts during workshop upgrades',()=>{
+ const db=new ContentDatabase(':memory:');
+ try{
+  db.seed({catalog,knowledge,resources,scenarios,tutorialSlugs,site,coverage});expandGameContent(db);
+  const row=db.db.prepare("SELECT published FROM documents WHERE id='godot-ai-prototype'").get()!;
+  const edited=JSON.stringify({...JSON.parse(String(row.published)),summary:'管理员自行改写的正文简介'});
+  db.db.prepare("UPDATE documents SET published=?,draft=? WHERE id='godot-ai-prototype'").run(edited,edited);
+  const cocos=db.db.prepare("SELECT draft FROM documents WHERE id='cocos-ai-prototype'").get()!;
+  const draft=JSON.stringify({...JSON.parse(String(cocos.draft)),summary:'未发布草稿'});
+  db.db.prepare("UPDATE documents SET draft=? WHERE id='cocos-ai-prototype'").run(draft);
+  upgradeGameWorkshops(db);
+  expect(db.publicContent().knowledge.find(a=>a.slug==='godot-ai-prototype')!.summary).toBe('管理员自行改写的正文简介');
+  expect(db.publicContent().knowledge.find(a=>a.slug==='cocos-ai-prototype')!.workshop).toBeTruthy();
+  expect(db.db.prepare("SELECT draft FROM documents WHERE id='cocos-ai-prototype'").get()!.draft).toBe(draft);
+ }finally{db.close();}
 });

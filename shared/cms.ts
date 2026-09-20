@@ -48,6 +48,7 @@ export const practiceSchema = z.object({
 export const curationSchema = z.object({publisher:short,author:short,url:link,publishedAt:z.string().max(40),collectedAt:z.string().max(40),language:short});
 export type Curation = z.infer<typeof curationSchema>;
 export const knowledgeSchema = z.object({
+  workshop: z.object({image:z.string().regex(/^\/workshop-files\/[a-z0-9-]+\.png$/).optional(),version:short,duration:short,verification:text,download:z.string().regex(/^\/workshop-files\/[a-z0-9-]+\.zip$/),demo:z.string().regex(/^\/workshop-files\/[a-z0-9-]+\/index\.html$/).optional()}).optional(),
   curation:curationSchema.optional(),
   slug: id,
   title: short.min(1),
@@ -55,7 +56,7 @@ export const knowledgeSchema = z.object({
   summary: text,
   keywords: text,
   sections: z
-    .array(z.object({ title: short, body: text }))
+    .array(z.object({ title: short, body: text, code:text.optional(), language:short.optional() }))
     .min(1)
     .max(100),
   sources: z

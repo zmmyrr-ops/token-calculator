@@ -1,0 +1,292 @@
+[
+  {
+    "slug": "godot-ai-prototype",
+    "title": "Godot + AI 实战：从零做一个可重开的躲避游戏",
+    "category": "游戏开发实战",
+    "summary": "中文逐步实战：建工程、画角色、实现移动与敌人、检测碰撞、计时并重开。附可导入工程与完整GDScript。",
+    "keywords": "Godot + AI 实战：从零做一个可重开的躲避游戏 中文 完整源码 入门 实战 AI",
+    "sections": [
+      {
+        "title": "01 · 先看成品规则与工程结构",
+        "body": "本例是一局不断下落红色圆点的躲避游戏。玩家是底部绿色圆点，按左右方向键移动；手机触摸时朝手指横坐标移动。碰到红点立即结束，显示存活秒数，点击按钮重新开始。\n这是本站原创的代码绘图练习，不依赖图片、音乐或付费素材，也不是官方Dodge the Creeps项目的翻译。先做一个单场景闭环，再拆成多个场景，能减少初学者在资源绑定上的干扰。\n下载工程直接导入project.godot可以先体验完整结果；想从零学习，请按下面步骤创建同样的文件。工程只有project.godot、main.tscn、main.gd，以及供维护者运行的test.gd。"
+      },
+      {
+        "title": "02 · 创建项目和唯一主场景",
+        "body": "使用Godot 4.x标准版，本例实际检查版本为4.7.2。新建项目，渲染器选兼容模式。创建Node2D根节点，命名Main，保存为main.tscn。给根节点附加脚本main.gd。\n在项目设置→显示→窗口中，把视口宽度设为640、高度720。第一次按F6运行当前场景，应该看见空窗口；按F5运行整个项目时选择main.tscn为主场景。不要把脚本挂到一个叫Main的普通文件夹上。\n不想手工设置时，可以直接使用下载包里的工程配置；无需安装任何AI或MCP插件。"
+      },
+      {
+        "title": "03 · 先理解状态，避免把画面当成数据",
+        "body": "player保存玩家中心坐标；enemies是敌人坐标数组；elapsed是本局累计时间；spawn_left是距离下一次生成的倒计时；running决定是否推进游戏。\n坐标原点在左上角，x向右、y向下。玩家从(320,620)开始，敌人在y=-20生成、向下移动。角色半径18，敌人半径15，所以两者圆心距离小于33就算碰撞。\n本例使用几何碰撞教学，没有接物理引擎。将来换成复杂地图时应评估Area2D或CharacterBody2D；不要把圆形距离判定当成任何游戏都适用的碰撞方案。"
+      },
+      {
+        "title": "04 · 完整主脚本：复制到main.gd",
+        "body": "把默认脚本全部替换为下面这份代码，保存后按F6。第一屏应看见绿色玩家和开始按钮；点击开始，红色圆点开始下落。下面代码与下载工程的main.gd保持一致。\n如果复制时缩进变成空格与Tab混用，先在脚本编辑器统一缩进，再看底部第一条解析错误。",
+        "code": "extends Node2D\n\nconst SIZE := Vector2(640, 720)\nconst PLAYER_RADIUS := 18.0\nvar player := Vector2(320, 620)\nvar enemies: Array[Vector2] = []\nvar elapsed := 0.0\nvar spawn_left := 0.0\nvar running := false\nvar touch_x := -1.0\nvar rng := RandomNumberGenerator.new()\nvar hud := Label.new()\nvar button := Button.new()\n\nfunc _ready() -> void:\n\trng.randomize()\n\thud.position = Vector2(24, 18)\n\thud.add_theme_font_size_override(\"font_size\", 24)\n\tadd_child(hud)\n\tbutton.position = Vector2(210, 300)\n\tbutton.size = Vector2(220, 64)\n\tbutton.text = \"开始 / 重新开始\"\n\tbutton.pressed.connect(start_game)\n\tadd_child(button)\n\tupdate_hud()\n\tqueue_redraw()\n\nfunc start_game() -> void:\n\tplayer = Vector2(320, 620)\n\tenemies.clear()\n\telapsed = 0.0\n\tspawn_left = 0.4\n\ttouch_x = -1.0\n\trunning = true\n\tbutton.hide()\n\tupdate_hud()\n\tqueue_redraw()\n\nfunc _input(event: InputEvent) -> void:\n\tif event is InputEventScreenTouch:\n\t\ttouch_x = event.position.x if event.pressed else -1.0\n\telif event is InputEventScreenDrag:\n\t\ttouch_x = event.position.x\n\nfunc _process(delta: float) -> void:\n\tif not running:\n\t\treturn\n\t# 暂时离开窗口后，不让一次大步进跳过碰撞。\n\tvar dt := minf(delta, 0.05)\n\telapsed += dt\n\tvar axis := Input.get_axis(\"ui_left\", \"ui_right\")\n\tif touch_x >= 0.0:\n\t\tplayer.x = move_toward(player.x, touch_x, 360.0 * dt)\n\telse:\n\t\tplayer.x += axis * 360.0 * dt\n\tplayer.x = clampf(player.x, PLAYER_RADIUS, SIZE.x - PLAYER_RADIUS)\n\tspawn_left -= dt\n\tif spawn_left <= 0.0:\n\t\tenemies.append(Vector2(rng.randf_range(20.0, 620.0), -20.0))\n\t\tspawn_left = maxf(0.18, 0.65 - elapsed * 0.006)\n\tfor i in range(enemies.size() - 1, -1, -1):\n\t\tenemies[i].y += (200.0 + elapsed * 3.0) * dt\n\t\tif enemies[i].distance_to(player) < PLAYER_RADIUS + 15.0:\n\t\t\trunning = false\n\t\t\tbutton.show()\n\t\t\tbreak\n\t\tif enemies[i].y > SIZE.y + 20.0:\n\t\t\tenemies.remove_at(i)\n\tupdate_hud()\n\tqueue_redraw()\n\nfunc update_hud() -> void:\n\thud.text = \"存活 %.1f 秒  |  方向键 / 触摸移动\" % elapsed\n\tif not running and elapsed > 0.0:\n\t\thud.text = \"本局 %.1f 秒 · 碰到了！再试一次\" % elapsed\n\nfunc _draw() -> void:\n\tfor x in range(0, 640, 40):\n\t\tdraw_line(Vector2(x, 70), Vector2(x, 720), Color(0.10, 0.15, 0.22))\n\tdraw_circle(player, PLAYER_RADIUS, Color(0.36, 0.94, 0.77))\n\tfor enemy in enemies:\n\t\tdraw_circle(enemy, 15.0, Color(1.0, 0.43, 0.39))\n",
+        "language": "gdscript"
+      },
+      {
+        "title": "05 · 移动为什么要乘delta",
+        "body": "速度360的单位是像素/秒。每帧移动量等于速度乘本帧秒数；如果直接每帧加360，移动速度会随着帧率变化。Input.get_axis使用Godot预设的ui_left与ui_right，下载工程无需自定义输入动作。\nclampf把x限制在[18,622]，使圆形角色不越界。触摸路径用move_toward逐步靠近手指，而不是瞬移。先只验收左右移动和边界，再考虑加入加速度。\n代码将过大的delta限制到0.05秒，避免从后台回到窗口时跳过大量碰撞。本局时间按实际模拟步进累计，刻意不当作严格墙上时钟。"
+      },
+      {
+        "title": "06 · 敌人生成、清理与碰撞怎么串起来",
+        "body": "每帧减少spawn_left，归零就往数组加入一个位置。初始间隔0.65秒，随着存活时间逐渐缩短，最小0.18秒；下落速度也缓慢增加。\n遍历数组时从最后一个元素往前走，因为remove_at会让后面的元素前移。正向删除容易漏处理邻近元素。敌人离开窗口后从数组删除，防止一局越玩数据越多。\n碰撞后先把running设为false，再显示按钮并退出本次敌人循环。下一帧_process一开始直接return，所有敌人停止移动，不会出现失败后仍继续计时的问题。"
+      },
+      {
+        "title": "07 · 为什么重开不用重新加载整个项目",
+        "body": "start_game集中重置玩家坐标、敌人数组、计时器和触摸目标，再隐藏按钮。按钮的pressed信号只在_ready连接一次，所以每局不会多注册一个回调。\n测试方法：故意撞到敌人后连续重开5次，观察第一颗敌人的出现时间与玩家速度是否一致。若重开越来越快，优先检查是否重复创建Timer、连接信号或保留了上局状态。"
+      },
+      {
+        "title": "08 · 用AI做一次有验收标准的改动",
+        "body": "不要让AI“把游戏优化一下”。先提交main.gd和实际版本，只要求增加一个机制，例如3点生命值。可以复制下面的任务；修改前保留原文件，完成后对照每项验收。\n如果AI生成的代码报错，把第一条错误、行号和相关函数发回去，不要只说“不能用”。本练习不需要发送API密钥或其他项目文件。",
+        "code": "项目是Godot 4.7.2，main.gd如下【粘贴】。请增加3点生命值和受击后1秒无敌：保持现有输入与坐标体系；同一帧撞到多颗敌人只扣1点；剩余生命为0才结束；重开恢复3点生命。请先列修改位置，再给代码和5条可操作验收步骤。不要引入插件。",
+        "language": "text"
+      },
+      {
+        "title": "09 · 验收、排错与导出",
+        "body": "验收：①未开始前不计时；②左右移动不越界；③红点从上方进入；④碰撞后时间冻结；⑤重开清空敌人并归零；⑥离屏敌人不再保留。下载包test.gd自动检查碰撞、重开和离屏清理，不能代替视觉和真机测试。\n看不到按钮：检查main.gd是否挂在Main节点；无法左右移动：先点击运行窗口获取焦点，确认没有改动ui_left/ui_right；只出现空场景：确认F5所选主场景。\n导出桌面程序时先通过编辑器安装匹配版本的导出模板，再在项目→导出选择目标系统。本文没有附导出二进制，也没有声称完成Android/iOS真机适配。",
+        "code": "godot --headless --path ./godot-dodge --script test.gd",
+        "language": "bash"
+      }
+    ],
+    "workshop": {
+      "version": "Godot 4.x；本机验证4.7.2",
+      "duration": "约60–90分钟；首次使用引擎请额外预留安装时间",
+      "download": "/workshop-files/godot-dodge.zip",
+      "verification": "已通过Godot 4.7.2无窗口运行检查：碰撞结束、重开归零、离屏清理。桌面导出与手机真机未验证。",
+      "image": "/workshop-files/godot-dodge.png"
+    },
+    "sources": [
+      {
+        "title": "Godot官方中文：你的第一个2D游戏（4.3）",
+        "url": "https://docs.godotengine.org/zh-cn/4.3/getting_started/first_2d_game/"
+      },
+      {
+        "title": "Godot官方中文：Node2D",
+        "url": "https://docs.godotengine.org/zh-cn/4.3/classes/class_node2d.html"
+      }
+    ]
+  },
+  {
+    "slug": "web-game-ai-workflow",
+    "title": "Phaser + AI 实战：制作30秒接金币H5游戏",
+    "category": "游戏开发实战",
+    "summary": "从一个HTML页面到可玩的接金币游戏：键盘与触摸控制、生成与回收、计分倒计时、结束重开，附源码和在线试玩。",
+    "keywords": "Phaser + AI 实战：制作30秒接金币H5游戏 中文 完整源码 入门 实战 AI",
+    "sections": [
+      {
+        "title": "01 · 成品与文件说明",
+        "body": "这局游戏持续30秒：底部绿色托盘左右移动接住金币，每个金币加1分，漏掉不扣分。倒计时结束显示得分，点击文字重新开始。图形全部由代码绘制，不需要购买素材。\n本例固定Phaser 3.90.0，以避免不同大版本API混用。下载包包含index.html、game.js、phaser.min.js和Phaser的MIT许可。Phaser官方入门课程是平台跳跃游戏；这里是本站独立编写的接金币项目，采用中文解释。"
+      },
+      {
+        "title": "02 · 启动本地静态服务器",
+        "body": "解压后进入phaser-catch目录。安装Python 3的电脑可以执行下面命令，再用浏览器访问http://localhost:8080。看到标题和游戏画布就算启动成功；端口占用时把8080换成8081。\n也可以使用编辑器的静态预览扩展。不要把本地文件直接拖进浏览器后，就把所有资源加载问题都归因于引擎。线上试玩使用同一份源码。",
+        "code": "cd phaser-catch\npython3 -m http.server 8080",
+        "language": "bash"
+      },
+      {
+        "title": "03 · HTML负责加载，Scene负责游戏",
+        "body": "index.html先加载phaser.min.js，再加载game.js，顺序不能反过来。容器id必须与Phaser.Game的parent一致。480×640是游戏内部逻辑尺寸，Scale.FIT让画布按比例适配外部容器，横向坐标仍使用逻辑像素。\n游戏只使用一个Scene。create负责创建初始物体与状态，update负责每帧移动和规则。每局调用scene.restart时会重建这个Scene，因此计分、倒计时和数组都必须在create内初始化。",
+        "code": "<!doctype html><html lang=\"zh-CN\"><meta charset=\"utf-8\"><meta name=\"viewport\" content=\"width=device-width,initial-scale=1\"><meta name=\"robots\" content=\"noindex\"><title>接金币 · AI门道实战</title><style>body{margin:0;background:#091322;color:#d8eee8;font-family:system-ui;text-align:center}h1{font-size:20px}#game{max-width:480px;margin:auto}canvas{display:block}a{color:#9be4cf}</style><h1>接金币 · 30 秒挑战</h1><p>方向键或手指移动 · 漏掉金币不扣分</p><div id=\"game\"></div><p><a href=\"/learn/web-game-ai-workflow\">返回完整教程</a></p><script src=\"phaser.min.js\"></script><script src=\"game.js\"></script></html>\n",
+        "language": "html"
+      },
+      {
+        "title": "04 · 完整game.js",
+        "body": "下面代码与下载包相同。先复制整份运行，再按后续章节理解并逐步修改。代码使用矩形与圆形GameObject；没有开物理世界，碰撞由尺寸范围计算完成。",
+        "code": "/* AI门道原创示例，MIT。Phaser 3.90.0 */\nclass CatchGame extends Phaser.Scene {\n  constructor() { super('catch'); }\n  create() {\n    this.score = 0;\n    this.remaining = 30;\n    this.finished = false;\n    this.spawnLeft = 0.6;\n    this.coins = [];\n    this.add.rectangle(240, 320, 480, 640, 0x102538);\n    this.add.text(20, 18, 'CATCH THE GOLD', { fontSize: '22px', color: '#9befd7' });\n    this.hud = this.add.text(20, 58, '', { fontSize: '22px' });\n    this.player = this.add.rectangle(240, 580, 90, 20, 0x72ecc4);\n    this.cursors = this.input.keyboard.createCursorKeys();\n    this.paintHud();\n  }\n  paintHud() { this.hud.setText(`得分 ${this.score}   剩余 ${Math.ceil(this.remaining)} 秒`); }\n  endGame() {\n    if (this.finished) return;\n    this.finished = true;\n    this.remaining = 0;\n    this.paintHud();\n    this.add.rectangle(240, 300, 390, 140, 0x07131f, 0.95);\n    const restart = this.add.text(240, 300, `本局 ${this.score} 分\\n点击重新开始`, {\n      fontSize: '28px', color: '#fff1b4', align: 'center', lineSpacing: 16,\n    }).setOrigin(0.5).setInteractive({ useHandCursor: true });\n    restart.once('pointerdown', () => this.scene.restart());\n  }\n  update(_time, delta) {\n    if (this.finished) return;\n    const dt = Math.min(delta / 1000, 0.05);\n    this.remaining = Math.max(0, this.remaining - dt);\n    if (this.remaining === 0) { this.endGame(); return; }\n    const pointer = this.input.activePointer;\n    if (pointer.isDown) this.player.x = pointer.x;\n    else this.player.x += ((this.cursors.right.isDown ? 1 : 0) - (this.cursors.left.isDown ? 1 : 0)) * 360 * dt;\n    this.player.x = Phaser.Math.Clamp(this.player.x, 45, 435);\n    this.spawnLeft -= dt;\n    if (this.spawnLeft <= 0) {\n      this.coins.push(this.add.circle(Phaser.Math.Between(20, 460), -12, 12, 0xffd166));\n      this.spawnLeft += 0.6;\n    }\n    for (let i = this.coins.length - 1; i >= 0; i--) {\n      const coin = this.coins[i];\n      coin.y += 230 * dt;\n      const caught = Math.abs(coin.x - this.player.x) <= 57 && Math.abs(coin.y - this.player.y) <= 22;\n      if (caught) this.score++;\n      if (caught || coin.y > 665) { coin.destroy(); this.coins.splice(i, 1); }\n    }\n    this.paintHud();\n  }\n}\nwindow.workshopGame = new Phaser.Game({\n  type: Phaser.AUTO, parent: 'game', width: 480, height: 640,\n  backgroundColor: '#102538', scene: CatchGame,\n  scale: { mode: Phaser.Scale.FIT, autoCenter: Phaser.Scale.CENTER_BOTH },\n});\n",
+        "language": "javascript"
+      },
+      {
+        "title": "05 · 同时处理键盘和触摸",
+        "body": "键盘用左右键决定-1、0或1，再乘360像素/秒。触摸或按住鼠标时，让托盘跟随pointer.x。Phaser输入已经转换到画布逻辑坐标，不应再次除以CSS缩放比。\n托盘半宽45，所以中心x只能在45到435之间。验证时将手指拖出画布边缘，托盘仍不应完全离开画面。若页面随手指滚动，先确认触摸发生在游戏画布上，且没有额外HTML遮挡它。"
+      },
+      {
+        "title": "06 · 生成金币与安全回收",
+        "body": "spawnLeft归零就生成一个半径12的金币，x位于20至460，y从-12开始，每秒下落230像素。数组保存当前所有金币；捕获或离屏时既destroy画面对象，也splice移除数组项。\n只destroy但不清空数组，会留下失效引用；只splice但不destroy，则可能留下看得见却不再更新的图形。循环从后向前遍历，避免删除时跳过相邻元素。\n本例最大单次步进0.05秒，金币最多移动11.5像素，小于判定区域高度。这是当前速度下的简化方案；高速子弹需要扫掠检测或物理系统。"
+      },
+      {
+        "title": "07 · 碰撞、计分与30秒规则",
+        "body": "托盘半宽45、金币半径12，横向允许距离57；托盘半高10加金币半径12，纵向允许距离22。两个条件同时成立即计分并销毁金币，防止一颗币连续加分。\nremaining每帧减少dt，归零后调用endGame。endGame先检查finished，保证结束界面只生成一次；结束后update直接返回。界面显示Math.ceil，最后不足1秒时显示1，避免提前显示0却仍能继续玩。\n这里30秒是模拟时间：从后台切回时不会一次扣掉很长时间。若产品需要真实倒计时，应记录截止时间并处理失焦暂停策略。"
+      },
+      {
+        "title": "08 · 让AI增加炸弹，而不是重写整个游戏",
+        "body": "先备份game.js，再让AI增加一种新规则。把验收写清楚，可以发现模型只改了画面但没有改状态的问题。完成后同时测试金币、炸弹和结束重开，不只看AI给出的代码解释。",
+        "code": "请基于这份Phaser 3.90.0 game.js增加红色炸弹，生成概率20%。接金币+1，接炸弹-3但最低0分；漏接不扣分。保持30秒结束与重开逻辑。请复用现有生成和回收流程，列出修改点，并给出金币与炸弹同帧接触、分数下限、连续重开三种验收步骤。不要使用Phaser 4 API。",
+        "language": "text"
+      },
+      {
+        "title": "09 · 测试、部署与常见错误",
+        "body": "至少测试：键盘到左右边界、触摸移动、一次命中只加一次分、金币离屏被清理、到时冻结、重开归零、连续重开5次速度不变。\nPhaser is not defined：看Network里phaser.min.js是否200，并检查script顺序；空白画布：先看Console第一条错误；文字被裁切：检查是否改了逻辑分辨率却没改布局。\n发布时将三个运行文件上传到同一静态目录，保留Phaser许可文件；通过HTTPS访问并检查所有文件200。此示例是H5网页游戏，不能直接当作微信小游戏包上传。"
+      }
+    ],
+    "workshop": {
+      "version": "Phaser 3.90.0；现代桌面与移动浏览器",
+      "duration": "约60–90分钟；首次使用引擎请额外预留安装时间",
+      "download": "/workshop-files/phaser-catch.zip",
+      "verification": "使用真实Phaser运行时检查计分、结束与重开，并检查桌面键盘及移动端触摸输入；不代表小游戏平台适配。",
+      "demo": "/workshop-files/phaser-catch/index.html",
+      "image": "/workshop-files/phaser-catch.png"
+    },
+    "sources": [
+      {
+        "title": "Phaser官方：第一个游戏（英文）",
+        "url": "https://docs.phaser.io/phaser/getting-started/making-your-first-phaser-game"
+      },
+      {
+        "title": "Phaser官方：框架定位",
+        "url": "https://docs.phaser.io/phaser/getting-started/what-is-phaser"
+      }
+    ]
+  },
+  {
+    "slug": "cocos-ai-prototype",
+    "title": "Cocos Creator + AI 实战：制作30秒点击计分游戏",
+    "category": "游戏开发实战",
+    "summary": "中文逐步搭建：创建Canvas与Game节点、挂载完整TypeScript组件、生成目标、处理点击、计分倒计时和重开。",
+    "keywords": "Cocos Creator + AI 实战：制作30秒点击计分游戏 中文 完整源码 入门 实战 AI",
+    "sections": [
+      {
+        "title": "01 · 要完成什么，以及源码包是什么",
+        "body": "这是一款点击反应游戏：按开始后，绿色圆点随机出现；点中加1分，未点中的目标每1.2秒换位置。30秒结束后显示得分，可重新开始。\n下载包提供完整TargetGame.ts组件与中文搭建说明，不是已打包的游戏安装包。我们使用Graphics画图和系统Label，因此无需图片、SpriteFrame或第三方插件。请准备Cocos Creator 3.8.x，示例类型检查使用本机3.8.8的引擎声明。"
+      },
+      {
+        "title": "02 · 创建工程与场景，先把节点放对",
+        "body": "在Dashboard中使用Creator 3.8.x新建Empty(2D)项目，创建并保存一个2D场景为Main。场景应有Canvas及其2D相机；如果没有，通过层级面板创建2D对象→Canvas。\n把Canvas的设计分辨率设为640×720，采用按宽度适配；在Canvas下创建空节点Game，确认其UITransform组件存在。Game的位置设为(0,0,0)、缩放(1,1,1)，锚点(0.5,0.5)，使用UI_2D层。\n本例所有元素位于Game的本地坐标中，原点在画布中央。不要把Game挂在相机下，也不要同时在另一个节点挂第二份TargetGame。"
+      },
+      {
+        "title": "03 · 导入脚本并挂载一次",
+        "body": "在assets下创建scripts文件夹，把下载包的TargetGame.ts复制进去，等待编辑器完成编译。选中Game节点，把脚本拖到属性检查器，或通过添加组件搜索TargetGame。\n不需要在属性检查器手工绑定按钮和Label，脚本在start里创建它们。保存场景后点预览；初始画面应有说明文字和开始按钮，点击按钮后出现绿色目标。\n如果组件显示Missing Script，确认文件名TargetGame.ts、类名TargetGame、装饰器名三者一致，再检查编辑器控制台第一条编译错误。"
+      },
+      {
+        "title": "04 · 完整TargetGame.ts",
+        "body": "先运行这份完整组件，再分段修改。UITransform决定点击区域，Graphics负责画面，Node.EventType.TOUCH_END负责输入。鼠标点击在浏览器预览中也可触发UI触摸事件。",
+        "code": "import { _decorator, Component, Node, UITransform, Graphics, Color, Label } from 'cc';\nconst { ccclass } = _decorator;\n\n@ccclass('TargetGame')\nexport class TargetGame extends Component {\n  private score = 0;\n  private remaining = 30;\n  private spawnLeft = 0;\n  private playing = false;\n  private target: Node | null = null;\n  private hud!: Label;\n  private startButton!: Node;\n\n  start() {\n    this.node.getComponent(UITransform)!.setContentSize(640, 720);\n    const background = this.node.addComponent(Graphics);\n    background.fillColor = new Color(12, 27, 43);\n    background.rect(-320, -360, 640, 720);\n    background.fill();\n    this.hud = this.makeLabel('点击圆点 · 30秒挑战', 0, 300, 26);\n    this.startButton = new Node('StartButton');\n    this.startButton.parent = this.node;\n    this.startButton.layer = this.node.layer;\n    this.startButton.addComponent(UITransform).setContentSize(240, 80);\n    const g = this.startButton.addComponent(Graphics);\n    g.fillColor = new Color(63, 116, 131);\n    g.roundRect(-120, -40, 240, 80, 12); g.fill();\n    const label = this.makeLabel('开始 / 再来一局', 0, 0, 24);\n    label.node.parent = this.startButton;\n    // 监听仅注册一次，重开时只清理状态。\n    this.startButton.on(Node.EventType.TOUCH_END, this.restart, this);\n  }\n  private makeLabel(text: string, x: number, y: number, fontSize: number): Label {\n    const n = new Node('Text'); n.parent = this.node; n.layer = this.node.layer; n.setPosition(x, y);\n    n.addComponent(UITransform).setContentSize(600, 60);\n    const label = n.addComponent(Label);\n    label.string = text; label.fontSize = fontSize; label.lineHeight = fontSize + 8;\n    label.color = new Color(226, 247, 241);\n    return label;\n  }\n  restart() {\n    this.clearTarget();\n    this.score = 0; this.remaining = 30; this.spawnLeft = 0;\n    this.playing = true; this.startButton.active = false;\n    this.refreshHud();\n  }\n  private clearTarget() {\n    if (!this.target) return;\n    // destroy在帧末执行，先停用，避免一帧内再次命中。\n    this.target.active = false; this.target.destroy(); this.target = null;\n  }\n  private spawnTarget() {\n    this.clearTarget();\n    const n = new Node('Target'); n.parent = this.node; n.layer = this.node.layer;\n    n.setPosition(Math.random() * 500 - 250, Math.random() * 400 - 200);\n    n.addComponent(UITransform).setContentSize(64, 64);\n    const g = n.addComponent(Graphics);\n    g.fillColor = new Color(109, 237, 197); g.circle(0, 0, 32); g.fill();\n    this.target = n;\n    n.on(Node.EventType.TOUCH_END, () => {\n      if (!this.playing || this.target !== n) return;\n      this.score++; this.clearTarget(); this.spawnLeft = 0.12;\n      this.refreshHud();\n    });\n  }\n  private refreshHud() {\n    this.hud.string = `得分 ${this.score}  ·  剩余 ${Math.ceil(this.remaining)} 秒`;\n  }\n  update(deltaTime: number) {\n    if (!this.playing) return;\n    const dt = Math.min(deltaTime, 0.05);\n    this.remaining = Math.max(0, this.remaining - dt);\n    this.spawnLeft -= dt;\n    if (this.remaining <= 0) {\n      this.playing = false; this.clearTarget();\n      this.hud.string = `时间到！本局 ${this.score} 分`;\n      this.startButton.active = true;\n      return;\n    }\n    if (this.spawnLeft <= 0) { this.spawnTarget(); this.spawnLeft = 1.2; }\n    this.refreshHud();\n  }\n  onDestroy() {\n    this.startButton?.off(Node.EventType.TOUCH_END, this.restart, this);\n    this.clearTarget();\n  }\n}\n",
+        "language": "typescript"
+      },
+      {
+        "title": "05 · 圆形画面与矩形点击区域",
+        "body": "target的Graphics绘制半径32的圆，UITransform大小64×64决定默认点击区域。也就是说，四角透明部分在本例中仍可点击，这是有意使用的入门简化。若要求严格圆形命中，需要把触摸点转换为目标本地坐标，再判断x²+y²是否小于32²。\n随机位置x为-250到250，y为-200到200；留出上方计分区域和边缘空间。换成不同设计分辨率时，要一并调整这个范围，不能只扩大Canvas。"
+      },
+      {
+        "title": "06 · 为什么点击回调要检查当前目标",
+        "body": "Cocos的destroy在帧末处理。一个目标点中后，clearTarget先将其停用，再销毁并清空引用；回调还检查this.target是否仍是该节点，防止一帧内重复输入使分数多加。\n新目标由spawnLeft控制，点中后等待0.12秒出现下一颗；未点中则最多等待1.2秒刷新。这里没有每局添加一个新的schedule任务，所以重开不会叠加计时器。"
+      },
+      {
+        "title": "07 · 结束与重开只重置状态",
+        "body": "remaining为0时先关闭playing，再清理目标、更新文本、显示开始按钮。按钮监听只在start注册一次；restart仅重置分数、时间和目标，不注册第二次监听。\nupdate首先检查playing，不在游戏中时不推进逻辑。Math.min(deltaTime,0.05)避免恢复后台时一帧跳过很长时间；这也意味着倒计时按模拟时间累计，而非严格现实时间。"
+      },
+      {
+        "title": "08 · AI改动练习：增加连击机制",
+        "body": "先完成无AI版本，再用下面任务练习受控修改。只把TargetGame.ts和版本发给助手，不需要上传整个项目。让AI说明状态何时重置，比要求它“做得更好看”更容易验收。",
+        "code": "我使用Cocos Creator 3.8.x，这份TargetGame.ts已经能运行。请增加连击：每次命中连击+1；目标自然超时则连击清零；每连续命中5次额外加2分；重开清零。保持现有坐标和触摸事件。请给出需要新增的字段、修改方法、以及命中第5次/超时/重开三个测试步骤。",
+        "language": "text"
+      },
+      {
+        "title": "09 · 排错、验收与发布",
+        "body": "按钮看得见但点不到：检查Game是否有UITransform、是否在Canvas下、节点层是否UI_2D，以及是否被其他全屏UI遮挡；画面完全空白：先检查Canvas相机和脚本编译；点一次加两分：检查是否挂了两份组件。\n验收：开始前无目标；点中只加1；未点中会换位置；到时目标消失；结束后点击原位置不再加分；重开归零且只有一个目标。\n发布时在构建面板选Web Mobile，加入Main场景并设为启动场景，构建后用静态服务器打开输出目录。微信小游戏需要单独选择目标平台、配置AppID并在微信开发者工具中测试，本文不把Web预览等同于小游戏审核通过。"
+      }
+    ],
+    "workshop": {
+      "version": "Cocos Creator 3.8.x；类型校验3.8.8",
+      "duration": "约60–90分钟；首次使用引擎请额外预留安装时间",
+      "download": "/workshop-files/cocos-targets.zip",
+      "verification": "组件按Cocos Creator 3.8.8引擎类型声明校验；需按教程在编辑器搭建场景。未验证微信小游戏或原生发布。"
+    },
+    "sources": [
+      {
+        "title": "Cocos官方中文：第一个2D游戏",
+        "url": "https://docs.cocos.com/creator/3.8/manual/zh/getting-started/first-game-2d/"
+      },
+      {
+        "title": "Cocos官方中文：Graphics",
+        "url": "https://docs.cocos.com/creator/3.8/manual/zh/ui-system/components/editor/graphics.html"
+      },
+      {
+        "title": "Cocos官方中文：构建发布",
+        "url": "https://docs.cocos.com/creator/3.8/manual/zh/editor/publish/build-panel.html"
+      }
+    ]
+  },
+  {
+    "slug": "layaair-ai-workflow",
+    "title": "LayaAir 中文资料：编辑器入门与AI协同文档",
+    "summary": "官方中文文档索引，区分基础工程搭建和AI工具接入；这是一份资料导读，不是本站完整项目教程。",
+    "category": "官方资料导读",
+    "keywords": "LayaAir 中文资料：编辑器入门与AI协同文档",
+    "sections": [
+      {
+        "title": "先把编辑器的基础流程跑通",
+        "body": "先阅读创建项目与Hello World相关文档，确认本地IDE能预览一个基础场景，再进入AI协同章节。首次接触引擎时，不建议同时排查编辑器、AI账号和插件三套环境。"
+      },
+      {
+        "title": "AI文档解决什么问题",
+        "body": "官方AI协同文档介绍开发环境与连接方式。请按自己安装的IDE版本核对配置，不将普通聊天工具自动等同于能操作场景的编辑器插件。本站只提供原文入口，不转述未验证的调用效果。"
+      },
+      {
+        "title": "资料筛选说明",
+        "body": "核验时发现另一份“新手的第一个2D游戏”总览仍有成品展示占位，未将它作为完整实战课程推荐。本文不提供完整游戏源码；需要直接跟做本站项目，请选择Godot、Cocos或Phaser实战。"
+      }
+    ],
+    "sources": [
+      {
+        "title": "LayaAir官方：AI协同环境",
+        "url": "https://layaair.com/3.4/doc/basics/developmentEnvironment/AIGC/readme.html"
+      },
+      {
+        "title": "LayaAir官方：创建新项目",
+        "url": "https://layaair.com/3.x/doc/basics/IDE/createNewProject/readme.html"
+      }
+    ],
+    "curation": {
+      "publisher": "LayaAir",
+      "author": "",
+      "url": "https://layaair.com/3.4/doc/basics/developmentEnvironment/AIGC/readme.html",
+      "publishedAt": "",
+      "collectedAt": "2026-09-20T00:00:00Z",
+      "language": "中文"
+    }
+  },
+  {
+    "slug": "web-3d-ai-workflow",
+    "title": "Web 3D 官方资料：Three.js、Babylon.js 与 PlayCanvas",
+    "summary": "资料索引，帮助定位框架手册与开发入口；不再把选型提纲标为完整3D实战。",
+    "category": "官方资料导读",
+    "keywords": "Web 3D 官方资料：Three.js、Babylon.js 与 PlayCanvas",
+    "sections": [
+      {
+        "title": "这页提供什么",
+        "body": "这是三个Web 3D项目的官方入口整理，没有完整可运行3D项目，也不声称验证了某个AI生成工作流。若需要按步骤完成本站项目，可先阅读游戏开发实战分类中的源码教程。"
+      },
+      {
+        "title": "如何使用手册",
+        "body": "先固定你当前项目的依赖版本，再查对应版本的场景、相机、渲染循环和资源释放说明。不要混用Three.js与Babylon.js的代码片段；在线编辑器的场景工作流也不等同于纯代码项目。"
+      },
+      {
+        "title": "带着具体问题查资料",
+        "body": "看示例时记录入口文件、模型来源、运行命令和成功画面。向AI求助时附报错与当前代码，要求标出所用API的来源；把“能看到一个模型”与“完成角色、碰撞和关卡”分别验收。"
+      }
+    ],
+    "sources": [
+      {
+        "title": "Three.js官方手册",
+        "url": "https://threejs.org/manual/"
+      },
+      {
+        "title": "Babylon.js官方入口",
+        "url": "https://www.babylonjs.com/"
+      },
+      {
+        "title": "PlayCanvas官方入口",
+        "url": "https://playcanvas.com/"
+      }
+    ],
+    "curation": {
+      "publisher": "Three.js / Babylon.js / PlayCanvas",
+      "author": "",
+      "url": "https://threejs.org/manual/",
+      "publishedAt": "",
+      "collectedAt": "2026-09-20T00:00:00Z",
+      "language": "原文以英文为主，本站导读为中文"
+    }
+  }
+]

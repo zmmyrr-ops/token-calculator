@@ -7,7 +7,7 @@
   },
   "scripts": {
     "dev": "node scripts/dev.mjs",
-    "build": "npm run eyes:bundle && npm run typecheck && npm run build -w frontend && npm run build -w backend",
+    "build": "npm run eyes:bundle && npm run workshops:build && npm run typecheck && npm run build -w frontend && npm run build -w backend",
     "start": "node scripts/dev.mjs --production",
     "typecheck": "tsc --noEmit",
     "lint": "eslint frontend/src backend/src shared tests --max-warnings=0",
@@ -26,7 +26,8 @@
     "mini:preview": "node scripts/mini-preview.mjs",
     "mini:test": "npm run build -w backend && node scripts/test-miniprogram.mjs",
     "eyes:bundle": "node scripts/build-ai-eyes-tool.mjs",
-    "learning:sync": "tsx backend/src/sync-learning.ts"
+    "learning:sync": "tsx backend/src/sync-learning.ts",
+    "workshops:build": "node scripts/build-game-workshops.mjs"
   },
   "dependencies": {
     "@fontsource/noto-sans-sc": "5.3.0",

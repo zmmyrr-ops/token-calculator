@@ -19,3 +19,6 @@ miniprogram/project.private.config.json
 # Python execution bundle caches
 __pycache__/
 *.pyc
+
+examples/game-workshops/**/.godot/
+examples/game-workshops/**/*.uid

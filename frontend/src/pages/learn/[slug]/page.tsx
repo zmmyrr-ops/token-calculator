@@ -1,3 +1,4 @@
+import TutorialCode from "@/components/TutorialCode";
 import { appPath } from "@/base";
 import { tutorialLinks } from "@shared/feature-guides";
 import { useContent } from "@/content";
@@ -85,6 +86,13 @@ export default function Article({ params }: { params: { slug: string } }) {
           </figcaption>
         </figure>
       )}
+      {entry.workshop && <section className="workshop-materials">
+        {entry.workshop.image && <figure className="workshop-preview"><img src={appPath(entry.workshop.image)} alt={entry.title+"：示例运行画面"} loading="lazy"/><figcaption>示例运行画面，几何图形均由代码绘制。</figcaption></figure>}
+        <h2>开始前准备</h2><p>{entry.workshop.version} · {entry.workshop.duration}</p>
+        <div className="action-row"><a className="button primary" href={appPath(entry.workshop.download)} download>下载完整源码与中文说明</a>{entry.workshop.demo && <a className="button" href={appPath(entry.workshop.demo)} target="_blank" rel="noreferrer">打开成品试玩 ↗</a>}</div>
+        <p className="micro">{entry.workshop.verification}</p>
+        <nav className="practice-toc" aria-label="实战章节">{entry.sections.map((s,i)=><a key={s.title} href={"#stage-"+(i+1)}>{s.title}</a>)}</nav>
+      </section>}
       {entry.practice && (
         <>
           <PracticeBrief practice={entry.practice} />
@@ -104,7 +112,8 @@ export default function Article({ params }: { params: { slug: string } }) {
           className="practice-stage"
         >
           <h2>{s.title}</h2>
-          <p>{s.body}</p>
+          <p style={{whiteSpace:"pre-line"}}>{s.body}</p>
+          {s.code && <TutorialCode code={s.code} language={s.language}/>}
           {entry.practice?.steps[i] && (
             <>
               <h3>动手操作</h3>

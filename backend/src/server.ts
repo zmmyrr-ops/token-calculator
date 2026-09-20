@@ -1,3 +1,4 @@
+import {upgradeGameWorkshops} from "./game-workshops";
 import {expandGameContent} from "./game-expansion";
 import {resourceCategories,resourceCategoryMatches} from "../../shared/resource-categories";
 import {seedSeoTutorials} from "./seo-tutorials";
@@ -52,6 +53,7 @@ store.seed({
 expandContent(store);
 seedSeoTutorials(store);
 expandGameContent(store);
+upgradeGameWorkshops(store);
 await initializeAdmin(store);
 initCommunity(store);
 initPersonas(store);
@@ -279,7 +281,7 @@ app.get(["/api/v1/library/:kind", "/api/v1/mini/tools"], (req, res) => {
           summary: a.summary,
           category: a.category,
           search: a.title + a.keywords,
-          format: a.curation ? "curated" : a.video ? "video" : a.practice ? "practice" : "article",
+          format: a.curation ? "curated" : a.video ? "video" : (a.practice || a.workshop) ? "practice" : "article",
           video: a.video,
           curation: a.curation,
         }));

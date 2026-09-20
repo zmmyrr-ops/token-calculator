@@ -24,9 +24,9 @@ function link(url: string, title: string) {
 const paragraph = (s: unknown) => `<p>${e(s)}</p>`;
 const list = (items: string[]) =>
   `<ul>${items.map((x) => `<li>${e(x)}</li>`).join("")}</ul>`;
-const sections = (items: { title: string; body: string }[]) =>
+const sections = (items: { title: string; body: string; code?:string; language?:string }[]) =>
   items
-    .map((s) => `<section><h2>${e(s.title)}</h2>${paragraph(s.body)}</section>`)
+    .map((s) => `<section><h2>${e(s.title)}</h2>${paragraph(s.body)}${s.code ? `<pre style="overflow:auto"><code>${e(s.code)}</code></pre>` : ""}</section>`)
     .join("");
 const cards = (items: { url: string; title: string; summary?: string }[]) =>
   `<ul>${items.map((x) => `<li>${link(x.url, x.title)}${x.summary ? paragraph(x.summary) : ""}</li>`).join("")}</ul>`;
@@ -57,7 +57,7 @@ function pageBody(route: string, d: Content, news: NewsArticle[], page = 1) {
     ? d.knowledge.find((x) => x.slug === slug)
     : undefined;
   if (a)
-    return `<h1>${e(a.title)}</h1>${paragraph(a.summary)}${tutorialLinks.some(t=>t.slug===a.slug)?`<figure><img src="/guide-images/${e(a.slug)}.png" alt="${e(a.title)}：本站操作界面" width="1100" height="760" style="max-width:100%;height:auto"><figcaption>本站操作界面（2026年9月）</figcaption></figure>`:""}${sections(a.sections)}<h2>配套工具与教程</h2>${cards(tutorialLinks.filter(t=>t.slug===a.slug).map(t=>({url:t.url,title:"打开配套工具"})))}${cards(tutorialLinks.filter(t=>t.slug!==a.slug && d.knowledge.some(a=>a.slug===t.slug)).map(t=>({url:"/learn/"+t.slug,title:t.title})))}${a.practice ? `<h2>动手实践</h2>${paragraph(a.practice.result)}${list(a.practice.preparation)}${a.practice.steps.map((s, i) => `<h3>第 ${i + 1} 步</h3>${list(s.actions)}${paragraph(s.check)}`).join("")}<h2>常见问题</h2>${a.practice.pitfalls.map((x) => `<h3>${e(x.problem)}</h3>${paragraph(x.solution)}`).join("")}<h2>交付成果</h2>${list(a.practice.deliverables)}` : ""}${a.video ? `<h2>教程视频</h2>${paragraph(a.video.publisher + " · " + a.video.language)}${paragraph(a.video.audience)}${link(a.video.url, "前往原站观看视频")}` : ""}${a.sources?.length ? `<h2>资料来源</h2>${cards(a.sources.map((s) => ({ url: s.url, title: s.title })))}` : ""}`;
+    return `<h1>${e(a.title)}</h1>${paragraph(a.summary)}${tutorialLinks.some(t=>t.slug===a.slug)?`<figure><img src="/guide-images/${e(a.slug)}.png" alt="${e(a.title)}：本站操作界面" width="1100" height="760" style="max-width:100%;height:auto"><figcaption>本站操作界面（2026年9月）</figcaption></figure>`:""}${a.workshop ? `${a.workshop.image ? `<img src="${e(a.workshop.image)}" alt="示例运行画面" style="max-width:100%;max-height:420px">` : ""}<p>${e(a.workshop.version)} · ${e(a.workshop.duration)}</p>${paragraph(a.workshop.verification)}${link(a.workshop.download,"下载完整源码与中文说明")}${a.workshop.demo ? link(a.workshop.demo,"打开成品试玩") : ""}` : ""}${sections(a.sections)}<h2>配套工具与教程</h2>${cards(tutorialLinks.filter(t=>t.slug===a.slug).map(t=>({url:t.url,title:"打开配套工具"})))}${cards(tutorialLinks.filter(t=>t.slug!==a.slug && d.knowledge.some(a=>a.slug===t.slug)).map(t=>({url:"/learn/"+t.slug,title:t.title})))}${a.practice ? `<h2>动手实践</h2>${paragraph(a.practice.result)}${list(a.practice.preparation)}${a.practice.steps.map((s, i) => `<h3>第 ${i + 1} 步</h3>${list(s.actions)}${paragraph(s.check)}`).join("")}<h2>常见问题</h2>${a.practice.pitfalls.map((x) => `<h3>${e(x.problem)}</h3>${paragraph(x.solution)}`).join("")}<h2>交付成果</h2>${list(a.practice.deliverables)}` : ""}${a.video ? `<h2>教程视频</h2>${paragraph(a.video.publisher + " · " + a.video.language)}${paragraph(a.video.audience)}${link(a.video.url, "前往原站观看视频")}` : ""}${a.sources?.length ? `<h2>资料来源</h2>${cards(a.sources.map((s) => ({ url: s.url, title: s.title })))}` : ""}`;
   const t = route.startsWith("/tools/")
     ? d.resources.find((x) => x.id === slug)
     : undefined;

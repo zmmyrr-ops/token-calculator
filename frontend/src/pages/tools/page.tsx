@@ -76,38 +76,6 @@ export default function Tools({
           ))}
         </nav>
       )}
-      {(!category || category === "游戏引擎与渲染") && (
-        <section className="platform-game-guide panel">
-          <div>
-            <div className="eyebrow">GAME DEVELOPMENT</div>
-            <h2>选引擎，也看你要做什么。</h2>
-            <p>
-              完整引擎负责场景、脚本和发布；渲染库负责画面，玩法和其他系统需要自己组合。
-            </p>
-          </div>
-          <div className="platform-paths">
-            <Link href="/learn/godot-ai-prototype">
-              <strong>独立游戏 · Godot</strong>
-              <span>从2D原型到AI辅助排错 →</span>
-            </Link>
-            <Link href="/learn/cocos-ai-prototype">
-              <strong>小游戏 · Cocos / LayaAir</strong>
-              <span>组件开发与发布前验证 →</span>
-            </Link>
-            <Link href="/learn/web-game-ai-workflow">
-              <strong>H5互动 · PixiJS / Phaser</strong>
-              <span>渲染库与游戏框架怎么选 →</span>
-            </Link>
-            <Link href="/learn/web-3d-ai-workflow">
-              <strong>Web 3D · Three.js 等</strong>
-              <span>模型展示与交互场景 →</span>
-            </Link>
-          </div>
-          <Link href="/learn/layaair-ai-workflow">
-            LayaAir 官方 AI 协同资料与实践路线 →
-          </Link>
-        </section>
-      )}
       {status}
       {data && <p className="muted">{data.total} 个工具</p>}
       <div className="resource-grid">

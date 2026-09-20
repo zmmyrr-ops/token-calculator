@@ -1,6 +1,7 @@
 import { practices } from "./practices";
 import type { Practice } from "../../../shared/practice";
 export type KnowledgeEntry = {
+  workshop?: {image?:string;version:string;duration:string;verification:string;download:string;demo?:string};
   video?: {
     url: string;
     publisher: string;
@@ -15,7 +16,7 @@ export type KnowledgeEntry = {
   summary: string;
   keywords: string;
   practice?: Practice;
-  sections: { title: string; body: string }[];
+  sections: { title: string; body: string; code?:string; language?:string }[];
   sources?: { title: string; url: string }[];
 };
 export const knowledge: KnowledgeEntry[] = [

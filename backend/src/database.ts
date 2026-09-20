@@ -193,7 +193,7 @@ export class ContentDatabase {
       knowledge,
       resources: values("resource"),
       scenarios: values("scenario"),
-      tutorialSlugs: knowledge.filter((a) => a.practice).map((a) => a.slug),
+      tutorialSlugs: knowledge.filter((a) => a.practice || a.workshop).map((a) => a.slug),
     };
   }
   private audit(
