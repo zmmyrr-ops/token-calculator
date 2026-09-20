@@ -1,0 +1,138 @@
+{
+  "meshy": {
+    "icon": "/platform-icons/meshy.ico",
+    "source": "https://www.meshy.ai/favicon.ico?favicon.1yyl_oveqrzpy.ico"
+  },
+  "scenario": {
+    "icon": "/platform-icons/scenario.png",
+    "source": "https://www.scenario.com/favicon-16x16.png"
+  },
+  "ludo": {
+    "icon": "/platform-icons/ludo.png",
+    "source": "https://ludo.ai/apple-touch-icon.png"
+  },
+  "jimeng": {
+    "icon": "/platform-icons/jimeng.ico",
+    "source": "https://lf3-lv-buz.vlabstatic.com/obj/image-lvweb-buz/common/images/dreamina-v1.ico"
+  },
+  "runway": {
+    "icon": "/platform-icons/runway.png",
+    "source": "https://runway.com/icon.png?icon.35ps9bmugbe1e.png"
+  },
+  "elevenlabs": {
+    "icon": "/platform-icons/elevenlabs.ico",
+    "source": "https://elevenlabs.io/favicon.ico?9c55860cee08706b"
+  },
+  "blender": {
+    "icon": "/platform-icons/blender.png",
+    "source": "https://www.blender.org/wp-content/themes/bthree/assets/icons/apple-touch-icon.png"
+  },
+  "comfyui": {
+    "icon": "/platform-icons/comfyui.png",
+    "source": "https://comfy.org/favicon-96x96.png"
+  },
+  "n8n": {
+    "icon": "/platform-icons/n8n.ico",
+    "source": "https://n8n.io/favicon.ico"
+  },
+  "claude": {
+    "icon": "/platform-icons/claude.png",
+    "source": "https://assets.claude.com/95a868946ac8a31e5ff832e2899f294aa368b836.png?w=32&h=32"
+  },
+  "deepseek": {
+    "icon": "/platform-icons/deepseek.ico",
+    "source": "https://www.deepseek.com/favicon.ico"
+  },
+  "gemini": {
+    "icon": "/platform-icons/gemini.png",
+    "source": "https://www.gstatic.com/devrel-devsite/prod/v826fb839c0b38141980abf47020a61dc3ff340cbde624f57178f4c01d184ef87/googledevai/images/favicon-new.png"
+  },
+  "kimi": {
+    "icon": "/platform-icons/kimi.ico",
+    "source": "https://www.kimi.com/favicon.ico"
+  },
+  "mistral": {
+    "icon": "/platform-icons/mistral.ico",
+    "source": "https://mistral.ai/favicon.ico"
+  },
+  "recraft": {
+    "icon": "/platform-icons/recraft.png",
+    "source": "https://framerusercontent.com/images/id5ZjKRfENkLEfAMrnKLKJfqfE.png"
+  },
+  "flux": {
+    "icon": "/platform-icons/flux.ico",
+    "source": "https://bfl.ai/favicon.ico"
+  },
+  "suno": {
+    "icon": "/platform-icons/suno.ico",
+    "source": "https://cdn-o.suno.com/favicon.ico"
+  },
+  "dify": {
+    "icon": "/platform-icons/dify.svg",
+    "source": "https://dify.ai/favicon.svg"
+  },
+  "huggingface": {
+    "icon": "/platform-icons/huggingface.ico",
+    "source": "https://huggingface.co/favicon.ico"
+  },
+  "ollama": {
+    "icon": "/platform-icons/ollama.png",
+    "source": "https://ollama.com/public/icon-16x16.png"
+  },
+  "lmstudio": {
+    "icon": "/platform-icons/lmstudio.png",
+    "source": "https://lmstudio.ai/assets/marketing/logo-192x192.png"
+  },
+  "unity": {
+    "icon": "/platform-icons/unity.ico",
+    "source": "https://unity.com/favicon.ico?favicon.3nuapaha9dmud.ico?dpl=c82b9419e758a193f924d527af3ba40a50805d58"
+  },
+  "davinci": {
+    "icon": "/platform-icons/davinci.ico",
+    "source": "https://www.blackmagicdesign.com/favicon.ico"
+  },
+  "qwen": {
+    "icon": "/platform-icons/qwen.png",
+    "source": "https://img.alicdn.com/imgextra/i4/O1CN01OXv3EM1FN8t9W4P79_!!6000000000474-2-tps-80-80.png"
+  },
+  "doubao": {
+    "icon": "/platform-icons/doubao.png",
+    "source": "https://portal.volccdn.com/obj/volcfe/misc/favicon.png"
+  },
+  "glm": {
+    "icon": "/platform-icons/glm.png",
+    "source": "https://docs.bigmodel.cn/mintlify-assets/_mintlify/favicons/zhipu-ef7018ed/uX_6lYCPLvdOcSdM/_generated/favicon/android-chrome-192x192.png"
+  },
+  "cocos-creator": {
+    "icon": "/platform-icons/cocos-creator.png",
+    "source": "https://www.cocos.com/favicon.ico"
+  },
+  "layaair": {
+    "icon": "/platform-icons/layaair.ico",
+    "source": "https://www.layaair.com/favicon.ico"
+  },
+  "pixijs": {
+    "icon": "/platform-icons/pixijs.png",
+    "source": "https://pixijs.com/images/favicon.png"
+  },
+  "threejs": {
+    "icon": "/platform-icons/threejs.ico",
+    "source": "https://threejs.org/files/favicon_white.ico"
+  },
+  "babylonjs": {
+    "icon": "/platform-icons/babylonjs.ico",
+    "source": "https://www.babylonjs.com/assets/favicon.ico"
+  },
+  "playcanvas": {
+    "icon": "/platform-icons/playcanvas.png",
+    "source": "https://playcanvas.com/assets/images/icons/favicon.png"
+  },
+  "godot": {
+    "icon": "/platform-icons/godot.png",
+    "source": "https://godotengine.org/assets/favicon.png"
+  },
+  "phaser": {
+    "icon": "/platform-icons/phaser.webp",
+    "source": "https://docs.phaser.io/img/favicon.webp"
+  }
+}

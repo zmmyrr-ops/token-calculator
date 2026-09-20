@@ -1,4 +1,6 @@
 export type Resource = {
+  icon?: string;
+  tags?: string[];
   id: string;
   name: string;
   category: string;

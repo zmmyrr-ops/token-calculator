@@ -1,0 +1,367 @@
+{
+  "resources": [
+    {
+      "id": "cocos-creator",
+      "name": "Cocos Creator",
+      "category": "游戏引擎与渲染",
+      "tags": [
+        "完整引擎",
+        "2D / 3D",
+        "小游戏"
+      ],
+      "summary": "具备场景编辑器与组件工作流的跨平台游戏引擎，适合2D、3D和小游戏项目。",
+      "input": "项目脚本、图像或3D素材",
+      "output": "交互场景或可运行的游戏项目",
+      "access": "本地开发 / Web",
+      "capabilities": [
+        "场景与组件编辑",
+        "TypeScript 脚本",
+        "2D / 3D 游戏制作",
+        "多平台构建"
+      ],
+      "limits": "按项目版本选择手册；小游戏发布需要对应平台适配与真机验证，不等于普通网页直接上线。",
+      "url": "https://www.cocos.com/creator",
+      "source": "https://docs.cocos.com/creator/3.8/manual/en/cases-and-tutorials/",
+      "checkedAt": "2026-09-20",
+      "article": "cocos-ai-prototype"
+    },
+    {
+      "id": "layaair",
+      "name": "LayaAir",
+      "category": "游戏引擎与渲染",
+      "tags": [
+        "完整引擎",
+        "2D / 3D",
+        "小游戏"
+      ],
+      "summary": "提供引擎、IDE和发布流程，并有官方AI协同开发与MCP说明。",
+      "input": "项目脚本、图像或3D素材",
+      "output": "交互场景或可运行的游戏项目",
+      "access": "本地开发 / Web",
+      "capabilities": [
+        "2D / 3D 场景",
+        "TypeScript 开发",
+        "IDE 编辑",
+        "AI 协同工具链"
+      ],
+      "limits": "AI服务、MCP插件和IDE版本存在依赖；按官方文档确认安装、账号与额度要求。",
+      "url": "https://www.layaair.com/",
+      "source": "https://www.layaair.com/3.x/doc/basics/",
+      "checkedAt": "2026-09-20",
+      "article": "layaair-ai-workflow"
+    },
+    {
+      "id": "pixijs",
+      "name": "PixiJS",
+      "category": "游戏引擎与渲染",
+      "tags": [
+        "2D 渲染库",
+        "Web",
+        "交互动画"
+      ],
+      "summary": "专注网页2D图形、精灵和交互渲染，适合轻量互动页面与自定义游戏画面。",
+      "input": "项目脚本、图像或3D素材",
+      "output": "交互场景或可运行的游戏项目",
+      "access": "本地开发 / Web",
+      "capabilities": [
+        "精灵与纹理",
+        "2D 动画渲染",
+        "事件交互"
+      ],
+      "limits": "不是完整游戏引擎，游戏规则、物理、关卡与存档需要自行实现或整合其他库。",
+      "url": "https://pixijs.com/",
+      "source": "https://pixijs.com/8.x/guides/getting-started/intro",
+      "checkedAt": "2026-09-20",
+      "article": "web-game-ai-workflow"
+    },
+    {
+      "id": "threejs",
+      "name": "Three.js",
+      "category": "游戏引擎与渲染",
+      "tags": [
+        "3D 渲染库",
+        "Web",
+        "模型展示"
+      ],
+      "summary": "用JavaScript构建网页3D场景，适合模型查看器、互动展示与定制3D画面。",
+      "input": "项目脚本、图像或3D素材",
+      "output": "交互场景或可运行的游戏项目",
+      "access": "本地开发 / Web",
+      "capabilities": [
+        "相机与场景",
+        "材质与光照",
+        "3D 模型加载"
+      ],
+      "limits": "本身不提供完整游戏编辑器、关卡和联网系统；需管理模型体积、GPU资源与移动端性能。",
+      "url": "https://threejs.org/",
+      "source": "https://threejs.org/manual/",
+      "checkedAt": "2026-09-20",
+      "article": "web-3d-ai-workflow"
+    },
+    {
+      "id": "phaser",
+      "name": "Phaser",
+      "category": "游戏引擎与渲染",
+      "tags": [
+        "2D 游戏框架",
+        "Web",
+        "H5 游戏"
+      ],
+      "summary": "面向浏览器2D游戏的JavaScript / TypeScript框架，带场景、资源和物理等游戏功能。",
+      "input": "项目脚本、图像或3D素材",
+      "output": "交互场景或可运行的游戏项目",
+      "access": "本地开发 / Web",
+      "capabilities": [
+        "场景与资源加载",
+        "2D 物理",
+        "动画与输入"
+      ],
+      "limits": "主要面向2D网页游戏，不是内置3D引擎；原生打包需要额外工具。",
+      "url": "https://phaser.io/",
+      "source": "https://docs.phaser.io/phaser/getting-started/what-is-phaser",
+      "checkedAt": "2026-09-20",
+      "article": "web-game-ai-workflow"
+    },
+    {
+      "id": "babylonjs",
+      "name": "Babylon.js",
+      "category": "游戏引擎与渲染",
+      "tags": [
+        "3D 渲染引擎",
+        "Web",
+        "交互场景"
+      ],
+      "summary": "面向Web的3D引擎及工具生态，可构建交互场景、模型展示和游戏原型。",
+      "input": "项目脚本、图像或3D素材",
+      "output": "交互场景或可运行的游戏项目",
+      "access": "本地开发 / Web",
+      "capabilities": [
+        "3D 场景与材质",
+        "调试与可视化工具",
+        "Web 图形工作流"
+      ],
+      "limits": "物理、资源加载与平台能力应按所用版本配置；复杂场景需要真机性能测试。",
+      "url": "https://www.babylonjs.com/",
+      "source": "https://www.babylonjs.com/",
+      "checkedAt": "2026-09-20",
+      "article": "web-3d-ai-workflow"
+    },
+    {
+      "id": "playcanvas",
+      "name": "PlayCanvas",
+      "category": "游戏引擎与渲染",
+      "tags": [
+        "完整引擎",
+        "Web",
+        "3D"
+      ],
+      "summary": "开源Web游戏引擎配合在线编辑器，适合协作搭建3D互动项目。",
+      "input": "项目脚本、图像或3D素材",
+      "output": "交互场景或可运行的游戏项目",
+      "access": "本地开发 / Web",
+      "capabilities": [
+        "Web 3D 交互",
+        "在线编辑器",
+        "脚本与场景协作"
+      ],
+      "limits": "开源引擎与托管编辑器服务不同，私有项目、协作和托管限制以实际套餐为准。",
+      "url": "https://playcanvas.com/",
+      "source": "https://playcanvas.com/",
+      "checkedAt": "2026-09-20",
+      "article": "web-3d-ai-workflow"
+    }
+  ],
+  "knowledge": [
+    {
+      "slug": "godot-ai-prototype",
+      "title": "Godot + AI：从可运行的2D原型开始",
+      "category": "游戏开发实战",
+      "summary": "本站编写的实践路线：以官方2D教程为基础，让AI逐步协助脚本与排错。",
+      "keywords": "Godot + AI：从可运行的2D原型开始 AI 游戏引擎 实战 教程",
+      "sections": [
+        {
+          "title": "先完成一个最小闭环",
+          "body": "创建独立练习项目，记录Godot版本，按官方Your first 2D game学习节点、场景、输入和信号。第一版只保留角色移动、敌人和计分，使用占位素材；先确认不借助AI也能启动空场景。"
+        },
+        {
+          "title": "给AI足够的工程上下文",
+          "body": "提供当前场景树、输入动作名、关联GDScript和完整报错。可用指令：我使用Godot，版本为【填写】；场景树为【粘贴】。请只实现角色移动，说明修改文件与节点绑定，先检查现有输入配置，不要重写整个项目。不要把API密钥、用户存档或无关代码一起提交。"
+        },
+        {
+          "title": "一次只验证一个变化",
+          "body": "先验收移动，再加碰撞，再加计分。每次修改查看差异并运行场景，用键盘与触摸各试一次；遇到错误，把首条错误、触发动作和预期结果交给AI。不要将Godot 3的示例直接套进Godot 4。"
+        },
+        {
+          "title": "可选的编辑器连接",
+          "body": "Godot资产库有社区维护的AI / MCP插件，可以作为后续探索入口；它不是Godot官方内置AI。先检查仓库、许可证和版本，备份练习项目，再只开放需要的工具权限。无需安装插件也可以复制脚本与报错进行协作。"
+        },
+        {
+          "title": "交付与验收",
+          "body": "保留一个可重启、可计分、碰撞有效的2D小游戏，附操作说明与已知问题。检查游戏重开后信号不会重复连接，切换场景没有报错，导出包能够独立运行。这是实践建议，本站不声称已实测特定AI插件。"
+        }
+      ],
+      "sources": [
+        {
+          "title": "Godot官方2D教程",
+          "url": "https://docs.godotengine.org/en/stable/getting_started/first_2d_game/index.html"
+        },
+        {
+          "title": "社区 Godot AI Assistant tools MCP",
+          "url": "https://godotengine.org/asset-library/asset/4767"
+        }
+      ]
+    },
+    {
+      "slug": "cocos-ai-prototype",
+      "title": "Cocos Creator + AI：小游戏原型分步开发",
+      "category": "游戏开发实战",
+      "summary": "结合官方示例，把AI用在组件脚本、报错分析和测试清单上。",
+      "keywords": "Cocos Creator + AI：小游戏原型分步开发 AI 游戏引擎 实战 教程",
+      "sections": [
+        {
+          "title": "锁定版本和目标平台",
+          "body": "新建TypeScript练习项目，先记录Creator版本和发布目标。按对应版本的官方示例完成场景、组件和资源绑定。浏览器预览成功后，再决定是否做微信小游戏适配；微信小程序与小游戏不是同一种运行环境。"
+        },
+        {
+          "title": "把需求拆成组件任务",
+          "body": "第一轮只做点击开始、角色跳跃、碰撞结束三项。向AI提供节点结构、现有组件与字段，提示：按当前Creator版本实现一个跳跃组件，保留已有节点引用，列出编辑器里必须手工绑定的属性，禁止假设不存在的API。"
+        },
+        {
+          "title": "资产与脚本分开处理",
+          "body": "先用方块验证机制，再让图像工具生成统一尺寸、透明背景的角色与道具。记录素材来源和使用许可；在编辑器内核对裁切、锚点与碰撞体，不能用生成图片代替碰撞数据。"
+        },
+        {
+          "title": "构建与检查",
+          "body": "将AI生成的代码逐文件合并，确认TypeScript编译通过、组件引用正确、事件在销毁时解绑。对小游戏目标验证触摸、横竖屏、首包与资源加载；不要只凭编辑器预览判断发布成功。"
+        }
+      ],
+      "sources": [
+        {
+          "title": "Cocos官方示例与教程（3.8）",
+          "url": "https://docs.cocos.com/creator/3.8/manual/en/cases-and-tutorials/"
+        }
+      ]
+    },
+    {
+      "slug": "layaair-ai-workflow",
+      "title": "LayaAir AI协同开发：文档、脚本与IDE分工",
+      "category": "游戏开发实战",
+      "summary": "收录官方AI协同文档，并补充一个可验收的小项目练习。",
+      "keywords": "LayaAir AI协同开发：文档、脚本与IDE分工 AI 游戏引擎 实战 教程",
+      "sections": [
+        {
+          "title": "先确认工具链",
+          "body": "阅读官方AI协同开发环境说明，再按实际IDE版本选择AI服务或MCP插件。代码编辑器理解脚本与IDE操作场景是不同能力，不要把文档查询、代码生成和编辑器控制混为一谈。"
+        },
+        {
+          "title": "先让基础项目跑起来",
+          "body": "新建2D项目并在浏览器预览，保存初始版本。练习目标设为：角色跟随触摸位置、收集道具、显示分数；先准备场景节点，再逐个添加脚本。"
+        },
+        {
+          "title": "给AI一个可验收任务",
+          "body": "示例提示：我使用LayaAir【版本】，请基于现有脚本完成道具收集；先查询对应版本API，列出要修改的文件与场景绑定；一次只改一个功能，说明运行后如何验证，不确定的接口请明确标出。只在本机或服务端配置密钥，不把密钥写进客户端脚本。"
+        },
+        {
+          "title": "验证AI的改动",
+          "body": "核查实际产生的文件、节点和资源引用，再运行预览。测试触摸中断、重复收集、重新开始、不同屏幕比例；若工具调用失败，回退到手动修改脚本，不把自然语言回复视为场景已完成。"
+        }
+      ],
+      "sources": [
+        {
+          "title": "LayaAir官方AI协同环境",
+          "url": "https://layaair.com/3.4/doc/basics/developmentEnvironment/AIGC/readme.html"
+        },
+        {
+          "title": "LayaAir引擎概述",
+          "url": "https://www.layaair.com/3.x/doc/basics/"
+        }
+      ]
+    },
+    {
+      "slug": "web-game-ai-workflow",
+      "title": "PixiJS / Phaser + AI：做一个H5收集小游戏",
+      "category": "游戏开发实战",
+      "summary": "先选渲染库或游戏框架，再让AI按可运行的小步骤完成交互。",
+      "keywords": "PixiJS / Phaser + AI：做一个H5收集小游戏 AI 游戏引擎 实战 教程",
+      "sections": [
+        {
+          "title": "先选合适的底座",
+          "body": "主要是精灵动画和互动展示，可以从PixiJS开始；需要场景切换、碰撞和游戏循环，优先评估Phaser。两者不用同时安装。先从各自官方教程运行一个示例，再固定依赖版本，避免AI混用不同大版本API。"
+        },
+        {
+          "title": "定义30秒游戏",
+          "body": "写清规则：玩家左右移动、接住下落道具得分、30秒后显示结果并可重开。素材先用几何图形，画布随窗口缩放。让AI先输出状态与模块拆分，不要第一轮就加入登录、广告与支付。"
+        },
+        {
+          "title": "协作提示与迭代",
+          "body": "提示：项目使用【PixiJS或Phaser及版本】，请读取现有入口，先只实现玩家移动和边界限制；同时支持键盘和触摸。说明清理事件监听的方法，并给出重开游戏的测试步骤。接下来分别加生成道具、判定得分和结束界面。"
+        },
+        {
+          "title": "用真实运行结果排错",
+          "body": "浏览器控制台不能有异常。连续重开5次，确认倒计时和生成频率没有加倍；切换后台再返回检查时间；在手机上测触摸、滚动冲突和横竖屏。AI可以帮助列测试用例，但性能结论要来自实际设备。"
+        },
+        {
+          "title": "官方练习资源",
+          "body": "Phaser的首个游戏教程可练习平台跳跃与收集；PixiJS教程库提供交互图形练习。它们是基础教程，本站在此补充AI协作路线，不将原作者课程标称为AI课程。"
+        }
+      ],
+      "sources": [
+        {
+          "title": "Phaser官方：第一个游戏",
+          "url": "https://docs.phaser.io/phaser/getting-started/making-your-first-phaser-game"
+        },
+        {
+          "title": "PixiJS官方教程",
+          "url": "https://pixijs.com/8.x/tutorials"
+        },
+        {
+          "title": "PixiJS介绍",
+          "url": "https://pixijs.com/8.x/guides/getting-started/intro"
+        }
+      ]
+    },
+    {
+      "slug": "web-3d-ai-workflow",
+      "title": "Three.js / Babylon.js / PlayCanvas + AI：搭建3D展示原型",
+      "category": "游戏开发实战",
+      "summary": "通过一个可旋转、可切换材质的模型展示场景，练习AI辅助Web 3D开发。",
+      "keywords": "Three.js / Babylon.js / PlayCanvas + AI：搭建3D展示原型 AI 游戏引擎 实战 教程",
+      "sections": [
+        {
+          "title": "确定项目形态",
+          "body": "需要代码主导的渲染控制可考虑Three.js；需要更完整的Web 3D工具生态可评估Babylon.js；想在在线编辑器里协作搭建场景可看PlayCanvas。先比较实际编辑流程，再选一个框架，不要求同时接入三个。"
+        },
+        {
+          "title": "从几何体到模型",
+          "body": "先建一个基础几何体，确认相机、光照、尺寸适配和渲染循环，再加载有授权的模型。记录文件大小、材质和贴图数量。AI生成的模型仍需检查面数、UV和坐标方向。"
+        },
+        {
+          "title": "向AI提供明确边界",
+          "body": "提示：我使用【框架及版本】，现有场景能显示几何体。请只增加模型加载进度、失败提示与相机适配；不得重建整个工程，列出涉及的API及来源。下一轮再加旋转交互与材质切换。"
+        },
+        {
+          "title": "验证资源释放与性能",
+          "body": "反复进入退出场景，检查纹理、几何体、事件与动画循环是否释放。测试低分辨率手机、窗口缩放、加载失败和慢网；依据实测帧率调整像素比、贴图分辨率与阴影，不能凭AI给出的数字承诺性能。"
+        },
+        {
+          "title": "扩展到游戏前",
+          "body": "模型展示不等于完整3D游戏。若继续加入角色、碰撞、关卡和联网，先决定使用的物理与状态系统，明确服务端职责；不要在浏览器代码里嵌入大模型服务密钥。"
+        }
+      ],
+      "sources": [
+        {
+          "title": "Three.js官方手册",
+          "url": "https://threejs.org/manual/"
+        },
+        {
+          "title": "Babylon.js官方",
+          "url": "https://www.babylonjs.com/"
+        },
+        {
+          "title": "PlayCanvas官方",
+          "url": "https://playcanvas.com/"
+        }
+      ]
+    }
+  ]
+}

@@ -1,3 +1,4 @@
+import {resourceCategory} from "./resource-categories";
 import { z } from "zod";
 import { ModelSchema } from "./types";
 export const kinds = ["knowledge", "resource", "scenario", "model"] as const;
@@ -74,9 +75,11 @@ export const knowledgeSchema = z.object({
     .optional(),
 });
 export const resourceSchema = z.object({
+  icon: z.string().max(2000).refine(s => !s || /^\/platform-icons\/[a-zA-Z0-9_.-]+$/.test(s) || /^https:\/\//.test(s), "请使用站内图标或HTTPS图片").optional(),
+  tags: z.array(short).max(10).optional(),
   id,
   name: short.min(1),
-  category: short,
+  category: short.transform(value=>resourceCategory(value)),
   summary: text,
   input: text,
   output: text,

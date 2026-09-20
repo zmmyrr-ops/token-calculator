@@ -1,3 +1,4 @@
+import ResourceIcon from "@/components/ResourceIcon";
 import { useContent } from "@/content";
 import Link from "@/Link";
 import NotFound from "@/pages/not-found";
@@ -11,7 +12,15 @@ export default function Tool({ params }: { params: { slug: string } }) {
     <article className="prose">
       <Link href="/tools">工具与平台</Link>
       <div className="eyebrow">{t.category}</div>
-      <h1>{t.name}</h1>
+      <div className="platform-card-heading">
+        <ResourceIcon name={t.name} icon={t.icon} />
+        <h1>{t.name}</h1>
+      </div>
+      <div className="platform-tags">
+        {t.tags?.map((tag) => (
+          <span key={tag}>{tag}</span>
+        ))}
+      </div>
       <p>{t.summary}</p>
       <SaveButton
         item={{

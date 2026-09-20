@@ -1,3 +1,5 @@
+import {expandGameContent} from "./game-expansion";
+import {resourceCategories,resourceCategoryMatches} from "../../shared/resource-categories";
 import {seedSeoTutorials} from "./seo-tutorials";
 import {pruneMiniEyes} from "./mini-eyes";
 import { LearningCollector } from "./learning-collector";
@@ -49,6 +51,7 @@ store.seed({
 });
 expandContent(store);
 seedSeoTutorials(store);
+expandGameContent(store);
 await initializeAdmin(store);
 initCommunity(store);
 initPersonas(store);
@@ -266,7 +269,9 @@ app.get(["/api/v1/library/:kind", "/api/v1/mini/tools"], (req, res) => {
           summary: t.summary,
           category: t.category,
           access: t.access,
-          search: t.name + t.summary,
+          icon: t.icon,
+          tags: t.tags,
+          search: [t.name,t.summary,t.category,...(t.tags||[]),...t.capabilities].join(" "),
         }))
       : data.knowledge.map((a) => ({
           slug: a.slug,
@@ -283,14 +288,14 @@ app.get(["/api/v1/library/:kind", "/api/v1/mini/tools"], (req, res) => {
       (!p.format ||
         p.format === "scenarios" ||
         ("format" in a && a.format === p.format)) &&
-      (!p.category || a.category === p.category) &&
+      (kind === "tools" ? resourceCategoryMatches(a.category,p.category||"") : (!p.category || a.category === p.category)) &&
       a.search.toLowerCase().includes((p.q || "").toLowerCase()),
   );
   res.json({
     total: filtered.length,
     page,
     pageSize,
-    categories: [...new Set(entries.map((a) => a.category))],
+    categories: [...new Set(entries.map((a) => a.category))].sort((a,b)=> kind === "tools" ? (resourceCategories.indexOf(a)<0?99:resourceCategories.indexOf(a))-(resourceCategories.indexOf(b)<0?99:resourceCategories.indexOf(b)) : 0),
     items: filtered
       .slice((page - 1) * pageSize, page * pageSize)
       .map(({ search: _search, ...a }) => a),
