@@ -50,6 +50,17 @@ it("upgrades all starter lessons once and retains published links and practices"
     expect(
       data.knowledge.find((a) => a.slug === "image-to-3d")!.practice!.steps,
     ).toHaveLength(4);
+    const token = db.get("knowledge", "tokens");
+    const saved = db.save(
+      "knowledge",
+      "tokens",
+      { ...token.draft, title: "发布回归验证" },
+      token.revision,
+      "test",
+    );
+    expect(() =>
+      db.changePublication("knowledge", "tokens", saved.revision, true, "test"),
+    ).not.toThrow();
     const version = db.meta("contentVersion");
     upgradeLearningContent(db);
     expect(db.meta("contentVersion")).toBe(version);

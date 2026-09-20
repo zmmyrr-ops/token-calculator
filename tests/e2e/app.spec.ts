@@ -350,7 +350,7 @@ test("public article is readable without JavaScript and unknown routes return 40
     }),
   ).toBeVisible();
   await expect(
-    page.getByText("模型处理的是词元序列", { exact: true }),
+    page.getByText("先用同一段文字做对照", { exact: true }),
   ).toBeVisible();
   const response = await request.get("/learn/missing-seo-page");
   expect(response.status()).toBe(404);

@@ -283,8 +283,17 @@ export class ContentDatabase {
       )
         throw new CmsError(422, `文章「${a.title}」缺少摘要或段落正文`);
       if (a.practice) {
-        if (a.practice.steps.length !== a.sections.length)
-          throw new CmsError(422, "实践阶段数必须与正文段落数一致");
+        // Reading chapters and the companion checklist are independent sections.
+        if (
+          !a.practice.steps.length ||
+          a.practice.steps.some(
+            (s) =>
+              !s.actions.length ||
+              s.actions.some((action) => !action.trim()) ||
+              !s.check.trim(),
+          )
+        )
+          throw new CmsError(422, "实践清单必须包含操作项与验收条件");
         if (!has(data.scenarios, a.practice.scenario))
           throw new CmsError(
             422,

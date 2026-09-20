@@ -35,7 +35,7 @@ test("SEO metadata updates across routes and page links remain crawlable", async
   await expect(page).toHaveTitle(/Token 是什么/);
   await expect(page.locator("meta[name=description]")).toHaveAttribute(
     "content",
-    /分词编码/,
+    /多轮对话账单/,
   );
   await expect(page.locator('meta[property="og:url"]')).toHaveAttribute(
     "content",
