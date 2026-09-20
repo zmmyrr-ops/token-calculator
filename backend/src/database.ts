@@ -53,6 +53,23 @@ export class ContentDatabase {
    CREATE INDEX IF NOT EXISTS analytics_events_at ON analytics_events(at);
    CREATE INDEX IF NOT EXISTS analytics_events_name_at ON analytics_events(name,at);
    INSERT OR IGNORE INTO migrations VALUES(2,datetime('now'));`);
+    this.transaction(() => {
+      const columns = this.db
+        .prepare("PRAGMA table_info(analytics_events)")
+        .all()
+        .map((c) => c.name);
+      if (!columns.includes("source"))
+        this.db.exec("ALTER TABLE analytics_events ADD COLUMN source TEXT");
+      if (!columns.includes("device"))
+        this.db.exec("ALTER TABLE analytics_events ADD COLUMN device TEXT");
+      if (!columns.includes("traffic_version"))
+        this.db.exec(
+          "ALTER TABLE analytics_events ADD COLUMN traffic_version INTEGER NOT NULL DEFAULT 0",
+        );
+      this.db.exec(
+        "INSERT OR IGNORE INTO migrations VALUES(6,datetime('now'))",
+      );
+    });
   }
   transaction<T>(fn: () => T): T {
     this.db.exec("BEGIN IMMEDIATE");

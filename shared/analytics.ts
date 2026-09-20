@@ -1,5 +1,12 @@
+import {
+  trafficSources,
+  trafficDevices,
+  type TrafficSource,
+  type TrafficDevice,
+} from "./traffic";
 import { z } from "zod";
 export const eventNames = [
+  "visit_start",
   "page_view",
   "navigation_click",
   "content_click",
@@ -11,6 +18,7 @@ export const eventNames = [
   "persona_download",
 ] as const;
 export const eventLabels: Record<(typeof eventNames)[number], string> = {
+  visit_start: "网站进入",
   persona_copy: "复制人格指令或链接",
   persona_download: "下载人格配置",
   page_view: "页面访问",
@@ -22,6 +30,7 @@ export const eventLabels: Record<(typeof eventNames)[number], string> = {
   report_export: "导出计算报告",
 };
 export const pageNames = [
+  "/ai-eyes",
   "/",
   "/news",
   "/personas",
@@ -68,15 +77,32 @@ export const eventSchema = z
     id: z.string().uuid(),
     name: z.enum(eventNames),
     page: z.enum(pageNames),
+    source: z.enum(trafficSources).optional(),
+    device: z.enum(trafficDevices).optional(),
     target: z.union([
       z.enum(pageNames),
       z.literal("external"),
       z.literal("none"),
     ]),
   })
-  .strict();
+  .strict()
+  .refine(
+    (e) =>
+      e.name === "visit_start"
+        ? Boolean(e.source && e.device && e.target === "none")
+        : e.source === undefined && e.device === undefined,
+    "来源仅用于网站进入事件",
+  );
 export type AnalyticsEvent = z.infer<typeof eventSchema>;
 export type AnalyticsSummary = {
+  traffic: {
+    device: "all" | TrafficDevice;
+    entries: number;
+    legacyPageViews: number;
+    sources: { source: TrafficSource; count: number }[];
+    landings: { source: TrafficSource; page: string; count: number }[];
+    daily: { day: string; source: TrafficSource; count: number }[];
+  };
   days: number;
   since: string;
   totalEvents: number;

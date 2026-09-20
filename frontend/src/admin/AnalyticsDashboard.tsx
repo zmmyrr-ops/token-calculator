@@ -1,9 +1,11 @@
+import { trafficLabels, type TrafficSource } from "@shared/traffic";
 import { useEffect, useState } from "react";
 import { appPath } from "@/base";
 import { eventLabels, type AnalyticsSummary } from "@shared/analytics";
 const label = (name: string) =>
   eventLabels[name as keyof typeof eventLabels] ?? name;
 export default function AnalyticsDashboard() {
+  const [device, setDevice] = useState("all");
   const [days, setDays] = useState("7"),
     [revision, setRevision] = useState(0);
   const [data, setData] = useState<AnalyticsSummary | null>(null),
@@ -12,9 +14,12 @@ export default function AnalyticsDashboard() {
     const abort = new AbortController();
     setData(null);
     setError("");
-    fetch(appPath("/api/admin/analytics") + "?days=" + days, {
-      signal: abort.signal,
-    })
+    fetch(
+      appPath("/api/admin/analytics") + "?days=" + days + "&device=" + device,
+      {
+        signal: abort.signal,
+      },
+    )
       .then(async (r) => {
         const d = await r.json();
         if (!r.ok) throw Error(d.error || "统计加载失败");
@@ -24,7 +29,7 @@ export default function AnalyticsDashboard() {
         if (!abort.signal.aborted) setError(e.message);
       });
     return () => abort.abort();
-  }, [days, revision]);
+  }, [days, revision, device]);
   const peak = Math.max(
     1,
     ...(data?.daily.map((d) => d.pageViews + d.interactions) ?? []),
@@ -82,6 +87,80 @@ export default function AnalyticsDashboard() {
               这个时间范围还没有收到访问数据。用户访问公开页面后，刷新统计即可查看。
             </p>
           )}
+          <section
+            className="panel analytics-section"
+            aria-label="流量来源统计"
+          >
+            <div className="action-row">
+              <h2>流量来源</h2>
+              <select
+                aria-label="来源设备筛选"
+                value={device}
+                onChange={(e) => setDevice(e.target.value)}
+              >
+                <option value="all">全部设备</option>
+                <option value="desktop">PC 电脑</option>
+                <option value="mobile">手机</option>
+                <option value="tablet">平板</option>
+                <option value="unknown">设备未知</option>
+              </select>
+            </div>
+            <p>记录到 {data.traffic.entries} 次进入 · 设备筛选仅作用于本模块</p>
+            <p className="micro">
+              按当前标签页统计：站内跳转与刷新不重复计入；30分钟无页面活动后再次进入，或重新从外部链接进入，开始一次新访问。不是独立访客数。设备与搜索来源为浏览器信息推断，UTM链接优先归为推广。
+            </p>
+            <p className="micro">
+              升级前 {data.traffic.legacyPageViews}{" "}
+              次页面浏览未采集来源（全部设备）；历史来源无法补算。来源缺失不能确定是直接访问还是搜索进入。
+            </p>
+            {!data.traffic.entries ? (
+              <p className="empty-panel">
+                尚未记录到符合条件的进入数据；上线后有新的访问会在这里显示。
+              </p>
+            ) : (
+              <>
+                <ol>
+                  {data.traffic.sources.map((s) => (
+                    <li key={s.source}>
+                      <span>
+                        {trafficLabels[s.source]}{" "}
+                        <small>
+                          ({((100 * s.count) / data.traffic.entries).toFixed(1)}
+                          %)
+                        </small>
+                      </span>
+                      <strong>{s.count}</strong>
+                    </li>
+                  ))}
+                </ol>
+                <h3>首次进入页面</h3>
+                <p className="micro">
+                  详情页按类型合并，不存具体文章或用户结果标识。
+                </p>
+                <ol>
+                  {data.traffic.landings.map((s) => (
+                    <li key={s.source + s.page}>
+                      <span>
+                        {trafficLabels[s.source]} · <code>{s.page}</code>
+                      </span>
+                      <strong>{s.count}</strong>
+                    </li>
+                  ))}
+                </ol>
+                <details>
+                  <summary>查看每日来源趋势</summary>
+                  <ul>
+                    {data.traffic.daily.map((s) => (
+                      <li key={s.day + s.source}>
+                        {s.day} · {trafficLabels[s.source as TrafficSource]}：
+                        {s.count} 次
+                      </li>
+                    ))}
+                  </ul>
+                </details>
+              </>
+            )}
+          </section>
           <section className="panel analytics-section">
             <h2>每日趋势</h2>
             <p className="micro">
@@ -166,7 +245,7 @@ export default function AnalyticsDashboard() {
           <p className="micro">
             保存最近 90 天、约 10
             万条事件，超过上限清理最早数据，因此高流量时可能不足 90
-            天。只记录事件类型、路由类型和服务器时间，不采集输入正文、查询词、IP
+            天。记录事件类型、路由类型、来源类别、设备类别和服务器时间，不采集输入正文、查询词、IP
             或访客标识。
           </p>
         </>

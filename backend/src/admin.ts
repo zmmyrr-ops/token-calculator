@@ -1,6 +1,7 @@
-import {seoAdminRouter} from "./seo-admin";
-import {LearningCollector,learningAdminRouter} from "./learning-collector";
-import {eyesAdminRouter, initEyes} from "./ai-eyes";
+import { trafficDevices } from "../../shared/traffic";
+import { seoAdminRouter } from "./seo-admin";
+import { LearningCollector, learningAdminRouter } from "./learning-collector";
+import { eyesAdminRouter, initEyes } from "./ai-eyes";
 import { personasRouter } from "./personas";
 import { miniSettingsAdminRouter } from "./mini-settings";
 import { BaiduService, baiduAdminRouter } from "./baidu";
@@ -52,7 +53,11 @@ export async function initializeAdmin(store: ContentDatabase) {
     );
   store.db.prepare("INSERT INTO admins VALUES(?,?,1)").run(username, hashed);
 }
-export function adminRouter(store: ContentDatabase, baidu?: BaiduService, learning?: LearningCollector) {
+export function adminRouter(
+  store: ContentDatabase,
+  baidu?: BaiduService,
+  learning?: LearningCollector,
+) {
   initCommunity(store);
   const cookieName =
     process.env.APP_ENV === "staging" ? "mendao_staging_admin" : "mendao_admin";
@@ -197,11 +202,26 @@ export function adminRouter(store: ContentDatabase, baidu?: BaiduService, learni
     res.json({ ok: true });
   });
   router.use(auth);
-  router.use("/seo", (req,res,next)=>{res.locals.adminUsername=session(req)!.username;next();}, seoAdminRouter(store));
-  if (learning) router.use("/learning-collector", learningAdminRouter(learning));
+  router.use(
+    "/seo",
+    (req, res, next) => {
+      res.locals.adminUsername = session(req)!.username;
+      next();
+    },
+    seoAdminRouter(store),
+  );
+  if (learning)
+    router.use("/learning-collector", learningAdminRouter(learning));
   initEyes(store);
   router.use("/ai-eyes", eyesAdminRouter(store));
-  router.use("/personas", (req, res, next) => { res.locals.adminUsername = session(req)!.username; next(); }, personasRouter(store, true));
+  router.use(
+    "/personas",
+    (req, res, next) => {
+      res.locals.adminUsername = session(req)!.username;
+      next();
+    },
+    personasRouter(store, true),
+  );
   router.use(
     "/mini-settings",
     (req, res, next) => {
@@ -222,7 +242,10 @@ export function adminRouter(store: ContentDatabase, baidu?: BaiduService, learni
   router.get("/analytics", (req, res) => {
     const days = z.enum(["7", "30", "90"]).parse(req.query.days ?? "7");
     pruneEvents(store);
-    res.json(analyticsSummary(store, Number(days)));
+    const device = z
+      .enum(["all", ...trafficDevices])
+      .parse(req.query.device ?? "all");
+    res.json(analyticsSummary(store, Number(days), Date.now(), device));
   });
   const kind = (req: Request) => z.enum(kinds).parse(req.params.kind);
   const revision = (value: unknown) => z.number().int().positive().parse(value);

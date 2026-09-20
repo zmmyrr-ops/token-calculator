@@ -1,3 +1,8 @@
+import {
+  classifyTraffic,
+  trafficDevice,
+  shouldStartVisit,
+} from "@shared/traffic";
 import { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
 import { appPath, basePath, storageKey, isStaging } from "./base";
@@ -14,34 +19,77 @@ function pathWithoutBase(path: string) {
   const base = basePath.replace(/\/$/, "");
   return base && path.startsWith(base + "/") ? path.slice(base.length) : path;
 }
-export function track(
-  name: AnalyticsEvent["name"],
-  target: AnalyticsEvent["target"] = "none",
-) {
-  const path = pathWithoutBase(location.pathname);
-  if (
-    path.startsWith("/ai-eyes") ||
-    path.startsWith("/admin") ||
-    ["/login", "/register", "/account"].includes(path) ||
-    !analyticsEnabled()
-  )
-    return;
+const initialReferrer =
+  typeof document === "undefined" ? "" : document.referrer;
+const initialUrl =
+  typeof location === "undefined" ? "https://ruming.top" : location.href;
+let checkedDocument = false;
+let lastActivity: number | null = null;
+function sendEvent(event: Omit<AnalyticsEvent, "id">) {
   try {
     void fetch(appPath("/api/v1/events"), {
       method: "POST",
       keepalive: true,
       credentials: isStaging ? "same-origin" : "omit",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        id: crypto.randomUUID(),
-        name,
-        page: analyticsPage(path),
-        target,
-      }),
+      body: JSON.stringify({ id: crypto.randomUUID(), ...event }),
     }).catch(() => {});
   } catch {
-    /* Analytics must never interrupt the site. */
+    /* Statistics must not interrupt the website. */
   }
+}
+function visit(path: string) {
+  const now = Date.now();
+  try {
+    const stored = sessionStorage.getItem(storageKey("traffic-last-activity"));
+    if (stored !== null) lastActivity = Number(stored);
+  } catch {
+    /* Keep the in-memory fallback when storage is unavailable. */
+  }
+  const source = checkedDocument
+    ? "direct_unknown"
+    : classifyTraffic(initialReferrer, initialUrl);
+  const navigation =
+    (
+      performance.getEntriesByType("navigation")[0] as
+        | PerformanceNavigationTiming
+        | undefined
+    )?.type || "navigate";
+  if (
+    shouldStartVisit(lastActivity, now, !checkedDocument, source, navigation)
+  ) {
+    sendEvent({
+      name: "visit_start",
+      page: analyticsPage(path),
+      target: "none",
+      source,
+      device: trafficDevice(navigator.userAgent, navigator.maxTouchPoints),
+    });
+  }
+  checkedDocument = true;
+  lastActivity = now;
+  try {
+    sessionStorage.setItem(storageKey("traffic-last-activity"), String(now));
+  } catch {
+    /* Best effort only. */
+  }
+}
+export function track(
+  name: AnalyticsEvent["name"],
+  target: AnalyticsEvent["target"] = "none",
+) {
+  const path = pathWithoutBase(location.pathname);
+  if (
+    path.startsWith("/admin") ||
+    ["/login", "/register", "/account"].includes(path) ||
+    !analyticsEnabled()
+  )
+    return;
+  // Only the public landing of AI Eyes participates; result/task routes stay excluded.
+  if (path.startsWith("/ai-eyes") && path !== "/ai-eyes") return;
+  if (name === "page_view") visit(path);
+  if (path === "/ai-eyes" || name === "visit_start") return;
+  sendEvent({ name, page: analyticsPage(path), target });
 }
 export default function Analytics() {
   const { pathname, search } = useLocation();

@@ -130,6 +130,17 @@ test("isolated admin: change password, save, publish and download backup", async
     await expect(
       page.locator(".analytics-metrics article").first().locator("strong"),
     ).toHaveText("1");
+    recordEvent(db,{id:randomUUID(),name:"visit_start",page:"/learn",target:"none",source:"baidu",device:"desktop"});
+    recordEvent(db,{id:randomUUID(),name:"visit_start",page:"/",target:"none",source:"google",device:"mobile"});
+    await page.getByRole("button",{name:"刷新统计"}).click();
+    const traffic=page.getByRole("region",{name:"流量来源统计"});
+    await expect(traffic).toContainText("记录到 2 次进入");
+    await page.getByLabel("来源设备筛选").selectOption("desktop");
+    await expect(traffic).toContainText("记录到 1 次进入");
+    await expect(traffic).toContainText("百度搜索");
+    await expect(traffic).not.toContainText("Google 搜索");
+    await traffic.screenshot({path:"test-results/traffic-"+test.info().project.name+".png"});
+    await expect(page.locator(".analytics-metrics article").first().locator("strong")).toHaveText("1");
     await page.getByRole("button", { name: "社区管理", exact: true }).click();
     await expect(
       page.getByRole("heading", { name: "社区管理", exact: true }),
