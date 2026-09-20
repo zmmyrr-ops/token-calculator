@@ -13,14 +13,31 @@ test("anonymous telemetry excludes query text and can be disabled", async ({
   await expect(
     page.getByRole("heading", { name: "搜索：PrivateAnalyticsCanary" }),
   ).toBeVisible();
-  await expect.poll(() => events.length).toBeGreaterThan(0);
+  await expect
+    .poll(() => events.some((e) => e.name === "page_view"))
+    .toBe(true);
+  const pageView = events.find((e) => e.name === "page_view")!;
+  const entrance = events.find((e) => e.name === "visit_start")!;
+  expect(entrance).toMatchObject({
+    source: "direct_unknown",
+    page: "/search",
+    target: "none",
+  });
+  expect(Object.keys(entrance).sort()).toEqual([
+    "device",
+    "id",
+    "name",
+    "page",
+    "source",
+    "target",
+  ]);
   expect(JSON.stringify(events)).not.toContain("PrivateAnalyticsCanary");
-  expect(events[0]).toMatchObject({
+  expect(pageView).toMatchObject({
     name: "page_view",
     page: "/search",
     target: "none",
   });
-  expect(Object.keys(events[0]).sort()).toEqual([
+  expect(Object.keys(pageView).sort()).toEqual([
     "id",
     "name",
     "page",
