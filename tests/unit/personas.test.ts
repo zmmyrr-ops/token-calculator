@@ -43,9 +43,9 @@ it("seeds without overwriting edits and preserves unpublishing with revision con
     expect((await put()).status).toBe(200);
     expect((await put()).status).toBe(409);
     initPersonas(db);
-    expect(personaRows(db)[0].name).toBe(data.name);
+    expect(personaRows(db).find((p) => p.id === data.id)?.name).toBe(data.name);
     const published = await (await fetch(base + "/public")).json();
-    expect(published.items).toHaveLength(11);
+    expect(published.items).toHaveLength(4);
     expect(published.items.some((p: { id: string }) => p.id === data.id)).toBe(
       false,
     );
@@ -90,7 +90,7 @@ it("backfills detailed instructions once without replacing existing editor conte
       );
     initPersonas(db);
     const migrated = personaRows(db)[0];
-    expect(migrated.instructions).toContain("多场景对话示范");
+    expect(migrated.instructions).toContain("性格内核");
     expect(migrated.name).toBe("保留编辑名称");
     expect(migrated.published).toBe(false);
     initPersonas(db);
@@ -131,4 +131,80 @@ it("embeds only safe image data in standalone share cards", () => {
       "javascript:alert(1)",
     ),
   ).not.toContain("javascript:");
+});
+
+it("archives only legacy official personas atomically, retains recovery data and never reruns migration", () => {
+  const db = new ContentDatabase(":memory:");
+  try {
+    db.db.exec(
+      "CREATE TABLE personas(id TEXT PRIMARY KEY,data TEXT NOT NULL,revision INTEGER NOT NULL DEFAULT 1,updated_at TEXT NOT NULL)",
+    );
+    const old = {
+      ...personaSeeds[0],
+      id: "spark",
+      name: "管理员改过的旧人格",
+      published: true,
+    };
+    delete old.voice;
+    for (const p of [old, { ...old, id: "custom-character" }])
+      db.db
+        .prepare("INSERT INTO personas VALUES(?,?,?,?)")
+        .run(p.id, JSON.stringify(p), 8, "2026-09-01");
+    initPersonas(db);
+    const rows = personaRows(db);
+    expect(rows.find((p) => p.id === "spark")).toMatchObject({
+      published: false,
+      revision: 9,
+      name: old.name,
+    });
+    expect(rows.find((p) => p.id === "custom-character")).toMatchObject({
+      published: true,
+      revision: 8,
+    });
+    expect(rows.filter((p) => p.voice)).toHaveLength(5);
+    const record = db.db
+      .prepare("SELECT snapshot FROM persona_content_migrations")
+      .get()!;
+    expect(JSON.parse(String(record.snapshot))[0]).toMatchObject({
+      id: "spark",
+      revision: 8,
+    });
+    expect(
+      JSON.parse(JSON.parse(String(record.snapshot))[0].data).published,
+    ).toBe(true);
+    db.db
+      .prepare(
+        "UPDATE personas SET data=json_set(data,'$.published',json('false')) WHERE id=?",
+      )
+      .run(personaSeeds[0].id);
+    initPersonas(db);
+    expect(
+      personaRows(db).find((p) => p.id === personaSeeds[0].id)?.published,
+    ).toBe(false);
+    expect(
+      db.db.prepare("SELECT count(*) n FROM persona_content_migrations").get()
+        ?.n,
+    ).toBe(1);
+    expect(personaRows(db).find((p) => p.id === "spark")?.revision).toBe(9);
+  } finally {
+    db.close();
+  }
+});
+it("exports strength-specific scenes and a bounded custom address without leaving placeholders", () => {
+  const p = personaSeeds[0];
+  const light = personaArtifact(p, "light", "session", "小林");
+  const strong = personaArtifact(p, "strong", "session", "小林");
+  expect(strong).not.toEqual(light);
+  expect(strong).toContain("小林");
+  expect(strong).not.toContain("{{称呼}}");
+  expect(strong).toContain(p.voice!.directions.strong);
+  expect(light).toContain(p.voice!.directions.light);
+  const card = personaCard(
+    p,
+    "strong",
+    "https://ruming.top/personas",
+    "",
+    "<img>",
+  );
+  expect(card).not.toContain("<img>");
 });

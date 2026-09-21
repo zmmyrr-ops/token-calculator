@@ -13,7 +13,9 @@ import {
 import { appPath, storageKey } from "./base";
 import { track } from "./Analytics";
 import {
-  demoQuestion,
+  personaExample,
+  personaText,
+  personaAddress,
   intensities,
   personaArtifact,
   personaCard,
@@ -58,9 +60,8 @@ export default function Personas() {
     [error, setError] = useState(""),
     [loading, setLoading] = useState(true),
     [attempt, setAttempt] = useState(0);
-  const [q, setQ] = useState(""),
-    [category, setCategory] = useState("全部"),
-    [onlyFavorites, setOnlyFavorites] = useState(false),
+  const [topic, setTopic] = useState("拖延");
+  const [onlyFavorites, setOnlyFavorites] = useState(false),
     [favorites, setFavorites] = useState(initialFavorites),
     [notice, setNotice] = useState("");
   useEffect(() => {
@@ -101,16 +102,22 @@ export default function Personas() {
     items.length > 0 &&
     !items.some((p) => p.id === params.get("persona"));
   const filtered = items.filter(
-    (p) =>
-      (category === "全部" || p.category === category) &&
-      (!onlyFavorites || favorites.includes(p.id)) &&
-      `${p.name}${p.description}${p.traits.join(" ")}`.includes(q.trim()),
+    (p) => !onlyFavorites || favorites.includes(p.id),
   );
-  const content = selected ? personaArtifact(selected, intensity, mode) : "";
+  const address = selected
+    ? personaAddress(selected, params.get("address") ?? undefined)
+    : "你";
+  const content = selected
+    ? personaArtifact(selected, intensity, mode, address)
+    : "";
+  const example = selected
+    ? personaExample(selected, intensity, topic, address)
+    : null;
   function update(key: string, value: string) {
     // Read the committed URL so rapid control changes do not overwrite a pending router render.
     const next = new URLSearchParams(window.location.search);
     next.set(key, value);
+    if (key === "persona") next.delete("address");
     setParams(next, { replace: true });
     setNotice("");
   }
@@ -147,7 +154,7 @@ export default function Personas() {
       });
       saveFile(
         `${selected.id}-card.svg`,
-        personaCard(selected, intensity, shareUrl(), avatar),
+        personaCard(selected, intensity, shareUrl(), avatar, address),
         "image/svg+xml;charset=utf-8",
       );
       setNotice("分享卡片已下载，包含专属头像，可用浏览器打开。");
@@ -161,6 +168,7 @@ export default function Personas() {
       persona: selected.id,
       strength: intensity,
       mode,
+      address,
     }).toString();
     return url.href;
   }
@@ -168,40 +176,43 @@ export default function Personas() {
     <div className="persona-hub">
       <header className="persona-hero">
         <div>
-          <div className="eyebrow">PERSONALITY, WITH PURPOSE</div>
+          <div className="eyebrow">FIVE VOICES. ZERO BORING.</div>
           <h1>
             给你的 AI，
             <br />
-            <em>一点自己的性格。</em>
+            <em>换个有脾气的。</em>
           </h1>
-          <p>同样认真，换种说法。挑一个聊得来的人格，带进下一次对话。</p>
+          <p>想被夸，想被损，还是想有人一句话让你开始干活？</p>
           <a className="button" href="#persona-guide">
             第一次使用？看安装教程 <ArrowUpRight size={16} />
           </a>
         </div>
-        <div className="persona-orbit" aria-hidden="true">
-          <span>
-            <img src={appPath(personaAvatar("soft-cloud"))} alt="" />
-          </span>
-          <span>
-            <img src={appPath(personaAvatar("velvet"))} alt="" />
-          </span>
-          <strong>
-            <Sparkles size={42} />
-            <small>HELLO, YOU.</small>
-          </strong>
-          <span>
-            <img src={appPath(personaAvatar("roast"))} alt="" />
-          </span>
-          <span>
-            <img src={appPath(personaAvatar("butler"))} alt="" />
-          </span>
+        <div className="persona-cast" aria-hidden="true">
+          {["sugar-v2", "roast-v2", "queen-v2", "tsundere-v2", "drama-v2"].map(
+            (id) => (
+              <img
+                key={id}
+                src={appPath(personaAvatar(id))}
+                alt=""
+                width={120}
+                height={150}
+              />
+            ),
+          )}
+          <span>甜一点。损一点。像自己喜欢的那一种。</span>
         </div>
       </header>
       <a className="persona-eyes-entry" href={appPath("/ai-eyes")}>
-        <span className="persona-eyes-symbol" aria-hidden="true"><Sparkles size={25}/></span>
-        <span><strong>你在挑选 AI 的性格，AI 也在认识你。</strong><small>看看 AI 眼里的你，领取自己的使用人格封面。</small></span>
-        <span className="persona-eyes-cta">发现我的 AI 人格 <ArrowUpRight size={18}/></span>
+        <span className="persona-eyes-symbol" aria-hidden="true">
+          <Sparkles size={25} />
+        </span>
+        <span>
+          <strong>你在挑选 AI 的性格，AI 也在认识你。</strong>
+          <small>看看 AI 眼里的你，领取自己的使用人格封面。</small>
+        </span>
+        <span className="persona-eyes-cta">
+          发现我的 AI 人格 <ArrowUpRight size={18} />
+        </span>
       </a>
       <div className="persona-meta">
         <span>原创人格 · 可编辑提示词</span>
@@ -220,26 +231,27 @@ export default function Personas() {
             只看本机收藏
           </label>
         </div>
-        <div className="persona-filters">
-          <input
-            aria-label="搜索人格"
-            placeholder="搜索人格、语气或用途"
-            value={q}
-            onChange={(e) => setQ(e.target.value)}
-            maxLength={100}
-          />
-          <div role="group" aria-label="人格分类">
-            {["全部", "温暖陪伴", "鲜明个性", "高效协作"].map((c) => (
+        <div className="persona-topic-bar">
+          <p>
+            同一句话，谁最会接？<small>编辑台词示例 · 非实时生成</small>
+          </p>
+          <div className="persona-mode" role="group" aria-label="示例场景">
+            {["拖延", "求夸", "自夸", "纠错"].map((t) => (
               <button
-                key={c}
-                aria-pressed={category === c}
-                onClick={() => setCategory(c)}
+                key={t}
+                aria-pressed={topic === t}
+                onClick={() => setTopic(t)}
               >
-                {c}
+                {t}
               </button>
             ))}
           </div>
         </div>
+        {missing && (
+          <p role="alert" className="empty-panel">
+            链接中的人格已下架，旧配置不会自动更换。可以从下面重新选择喜欢的新角色。
+          </p>
+        )}
         {loading && <p role="status">正在打开人格库…</p>}
         {error && (
           <p role="alert">
@@ -250,9 +262,9 @@ export default function Personas() {
           </p>
         )}
         <div className="persona-grid">
-          {filtered.map((p, i) => (
+          {filtered.map((p) => (
             <article
-              className={`persona-card tone-${i % 4} ${selected?.id === p.id ? "selected" : ""}`}
+              className={`persona-card character-${p.id} ${selected?.id === p.id ? "selected" : ""}`}
               key={p.id}
             >
               <button
@@ -283,9 +295,22 @@ export default function Personas() {
                   loading="lazy"
                   decoding="async"
                 />
-                <small>{p.category}</small>
+                <small>{p.voice?.style || p.category}</small>
                 <h3>{p.name}</h3>
-                <p>{p.tagline}</p>
+                <p className="persona-tagline">{p.tagline}</p>
+                <div className="persona-card-line">
+                  <small>{personaExample(p, intensity, topic).question}</small>
+                  <p>
+                    {
+                      personaExample(
+                        p,
+                        intensity,
+                        topic,
+                        selected?.id === p.id ? address : undefined,
+                      ).answer
+                    }
+                  </p>
+                </div>
                 <span className="persona-card-foot">
                   {selected?.id === p.id ? "正在调配 ↓" : "选择这个人格 ↗"}
                 </span>
@@ -306,7 +331,7 @@ export default function Personas() {
         </div>
         {!loading && !error && !filtered.length && (
           <p className="empty-panel">
-            没有匹配的人格，试试其他分类或清空搜索。
+            这里还没有收藏。取消“只看本机收藏”，去挑一个聊得来的角色。
           </p>
         )}
       </section>
@@ -327,12 +352,31 @@ export default function Personas() {
             <p>{selected.description}</p>
             <div className="persona-demo">
               <small>同一道题 · 人工编写的风格示例，非实时生成</small>
-              <p className="persona-question">{demoQuestion}</p>
-              <blockquote>{selected.example}</blockquote>
+              <p className="persona-question">{example?.question}</p>
+              <blockquote>{example?.answer}</blockquote>
             </div>
             <p className="tiny">
-              示例用于比较表达方式，不随强度调节实时重写；实际模型输出可能不同。
+              示例随强度切换为对应的编辑版本；不同模型的实际输出可能不同。
             </p>
+            {selected.voice && (
+              <div className="persona-dialogues">
+                <h3>聊下去，也有性格。</h3>
+                {selected.voice.dialogues.map((d, index) => (
+                  <details key={selected.id + d.title} open={index === 0}>
+                    <summary>{d.title}</summary>
+                    {d.turns.map((turn, i) => (
+                      <div className="persona-turn" key={i}>
+                        <p className="persona-question">{turn.user}</p>
+                        <p className="persona-reply">
+                          {personaText(selected, turn.reply, address)}
+                        </p>
+                      </div>
+                    ))}
+                  </details>
+                ))}
+                <small>以上连续对话展示默认强度下的反应方式。</small>
+              </div>
+            )}
             <ul>
               {selected.traits.map((t) => (
                 <li key={t}>{t}</li>
@@ -355,11 +399,6 @@ export default function Personas() {
           <div className="persona-config">
             <div className="eyebrow">MAKE IT YOURS</div>
             <h2>把这种语气，带走。</h2>
-            {missing && (
-              <p role="alert">
-                链接中的人格不存在或已下架，已展示其他可用人格。
-              </p>
-            )}
             <label>
               风格强度
               <select
@@ -367,12 +406,28 @@ export default function Personas() {
                 value={intensity}
                 onChange={(e) => update("strength", e.target.value)}
               >
-                {Object.entries(intensities).map(([k, v]) => (
-                  <option key={k} value={k}>
-                    {v}
-                  </option>
-                ))}
+                {Object.entries(selected.voice?.labels || intensities).map(
+                  ([k, v]) => (
+                    <option key={k} value={k}>
+                      {v}
+                    </option>
+                  ),
+                )}
               </select>
+            </label>
+            <label className="persona-address">
+              希望怎么称呼你
+              <input
+                aria-label="希望怎么称呼你"
+                value={
+                  params.get("address") ??
+                  selected.voice?.defaultAddress ??
+                  "你"
+                }
+                maxLength={12}
+                onChange={(e) => update("address", e.target.value)}
+                placeholder="不填写则使用“你”"
+              />
             </label>
             <div className="persona-mode" role="group" aria-label="使用范围">
               {Object.entries(modes).map(([k, v]) => (
@@ -398,12 +453,15 @@ export default function Personas() {
               完整设定 · {content.length.toLocaleString()} 字符 ·
               含角色定位、语言规则、多场景示范及执行检查
             </p>
-            <textarea
-              aria-label="生成的人格指令"
-              readOnly
-              value={content}
-              rows={14}
-            />
+            <details className="persona-prompt-detail">
+              <summary>查看完整人格指令</summary>
+              <textarea
+                aria-label="生成的人格指令"
+                readOnly
+                value={content}
+                rows={14}
+              />
+            </details>
             <div className="action-row">
               <button
                 className="button primary"
@@ -427,7 +485,13 @@ export default function Personas() {
                 下载配置
               </button>
             </div>
-            <CloudSaveButton item={{title:selected.name,kind:"人格",href:`/personas?persona=${selected.id}&strength=${intensity}&mode=${mode}`}}/>
+            <CloudSaveButton
+              item={{
+                title: selected.name,
+                kind: "人格",
+                href: new URL(shareUrl()).pathname + new URL(shareUrl()).search,
+              }}
+            />
             {mode === "skill" && (
               <button
                 className="button"
@@ -442,7 +506,7 @@ export default function Personas() {
               </button>
             )}
             <p className="tiny">
-              只改变表达风格，不改变模型能力、工具权限和事实判断。配置会占用一定上下文
+              人格贯穿日常聊天，正式交付物保持你要求的格式。配置会占用一定上下文
               Token。
             </p>
           </div>

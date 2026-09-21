@@ -216,12 +216,13 @@ test("isolated admin: change password, save, publish and download backup", async
       }),
     ).toBeVisible();
     await page.getByRole("link", {name:"AI 人格管理"}).click();
-    await page.getByRole("button", {name:"元气搭子",exact:true}).click();
+    await page.getByRole("button", {name:"甜妹 · 糖糖",exact:true}).click();
     await page.getByLabel("名称",{exact:true}).fill("测试人格编辑");
+    await page.getByLabel("默认称呼",{exact:true}).fill("小林");
     await page.getByLabel("在前台发布").uncheck();
     await page.getByRole("button", {name:"保存并更新"}).click();
     await expect(page.getByRole("status")).toContainText("已保存");
-    expect(personaRows(db)[0]).toMatchObject({name:"测试人格编辑",published:false});
+    expect(personaRows(db)[0]).toMatchObject({name:"测试人格编辑",published:false,voice:{defaultAddress:"小林"}});
     initMiniEyes(db);
     db.db.prepare("INSERT INTO mini_eyes_results VALUES(?,?,?)").run(wxUser,JSON.stringify({platform:"DeepSeek",created:Date.now(),result:{persona_id:"one_line_ceo",match_notes:["private"]}}),Date.now()+86400000);
     await page.goto("/admin/ai-eyes");

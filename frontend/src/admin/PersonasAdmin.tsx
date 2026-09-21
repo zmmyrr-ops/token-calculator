@@ -10,7 +10,8 @@ export default function PersonasAdmin() {
     [draft, setDraft] = useState<Row | null>(null),
     [message, setMessage] = useState(""),
     [busy, setBusy] = useState(false),
-    [dirty, setDirty] = useState(false);
+    [dirty, setDirty] = useState(false),
+    [showArchived, setShowArchived] = useState(false);
   async function load() {
     const r = await fetch(appPath("/api/admin/personas"));
     if (!r.ok)
@@ -68,30 +69,40 @@ export default function PersonasAdmin() {
         编辑官方人格、示例台词和发布状态。示例台词为人工编写；保存后立即更新线上内容，并记录审计历史。
       </p>
       <p role="status">{message}</p>
+      <label>
+        <input
+          type="checkbox"
+          checked={showArchived}
+          onChange={(e) => setShowArchived(e.target.checked)}
+        />{" "}
+        显示旧版归档人格
+      </label>
       <div className="action-row">
-        {items.map((p) => (
-          <button
-            disabled={busy}
-            key={p.id}
-            className={draft?.id === p.id ? "button primary" : "button"}
-            onClick={() => {
-              if (dirty && !confirm("放弃未保存的修改？")) return;
-              setDraft(p);
-              setDirty(false);
-              setMessage("");
-            }}
-          >
-            <img
-              src={appPath(personaAvatar(p.id))}
-              alt=""
-              width={36}
-              height={36}
-              style={{ borderRadius: 10 }}
-            />{" "}
-            {p.name}
-            {p.published ? "" : "（已下架）"}
-          </button>
-        ))}
+        {items
+          .filter((p) => showArchived || !!p.voice)
+          .map((p) => (
+            <button
+              disabled={busy}
+              key={p.id}
+              className={draft?.id === p.id ? "button primary" : "button"}
+              onClick={() => {
+                if (dirty && !confirm("放弃未保存的修改？")) return;
+                setDraft(p);
+                setDirty(false);
+                setMessage("");
+              }}
+            >
+              <img
+                src={appPath(personaAvatar(p.id))}
+                alt=""
+                width={36}
+                height={36}
+                style={{ borderRadius: 10 }}
+              />{" "}
+              {p.name}
+              {p.published ? "" : "（已下架）"}
+            </button>
+          ))}
       </div>
       {draft && (
         <form
@@ -103,51 +114,226 @@ export default function PersonasAdmin() {
           }}
         >
           <fieldset disabled={busy} style={{ border: 0, padding: 0 }}>
-            {(["name", "tagline", "description", "example"] as const).map(
-              (k) => (
-                <label
-                  key={k}
-                  style={{ display: "grid", gap: 6, marginBottom: 16 }}
-                >
+            {(
+              [
+                "name",
+                "tagline",
+                "description",
+                ...(draft.voice ? [] : ["example"]),
+              ] as ("name" | "tagline" | "description" | "example")[]
+            ).map((k) => (
+              <label
+                key={k}
+                style={{ display: "grid", gap: 6, marginBottom: 16 }}
+              >
+                {
                   {
+                    name: "名称",
+                    icon: "图标字符",
+                    tagline: "一句话介绍",
+                    description: "用途说明",
+                    example:
+                      "风格示例（统一问题：计划写了很多却不想动，怎么办？）",
+                  }[k]
+                }
+                <textarea
+                  aria-label={
                     {
                       name: "名称",
                       icon: "图标字符",
                       tagline: "一句话介绍",
                       description: "用途说明",
-                      example:
-                        "风格示例（统一问题：计划写了很多却不想动，怎么办？）",
+                      example: "风格示例",
                     }[k]
                   }
-                  <textarea
-                    aria-label={
+                  required
+                  value={draft[k]}
+                  maxLength={
+                    k === "name"
+                      ? 30
+                      : k === "tagline"
+                        ? 100
+                        : k === "description"
+                          ? 500
+                          : 600
+                  }
+                  rows={k === "example" ? 4 : 2}
+                  onChange={(e) => {
+                    setDraft({ ...draft, [k]: e.target.value });
+                    setDirty(true);
+                  }}
+                />
+              </label>
+            ))}
+            {draft.voice && (
+              <section className="persona-admin-voice">
+                <h2>V2 角色与示例</h2>
+                {(["style", "defaultAddress"] as const).map((field) => (
+                  <label
+                    key={field}
+                    style={{ display: "grid", marginBottom: 16 }}
+                  >
+                    {field === "style" ? "风格标签" : "默认称呼"}
+                    <input
+                      aria-label={field === "style" ? "风格标签" : "默认称呼"}
+                      maxLength={field === "style" ? 20 : 12}
+                      value={draft.voice![field]}
+                      onChange={(e) => {
+                        setDraft({
+                          ...draft,
+                          voice: { ...draft.voice!, [field]: e.target.value },
+                        });
+                        setDirty(true);
+                      }}
+                    />
+                  </label>
+                ))}
+                {(["light", "balanced", "strong"] as const).map((level) => (
+                  <details key={level}>
+                    <summary>
                       {
-                        name: "名称",
-                        icon: "图标字符",
-                        tagline: "一句话介绍",
-                        description: "用途说明",
-                        example: "风格示例",
-                      }[k]
-                    }
-                    required
-                    value={draft[k]}
-                    maxLength={
-                      k === "name"
-                        ? 30
-                        : k === "tagline"
-                          ? 100
-                          : k === "description"
-                            ? 500
-                            : 600
-                    }
-                    rows={k === "example" ? 4 : 2}
-                    onChange={(e) => {
-                      setDraft({ ...draft, [k]: e.target.value });
-                      setDirty(true);
-                    }}
-                  />
-                </label>
-              ),
+                        { light: "轻度", balanced: "默认", strong: "强烈" }[
+                          level
+                        ]
+                      }{" "}
+                      · 强度规则与四个场景
+                    </summary>
+                    <label style={{ display: "grid", margin: "14px 0" }}>
+                      档位名称
+                      <input
+                        aria-label={`${level}档位名称`}
+                        maxLength={20}
+                        required
+                        value={draft.voice!.labels[level]}
+                        onChange={(e) => {
+                          setDraft({
+                            ...draft,
+                            voice: {
+                              ...draft.voice!,
+                              labels: {
+                                ...draft.voice!.labels,
+                                [level]: e.target.value,
+                              },
+                            },
+                          });
+                          setDirty(true);
+                        }}
+                      />
+                    </label>
+                    <label style={{ display: "grid", margin: "14px 0" }}>
+                      执行要求
+                      <textarea
+                        aria-label={`${level}执行要求`}
+                        rows={3}
+                        maxLength={600}
+                        required
+                        value={draft.voice!.directions[level]}
+                        onChange={(e) => {
+                          setDraft({
+                            ...draft,
+                            voice: {
+                              ...draft.voice!,
+                              directions: {
+                                ...draft.voice!.directions,
+                                [level]: e.target.value,
+                              },
+                            },
+                          });
+                          setDirty(true);
+                        }}
+                      />
+                    </label>
+                    {draft.voice!.scenes.map((scene, i) => (
+                      <label
+                        key={scene.topic}
+                        style={{ display: "grid", margin: "14px 0" }}
+                      >
+                        {scene.topic}：{scene.question}
+                        <textarea
+                          aria-label={`${level}${scene.topic}示例`}
+                          rows={4}
+                          maxLength={600}
+                          required
+                          value={scene.answers[level]}
+                          onChange={(e) => {
+                            setDraft({
+                              ...draft,
+                              voice: {
+                                ...draft.voice!,
+                                scenes: draft.voice!.scenes.map((x, j) =>
+                                  i === j
+                                    ? {
+                                        ...x,
+                                        answers: {
+                                          ...x.answers,
+                                          [level]: e.target.value,
+                                        },
+                                      }
+                                    : x,
+                                ),
+                              },
+                            });
+                            setDirty(true);
+                          }}
+                        />
+                      </label>
+                    ))}
+                  </details>
+                ))}
+                <p>
+                  使用 {"{{称呼}}"}{" "}
+                  作为称呼占位符，预览和导出会同步替换。下方连续对话展示默认强度。
+                </p>
+                {draft.voice.dialogues.map((dialogue, i) => (
+                  <details key={i}>
+                    <summary>{dialogue.title}</summary>
+                    {dialogue.turns.map((turn, j) => (
+                      <div key={j}>
+                        {(["user", "reply"] as const).map((field) => (
+                          <label
+                            key={field}
+                            style={{ display: "grid", margin: "14px 0" }}
+                          >
+                            {field === "user" ? "用户" : "角色回复"}
+                            <textarea
+                              aria-label={`对话${i + 1}第${j + 1}轮${field}`}
+                              rows={field === "user" ? 2 : 3}
+                              maxLength={field === "user" ? 300 : 600}
+                              required
+                              value={turn[field]}
+                              onChange={(e) => {
+                                setDraft({
+                                  ...draft,
+                                  voice: {
+                                    ...draft.voice!,
+                                    dialogues: draft.voice!.dialogues.map(
+                                      (d, di) =>
+                                        di === i
+                                          ? {
+                                              ...d,
+                                              turns: d.turns.map((t, ti) =>
+                                                ti === j
+                                                  ? {
+                                                      ...t,
+                                                      [field]: e.target.value,
+                                                    }
+                                                  : t,
+                                              ),
+                                            }
+                                          : d,
+                                    ),
+                                  },
+                                });
+                                setDirty(true);
+                              }}
+                            />
+                          </label>
+                        ))}
+                      </div>
+                    ))}
+                  </details>
+                ))}
+              </section>
             )}
             <label style={{ display: "grid", gap: 6, marginBottom: 20 }}>
               完整人格设定与多场景示范
