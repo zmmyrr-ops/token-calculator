@@ -7,7 +7,7 @@ test("persona discovery, saved preferences, share state and usable downloads", a
   await expect(
     page.getByRole("heading", { name: "今天，想和谁聊？" }),
   ).toBeVisible();
-  await expect(page.locator(".persona-card")).toHaveCount(5);
+  await expect(page.locator(".persona-card")).toHaveCount(6);
   await page
     .getByRole("button", { name: "收藏御姐 · 绯姐", exact: true })
     .click();
@@ -56,7 +56,7 @@ test("new personality examples follow intensity and address, archived links stay
   page,
 }) => {
   await page.goto("/personas?persona=sugar-v2");
-  await expect(page.locator(".persona-card")).toHaveCount(5);
+  await expect(page.locator(".persona-card")).toHaveCount(6);
   const demo = page.locator(".persona-demo blockquote");
   const balanced = await demo.textContent();
   await page.getByLabel("风格强度").selectOption("strong");
@@ -71,7 +71,7 @@ test("new personality examples follow intensity and address, archived links stay
   await expect(page.getByLabel("风格强度")).toHaveValue("strong");
   await page.goto("/personas?persona=velvet");
   await expect(page.getByRole("alert")).toContainText("已下架");
-  await expect(page.locator(".persona-card")).toHaveCount(5);
+  await expect(page.locator(".persona-card")).toHaveCount(6);
   for (const avatar of await page.locator(".persona-portrait").all()) {
     await avatar.scrollIntoViewIfNeeded();
     await expect
@@ -84,4 +84,17 @@ test("new personality examples follow intensity and address, archived links stay
       )
       .toBe(true);
   }
+});
+
+test("CEO persona has its own levels, examples and editable address", async ({page}) => {
+  await page.goto('/personas?persona=ceo-v2');
+  await expect(page.getByRole('heading',{name:'霸总 · 顾总',exact:true,level:2})).toBeVisible();
+  await expect(page.getByLabel('希望怎么称呼你')).toHaveValue('女人');
+  await page.getByLabel('风格强度').selectOption('strong');
+  await expect(page.locator('.persona-demo blockquote')).toContainText('成功引起了我的注意');
+  await page.getByLabel('希望怎么称呼你').fill('小林');
+  await expect(page.locator('.persona-demo blockquote')).toContainText('小林');
+  await expect(page.getByLabel('生成的人格指令')).toHaveValue(/验收标准/);
+  await page.getByRole('button',{name:'Codex Skill',exact:true}).click();
+  await expect(page.getByLabel('生成的人格指令')).toHaveValue(/name: mendao-ceo-v2/);
 });

@@ -45,7 +45,7 @@ it("seeds without overwriting edits and preserves unpublishing with revision con
     initPersonas(db);
     expect(personaRows(db).find((p) => p.id === data.id)?.name).toBe(data.name);
     const published = await (await fetch(base + "/public")).json();
-    expect(published.items).toHaveLength(4);
+    expect(published.items).toHaveLength(personaSeeds.length - 1);
     expect(published.items.some((p: { id: string }) => p.id === data.id)).toBe(
       false,
     );
@@ -161,7 +161,7 @@ it("archives only legacy official personas atomically, retains recovery data and
       published: true,
       revision: 8,
     });
-    expect(rows.filter((p) => p.voice)).toHaveLength(5);
+    expect(rows.filter((p) => p.voice)).toHaveLength(personaSeeds.length);
     const record = db.db
       .prepare("SELECT snapshot FROM persona_content_migrations")
       .get()!;

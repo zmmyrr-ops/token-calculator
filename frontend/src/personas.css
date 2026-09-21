@@ -646,7 +646,7 @@
   }
 }
 
-/* V2: five distinct anime voices, with examples in the foreground. */
+/* V2: distinct anime voices, with examples in the foreground. */
 .persona-hero {
   grid-template-columns: 1.1fr 1fr;
   padding: 30px 34px;
@@ -687,7 +687,7 @@
   color: #ccd6dc;
 }
 .persona-grid {
-  grid-template-columns: repeat(5, minmax(0, 1fr));
+  grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 14px;
 }
 .persona-choose {
@@ -912,4 +912,11 @@
     top: 12px;
     padding: 7px;
   }
+}
+
+.character-ceo-v2 {
+  --persona-accent: #b6bfd6;
+}
+.persona-cast img {
+  width: 18%;
 }

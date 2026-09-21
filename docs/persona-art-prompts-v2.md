@@ -17,3 +17,10 @@ Use case: stylized-concept. Asset: square avatar for AI personality website, one
 - queen-v2: Character: 绯姐 confident sophisticated adult woman around thirty, composed knowing smile, direct narrow ruby eyes, sleek long black hair tucked behind one ear, small gold earrings, burgundy tailored blazer and black high-neck top. Self-possessed commanding presence, not aggressive. Burgundy wine red and gold palette. No hands in frame.
 - tsundere-v2: Character: 阿凛 aloof but caring adult woman in her mid-twenties, silver blue medium-length hair with side braid, icy blue eyes glancing sideways, subtly blushing cheeks, slightly pursed lips trying to hide a smile, navy high-neck sweater and slate jacket. Cool confident adult face, not childlike. Dusty blue and silver palette. No hands in frame.
 - drama-v2: Character: 开演 theatrical charismatic adult man in his late twenties, swept teal hair, expressive golden eyes, delighted flamboyant grin, one eyebrow arched, teal tailored stage jacket with small gold lapel pin and cream shirt, spotlight glow as simple background motif. Peacock teal and gold palette. No hands in frame.
+
+
+## 新增霸道总裁头像（2026-09-21）
+
+内置 Image 模型生成，原图 `exports/personas-v2-originals/ceo-v2.png`，线上 `frontend/public/persona-avatars/ceo-v2-anime.webp`（640×640，约45 KB）。
+
+完整提示词：Use case: stylized-concept. Asset: square avatar in a cohesive premium Japanese anime AI personality collection. One original adult male CEO in his early thirties, jet-black neatly swept-back hair, silver-grey eyes, sharply defined mature handsome face, raised chin and a faint cocky smirk with a hint of being caught off guard. Midnight navy tailored suit, ivory shirt, burgundy tie slightly loosened, small silver tie clip. Polished expressive anime linework and cel shading with soft highlights, face and shoulders centered, readable at small avatar size, not chibi, not photorealistic. Background simple midnight blue with subtle silver angular halo and restrained burgundy accent. Dramatic yet humorous romantic-comedy CEO aura, no hands, no text, no logo, no watermark.

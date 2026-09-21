@@ -108,7 +108,7 @@ export default function Home() {
         </Link>
       </div>
       <section className="panel" style={{padding:28,marginTop:28,background:"linear-gradient(120deg,#12323a,#24253c)"}}>
-        <div className="eyebrow">NEW / AI PERSONAS</div><h2>给你的 AI，换个有脾气的。</h2><p>甜妹、毒舌、御姐、傲娇、戏精。五张二次元面孔，五种一开口就能认出的性格。</p><Link className="button primary" href="/personas">挑选我的 AI 人格 ↗</Link>
+        <div className="eyebrow">NEW / AI PERSONAS</div><h2>给你的 AI，换个有脾气的。</h2><p>甜妹、毒舌、御姐、傲娇、戏精、霸总。六张二次元面孔，六种一开口就能认出的性格。</p><Link className="button primary" href="/personas">挑选我的 AI 人格 ↗</Link>
       </section>
       <News compact />
       <section className="portal-section" id="knowledge">

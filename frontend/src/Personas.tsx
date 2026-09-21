@@ -176,7 +176,7 @@ export default function Personas() {
     <div className="persona-hub">
       <header className="persona-hero">
         <div>
-          <div className="eyebrow">FIVE VOICES. ZERO BORING.</div>
+          <div className="eyebrow">SIX VOICES. ZERO BORING.</div>
           <h1>
             给你的 AI，
             <br />
@@ -188,17 +188,22 @@ export default function Personas() {
           </a>
         </div>
         <div className="persona-cast" aria-hidden="true">
-          {["sugar-v2", "roast-v2", "queen-v2", "tsundere-v2", "drama-v2"].map(
-            (id) => (
-              <img
-                key={id}
-                src={appPath(personaAvatar(id))}
-                alt=""
-                width={120}
-                height={150}
-              />
-            ),
-          )}
+          {[
+            "sugar-v2",
+            "roast-v2",
+            "queen-v2",
+            "tsundere-v2",
+            "drama-v2",
+            "ceo-v2",
+          ].map((id) => (
+            <img
+              key={id}
+              src={appPath(personaAvatar(id))}
+              alt=""
+              width={120}
+              height={150}
+            />
+          ))}
           <span>甜一点。损一点。像自己喜欢的那一种。</span>
         </div>
       </header>

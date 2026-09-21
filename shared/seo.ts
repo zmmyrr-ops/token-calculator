@@ -10,7 +10,7 @@ export const publicPages: Record<
       "看懂 AI，用出门道。面向独立创作者，了解大模型与工具，学习游戏、3D、视频创作方法，计算词元与素材预算。",
   },
   "/ai-eyes": {title:"AI眼里的你怎么测？豆包、DeepSeek、Codex 使用指南",description:"用豆包或DeepSeek统计AI使用习惯，或选择Codex本机分析，生成自己的趣味画像与插画封面。查看步骤、数据范围与常见问题。"},
-  "/personas": { title: "AI 人格 Skill｜甜妹、毒舌、御姐、傲娇与戏精", description: "五种性格鲜明的 AI 人格与二次元头像：甜妹、毒舌、御姐、傲娇、戏精。比较对话示例、调节强度和称呼，复制提示词或下载 Skill，附安装与恢复教程。" },
+  "/personas": { title: "AI 人格 Skill｜甜妹、毒舌、御姐、傲娇、戏精与霸总", description: "六种性格鲜明的 AI 人格与二次元头像：甜妹、毒舌、御姐、傲娇、戏精、霸总。比较对话示例、调节强度和称呼，复制提示词或下载 Skill，附安装与恢复教程。" },
   "/forum": {
     title: "社区论坛｜AI 创作与工具讨论",
     description: "交流游戏、3D、视频、模型与提示词，分享问题与方法。",

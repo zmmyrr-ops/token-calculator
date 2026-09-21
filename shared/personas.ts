@@ -196,7 +196,14 @@ export function personaCard(
 
 export function personaAvatar(id: string) {
   if (
-    ["sugar-v2", "roast-v2", "queen-v2", "tsundere-v2", "drama-v2"].includes(id)
+    [
+      "sugar-v2",
+      "roast-v2",
+      "queen-v2",
+      "tsundere-v2",
+      "drama-v2",
+      "ceo-v2",
+    ].includes(id)
   )
     return `/persona-avatars/${id}-anime.webp`;
   return Object.hasOwn(personaPlaybooks, id)
