@@ -268,9 +268,10 @@ export function eyesRouter(store: ContentDatabase) {
       !store.db.prepare("SELECT enabled FROM ai_eyes_settings").get()?.enabled
     )
       throw new CmsError(503, "功能维护中，稍后再来");
-    const { days, timeZone } = z
+    const { days, timeZone, source } = z
       .object({
         days: z.union([z.literal(7), z.literal(30)]),
+        source: z.enum(["codex", "claude_code"]).default("codex"),
         timeZone: z
           .string()
           .max(80)
@@ -293,6 +294,7 @@ export function eyesRouter(store: ContentDatabase) {
       claim = secret(),
       now = Date.now();
     const scope = {
+      source,
       days,
       timeZone,
       start: new Date(now - days * DAY).toISOString(),

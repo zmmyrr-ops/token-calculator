@@ -76,3 +76,19 @@ test("AI eyes creates a real scoped task, accepts minimal result, exports and re
     ),
   ).toBe(true);
 });
+
+test("Claude Code is a parallel entry with separate consent and persisted source", async ({ page }) => {
+  await page.goto('/ai-eyes');
+  await expect(page.getByRole('button', {name:'使用 Claude Code',exact:true})).toBeVisible();
+  await page.getByRole('button', {name:'使用 Codex',exact:true}).click();
+  await page.locator('.eyes-consent input').check();
+  await page.getByRole('button', {name:'使用 Claude Code',exact:true}).click();
+  await expect(page.locator('.eyes-consent input')).not.toBeChecked();
+  await page.locator('.eyes-consent input').check();
+  const created = page.waitForResponse(r => r.url().endsWith('/api/v1/ai-eyes/runs') && r.request().method()==='POST');
+  await page.getByRole('button', {name:'看看 AI 眼里的我',exact:true}).click();
+  expect((await (await created).json()).run.scope.source).toBe('claude_code');
+  await expect(page.getByLabel('专属执行指令')).toHaveValue(/本机 Claude Code 历史/);
+  await page.reload();
+  await expect(page.getByRole('heading', {name:'等待你在 Claude Code 发送'})).toBeVisible();
+});

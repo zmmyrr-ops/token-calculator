@@ -291,7 +291,7 @@ export default function AiEyes() {
   const loc = useLocation(),
     nav = useNavigate(),
     params = useParams();
-  const [entry, setEntry] = useState<"codex" | "mobile" | null>(null);
+  const [entry, setEntry] = useState<"codex" | "claude_code" | "mobile" | null>(null);
   const [days, setDays] = useState(7),
     [consent, setConsent] = useState(false),
     [error, setError] = useState(""),
@@ -356,6 +356,7 @@ export default function AiEyes() {
       };
     }
   }, [isShare, params.id, refresh]);
+  const agentName = (params.id && run ? run.scope.source : entry) === "claude_code" ? "Claude Code" : "Codex";
   async function create() {
     setBusy(true);
     setError("");
@@ -375,6 +376,7 @@ export default function AiEyes() {
         .join("");
       const d = await eyesApi("/runs", "POST", {
         days,
+        source: entry === "claude_code" ? "claude_code" : "codex",
         timeZone: Intl.DateTimeFormat().resolvedOptions().timeZone,
       });
       const base = new URL(appPath(API), location.origin).href;
@@ -384,7 +386,7 @@ export default function AiEyes() {
         d.claimToken;
       pendingClaim = link;
       setClaim(link);
-      const text = `AI_EYES_EXECUTION_V4\n请执行“AI 眼里的你”，仅在本次任务读取我明确授权的本机 Codex 历史。\n范围：${d.run.scope.start} 至 ${d.run.scope.end}，最多10会话、每会话15条用户消息、总计20000可见字符。\n请先阅读 ${new URL(appPath("/ai-eyes-tool/v4/instructions.md"), location.origin).href}\n清单：${new URL(appPath("/ai-eyes-tool/v4/manifest.json"), location.origin).href}\n清单 SHA-256：${digest}\n只提交固定16型ID与最多两条脱敏概括，禁止上传样本和原句；无样本如实失败。\n任务ID：${d.run.id}\nAPI base：${base}\nsubmit_token：${d.submitToken}\n领取链接：${link}\n请把凭证放私有临时配置文件，不打印、不放命令参数，不修改历史或项目。不要把本指令或令牌用于公开分享。`;
+      const text = `AI_EYES_EXECUTION_V4\n请执行“AI 眼里的你”，仅在本次任务读取我明确授权的本机 ${agentName} 历史。\n分析平台：${entry === "claude_code" ? "claude_code" : "codex"}\n范围：${d.run.scope.start} 至 ${d.run.scope.end}，最多10会话、每会话15条用户消息、总计20000可见字符。\n请先阅读 ${new URL(appPath("/ai-eyes-tool/v4/instructions.md"), location.origin).href}\n清单：${new URL(appPath("/ai-eyes-tool/v4/manifest.json"), location.origin).href}\n清单 SHA-256：${digest}\n只提交固定16型ID与最多两条脱敏概括，禁止上传样本和原句；无样本如实失败。\n任务ID：${d.run.id}\nAPI base：${base}\nsubmit_token：${d.submitToken}\n领取链接：${link}\n请把凭证放私有临时配置文件，不打印、不放命令参数，不修改历史或项目。不要把本指令或令牌用于公开分享。`;
       pendingInstruction = text;
       setInstruction(text);
       nav("/ai-eyes/runs/" + d.run.id);
@@ -490,8 +492,8 @@ export default function AiEyes() {
                 <h1>
                   {
                     {
-                      waiting: "等待你在 Codex 发送",
-                      running: "Codex 正在处理",
+                      waiting: `等待你在 ${agentName} 发送`,
+                      running: `${agentName} 正在处理`,
                       failed: "执行未完成",
                       insufficient_data: "样本不足",
                       cancelled: "任务已取消",
@@ -534,7 +536,7 @@ export default function AiEyes() {
                       复制专属指令
                     </button>
                     <p>
-                      到 Codex
+                      到 {agentName}
                       新建会话，粘贴并发送。可能需要批准文件或网络访问；不是全程离线分析。
                     </p>
                     <p className="eyes-wrap">
@@ -612,7 +614,15 @@ export default function AiEyes() {
                 <h2>Codex</h2>
                 <p>让熟悉你工作方式的 AI，从本机对话里发现你的使用习惯。</p>
                 <small>复制专属指令 → 执行分析 → 自动领取</small>
-                <button className="button primary" aria-expanded={entry === "codex"} aria-controls="eyes-codex-flow" onClick={() => setEntry("codex")}>使用 Codex</button>
+                <button className="button primary" aria-expanded={entry === "codex"} aria-controls="eyes-codex-flow" onClick={() => { setEntry("codex"); setConsent(false); }}>使用 Codex</button>
+              </article>
+              <article className={"eyes-entry-card eyes-entry-claude" + (entry === "claude_code" ? " is-selected" : "")}>
+                <span className="eyes-entry-symbol" aria-hidden="true">✺</span>
+                <span className="eyes-label">电脑端 · 本机 CLI 历史</span>
+                <h2>Claude Code</h2>
+                <p>从你与 Claude Code 的本机对话里，发现提问与协作习惯。</p>
+                <small>复制专属指令 → 执行分析 → 自动领取</small>
+                <button className="button primary" aria-expanded={entry === "claude_code"} aria-controls="eyes-codex-flow" onClick={() => { setEntry("claude_code"); setConsent(false); }}>使用 Claude Code</button>
               </article>
               <article className={"eyes-entry-card eyes-entry-chat" + (entry === "mobile" ? " is-selected" : "")}>
                 <span className="eyes-entry-symbol" aria-hidden="true">✳</span>
@@ -624,11 +634,11 @@ export default function AiEyes() {
               </article>
             </div>
             <div id="eyes-mobile-flow" className="eyes-entry-flow" hidden={entry !== "mobile"}><MobileEyes enabled={enabled} /></div>
-            <div id="eyes-codex-flow" className="eyes-entry-flow" hidden={entry !== "codex"}>
-            <h2>用 Codex 分析本机历史</h2>
+            <div id="eyes-codex-flow" className="eyes-entry-flow" hidden={entry !== "codex" && entry !== "claude_code"}>
+            <h2>用 {agentName} 分析本机历史</h2>
                 <div className="eyes-start">
                   <label>
-                    电脑 Codex · 分析范围
+                    电脑 {agentName} · 分析范围
                     <select
                       value={days}
                       onChange={(e) => setDays(Number(e.target.value))}
@@ -643,7 +653,7 @@ export default function AiEyes() {
                       checked={consent}
                       onChange={(e) => setConsent(e.target.checked)}
                     />
-                    我同意在 Codex
+                    我同意在 {agentName}
                     中分析该范围内本机历史；最多10会话，清洗后的样本会进入当前模型上下文，本站仅接收类型及简短说明。
                   </label>
                   <button
@@ -660,7 +670,7 @@ export default function AiEyes() {
                 <p>网站生成专属任务，不要求注册。</p>
               </div>
               <div>
-                <b>02 / Codex 新会话发送</b>
+                <b>02 / {agentName} 新会话发送</b>
                 <p>需本机可读历史与 Python 3.10+；不支持的环境会说明原因。</p>
               </div>
               <div>
@@ -671,9 +681,9 @@ export default function AiEyes() {
           <details>
             <summary>隐私、兼容性与执行包</summary>
             <p>
-              只读本机 Codex
+              只读本机 {agentName}
               的可识别记录；不跨平台、设备或云端补读。不上传原始聊天，但样本会进入你的
-              Codex 模型上下文。网站删除不会删除你在 Codex
+              {agentName} 模型上下文。网站删除不会删除你在 {agentName}
               中的执行会话。结果默认完成后保存30天，源站撤销不代表召回外部截图。备份最长轮换14天。
             </p>
             <p>

@@ -55,6 +55,10 @@ def collect(home,start,end,current):
             except (OSError,UnicodeError):continue
             if messages:sources.append((max(x[0] for x in messages),messages))
     if not recognized:raise ValueError('unsupported')
+    return select_samples(sources)
+
+def select_samples(sources):
+    seen=set()
     out=[];budget=20000
     for _,messages in sorted(sources,reverse=True):
         selected=[]

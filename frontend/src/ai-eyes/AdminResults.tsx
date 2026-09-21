@@ -63,7 +63,7 @@ export default function AdminResults() {
     <section aria-label="画像记录">
       <h2>画像记录 · 全部来源</h2>
       <p>
-        网页包含 Codex 任务及豆包 / DeepSeek
+        网页包含 Codex / Claude Code 任务及豆包 / DeepSeek
         导入；小程序显示每个账号最新一份有效结果。已删除或到期的数据不显示，记录数不代表历史生成次数。不展示原始聊天、行为关键词或匹配说明。
       </p>
       <div className="action-row">
@@ -92,7 +92,7 @@ export default function AdminResults() {
               setPage(1);
             }}
           >
-            {["all", "Codex", "豆包", "DeepSeek", "其他 AI"].map((v) => (
+            {["all", "Codex", "Claude Code", "豆包", "DeepSeek", "其他 AI"].map((v) => (
               <option key={v} value={v}>
                 {v === "all" ? "全部平台" : v}
               </option>

@@ -5,7 +5,7 @@ const querySchema = z.object({
   page: z.coerce.number().int().min(1).max(100000).default(1),
   channel: z.enum(["all", "web", "miniprogram"]).default("all"),
   platform: z
-    .enum(["all", "Codex", "豆包", "DeepSeek", "其他 AI"])
+    .enum(["all", "Codex", "Claude Code", "豆包", "DeepSeek", "其他 AI"])
     .default("all"),
 });
 export function eyesAdminResults(store: ContentDatabase, query: unknown) {
@@ -18,7 +18,7 @@ export function eyesAdminResults(store: ContentDatabase, query: unknown) {
     )
     .get();
   const sql = `SELECT id,'web' channel,
-    CASE WHEN json_extract(scope,'$.source')='mobile_import' THEN COALESCE(json_extract(scope,'$.platform'),'其他 AI') ELSE 'Codex' END platform,
+    CASE WHEN json_extract(scope,'$.source')='mobile_import' THEN COALESCE(json_extract(scope,'$.platform'),'其他 AI') WHEN json_extract(scope,'$.source')='claude_code' THEN 'Claude Code' ELSE 'Codex' END platform,
     state,created,expires,json_extract(result,'$.persona_id') personaId,NULL userId,NULL nickname
     FROM ai_eyes_runs WHERE expires>?
     ${

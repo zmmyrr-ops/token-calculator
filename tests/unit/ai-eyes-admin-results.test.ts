@@ -18,6 +18,8 @@ it("combines and pages web imports and latest mini results without exposing priv
  expect(eyesAdminResults(db,{platform:'豆包'}).total).toBe(1);
  expect(eyesAdminResults(db,{channel:'miniprogram',platform:'DeepSeek'}).total).toBe(1);
  expect(eyesAdminResults(db,{channel:'web',platform:'Codex'}).total).toBe(1);
+ insert.run("claude-task",now,now+10000,now+10000,JSON.stringify({source:"claude_code"}),JSON.stringify({persona_id:"one_line_ceo"}));
+ expect(eyesAdminResults(db,{platform:"Claude Code"}).items[0]).toMatchObject({id:"claude-task",platform:"Claude Code"});
  expect(()=>eyesAdminResults(db,{platform:"' OR 1=1"})).toThrow();
  db.db.prepare("UPDATE mini_eyes_results SET expires=?").run(now-1);
  expect(eyesAdminResults(db,{channel:'miniprogram'}).total).toBe(0);

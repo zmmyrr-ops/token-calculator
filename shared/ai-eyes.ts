@@ -70,7 +70,7 @@ export type EyesRun = {
     end: string;
     days: number;
     timeZone: string;
-    source?: "mobile_import";
+    source?: "mobile_import" | "codex" | "claude_code";
     matcherVersion?: string;
     platform?: string;
     basis?: "conversation" | "questions";

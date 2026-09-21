@@ -78,9 +78,11 @@ it("isolates owner / submit / claim grants, enforces terminal states, snapshots 
   try {
     const created = await request("/runs", "POST", {
       days: 7,
+      source: "claude_code",
       timeZone: "Asia/Shanghai",
     });
     expect(created.status).toBe(201);
+    expect((await created.clone().json()).run.scope.source).toBe("claude_code");
     const cookie = created.headers.get("set-cookie")!.split(";")[0],
       a = await created.json(),
       id = a.run.id,
