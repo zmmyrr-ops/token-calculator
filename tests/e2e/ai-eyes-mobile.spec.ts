@@ -12,9 +12,18 @@ test("mobile AI result import validates, persists, exports and marks sharing", a
   await expect(mobile).toBeVisible();
   await page.evaluate(() => document.fonts.ready.then(() => undefined));
   await expect.poll(async () => {
-    const a = await codex.boundingBox(), b = await mobile.boundingBox();
+    const a = await codex.boundingBox();
+    const b = await page.getByRole("button", { name: "使用 Claude Code", exact: true }).boundingBox();
     return Math.abs(a!.y - b!.y);
   }).toBeLessThan(4);
+  const a = await codex.boundingBox(), b = await mobile.boundingBox();
+  if (page.viewportSize()!.width <= 760) {
+    expect(b!.y).toBeGreaterThan(a!.y + a!.height);
+    expect(b!.width).toBeGreaterThan(a!.width);
+  } else {
+    expect(Math.abs(a!.y - b!.y)).toBeLessThan(4);
+  }
+  expect(await page.evaluate(() => document.documentElement.scrollWidth <= window.innerWidth)).toBe(true);
   await expect(page.locator("#eyes-codex-flow")).toBeHidden();
   await mobile.click();
 
