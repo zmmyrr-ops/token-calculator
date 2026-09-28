@@ -18,20 +18,13 @@ test("captures a search entrance without raw query and does not count SPA naviga
     page: "/learn",
   });
   expect(JSON.stringify(events)).not.toContain("private-search");
-  await page
-    .getByRole("link", {
-      name: "Token 是什么？为什么不等于字数？",
-      exact: true,
-    })
-    .click();
-  await expect(page).toHaveURL(/learn\/tokens/);
+  const firstArticle = page.locator(".learning-card h2 a").first();
+  const title = await firstArticle.innerText();
+  const href = await firstArticle.getAttribute("href");
+  await firstArticle.click();
+  await expect.poll(() => new URL(page.url()).pathname).toBe(href);
   await page.reload();
-  await expect(
-    page.getByRole("heading", {
-      name: "Token 是什么？为什么不等于字数？",
-      exact: true,
-    }),
-  ).toBeVisible();
+  await expect(page.getByRole("heading", { name: title, exact: true })).toBeVisible();
   expect(events.filter((e) => e.name === "visit_start")).toHaveLength(1);
   await page.goto("/learn?utm_source=private-campaign");
   await expect
