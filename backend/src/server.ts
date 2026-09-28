@@ -1,5 +1,6 @@
 import { seedDepthArticles } from "./learning-depth";
 import {
+  newestLessonsFirst,
   learningCategories,
   learningCategoryFilter,
   learningFormat,
@@ -303,8 +304,9 @@ app.get(["/api/v1/library/:kind", "/api/v1/mini/tools"], (req, res) => {
             ...t.capabilities,
           ].join(" "),
         }))
-      : data.knowledge.map((a) => ({
+      : [...data.knowledge].sort(newestLessonsFirst).map((a) => ({
           slug: a.slug,
+          publishedAt: a.publishedAt,
           title: a.title,
           summary: a.summary,
           category: a.category,
@@ -319,12 +321,6 @@ app.get(["/api/v1/library/:kind", "/api/v1/mini/tools"], (req, res) => {
           video: a.video,
           curation: a.curation,
         }));
-  if (kind === "learn")
-    entries.sort(
-      (a, b) =>
-        ("format" in a && a.format === "curated" ? 1 : 0) -
-        ("format" in b && b.format === "curated" ? 1 : 0),
-    );
   const filtered = entries.filter(
     (a) =>
       (!p.format ||

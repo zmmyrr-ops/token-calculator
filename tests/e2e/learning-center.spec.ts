@@ -5,6 +5,9 @@ test("learning themes, old links, form filters and body search stay consistent",
 }) => {
   const all = await (await request.get("/api/v1/library/learn")).json();
   expect(all.categories).toHaveLength(6);
+  const secondPage = await (await request.get("/api/v1/library/learn?page=2")).json();
+  const timestamps = [...all.items, ...secondPage.items].map((a: {publishedAt?: string}) => Date.parse(a.publishedAt || "") || 0);
+  expect(timestamps).toEqual([...timestamps].sort((a, b) => b - a));
   for (const category of all.categories) {
     const response = await (
       await request.get("/api/v1/library/learn", { params: { category } })

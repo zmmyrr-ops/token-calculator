@@ -168,6 +168,7 @@ export default function Learn({
                     {a.category} ·{" "}
                     {a.curation?.publisher || a.video?.publisher || "编辑整理"}
                   </small>
+                  {a.publishedAt && <small>本站发布：<time dateTime={a.publishedAt}>{new Date(a.publishedAt).toLocaleDateString("zh-CN", {timeZone: "Asia/Shanghai"})}</time></small>}
                   <h2>
                     <Link href={`/learn/${a.slug}`}>{a.title}</Link>
                   </h2>

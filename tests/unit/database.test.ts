@@ -206,3 +206,19 @@ it("adds sourced learning content once without overwriting CMS edits", () => {
     db.close();
   }
 });
+
+it("orders learning by first site publication, without draft edits changing the date", async () => {
+  const { newestLessonsFirst } = await import("../../shared/learning");
+  const db = open();
+  try {
+    db.db.prepare("UPDATE history SET at='2026-09-01T00:00:00.000Z' WHERE kind='knowledge'").run();
+    db.db.prepare("UPDATE history SET at='2026-09-28T00:00:00.000Z' WHERE kind='knowledge' AND entity_id='tokens'").run();
+    const draft = db.get("knowledge", "tokens");
+    db.save("knowledge", "tokens", { ...draft.draft, title: "未发布编辑" }, draft.revision, "test");
+    const articles = db.publicContent().knowledge.sort(newestLessonsFirst);
+    expect(articles[0].slug).toBe("tokens");
+    expect(articles[0].publishedAt).toBe("2026-09-28T00:00:00.000Z");
+    expect(articles[0].title).not.toBe("未发布编辑");
+    expect([{slug:"unknown"},{slug:"new",publishedAt:"2026-09-28"},{slug:"old",publishedAt:"2026-09-01"}].sort(newestLessonsFirst).map(a=>a.slug)).toEqual(["new","old","unknown"]);
+  } finally { db.close(); }
+});

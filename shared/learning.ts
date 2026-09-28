@@ -98,3 +98,12 @@ export function relatedLessons<
     .slice(0, Math.max(0, limit))
     .map((x) => x.a);
 }
+
+/** Unknown historical dates sort last. Slug breaks timestamp ties across pages. */
+export function newestLessonsFirst(a: {publishedAt?: string; slug: string}, b: {publishedAt?: string; slug: string}) {
+  const time = (value?: string) => {
+    const parsed = Date.parse(value || "");
+    return Number.isFinite(parsed) ? parsed : 0;
+  };
+  return time(b.publishedAt) - time(a.publishedAt) || a.slug.localeCompare(b.slug);
+}

@@ -198,8 +198,13 @@ export class ContentDatabase {
       rows
         .filter((r) => r.kind === kind)
         .map((r) => JSON.parse(String(r.published)));
+    const publicationTimes = new Map(
+      this.db.prepare(`SELECT entity_id, MIN(at) AS at FROM history
+        WHERE kind='knowledge' AND action IN ('import','import_publish','publish')
+        GROUP BY entity_id`).all().map(r => [String(r.entity_id), String(r.at)]),
+    );
     const knowledge = (values("knowledge") as Content["knowledge"]).map(
-      (a) => ({ ...a, category: learningCategory(a.category) }),
+      (a) => ({ ...a, category: learningCategory(a.category), publishedAt: publicationTimes.get(a.slug) }),
     );
     return {
       ...base,

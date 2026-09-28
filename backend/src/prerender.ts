@@ -1,4 +1,4 @@
-import { relatedLessons } from "../../shared/learning";
+import { relatedLessons, newestLessonsFirst } from "../../shared/learning";
 import {featureGuides, tutorialLinks} from "../../shared/feature-guides";
 import { taskPacks } from "../../shared/task-packs";
 import { Router } from "express";
@@ -33,7 +33,7 @@ const cards = (items: { url: string; title: string; summary?: string }[]) =>
   `<ul>${items.map((x) => `<li>${link(x.url, x.title)}${x.summary ? paragraph(x.summary) : ""}</li>`).join("")}</ul>`;
 const knowledgeLinks = (d: Content) =>
   cards(
-    d.knowledge.map((x) => ({
+    [...d.knowledge].sort(newestLessonsFirst).map((x) => ({
       url: "/learn/" + x.slug,
       title: x.title,
       summary: x.summary,

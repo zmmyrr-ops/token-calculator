@@ -1,6 +1,8 @@
 import { practices } from "./practices";
 import type { Practice } from "../../../shared/practice";
 export type KnowledgeEntry = {
+  /** First publication on this site, derived from the audit log. */
+  publishedAt?: string;
   workshop?: {image?:string;version:string;duration:string;verification:string;download:string;demo?:string};
   video?: {
     url: string;
