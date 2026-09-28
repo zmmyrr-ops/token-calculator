@@ -64,3 +64,37 @@ export function learningMatchesFormat(format: string, selected: string) {
         : format === selected)
   );
 }
+
+/** Only published, relevant lessons; don't fill empty slots with unrelated links. */
+export function relatedLessons<
+  T extends {
+    slug: string;
+    category: string;
+    sources?: { url: string }[];
+    curation?: unknown;
+    video?: unknown;
+  },
+>(entry: T, lessons: T[], limit = 4): T[] {
+  const linked = new Set(entry.sources?.map((s) => s.url) || []);
+  return lessons
+    .filter((a) => a.slug !== entry.slug)
+    .map((a) => ({
+      a,
+      score:
+        (linked.has("/learn/" + a.slug) ? 10 : 0) +
+        (a.sources?.some((s) => s.url === "/learn/" + entry.slug) ? 8 : 0) +
+        (learningCategory(a.category) === learningCategory(entry.category)
+          ? 4
+          : 0),
+    }))
+    .filter((x) => x.score > 0)
+    .sort(
+      (a, b) =>
+        b.score - a.score ||
+        Number(!!a.a.curation || !!a.a.video) -
+          Number(!!b.a.curation || !!b.a.video) ||
+        a.a.slug.localeCompare(b.a.slug),
+    )
+    .slice(0, Math.max(0, limit))
+    .map((x) => x.a);
+}

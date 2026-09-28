@@ -2,11 +2,12 @@ import { isStaging } from "./base";
 import { useEffect } from "react";
 import { useLocation } from "react-router-dom";
 import { useContent } from "./content";
-import { resolveSeo } from "@shared/seo";
+import { resolveSeo, structuredData } from "@shared/seo";
 export default function Seo() {
   const data = useContent(),
     location = useLocation();
   const seo = resolveSeo(location.pathname, location.search, data);
+  const schemaJson = JSON.stringify(structuredData(seo, data));
   useEffect(() => {
     const eyes = location.pathname.replace(/\/+$/, "").startsWith("/ai-eyes/");
     let referrer = document.head.querySelector<HTMLMetaElement>(
@@ -72,13 +73,7 @@ export default function Seo() {
       schema.setAttribute("type", "application/ld+json");
       document.head.append(schema);
     }
-    schema.textContent = JSON.stringify({
-      "@context": "https://schema.org",
-      "@type": seo.article ? "Article" : "WebPage",
-      name: seo.title,
-      url: seo.canonical,
-      description: seo.description,
-    });
+    schema.textContent = schemaJson;
   }, [
     location.pathname,
     seo.title,
@@ -87,6 +82,7 @@ export default function Seo() {
     seo.robots,
     seo.article,
     seo.image,
+    schemaJson,
   ]);
   return null;
 }

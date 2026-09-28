@@ -1,3 +1,4 @@
+import { relatedLessons } from "../../shared/learning";
 import {featureGuides, tutorialLinks} from "../../shared/feature-guides";
 import { taskPacks } from "../../shared/task-packs";
 import { Router } from "express";
@@ -6,7 +7,7 @@ import path from "node:path";
 import { ContentDatabase } from "./database";
 import type { Content } from "../../shared/content";
 import type { NewsArticle } from "../../shared/news";
-import { indexablePaths, resolveSeo } from "../../shared/seo";
+import { indexablePaths, resolveSeo, structuredData } from "../../shared/seo";
 
 export const escapeHtml = (v: unknown) =>
   String(v ?? "").replace(
@@ -57,7 +58,7 @@ function pageBody(route: string, d: Content, news: NewsArticle[], page = 1) {
     ? d.knowledge.find((x) => x.slug === slug)
     : undefined;
   if (a)
-    return `<h1>${e(a.title)}</h1>${paragraph(a.summary)}${tutorialLinks.some(t=>t.slug===a.slug)?`<figure><img src="/guide-images/${e(a.slug)}.png" alt="${e(a.title)}：本站操作界面" width="1100" height="760" style="max-width:100%;height:auto"><figcaption>本站操作界面（2026年9月）</figcaption></figure>`:""}${a.workshop ? `${a.workshop.image ? `<img src="${e(a.workshop.image)}" alt="示例运行画面" style="max-width:100%;max-height:420px">` : ""}<p>${e(a.workshop.version)} · ${e(a.workshop.duration)}</p>${paragraph(a.workshop.verification)}${link(a.workshop.download,"下载完整源码与中文说明")}${a.workshop.demo ? link(a.workshop.demo,"打开成品试玩") : ""}` : ""}${sections(a.sections)}<h2>配套工具与教程</h2>${cards(tutorialLinks.filter(t=>t.slug===a.slug).map(t=>({url:t.url,title:"打开配套工具"})))}${cards(tutorialLinks.filter(t=>t.slug!==a.slug && d.knowledge.some(a=>a.slug===t.slug)).map(t=>({url:"/learn/"+t.slug,title:t.title})))}${a.practice ? `<h2>动手实践</h2>${paragraph(a.practice.result)}${list(a.practice.preparation)}${a.practice.steps.map((s, i) => `<h3>第 ${i + 1} 步</h3>${list(s.actions)}${paragraph(s.check)}`).join("")}<h2>常见问题</h2>${a.practice.pitfalls.map((x) => `<h3>${e(x.problem)}</h3>${paragraph(x.solution)}`).join("")}<h2>交付成果</h2>${list(a.practice.deliverables)}` : ""}${a.video ? `<h2>教程视频</h2>${paragraph(a.video.publisher + " · " + a.video.language)}${paragraph(a.video.audience)}${link(a.video.url, "前往原站观看视频")}` : ""}${a.sources?.length ? `<h2>资料来源</h2>${cards(a.sources.map((s) => ({ url: s.url, title: s.title })))}` : ""}`;
+    return `<nav aria-label="面包屑">${link("/learn", "学习中心")} / ${e(a.category)} / ${e(a.title)}</nav><h1>${e(a.title)}</h1>${paragraph(a.summary)}${tutorialLinks.some(t=>t.slug===a.slug)?`<figure><img src="/guide-images/${e(a.slug)}.png" alt="${e(a.title)}：本站操作界面" width="1100" height="760" style="max-width:100%;height:auto"><figcaption>本站操作界面（2026年9月）</figcaption></figure>`:""}${a.workshop ? `${a.workshop.image ? `<img src="${e(a.workshop.image)}" alt="示例运行画面" style="max-width:100%;max-height:420px">` : ""}<p>${e(a.workshop.version)} · ${e(a.workshop.duration)}</p>${paragraph(a.workshop.verification)}${link(a.workshop.download,"下载完整源码与中文说明")}${a.workshop.demo ? link(a.workshop.demo,"打开成品试玩") : ""}` : ""}${sections(a.sections)}<h2>配套工具与教程</h2>${cards(tutorialLinks.filter(t=>t.slug===a.slug).map(t=>({url:t.url,title:"打开配套工具"})))}${cards(relatedLessons(a, d.knowledge).map(t=>({url:"/learn/"+t.slug,title:t.title})))}${a.practice ? `<h2>动手实践</h2>${paragraph(a.practice.result)}${list(a.practice.preparation)}${a.practice.steps.map((s, i) => `<h3>第 ${i + 1} 步</h3>${list(s.actions)}${paragraph(s.check)}`).join("")}<h2>常见问题</h2>${a.practice.pitfalls.map((x) => `<h3>${e(x.problem)}</h3>${paragraph(x.solution)}`).join("")}<h2>交付成果</h2>${list(a.practice.deliverables)}` : ""}${a.video ? `<h2>教程视频</h2>${paragraph(a.video.publisher + " · " + a.video.language)}${paragraph(a.video.audience)}${link(a.video.url, "前往原站观看视频")}` : ""}${a.sources?.length ? `<h2>资料来源</h2>${cards(a.sources.map((s) => ({ url: s.url, title: s.title })))}` : ""}`;
   const t = route.startsWith("/tools/")
     ? d.resources.find((x) => x.id === slug)
     : undefined;
@@ -101,15 +102,8 @@ export function renderSnapshot(
 ) {
   const seo = resolveSeo(route, search, d);
   const robots = staging ? "noindex, nofollow" : seo.robots;
-  const structured = {
-    "@context": "https://schema.org",
-    "@type": route === "/" ? "WebSite" : seo.article ? "Article" : "WebPage",
-    name: seo.title,
-    url: seo.canonical,
-    description: seo.description,
-    ...(route === "/" ? { alternateName: ["AI门道", "AI 门道"] } : {}),
-  };
-  const metadata = `<meta name="robots" content="${robots}"><link rel="canonical" href="${e(seo.canonical)}"><meta property="og:title" content="${e(seo.title)}"><meta property="og:description" content="${e(seo.description)}"><meta property="og:url" content="${e(seo.canonical)}"><meta property="og:image" content="${e(seo.image)}"><script type="application/ld+json" id="prerender-schema">${JSON.stringify(structured).replaceAll("<", "\\u003c")}</script>`;
+  const structured = structuredData(seo, d);
+  const metadata = `<meta name="robots" content="${robots}"><link rel="canonical" href="${e(seo.canonical)}"><meta property="og:type" content="${seo.article ? "article" : "website"}"><meta name="twitter:card" content="summary"><meta name="twitter:image" content="${e(seo.image)}"><meta property="og:title" content="${e(seo.title)}"><meta property="og:description" content="${e(seo.description)}"><meta property="og:url" content="${e(seo.canonical)}"><meta property="og:image" content="${e(seo.image)}"><script type="application/ld+json" id="prerender-schema">${JSON.stringify(structured).replaceAll("<", "\\u003c")}</script>`;
   let content = `<div class="container"><header style="padding:24px 0">${link("/", "AI 门道")} · ${link("/news", "AI 资讯")} · ${link("/learn", "学习中心")} · ${link("/models", "模型与平台")} · ${link("/tools", "工具导航")}</header><main class="prose" style="max-width:900px;margin:24px auto;line-height:1.9;overflow-wrap:anywhere">${pageBody(route, d, news, Number(new URLSearchParams(search).get("page") || 1))}</main><footer style="padding:24px 0">AI 门道 · 看懂 AI，用出门道。 ${link("https://beian.miit.gov.cn/", d.site.icp)}</footer></div>`;
   if (staging) content = content.replace(/href="\/(?!\/)/g, 'href="/staging/');
   return shell

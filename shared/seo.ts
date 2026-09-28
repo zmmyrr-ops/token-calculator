@@ -202,3 +202,43 @@ export function resolveSeo(pathname: string, search: string, data: Content) {
     path,
   };
 }
+
+/** Same structured data for initial HTML and client navigation. No invented dates/ratings. */
+export function structuredData(seo: ReturnType<typeof resolveSeo>, data: Content) {
+  const base = {
+    "@context": "https://schema.org",
+    "@type": seo.path === "/" ? "WebSite" : "WebPage",
+    name: seo.title,
+    url: seo.canonical,
+    description: seo.description,
+    inLanguage: "zh-CN",
+    ...(seo.path === "/" ? { alternateName: ["AI门道", "AI 门道"] } : {}),
+  };
+  if (!seo.article || !seo.known || !seo.robots.startsWith("index")) return base;
+  const article = data.knowledge.find(a => "/learn/" + encodeURIComponent(a.slug) === seo.path || "/learn/" + a.slug === seo.path);
+  if (!article) return base;
+  return {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "Article",
+        "@id": seo.canonical + "#article",
+        headline: seo.title,
+        description: seo.description,
+        url: seo.canonical,
+        mainEntityOfPage: { "@type": "WebPage", "@id": seo.canonical },
+        inLanguage: "zh-CN",
+        articleSection: article.category,
+        publisher: { "@type": "Organization", name: "AI 门道", url: data.site.url },
+        ...(article.workshop?.image ? { image: new URL(article.workshop.image, data.site.url).href } : {}),
+      },
+      {
+        "@type": "BreadcrumbList",
+        itemListElement: [
+          { "@type": "ListItem", position: 1, name: "学习中心", item: new URL("/learn", data.site.url).href },
+          { "@type": "ListItem", position: 2, name: article.title, item: seo.canonical },
+        ],
+      },
+    ],
+  };
+}

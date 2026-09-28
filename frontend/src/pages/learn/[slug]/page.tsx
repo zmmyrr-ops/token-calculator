@@ -1,3 +1,4 @@
+import { relatedLessons } from "@shared/learning";
 import TutorialCode from "@/components/TutorialCode";
 import { appPath } from "@/base";
 import { tutorialLinks } from "@shared/feature-guides";
@@ -13,8 +14,10 @@ export default function Article({ params }: { params: { slug: string } }) {
   if (!entry) return <NotFound />;
   return (
     <article className="prose portal-article">
-      <Link href="/learn">学习中心</Link>
-      <span> / {entry.category}</span>
+      <nav aria-label="面包屑">
+        <Link href="/learn">学习中心</Link>
+        <span> / {entry.category} / {entry.title}</span>
+      </nav>
       <div className="eyebrow" style={{ marginTop: 32 }}>
         {entry.category} · {entry.curation?.publisher || "编辑整理"}
       </div>
@@ -264,15 +267,11 @@ export default function Article({ params }: { params: { slug: string } }) {
               打开配套工具 →
             </Link>
           ))}
-        {tutorialLinks
-          .filter(
-            (t) => t.slug !== slug && knowledge.some((a) => a.slug === t.slug),
-          )
-          .map((t) => (
-            <Link key={t.slug} href={"/learn/" + t.slug}>
-              {t.title}
-            </Link>
-          ))}
+        {relatedLessons(entry, knowledge).map((a) => (
+          <Link key={a.slug} href={"/learn/" + a.slug}>
+            {a.title}
+          </Link>
+        ))}
       </section>
       <section className="portal-related">
         <h2>继续探索</h2>

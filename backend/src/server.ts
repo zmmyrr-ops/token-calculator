@@ -1,3 +1,4 @@
+import { seedDepthArticles } from "./learning-depth";
 import {
   learningCategories,
   learningCategoryFilter,
@@ -65,6 +66,7 @@ seedSeoTutorials(store);
 expandGameContent(store);
 upgradeGameWorkshops(store);
 upgradeLearningContent(store);
+seedDepthArticles(store);
 await initializeAdmin(store);
 initCommunity(store);
 initPersonas(store);
