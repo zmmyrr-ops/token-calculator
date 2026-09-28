@@ -77,6 +77,14 @@
 - ✅ Python 示例实跑：JSON 正常输入通过，5 组非法数据被拒绝；订单示例 4 项 unittest 通过。
 - ✅ 学习中心与 SEO 桌面/手机回归：6 项既有检查通过，2 项新增文章检查通过。新检查最初用文本断言读取 script 得到空值，改为直接读取 textContent 后通过。
 - ✅ 新文章无需 JavaScript 可读、canonical、sitemap、相关文章以及站内跳转验证通过。
-- ⬜ 正式部署与线上收录核验尚未执行。
+- ✅ 正式部署与线上正文、结构化数据、站点地图、搜索和健康接口核验通过；搜索引擎实际收录仍待观察。
 
 本地预览使用独立测试库 `/tmp/mendao-seo-20260928/mendao.sqlite`，不修改生产数据；前端端口 3300、API 端口 4300。
+
+
+### 正式发布记录
+
+2026-09-28：发布版本 `3b424127adf5c702ecf144d86be5d947c497ca37`。
+[CI 36376641213](https://github.com/zmmyrr-ops/token-calculator/actions/runs/36376641213) 完成全量检查、浏览器回归和测试环境部署。通过现有受限生产 SSH 发布入口提升同一 SHA 镜像，发布前数据库备份成功，生产前后端均健康。
+
+三篇正式文章 HTTP 200、公开 HTML、Article / BreadcrumbList、canonical、index 指令与 sitemap 均通过核验。正式学习中心搜索可找到新文章，浏览器实际显示正文、代码块、目录和相关文章。没有把推送或部署成功描述为已被 Google / 百度收录。
