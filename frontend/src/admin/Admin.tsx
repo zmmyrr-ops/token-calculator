@@ -47,7 +47,7 @@ export default function Admin() {
     [password, setPassword] = useState(""),
     [newPassword, setNewPassword] = useState("");
   useEffect(() => {
-    document.title = "内容管理 - AI 门道";
+    document.title = "内容管理 - AI 门道｜学习用途";
     let meta = document.querySelector('meta[name="robots"]');
     if (!meta) {
       meta = document.createElement("meta");

@@ -1,5 +1,8 @@
 import { taskPacks } from "./task-packs";
 import type { Content } from "./content";
+export const withLearningPurpose = (title: string) =>
+  title.includes("学习用途") ? title : `${title}｜学习用途`;
+
 export const publicPages: Record<
   string,
   { title: string; description: string }
@@ -187,11 +190,12 @@ export function resolveSeo(pathname: string, search: string, data: Content) {
   const custom = known && !excluded ? data.seoOverrides?.[path] : undefined;
   const title = custom?.title || page?.title || "页面未找到";
   return {
-    title:
+    title: withLearningPurpose(
       (title.includes("AI 门道") ? title : title + " - AI 门道") +
       (paginated && pageNumber > 1 && !invalidPage
         ? " · 第 " + pageNumber + " 页"
         : ""),
+    ),
     description:
       custom?.description || page?.description || "该页面不存在，请返回 AI 门道浏览其他内容。",
     image: new URL(custom?.image || "/brand/ai-door-v5.png", data.site.url).href,

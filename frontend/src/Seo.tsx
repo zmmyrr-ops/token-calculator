@@ -2,7 +2,7 @@ import { isStaging } from "./base";
 import { useEffect } from "react";
 import { useLocation } from "react-router-dom";
 import { useContent } from "./content";
-import { resolveSeo, structuredData } from "@shared/seo";
+import { resolveSeo, structuredData, withLearningPurpose } from "@shared/seo";
 export default function Seo() {
   const data = useContent(),
     location = useLocation();
@@ -26,12 +26,10 @@ export default function Seo() {
       document.head.querySelector('link[rel="canonical"]')?.remove();
       document.getElementById("prerender-schema")?.remove();
       if (!location.pathname.startsWith("/ai-eyes/s/"))
-        document.title = "AI 眼里的你 · AI 门道";
+        document.title = withLearningPurpose("AI 眼里的你 · AI 门道");
       return;
     }
-    document.title = eyes
-      ? "AI 眼里的你 · 16 种 AI 使用人格 - AI 门道"
-      : seo.title;
+    document.title = seo.title;
     const meta = (key: string, value: string, property = false) => {
       const attr = property ? "property" : "name";
       let el = document.head.querySelector<HTMLMetaElement>(

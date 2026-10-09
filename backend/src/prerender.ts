@@ -181,7 +181,7 @@ export class PublicSnapshots {
     this.missing = this.empty
       .replace(
         /<title>[\s\S]*?<\/title>/,
-        "<title>页面未找到 - AI 门道</title>",
+        "<title>页面未找到 - AI 门道｜学习用途</title>",
       )
       .replace(
         '<div id="root"></div>',

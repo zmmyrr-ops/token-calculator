@@ -1,3 +1,4 @@
+import { withLearningPurpose } from "../../shared/seo";
 import { Router } from "express";
 import { readFileSync } from "node:fs";
 import path from "node:path";
@@ -73,11 +74,11 @@ export function eyesPages(store: ContentDatabase) {
       )
       .replace(
         /<title>[\s\S]*?<\/title>/,
-        `<title>${escape(title)} - AI 门道</title>`,
+        `<title>${escape(withLearningPurpose(title + " - AI 门道"))}</title>`,
       )
       .replace(
         "</head>",
-        `<meta name="robots" content="noindex,nofollow"><meta name="referrer" content="no-referrer"><meta property="og:title" content="${escape(title)}"><meta property="og:description" content="趣味画像 · 文案演绎，非心理测试">${image ? `<meta property="og:image" content="${escape(image)}">` : ""}</head>`,
+        `<meta name="robots" content="noindex,nofollow"><meta name="referrer" content="no-referrer"><meta property="og:title" content="${escape(withLearningPurpose(title + " - AI 门道"))}"><meta property="og:description" content="趣味画像 · 文案演绎，非心理测试">${image ? `<meta property="og:image" content="${escape(image)}">` : ""}</head>`,
       )
       .replace('<div id="root"></div>', `<div id="root">${body}</div>`);
     res
