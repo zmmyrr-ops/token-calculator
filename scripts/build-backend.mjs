@@ -1,6 +1,6 @@
 import { build } from "esbuild";
 await build({
-  entryPoints: ["src/server.ts","src/sync-learning.ts"],
+  entryPoints: ["src/server.ts","src/sync-learning.ts","src/verify-public-assets.ts"],
   outdir: "dist",
   outExtension: {".js":".mjs"},
   bundle: true,

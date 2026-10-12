@@ -54,7 +54,7 @@ jobs:
           fi
           npm run test:e2e
       - name: Build frontend image
-        run: docker build --file deploy/Dockerfile --target frontend --tag mendao-frontend:ci .
+        run: docker build --file deploy/Dockerfile --target frontend --build-arg OSS_PUBLIC_ASSETS=true --tag mendao-frontend:ci .
       - name: Build backend image
         run: docker build --file deploy/Dockerfile --target backend --tag mendao-backend:ci .
       - name: Load release images on ECS and deploy staging

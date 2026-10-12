@@ -1,3 +1,4 @@
+import { publicAssetsRouter } from "./public-assets";
 import { seedDepthArticles } from "./learning-depth";
 import {
   newestLessonsFirst,
@@ -52,6 +53,7 @@ app.use((_req, res, next) => {
   if (_req.path.startsWith("/api/")) res.set("X-Robots-Tag", "noindex");
   next();
 });
+app.use(publicAssetsRouter());
 const store = new ContentDatabase();
 store.seed({
   catalog,

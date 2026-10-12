@@ -15,6 +15,11 @@ if [[ "$app_env" == production ]]; then
 fi
 port=3100; [[ "$app_env" == staging ]] && port=3101
 config="$root/$app_env/release.env"
+# New OSS-backed releases verify every required object before changing containers.
+# Older rollback releases have no verifier and retain their bundled assets.
+docker run --rm --network bridge --cap-drop ALL --security-opt no-new-privileges:true \
+  -v "$root/$app_env/storage:/app/storage:ro" "mendao-backend:$release" \
+  sh -c 'if [ -f /app/backend/dist/verify-public-assets.mjs ]; then node /app/backend/dist/verify-public-assets.mjs; fi'
 previous=""
 if [[ -f "$config" ]]; then
   previous=$(sed -n 's/^RELEASE_ID=//p' "$config")
@@ -43,6 +48,10 @@ if "${compose[@]}" up -d --wait --wait-timeout 120 && healthy; then
     printf '%s\n' "$image_ids" > "$root/verified/$release"
   fi
   printf '%s %s %s\n' "$(date -u +%FT%TZ)" "$app_env" "$release" >> "$root/deployments.log"
+  flock -u 9
+  if [[ -f "$root/cleanup.py" ]]; then
+    python3 "$root/cleanup.py" --apply || echo "Image cleanup failed; deployment is healthy" >&2
+  fi
 else
   if [[ -n "$previous" ]]; then
     cp "$config.previous" "$config"

@@ -1,0 +1,818 @@
+{
+  "/ai-eyes-art/ai_confidant-cover-v3.png": {
+    "key": "mendao/public/b4cfda908e13df40aa629311a36bb6b86ede02e5942e5db8a348dc10aab06f94/ai-eyes-art/ai_confidant-cover-v3.png",
+    "sha256": "b4cfda908e13df40aa629311a36bb6b86ede02e5942e5db8a348dc10aab06f94",
+    "size": 1855521,
+    "type": "image/png"
+  },
+  "/ai-eyes-art/ai_confidant-cover-v4.png": {
+    "key": "mendao/public/0bae2ea0065936b680b9e148178ecb98abeaf082d5441444f3af76bd57f1bde2/ai-eyes-art/ai_confidant-cover-v4.png",
+    "sha256": "0bae2ea0065936b680b9e148178ecb98abeaf082d5441444f3af76bd57f1bde2",
+    "size": 1858466,
+    "type": "image/png"
+  },
+  "/ai-eyes-art/ai_confidant-cover.png": {
+    "key": "mendao/public/85d8b22d64e168392c23aa86c45924e589c964eca5cf864a29e539cbb8522f2f/ai-eyes-art/ai_confidant-cover.png",
+    "sha256": "85d8b22d64e168392c23aa86c45924e589c964eca5cf864a29e539cbb8522f2f",
+    "size": 425834,
+    "type": "image/png"
+  },
+  "/ai-eyes-art/ai_confidant-cutout-v2.png": {
+    "key": "mendao/public/66fe424a03a02f6a1fb35c6bbd0ea05025c3ddeae37264a0400f482c2f229877/ai-eyes-art/ai_confidant-cutout-v2.png",
+    "sha256": "66fe424a03a02f6a1fb35c6bbd0ea05025c3ddeae37264a0400f482c2f229877",
+    "size": 1198688,
+    "type": "image/png"
+  },
+  "/ai-eyes-art/ai_confidant-lettering-v3.png": {
+    "key": "mendao/public/e860ba988fe6f45472314edacea1aa0f83b113ed2103ae23aeff7efb43c21857/ai-eyes-art/ai_confidant-lettering-v3.png",
+    "sha256": "e860ba988fe6f45472314edacea1aa0f83b113ed2103ae23aeff7efb43c21857",
+    "size": 1234859,
+    "type": "image/png"
+  },
+  "/ai-eyes-art/ai_confidant-v1.webp": {
+    "key": "mendao/public/feb22e2200232982443f9202d47d62ae0bc22b8cb8b7a148b13f61bbacacf7dc/ai-eyes-art/ai_confidant-v1.webp",
+    "sha256": "feb22e2200232982443f9202d47d62ae0bc22b8cb8b7a148b13f61bbacacf7dc",
+    "size": 42370,
+    "type": "image/webp"
+  },
+  "/ai-eyes-art/ai_debate_captain-cover-v3.png": {
+    "key": "mendao/public/2869292dbe6a2fee98bd3ed50297a9cc5630f46bb35fb80155f590ddcad9ec77/ai-eyes-art/ai_debate_captain-cover-v3.png",
+    "sha256": "2869292dbe6a2fee98bd3ed50297a9cc5630f46bb35fb80155f590ddcad9ec77",
+    "size": 1693832,
+    "type": "image/png"
+  },
+  "/ai-eyes-art/ai_debate_captain-cover-v4.png": {
+    "key": "mendao/public/e86d997f3b0f7f9be7082c792cf60c9f95825c2c7705a50a2e8ac775b7711b3b/ai-eyes-art/ai_debate_captain-cover-v4.png",
+    "sha256": "e86d997f3b0f7f9be7082c792cf60c9f95825c2c7705a50a2e8ac775b7711b3b",
+    "size": 1696690,
+    "type": "image/png"
+  },
+  "/ai-eyes-art/ai_debate_captain-cover.png": {
+    "key": "mendao/public/12280155a7853f66e8dd155a0f7e6418ff0c9ea1270efaec69a6540a396357a4/ai-eyes-art/ai_debate_captain-cover.png",
+    "sha256": "12280155a7853f66e8dd155a0f7e6418ff0c9ea1270efaec69a6540a396357a4",
+    "size": 386377,
+    "type": "image/png"
+  },
+  "/ai-eyes-art/ai_debate_captain-cutout-v2.png": {
+    "key": "mendao/public/b81a873a736f5fcc09bb759a8654957865bfe0d4c2a52ba6da30cb41c8700bfa/ai-eyes-art/ai_debate_captain-cutout-v2.png",
+    "sha256": "b81a873a736f5fcc09bb759a8654957865bfe0d4c2a52ba6da30cb41c8700bfa",
+    "size": 1087181,
+    "type": "image/png"
+  },
+  "/ai-eyes-art/ai_debate_captain-lettering-v3.png": {
+    "key": "mendao/public/f4a2d33771be646c2eed597e53e424adb7a2045998cb6b64beb034e53f6f0113/ai-eyes-art/ai_debate_captain-lettering-v3.png",
+    "sha256": "f4a2d33771be646c2eed597e53e424adb7a2045998cb6b64beb034e53f6f0113",
+    "size": 1131987,
+    "type": "image/png"
+  },
+  "/ai-eyes-art/ai_debate_captain-v1.webp": {
+    "key": "mendao/public/13f52b4057725135db207da9eb95a32259153abdeb9297499504d2c043fdeec9/ai-eyes-art/ai_debate_captain-v1.webp",
+    "sha256": "13f52b4057725135db207da9eb95a32259153abdeb9297499504d2c043fdeec9",
+    "size": 42550,
+    "type": "image/webp"
+  },
+  "/ai-eyes-art/ai_tamer-cover-v3.png": {
+    "key": "mendao/public/655fb8f43f4caab8c336a20e8e98f9f8bda86e4aa24ecdcc34a2fae8342fa7b2/ai-eyes-art/ai_tamer-cover-v3.png",
+    "sha256": "655fb8f43f4caab8c336a20e8e98f9f8bda86e4aa24ecdcc34a2fae8342fa7b2",
+    "size": 1660702,
+    "type": "image/png"
+  },
+  "/ai-eyes-art/ai_tamer-cover-v4.png": {
+    "key": "mendao/public/aaa50593525d6a39316b9cf3538ffb0331d28f80325a45923765b956ced47c83/ai-eyes-art/ai_tamer-cover-v4.png",
+    "sha256": "aaa50593525d6a39316b9cf3538ffb0331d28f80325a45923765b956ced47c83",
+    "size": 1663494,
+    "type": "image/png"
+  },
+  "/ai-eyes-art/ai_tamer-cover.png": {
+    "key": "mendao/public/c6b5989d6ef8be4950899c312cc40dff74c22a62909baf02c53902f8aa8b80f0/ai-eyes-art/ai_tamer-cover.png",
+    "sha256": "c6b5989d6ef8be4950899c312cc40dff74c22a62909baf02c53902f8aa8b80f0",
+    "size": 365357,
+    "type": "image/png"
+  },
+  "/ai-eyes-art/ai_tamer-cutout-v2.png": {
+    "key": "mendao/public/13e8098fdb10968adade1cd8878a90a10a664e410ac587bee0fe110069ea6025/ai-eyes-art/ai_tamer-cutout-v2.png",
+    "sha256": "13e8098fdb10968adade1cd8878a90a10a664e410ac587bee0fe110069ea6025",
+    "size": 1054453,
+    "type": "image/png"
+  },
+  "/ai-eyes-art/ai_tamer-lettering-v3.png": {
+    "key": "mendao/public/c0fdf470da11906c97fbd6f8b27aac5d8293133b1870e28be67a8b1201e8fd93/ai-eyes-art/ai_tamer-lettering-v3.png",
+    "sha256": "c0fdf470da11906c97fbd6f8b27aac5d8293133b1870e28be67a8b1201e8fd93",
+    "size": 1198082,
+    "type": "image/png"
+  },
+  "/ai-eyes-art/ai_tamer-v1.webp": {
+    "key": "mendao/public/47c47d44ed599d5414f2967d215a01d080fdf45e82814d2c5f5a589de3146b5d/ai-eyes-art/ai_tamer-v1.webp",
+    "sha256": "47c47d44ed599d5414f2967d215a01d080fdf45e82814d2c5f5a589de3146b5d",
+    "size": 36058,
+    "type": "image/webp"
+  },
+  "/ai-eyes-art/boss_of_ai_boss-cover-v3.png": {
+    "key": "mendao/public/0d1d50de5fbf01f573517c73b2cf7a863bc77f47d8018aa87a2f8c1a7519a406/ai-eyes-art/boss_of_ai_boss-cover-v3.png",
+    "sha256": "0d1d50de5fbf01f573517c73b2cf7a863bc77f47d8018aa87a2f8c1a7519a406",
+    "size": 1674324,
+    "type": "image/png"
+  },
+  "/ai-eyes-art/boss_of_ai_boss-cover-v4.png": {
+    "key": "mendao/public/04076b728d8c7ed7f8a16c74119783c2b8e36c99b1e07809e461141876e0fab5/ai-eyes-art/boss_of_ai_boss-cover-v4.png",
+    "sha256": "04076b728d8c7ed7f8a16c74119783c2b8e36c99b1e07809e461141876e0fab5",
+    "size": 1677012,
+    "type": "image/png"
+  },
+  "/ai-eyes-art/boss_of_ai_boss-cover.png": {
+    "key": "mendao/public/8327b600bddf4a3588c2ca905e734d79daeff14525b99bfa5368613a1318853a/ai-eyes-art/boss_of_ai_boss-cover.png",
+    "sha256": "8327b600bddf4a3588c2ca905e734d79daeff14525b99bfa5368613a1318853a",
+    "size": 389398,
+    "type": "image/png"
+  },
+  "/ai-eyes-art/boss_of_ai_boss-cutout-v2.png": {
+    "key": "mendao/public/b1376dbcd3d48a487c041094a16af21549b60db6826c7d581971cd59dfdea69d/ai-eyes-art/boss_of_ai_boss-cutout-v2.png",
+    "sha256": "b1376dbcd3d48a487c041094a16af21549b60db6826c7d581971cd59dfdea69d",
+    "size": 1132162,
+    "type": "image/png"
+  },
+  "/ai-eyes-art/boss_of_ai_boss-lettering-v3.png": {
+    "key": "mendao/public/086fce94464e3739f4a06c3c0c8936d2a80f5ea64634910ee593f10dc5a81ed8/ai-eyes-art/boss_of_ai_boss-lettering-v3.png",
+    "sha256": "086fce94464e3739f4a06c3c0c8936d2a80f5ea64634910ee593f10dc5a81ed8",
+    "size": 1261417,
+    "type": "image/png"
+  },
+  "/ai-eyes-art/boss_of_ai_boss-v1.webp": {
+    "key": "mendao/public/b7666f0cbe25a582bd31a00778ccc2e5a750f0aabbd256c6680a71fd2ff00caf/ai-eyes-art/boss_of_ai_boss-v1.webp",
+    "sha256": "b7666f0cbe25a582bd31a00778ccc2e5a750f0aabbd256c6680a71fd2ff00caf",
+    "size": 44800,
+    "type": "image/webp"
+  },
+  "/ai-eyes-art/cyber_client-cover-v3.png": {
+    "key": "mendao/public/0a00dde97f8c7864aa931f5cd054f552a6e6787074a49d49ec4d86babf5009cb/ai-eyes-art/cyber_client-cover-v3.png",
+    "sha256": "0a00dde97f8c7864aa931f5cd054f552a6e6787074a49d49ec4d86babf5009cb",
+    "size": 1516818,
+    "type": "image/png"
+  },
+  "/ai-eyes-art/cyber_client-cover-v4.png": {
+    "key": "mendao/public/d06c1d31d1f51650d10b222c7401e2b17d33694272cbfef4b791f5573f3de03a/ai-eyes-art/cyber_client-cover-v4.png",
+    "sha256": "d06c1d31d1f51650d10b222c7401e2b17d33694272cbfef4b791f5573f3de03a",
+    "size": 1518483,
+    "type": "image/png"
+  },
+  "/ai-eyes-art/cyber_client-cover.png": {
+    "key": "mendao/public/2b8b55b288c30bd88db41f7c2377bc125d6c7d36f094812e71798cf2006c0368/ai-eyes-art/cyber_client-cover.png",
+    "sha256": "2b8b55b288c30bd88db41f7c2377bc125d6c7d36f094812e71798cf2006c0368",
+    "size": 350688,
+    "type": "image/png"
+  },
+  "/ai-eyes-art/cyber_client-cutout-v2.png": {
+    "key": "mendao/public/1a97f6615ea9ce8a3a0a691bb461743a475b3f9cdfacc6c510a588350476c7a7/ai-eyes-art/cyber_client-cutout-v2.png",
+    "sha256": "1a97f6615ea9ce8a3a0a691bb461743a475b3f9cdfacc6c510a588350476c7a7",
+    "size": 1016755,
+    "type": "image/png"
+  },
+  "/ai-eyes-art/cyber_client-lettering-v3.png": {
+    "key": "mendao/public/055d0587084af107e8945a81b999b3a2bcd99a8e84cded90dfc52c2efa056ddf/ai-eyes-art/cyber_client-lettering-v3.png",
+    "sha256": "055d0587084af107e8945a81b999b3a2bcd99a8e84cded90dfc52c2efa056ddf",
+    "size": 938486,
+    "type": "image/png"
+  },
+  "/ai-eyes-art/cyber_client-v1.webp": {
+    "key": "mendao/public/d09218c8f204fd0f9482e937b055904f979ea4c92d16b19f92fb3842ffc1f8ea/ai-eyes-art/cyber_client-v1.webp",
+    "sha256": "d09218c8f204fd0f9482e937b055904f979ea4c92d16b19f92fb3842ffc1f8ea",
+    "size": 37598,
+    "type": "image/webp"
+  },
+  "/ai-eyes-art/decision_delegator-cover-v3.png": {
+    "key": "mendao/public/2114fc544f671273ac48c9e1e99b1cb860a0ad3d9029f1a3ece59ec729024f67/ai-eyes-art/decision_delegator-cover-v3.png",
+    "sha256": "2114fc544f671273ac48c9e1e99b1cb860a0ad3d9029f1a3ece59ec729024f67",
+    "size": 1729516,
+    "type": "image/png"
+  },
+  "/ai-eyes-art/decision_delegator-cover-v4.png": {
+    "key": "mendao/public/2fc90b345f2f6202d79de4244d77966e3f1033e69980450129e78401c4150aeb/ai-eyes-art/decision_delegator-cover-v4.png",
+    "sha256": "2fc90b345f2f6202d79de4244d77966e3f1033e69980450129e78401c4150aeb",
+    "size": 1732017,
+    "type": "image/png"
+  },
+  "/ai-eyes-art/decision_delegator-cover.png": {
+    "key": "mendao/public/8520593ce80a15af8dfb2896ae163741658878d9f3104165432a662eeb43e6ff/ai-eyes-art/decision_delegator-cover.png",
+    "sha256": "8520593ce80a15af8dfb2896ae163741658878d9f3104165432a662eeb43e6ff",
+    "size": 402424,
+    "type": "image/png"
+  },
+  "/ai-eyes-art/decision_delegator-cutout-v2.png": {
+    "key": "mendao/public/bd0249f347019ec246e4dadf6429b80e216d80c25367025a186bef12c23950e3/ai-eyes-art/decision_delegator-cutout-v2.png",
+    "sha256": "bd0249f347019ec246e4dadf6429b80e216d80c25367025a186bef12c23950e3",
+    "size": 1256416,
+    "type": "image/png"
+  },
+  "/ai-eyes-art/decision_delegator-lettering-v3.png": {
+    "key": "mendao/public/a5e398c517117c93e67b2bde89ecb0891922f3c036c78ab55d64763599a42fc3/ai-eyes-art/decision_delegator-lettering-v3.png",
+    "sha256": "a5e398c517117c93e67b2bde89ecb0891922f3c036c78ab55d64763599a42fc3",
+    "size": 1293192,
+    "type": "image/png"
+  },
+  "/ai-eyes-art/decision_delegator-v1.webp": {
+    "key": "mendao/public/f543e1d55cafd7477e302728f1f22d07d4f56f3e19beef1573ef031b24faded0/ai-eyes-art/decision_delegator-v1.webp",
+    "sha256": "f543e1d55cafd7477e302728f1f22d07d4f56f3e19beef1573ef031b24faded0",
+    "size": 40866,
+    "type": "image/webp"
+  },
+  "/ai-eyes-art/detail_controller-cover-v3.png": {
+    "key": "mendao/public/c6500a1f02a6cb8f6bcc72a13c4ae296d464689a271b3d4e5bbc0bb3fcd85651/ai-eyes-art/detail_controller-cover-v3.png",
+    "sha256": "c6500a1f02a6cb8f6bcc72a13c4ae296d464689a271b3d4e5bbc0bb3fcd85651",
+    "size": 1816674,
+    "type": "image/png"
+  },
+  "/ai-eyes-art/detail_controller-cover-v4.png": {
+    "key": "mendao/public/c063f8b62d95219a4d57e11fde6bc0bafb2bc6f9a55ee9e242a5af74b00e2828/ai-eyes-art/detail_controller-cover-v4.png",
+    "sha256": "c063f8b62d95219a4d57e11fde6bc0bafb2bc6f9a55ee9e242a5af74b00e2828",
+    "size": 1818889,
+    "type": "image/png"
+  },
+  "/ai-eyes-art/detail_controller-cover.png": {
+    "key": "mendao/public/9875dc08762f709f2fea293b9bdb9e86a83b4cc7db92bc81b36fc0254768d762/ai-eyes-art/detail_controller-cover.png",
+    "sha256": "9875dc08762f709f2fea293b9bdb9e86a83b4cc7db92bc81b36fc0254768d762",
+    "size": 361287,
+    "type": "image/png"
+  },
+  "/ai-eyes-art/detail_controller-cutout-v2.png": {
+    "key": "mendao/public/31690af39acc733c06e202b0d5d92dfb4cc3e1d808b9090b1725381399cace11/ai-eyes-art/detail_controller-cutout-v2.png",
+    "sha256": "31690af39acc733c06e202b0d5d92dfb4cc3e1d808b9090b1725381399cace11",
+    "size": 1161685,
+    "type": "image/png"
+  },
+  "/ai-eyes-art/detail_controller-lettering-v3.png": {
+    "key": "mendao/public/57dbd0dbef3c2d2f260132b8791b678f76e6b90a9d1f5157ed02cba06c581a1b/ai-eyes-art/detail_controller-lettering-v3.png",
+    "sha256": "57dbd0dbef3c2d2f260132b8791b678f76e6b90a9d1f5157ed02cba06c581a1b",
+    "size": 1170682,
+    "type": "image/png"
+  },
+  "/ai-eyes-art/detail_controller-v1.webp": {
+    "key": "mendao/public/a095373c429d69773a5d80b6bd30bf540ba8840c319a039de05b75d67eebb7fd/ai-eyes-art/detail_controller-v1.webp",
+    "sha256": "a095373c429d69773a5d80b6bd30bf540ba8840c319a039de05b75d67eebb7fd",
+    "size": 96352,
+    "type": "image/webp"
+  },
+  "/ai-eyes-art/human_ai_symbiont-cover-v3.png": {
+    "key": "mendao/public/fd5491115b24a5f70fcc48882a7d2aa3a7e852967e2dc91b0ec3d0d05086813d/ai-eyes-art/human_ai_symbiont-cover-v3.png",
+    "sha256": "fd5491115b24a5f70fcc48882a7d2aa3a7e852967e2dc91b0ec3d0d05086813d",
+    "size": 1621350,
+    "type": "image/png"
+  },
+  "/ai-eyes-art/human_ai_symbiont-cover-v4.png": {
+    "key": "mendao/public/237742434e944f2a6c3471c32261d308b20c515e41428431612616609effa851/ai-eyes-art/human_ai_symbiont-cover-v4.png",
+    "sha256": "237742434e944f2a6c3471c32261d308b20c515e41428431612616609effa851",
+    "size": 1623077,
+    "type": "image/png"
+  },
+  "/ai-eyes-art/human_ai_symbiont-cover.png": {
+    "key": "mendao/public/a48288e929545167beadd5fb60bb23829bf3a872c8aa3e31bd3fbe9319931db0/ai-eyes-art/human_ai_symbiont-cover.png",
+    "sha256": "a48288e929545167beadd5fb60bb23829bf3a872c8aa3e31bd3fbe9319931db0",
+    "size": 396381,
+    "type": "image/png"
+  },
+  "/ai-eyes-art/human_ai_symbiont-cutout-v2.png": {
+    "key": "mendao/public/ae05c907f58b816b26eac497c04952e6148d583d7a8c1a92bb7d1ff9aca7c474/ai-eyes-art/human_ai_symbiont-cutout-v2.png",
+    "sha256": "ae05c907f58b816b26eac497c04952e6148d583d7a8c1a92bb7d1ff9aca7c474",
+    "size": 1170794,
+    "type": "image/png"
+  },
+  "/ai-eyes-art/human_ai_symbiont-lettering-v3.png": {
+    "key": "mendao/public/953a9c752a75b8c7e61b644b0427f87e5eea9ab302036e569a398f7875d09d83/ai-eyes-art/human_ai_symbiont-lettering-v3.png",
+    "sha256": "953a9c752a75b8c7e61b644b0427f87e5eea9ab302036e569a398f7875d09d83",
+    "size": 1092364,
+    "type": "image/png"
+  },
+  "/ai-eyes-art/human_ai_symbiont-v1.webp": {
+    "key": "mendao/public/21900b175015d82c88801c0df1f644c3c7c77e263d892ae1f7d0d46def6f1a25/ai-eyes-art/human_ai_symbiont-v1.webp",
+    "sha256": "21900b175015d82c88801c0df1f644c3c7c77e263d892ae1f7d0d46def6f1a25",
+    "size": 40820,
+    "type": "image/webp"
+  },
+  "/ai-eyes-art/idea_dancer-cover-v3.png": {
+    "key": "mendao/public/f09f32e151fa7b5bb0b6230e35552e486ecb9817b82cd86db2359d27c1cb5e35/ai-eyes-art/idea_dancer-cover-v3.png",
+    "sha256": "f09f32e151fa7b5bb0b6230e35552e486ecb9817b82cd86db2359d27c1cb5e35",
+    "size": 1677619,
+    "type": "image/png"
+  },
+  "/ai-eyes-art/idea_dancer-cover-v4.png": {
+    "key": "mendao/public/c3337e5a4e84ef950a79d6309099f506b8d8fa05e3933ac587dc93622d53d89b/ai-eyes-art/idea_dancer-cover-v4.png",
+    "sha256": "c3337e5a4e84ef950a79d6309099f506b8d8fa05e3933ac587dc93622d53d89b",
+    "size": 1680319,
+    "type": "image/png"
+  },
+  "/ai-eyes-art/idea_dancer-cover.png": {
+    "key": "mendao/public/ec51a1e4bee2f53cec34d72029fe2624e5b7e1b9eaac7ad082db7103fa174b2e/ai-eyes-art/idea_dancer-cover.png",
+    "sha256": "ec51a1e4bee2f53cec34d72029fe2624e5b7e1b9eaac7ad082db7103fa174b2e",
+    "size": 382746,
+    "type": "image/png"
+  },
+  "/ai-eyes-art/idea_dancer-cutout-v2.png": {
+    "key": "mendao/public/531db0a52c434e0841ec2479725307482422ce7c7a7cf23079b6ac3187ad62a1/ai-eyes-art/idea_dancer-cutout-v2.png",
+    "sha256": "531db0a52c434e0841ec2479725307482422ce7c7a7cf23079b6ac3187ad62a1",
+    "size": 1048892,
+    "type": "image/png"
+  },
+  "/ai-eyes-art/idea_dancer-lettering-v3.png": {
+    "key": "mendao/public/3e4425cc2392df0a3e07cb401fb68cc9a1e1cf149d87e773cb69beb59c9ff91e/ai-eyes-art/idea_dancer-lettering-v3.png",
+    "sha256": "3e4425cc2392df0a3e07cb401fb68cc9a1e1cf149d87e773cb69beb59c9ff91e",
+    "size": 1441849,
+    "type": "image/png"
+  },
+  "/ai-eyes-art/idea_dancer-v1.webp": {
+    "key": "mendao/public/ed46d94b71879d358a10ad24ed6fe22561ac82d6247d84764193c6c3dd18a4f9/ai-eyes-art/idea_dancer-v1.webp",
+    "sha256": "ed46d94b71879d358a10ad24ed6fe22561ac82d6247d84764193c6c3dd18a4f9",
+    "size": 42568,
+    "type": "image/webp"
+  },
+  "/ai-eyes-art/intern_supervisor-cover-v3.png": {
+    "key": "mendao/public/aa3a808c9099c9008208b67c8845ccab9c9794a4212d7f9bedffc8c7a1c73aca/ai-eyes-art/intern_supervisor-cover-v3.png",
+    "sha256": "aa3a808c9099c9008208b67c8845ccab9c9794a4212d7f9bedffc8c7a1c73aca",
+    "size": 1744408,
+    "type": "image/png"
+  },
+  "/ai-eyes-art/intern_supervisor-cover-v4.png": {
+    "key": "mendao/public/31d21664aec9cbeb9487cb55e0db3023d2ec1166d018e8a60ca6763af3707b83/ai-eyes-art/intern_supervisor-cover-v4.png",
+    "sha256": "31d21664aec9cbeb9487cb55e0db3023d2ec1166d018e8a60ca6763af3707b83",
+    "size": 1747235,
+    "type": "image/png"
+  },
+  "/ai-eyes-art/intern_supervisor-cover.png": {
+    "key": "mendao/public/daa1bed08b973688ac21f8a0d0d050c6c48a092c20afd2e7e87ccf937f0fae50/ai-eyes-art/intern_supervisor-cover.png",
+    "sha256": "daa1bed08b973688ac21f8a0d0d050c6c48a092c20afd2e7e87ccf937f0fae50",
+    "size": 419131,
+    "type": "image/png"
+  },
+  "/ai-eyes-art/intern_supervisor-cutout-v2.png": {
+    "key": "mendao/public/f98a8827af0157d10acea6375c63c9fe775557aa7bf8a8cc633e9cae017d6e6b/ai-eyes-art/intern_supervisor-cutout-v2.png",
+    "sha256": "f98a8827af0157d10acea6375c63c9fe775557aa7bf8a8cc633e9cae017d6e6b",
+    "size": 1151818,
+    "type": "image/png"
+  },
+  "/ai-eyes-art/intern_supervisor-lettering-v3.png": {
+    "key": "mendao/public/eef96ef5c232b5aac79d562ca86afcdde77b39c274cc517cb267efd77c2e195d/ai-eyes-art/intern_supervisor-lettering-v3.png",
+    "sha256": "eef96ef5c232b5aac79d562ca86afcdde77b39c274cc517cb267efd77c2e195d",
+    "size": 1201604,
+    "type": "image/png"
+  },
+  "/ai-eyes-art/intern_supervisor-v1.webp": {
+    "key": "mendao/public/acbcb3fb539c2beab9c0fefe1298bb64405766704a9a2e5c8b1f7593a18fe973/ai-eyes-art/intern_supervisor-v1.webp",
+    "sha256": "acbcb3fb539c2beab9c0fefe1298bb64405766704a9a2e5c8b1f7593a18fe973",
+    "size": 46522,
+    "type": "image/webp"
+  },
+  "/ai-eyes-art/living_search_box-cover-v3.png": {
+    "key": "mendao/public/4dce40e32cc0c997a48218b79b3e9234ed873a544ee8e98acb7f4946a543872d/ai-eyes-art/living_search_box-cover-v3.png",
+    "sha256": "4dce40e32cc0c997a48218b79b3e9234ed873a544ee8e98acb7f4946a543872d",
+    "size": 2035116,
+    "type": "image/png"
+  },
+  "/ai-eyes-art/living_search_box-cover-v4.png": {
+    "key": "mendao/public/6cd91ccf26853b4f3fcedc4d2182fb01ffaf4ef7f240db73a02cf60c42edd846/ai-eyes-art/living_search_box-cover-v4.png",
+    "sha256": "6cd91ccf26853b4f3fcedc4d2182fb01ffaf4ef7f240db73a02cf60c42edd846",
+    "size": 2037074,
+    "type": "image/png"
+  },
+  "/ai-eyes-art/living_search_box-cover.png": {
+    "key": "mendao/public/6f6fe86c88fbdd1ed9e75a6733cbcfbae8b640a9a74b6ba415f7c94a555482ff/ai-eyes-art/living_search_box-cover.png",
+    "sha256": "6f6fe86c88fbdd1ed9e75a6733cbcfbae8b640a9a74b6ba415f7c94a555482ff",
+    "size": 434084,
+    "type": "image/png"
+  },
+  "/ai-eyes-art/living_search_box-cutout-v2.png": {
+    "key": "mendao/public/8134243b3a88f0d69d562ae11476cd8fccea427ab412942899827b0620a2fec6/ai-eyes-art/living_search_box-cutout-v2.png",
+    "sha256": "8134243b3a88f0d69d562ae11476cd8fccea427ab412942899827b0620a2fec6",
+    "size": 1576582,
+    "type": "image/png"
+  },
+  "/ai-eyes-art/living_search_box-lettering-v3.png": {
+    "key": "mendao/public/6c5d93193389ddbb259b9f3a4c35621d6978f11e1f5327a3c41c84b67cb86141/ai-eyes-art/living_search_box-lettering-v3.png",
+    "sha256": "6c5d93193389ddbb259b9f3a4c35621d6978f11e1f5327a3c41c84b67cb86141",
+    "size": 1531534,
+    "type": "image/png"
+  },
+  "/ai-eyes-art/living_search_box-v1.webp": {
+    "key": "mendao/public/e697e4683fbc5aa1975873bdca79d66f1bed29cceae927eb75c988f65f45ad90/ai-eyes-art/living_search_box-v1.webp",
+    "sha256": "e697e4683fbc5aa1975873bdca79d66f1bed29cceae927eb75c988f65f45ad90",
+    "size": 60372,
+    "type": "image/webp"
+  },
+  "/ai-eyes-art/night_philosopher-cover-v3.png": {
+    "key": "mendao/public/b78de0bc25735e4def5d14a8d54c1dbbb12e946d7b6a32d5877e2103e3357363/ai-eyes-art/night_philosopher-cover-v3.png",
+    "sha256": "b78de0bc25735e4def5d14a8d54c1dbbb12e946d7b6a32d5877e2103e3357363",
+    "size": 1682381,
+    "type": "image/png"
+  },
+  "/ai-eyes-art/night_philosopher-cover-v4.png": {
+    "key": "mendao/public/3ab65a39a98dd0f44e432168fdd36d0d96626aa617be24ec5872df7b941a2323/ai-eyes-art/night_philosopher-cover-v4.png",
+    "sha256": "3ab65a39a98dd0f44e432168fdd36d0d96626aa617be24ec5872df7b941a2323",
+    "size": 1684327,
+    "type": "image/png"
+  },
+  "/ai-eyes-art/night_philosopher-cover.png": {
+    "key": "mendao/public/59901e72d4e43246fb8745d18610db5d90d4a6e38d111be6fc534eff5bda0bae/ai-eyes-art/night_philosopher-cover.png",
+    "sha256": "59901e72d4e43246fb8745d18610db5d90d4a6e38d111be6fc534eff5bda0bae",
+    "size": 384045,
+    "type": "image/png"
+  },
+  "/ai-eyes-art/night_philosopher-cutout-v2.png": {
+    "key": "mendao/public/ae87ebeb8e0f0b9473236a9d62b3769856ed5fbee552ba91b8dc67c75e46d88e/ai-eyes-art/night_philosopher-cutout-v2.png",
+    "sha256": "ae87ebeb8e0f0b9473236a9d62b3769856ed5fbee552ba91b8dc67c75e46d88e",
+    "size": 1229635,
+    "type": "image/png"
+  },
+  "/ai-eyes-art/night_philosopher-lettering-v3.png": {
+    "key": "mendao/public/8db9bb3365aa766ae5139e016f55e21c57f901ce3e3b827f18297f966e035435/ai-eyes-art/night_philosopher-lettering-v3.png",
+    "sha256": "8db9bb3365aa766ae5139e016f55e21c57f901ce3e3b827f18297f966e035435",
+    "size": 1377813,
+    "type": "image/png"
+  },
+  "/ai-eyes-art/night_philosopher-v1.webp": {
+    "key": "mendao/public/7b5a783ba9f81c645d6139940297621c51cbfbfe7ffd64d5a55a7550aa722e3d/ai-eyes-art/night_philosopher-v1.webp",
+    "sha256": "7b5a783ba9f81c645d6139940297621c51cbfbfe7ffd64d5a55a7550aa722e3d",
+    "size": 38738,
+    "type": "image/webp"
+  },
+  "/ai-eyes-art/one_line_ceo-cover-v3.png": {
+    "key": "mendao/public/b5ad8b31e4afb63471ceadc1a4a27fc4bb0ae6d1b687f12f560f195e6b3c1240/ai-eyes-art/one_line_ceo-cover-v3.png",
+    "sha256": "b5ad8b31e4afb63471ceadc1a4a27fc4bb0ae6d1b687f12f560f195e6b3c1240",
+    "size": 1666797,
+    "type": "image/png"
+  },
+  "/ai-eyes-art/one_line_ceo-cover-v4.png": {
+    "key": "mendao/public/948c2d788467e3c5887e70b7eca864c10dabc0846c60f583c159fe5eccc8552d/ai-eyes-art/one_line_ceo-cover-v4.png",
+    "sha256": "948c2d788467e3c5887e70b7eca864c10dabc0846c60f583c159fe5eccc8552d",
+    "size": 1669404,
+    "type": "image/png"
+  },
+  "/ai-eyes-art/one_line_ceo-cover.png": {
+    "key": "mendao/public/5782d45201742995c46531c67c406c6cf4122f495f839ba889e270fa7584b764/ai-eyes-art/one_line_ceo-cover.png",
+    "sha256": "5782d45201742995c46531c67c406c6cf4122f495f839ba889e270fa7584b764",
+    "size": 402524,
+    "type": "image/png"
+  },
+  "/ai-eyes-art/one_line_ceo-cutout-v2.png": {
+    "key": "mendao/public/9e2bf1469984b4b86cdb5be2b4426d3b9f8db5d6aeb36a2fc1692a259eb22768/ai-eyes-art/one_line_ceo-cutout-v2.png",
+    "sha256": "9e2bf1469984b4b86cdb5be2b4426d3b9f8db5d6aeb36a2fc1692a259eb22768",
+    "size": 1176852,
+    "type": "image/png"
+  },
+  "/ai-eyes-art/one_line_ceo-lettering-v3.png": {
+    "key": "mendao/public/23f12d6b3747a60f57b1c8a79f4139a67fc678f1ab721378af3bac2e7e7f123c/ai-eyes-art/one_line_ceo-lettering-v3.png",
+    "sha256": "23f12d6b3747a60f57b1c8a79f4139a67fc678f1ab721378af3bac2e7e7f123c",
+    "size": 1013314,
+    "type": "image/png"
+  },
+  "/ai-eyes-art/one_line_ceo-v1.webp": {
+    "key": "mendao/public/f36a3f27b348d08b8ac55b2bfbc003d4e78016dc50bc4de2186269973f024e14/ai-eyes-art/one_line_ceo-v1.webp",
+    "sha256": "f36a3f27b348d08b8ac55b2bfbc003d4e78016dc50bc4de2186269973f024e14",
+    "size": 46436,
+    "type": "image/webp"
+  },
+  "/ai-eyes-art/praise_group_host-cover-v3.png": {
+    "key": "mendao/public/3c97191c233fbe742b5009f5816f7305459dbfa7f5756e081920f9f6745cd094/ai-eyes-art/praise_group_host-cover-v3.png",
+    "sha256": "3c97191c233fbe742b5009f5816f7305459dbfa7f5756e081920f9f6745cd094",
+    "size": 1848486,
+    "type": "image/png"
+  },
+  "/ai-eyes-art/praise_group_host-cover-v4.png": {
+    "key": "mendao/public/bad4a24564caa836332748e1b3751207264fb96cae9a5fc526eb9d2679936ca6/ai-eyes-art/praise_group_host-cover-v4.png",
+    "sha256": "bad4a24564caa836332748e1b3751207264fb96cae9a5fc526eb9d2679936ca6",
+    "size": 1851307,
+    "type": "image/png"
+  },
+  "/ai-eyes-art/praise_group_host-cover.png": {
+    "key": "mendao/public/eb43f47917002b8888e27c1f314b3af066f37071cc37d7cd998beae48e9d7e02/ai-eyes-art/praise_group_host-cover.png",
+    "sha256": "eb43f47917002b8888e27c1f314b3af066f37071cc37d7cd998beae48e9d7e02",
+    "size": 390829,
+    "type": "image/png"
+  },
+  "/ai-eyes-art/praise_group_host-cutout-v2.png": {
+    "key": "mendao/public/ea360e4a4fbe55fdd1087b57648d902bd7494c1f334da3c67c484935bf6190f9/ai-eyes-art/praise_group_host-cutout-v2.png",
+    "sha256": "ea360e4a4fbe55fdd1087b57648d902bd7494c1f334da3c67c484935bf6190f9",
+    "size": 1147195,
+    "type": "image/png"
+  },
+  "/ai-eyes-art/praise_group_host-lettering-v3.png": {
+    "key": "mendao/public/68c2d84f682c9a76d05d136f41354b1794d3f62b8656f29cb0b2a26e61420e67/ai-eyes-art/praise_group_host-lettering-v3.png",
+    "sha256": "68c2d84f682c9a76d05d136f41354b1794d3f62b8656f29cb0b2a26e61420e67",
+    "size": 1237549,
+    "type": "image/png"
+  },
+  "/ai-eyes-art/praise_group_host-v1.webp": {
+    "key": "mendao/public/e9e394405578c7bbf2602648fbf69c0bf79ba89e4c4be903e0abcc7f267b4af6/ai-eyes-art/praise_group_host-v1.webp",
+    "sha256": "e9e394405578c7bbf2602648fbf69c0bf79ba89e4c4be903e0abcc7f267b4af6",
+    "size": 41168,
+    "type": "image/webp"
+  },
+  "/ai-eyes-art/prompt_academician-cover-v3.png": {
+    "key": "mendao/public/29a1d9c29a5a579c44f176c55e3a2df2b4067354150781d2ee366a4bf856addb/ai-eyes-art/prompt_academician-cover-v3.png",
+    "sha256": "29a1d9c29a5a579c44f176c55e3a2df2b4067354150781d2ee366a4bf856addb",
+    "size": 1711934,
+    "type": "image/png"
+  },
+  "/ai-eyes-art/prompt_academician-cover-v4.png": {
+    "key": "mendao/public/2fe281687dd466b64f9a1fe2b39b48b21977607e7a3a33c1413e5b5640b98a77/ai-eyes-art/prompt_academician-cover-v4.png",
+    "sha256": "2fe281687dd466b64f9a1fe2b39b48b21977607e7a3a33c1413e5b5640b98a77",
+    "size": 1714957,
+    "type": "image/png"
+  },
+  "/ai-eyes-art/prompt_academician-cover.png": {
+    "key": "mendao/public/967a38e77871442341ce99c095e4084a25a554541a8c3720b563460ffc4401de/ai-eyes-art/prompt_academician-cover.png",
+    "sha256": "967a38e77871442341ce99c095e4084a25a554541a8c3720b563460ffc4401de",
+    "size": 318467,
+    "type": "image/png"
+  },
+  "/ai-eyes-art/prompt_academician-cutout-v2.png": {
+    "key": "mendao/public/2a31896e283ddbbdda51d914bda043cc4a71e0542b6c2f7b84156d8bda7a2c4c/ai-eyes-art/prompt_academician-cutout-v2.png",
+    "sha256": "2a31896e283ddbbdda51d914bda043cc4a71e0542b6c2f7b84156d8bda7a2c4c",
+    "size": 939375,
+    "type": "image/png"
+  },
+  "/ai-eyes-art/prompt_academician-lettering-v3.png": {
+    "key": "mendao/public/32393dc2765952ae3edaab5386e3c7abe24aefe8d382f04124780af4cfd43929/ai-eyes-art/prompt_academician-lettering-v3.png",
+    "sha256": "32393dc2765952ae3edaab5386e3c7abe24aefe8d382f04124780af4cfd43929",
+    "size": 954425,
+    "type": "image/png"
+  },
+  "/ai-eyes-art/prompt_academician-v1.webp": {
+    "key": "mendao/public/64023d09a81b1401892895fb96fdabd63e079d431872cf1445a97dde738cf5cc/ai-eyes-art/prompt_academician-v1.webp",
+    "sha256": "64023d09a81b1401892895fb96fdabd63e079d431872cf1445a97dde738cf5cc",
+    "size": 85952,
+    "type": "image/webp"
+  },
+  "/ai-eyes-art/vibe_art_director-cover-v3.png": {
+    "key": "mendao/public/4e58cb5fb262179cd2ab9093cc3404692638a9b9ebd703662ce11b9a576f2e81/ai-eyes-art/vibe_art_director-cover-v3.png",
+    "sha256": "4e58cb5fb262179cd2ab9093cc3404692638a9b9ebd703662ce11b9a576f2e81",
+    "size": 1687117,
+    "type": "image/png"
+  },
+  "/ai-eyes-art/vibe_art_director-cover-v4.png": {
+    "key": "mendao/public/a349f6eb2bf141d95fef314cff1db0dd4a184c84259c71bd9791b4ebf44f8d0c/ai-eyes-art/vibe_art_director-cover-v4.png",
+    "sha256": "a349f6eb2bf141d95fef314cff1db0dd4a184c84259c71bd9791b4ebf44f8d0c",
+    "size": 1689476,
+    "type": "image/png"
+  },
+  "/ai-eyes-art/vibe_art_director-cover.png": {
+    "key": "mendao/public/fff7a8c72dcda8597b7a738025f03d35ce658db8542b4663eebaa43ea288dd84/ai-eyes-art/vibe_art_director-cover.png",
+    "sha256": "fff7a8c72dcda8597b7a738025f03d35ce658db8542b4663eebaa43ea288dd84",
+    "size": 393906,
+    "type": "image/png"
+  },
+  "/ai-eyes-art/vibe_art_director-cutout-v2.png": {
+    "key": "mendao/public/51978316a35c12f35ce5256c7f44b6b65fedf61816bb6c403715442954b3d1e4/ai-eyes-art/vibe_art_director-cutout-v2.png",
+    "sha256": "51978316a35c12f35ce5256c7f44b6b65fedf61816bb6c403715442954b3d1e4",
+    "size": 1254446,
+    "type": "image/png"
+  },
+  "/ai-eyes-art/vibe_art_director-lettering-v3.png": {
+    "key": "mendao/public/36101aa1193bdac6fae34e5d64d5bc1744db7847629b6fd6aa7d3ff7c6e5637e/ai-eyes-art/vibe_art_director-lettering-v3.png",
+    "sha256": "36101aa1193bdac6fae34e5d64d5bc1744db7847629b6fd6aa7d3ff7c6e5637e",
+    "size": 1281269,
+    "type": "image/png"
+  },
+  "/ai-eyes-art/vibe_art_director-v1.webp": {
+    "key": "mendao/public/4eef7a1e783d3a0304b131a0a39a2e7eefb0cb95f5085ed1113aef410de5b2cd/ai-eyes-art/vibe_art_director-v1.webp",
+    "sha256": "4eef7a1e783d3a0304b131a0a39a2e7eefb0cb95f5085ed1113aef410de5b2cd",
+    "size": 40804,
+    "type": "image/webp"
+  },
+  "/persona-avatars/butler-v1.webp": {
+    "key": "mendao/public/5c7c2ebcda893b4a5cbeaf4d5fe4818ee60204218732f395a6593a960775f69d/persona-avatars/butler-v1.webp",
+    "sha256": "5c7c2ebcda893b4a5cbeaf4d5fe4818ee60204218732f395a6593a960775f69d",
+    "size": 25216,
+    "type": "image/webp"
+  },
+  "/persona-avatars/captain-v1.webp": {
+    "key": "mendao/public/9d1230c2e724661c4d2438aee786b5f65a40a85219c552044bd4eb8c803694fc/persona-avatars/captain-v1.webp",
+    "sha256": "9d1230c2e724661c4d2438aee786b5f65a40a85219c552044bd4eb8c803694fc",
+    "size": 22978,
+    "type": "image/webp"
+  },
+  "/persona-avatars/ceo-v2-anime.webp": {
+    "key": "mendao/public/55548d90594c301fa4438d3e7e088e5578411bdf30a2f94c792c2cab72eb4ad7/persona-avatars/ceo-v2-anime.webp",
+    "sha256": "55548d90594c301fa4438d3e7e088e5578411bdf30a2f94c792c2cab72eb4ad7",
+    "size": 45586,
+    "type": "image/webp"
+  },
+  "/persona-avatars/coach-v1.webp": {
+    "key": "mendao/public/735560ed1a8bf8dfabb6062f8b7ad4d197fc4564b75de9e0bc8139f70633b2c0/persona-avatars/coach-v1.webp",
+    "sha256": "735560ed1a8bf8dfabb6062f8b7ad4d197fc4564b75de9e0bc8139f70633b2c0",
+    "size": 22226,
+    "type": "image/webp"
+  },
+  "/persona-avatars/detective-v1.webp": {
+    "key": "mendao/public/99f4caca45e0c38890e900b88ad6c290c62190e81b813ad29065a6f396daafeb/persona-avatars/detective-v1.webp",
+    "sha256": "99f4caca45e0c38890e900b88ad6c290c62190e81b813ad29065a6f396daafeb",
+    "size": 30326,
+    "type": "image/webp"
+  },
+  "/persona-avatars/drama-v2-anime.webp": {
+    "key": "mendao/public/d93b9bd67f0fe9b7fa127020b55ed042aedd2438dcdc607b5d42dd5be841ad25/persona-avatars/drama-v2-anime.webp",
+    "sha256": "d93b9bd67f0fe9b7fa127020b55ed042aedd2438dcdc607b5d42dd5be841ad25",
+    "size": 74716,
+    "type": "image/webp"
+  },
+  "/persona-avatars/mentor-v1.webp": {
+    "key": "mendao/public/fd3e67998264c31daccd14009ec984ded72ddafa0fcaf799625ba377b871d5bb/persona-avatars/mentor-v1.webp",
+    "sha256": "fd3e67998264c31daccd14009ec984ded72ddafa0fcaf799625ba377b871d5bb",
+    "size": 72024,
+    "type": "image/webp"
+  },
+  "/persona-avatars/peer-v1.webp": {
+    "key": "mendao/public/ba6b6f10990f6ef6488d5e93ccc7c2fb939edf02cb3b9bec0635c050e83790d2/persona-avatars/peer-v1.webp",
+    "sha256": "ba6b6f10990f6ef6488d5e93ccc7c2fb939edf02cb3b9bec0635c050e83790d2",
+    "size": 19006,
+    "type": "image/webp"
+  },
+  "/persona-avatars/poet-v1.webp": {
+    "key": "mendao/public/50c714428508039a08a2fee106ce86b615641d9e47b5e00e6b72c28c0fae2ec3/persona-avatars/poet-v1.webp",
+    "sha256": "50c714428508039a08a2fee106ce86b615641d9e47b5e00e6b72c28c0fae2ec3",
+    "size": 38568,
+    "type": "image/webp"
+  },
+  "/persona-avatars/queen-v2-anime.webp": {
+    "key": "mendao/public/edaf668e214faad7f17e74a6c821dcfe8fb3f746ca053880f14810b997f5b840/persona-avatars/queen-v2-anime.webp",
+    "sha256": "edaf668e214faad7f17e74a6c821dcfe8fb3f746ca053880f14810b997f5b840",
+    "size": 56628,
+    "type": "image/webp"
+  },
+  "/persona-avatars/roast-v1.webp": {
+    "key": "mendao/public/205f0d5e6d8afceea70a16e78eb8d7f9ae3f41c3d8cebc95a2753df7ccb23616/persona-avatars/roast-v1.webp",
+    "sha256": "205f0d5e6d8afceea70a16e78eb8d7f9ae3f41c3d8cebc95a2753df7ccb23616",
+    "size": 28980,
+    "type": "image/webp"
+  },
+  "/persona-avatars/roast-v2-anime.webp": {
+    "key": "mendao/public/76d175c2b38754ed36062c8376e658006b839a203b59c318e3b1f1e6a94c3eb0/persona-avatars/roast-v2-anime.webp",
+    "sha256": "76d175c2b38754ed36062c8376e658006b839a203b59c318e3b1f1e6a94c3eb0",
+    "size": 59250,
+    "type": "image/webp"
+  },
+  "/persona-avatars/soft-cloud-v1.webp": {
+    "key": "mendao/public/c73b8f6df5c0fa6ef544dcb8a947751367e0a40b9a9d82114848e342228448f7/persona-avatars/soft-cloud-v1.webp",
+    "sha256": "c73b8f6df5c0fa6ef544dcb8a947751367e0a40b9a9d82114848e342228448f7",
+    "size": 38842,
+    "type": "image/webp"
+  },
+  "/persona-avatars/spark-v1.webp": {
+    "key": "mendao/public/82c2298fe3253cfa1941336e4371f1aa815a14d60413e1594c4a91e063ba1a70/persona-avatars/spark-v1.webp",
+    "sha256": "82c2298fe3253cfa1941336e4371f1aa815a14d60413e1594c4a91e063ba1a70",
+    "size": 33496,
+    "type": "image/webp"
+  },
+  "/persona-avatars/sugar-v2-anime.webp": {
+    "key": "mendao/public/fbad3aad6c06387e42c68cdd4eb174a7fe809dbf83fb4c0574bcb5dd1b063ede/persona-avatars/sugar-v2-anime.webp",
+    "sha256": "fbad3aad6c06387e42c68cdd4eb174a7fe809dbf83fb4c0574bcb5dd1b063ede",
+    "size": 74394,
+    "type": "image/webp"
+  },
+  "/persona-avatars/sunny-v1.webp": {
+    "key": "mendao/public/504884dd18bc8fd8e2eb7269bdc4d57067582f9c9c2af44beb37181c9ed6d14d/persona-avatars/sunny-v1.webp",
+    "sha256": "504884dd18bc8fd8e2eb7269bdc4d57067582f9c9c2af44beb37181c9ed6d14d",
+    "size": 42168,
+    "type": "image/webp"
+  },
+  "/persona-avatars/tsundere-v2-anime.webp": {
+    "key": "mendao/public/087e707c5ba04bd67196c5cac014f0ccd68a543d5a5d037c766ae16d4e0561c7/persona-avatars/tsundere-v2-anime.webp",
+    "sha256": "087e707c5ba04bd67196c5cac014f0ccd68a543d5a5d037c766ae16d4e0561c7",
+    "size": 72886,
+    "type": "image/webp"
+  },
+  "/persona-avatars/velvet-v1.webp": {
+    "key": "mendao/public/8386d791fad04a896bd71de26e507b53fcef0eb2b2a41b4aad03be7cc015373e/persona-avatars/velvet-v1.webp",
+    "sha256": "8386d791fad04a896bd71de26e507b53fcef0eb2b2a41b4aad03be7cc015373e",
+    "size": 17804,
+    "type": "image/webp"
+  },
+  "/guide-images/ai-persona-setup-guide.png": {
+    "key": "mendao/public/6c8dd29f178cf0134211ec84950bb55a0734225f706cf450d9f18508a2d37e4b/guide-images/ai-persona-setup-guide.png",
+    "sha256": "6c8dd29f178cf0134211ec84950bb55a0734225f706cf450d9f18508a2d37e4b",
+    "size": 262217,
+    "type": "image/png"
+  },
+  "/guide-images/ai-portrait-mobile-guide.png": {
+    "key": "mendao/public/c01cfa520563b33fdc7f01403ffdcb5e5b643eb22be3d25eb905b53ecdb7ae0a/guide-images/ai-portrait-mobile-guide.png",
+    "sha256": "c01cfa520563b33fdc7f01403ffdcb5e5b643eb22be3d25eb905b53ecdb7ae0a",
+    "size": 145456,
+    "type": "image/png"
+  },
+  "/guide-images/token-cost-practical-guide.png": {
+    "key": "mendao/public/26fd0e3b7e155098b08f31ae135094da34b0a4edbdaafa5f0a16b9a89307bd3a/guide-images/token-cost-practical-guide.png",
+    "sha256": "26fd0e3b7e155098b08f31ae135094da34b0a4edbdaafa5f0a16b9a89307bd3a",
+    "size": 160979,
+    "type": "image/png"
+  },
+  "/platform-icons/blender.png": {
+    "key": "mendao/public/ece3ba8cda6bd3ab025337b814415cc349474dbce56b6bddf83bdcb50fd486b4/platform-icons/blender.png",
+    "sha256": "ece3ba8cda6bd3ab025337b814415cc349474dbce56b6bddf83bdcb50fd486b4",
+    "size": 9380,
+    "type": "image/png"
+  },
+  "/platform-icons/claude.png": {
+    "key": "mendao/public/4004381309500f25e49a1ae639912ce307ea81da74cc383954a1ac8b9d343fe6/platform-icons/claude.png",
+    "sha256": "4004381309500f25e49a1ae639912ce307ea81da74cc383954a1ac8b9d343fe6",
+    "size": 1198,
+    "type": "image/png"
+  },
+  "/platform-icons/cocos-creator.png": {
+    "key": "mendao/public/1a1332e5ad67920a70ae98ebf4c5e11ec35db776e276220cf2e9f7a4f8ef2d72/platform-icons/cocos-creator.png",
+    "sha256": "1a1332e5ad67920a70ae98ebf4c5e11ec35db776e276220cf2e9f7a4f8ef2d72",
+    "size": 62135,
+    "type": "image/png"
+  },
+  "/platform-icons/comfyui.png": {
+    "key": "mendao/public/d51a639741690d81ef8ab3eac3204f7871ea0d31a28b102b6206188732173661/platform-icons/comfyui.png",
+    "sha256": "d51a639741690d81ef8ab3eac3204f7871ea0d31a28b102b6206188732173661",
+    "size": 938,
+    "type": "image/png"
+  },
+  "/platform-icons/dify.svg": {
+    "key": "mendao/public/72348ce12b2fe799a1787df6cf837d4c202389640bab83eadd5cbcc0ac253799/platform-icons/dify.svg",
+    "sha256": "72348ce12b2fe799a1787df6cf837d4c202389640bab83eadd5cbcc0ac253799",
+    "size": 685,
+    "type": "image/svg+xml"
+  },
+  "/platform-icons/doubao.png": {
+    "key": "mendao/public/187b85612796c9def2a0f328538bf249fd62d549379b44a68ed9fa949b531b9f/platform-icons/doubao.png",
+    "sha256": "187b85612796c9def2a0f328538bf249fd62d549379b44a68ed9fa949b531b9f",
+    "size": 3400,
+    "type": "image/png"
+  },
+  "/platform-icons/gemini.png": {
+    "key": "mendao/public/f123996a1aa1109c1a6c60c3a30777411b0d57662f11c7dd301557251fa7b594/platform-icons/gemini.png",
+    "sha256": "f123996a1aa1109c1a6c60c3a30777411b0d57662f11c7dd301557251fa7b594",
+    "size": 742,
+    "type": "image/png"
+  },
+  "/platform-icons/glm.png": {
+    "key": "mendao/public/13b6c7b8072cfbbbaf6d736595a681eb69a180135ee6cdbf37b23e2d4b32eebe/platform-icons/glm.png",
+    "sha256": "13b6c7b8072cfbbbaf6d736595a681eb69a180135ee6cdbf37b23e2d4b32eebe",
+    "size": 11339,
+    "type": "image/png"
+  },
+  "/platform-icons/godot.png": {
+    "key": "mendao/public/172e548a2f290b00a912a37428b8391d02c43486bf3d13f1a7318c8b657b9655/platform-icons/godot.png",
+    "sha256": "172e548a2f290b00a912a37428b8391d02c43486bf3d13f1a7318c8b657b9655",
+    "size": 1929,
+    "type": "image/png"
+  },
+  "/platform-icons/lmstudio.png": {
+    "key": "mendao/public/e79ff2ac0fece5c0a76fcb8b20a29226794d11824ee7c7a2f521dcde0f88e12b/platform-icons/lmstudio.png",
+    "sha256": "e79ff2ac0fece5c0a76fcb8b20a29226794d11824ee7c7a2f521dcde0f88e12b",
+    "size": 12829,
+    "type": "image/png"
+  },
+  "/platform-icons/ludo.png": {
+    "key": "mendao/public/7dd6804c8cff9a5b857b7d63663eaaad0811d01183bc583260371d4c45284737/platform-icons/ludo.png",
+    "sha256": "7dd6804c8cff9a5b857b7d63663eaaad0811d01183bc583260371d4c45284737",
+    "size": 25984,
+    "type": "image/png"
+  },
+  "/platform-icons/ollama.png": {
+    "key": "mendao/public/7dcf96f6fd93e190b46ccba5145d8e14f0fd52dc6f36c7a864e4d388c7ab3d88/platform-icons/ollama.png",
+    "sha256": "7dcf96f6fd93e190b46ccba5145d8e14f0fd52dc6f36c7a864e4d388c7ab3d88",
+    "size": 458,
+    "type": "image/png"
+  },
+  "/platform-icons/phaser.webp": {
+    "key": "mendao/public/4ed5433e61357cb57432d2be45307caf20845e202a195ace376877ad28495eb0/platform-icons/phaser.webp",
+    "sha256": "4ed5433e61357cb57432d2be45307caf20845e202a195ace376877ad28495eb0",
+    "size": 15346,
+    "type": "image/webp"
+  },
+  "/platform-icons/pixijs.png": {
+    "key": "mendao/public/504f9110a484f0ed7a554a166c6ef8f32c03b9df4555d81100b9c722ea41b7f5/platform-icons/pixijs.png",
+    "sha256": "504f9110a484f0ed7a554a166c6ef8f32c03b9df4555d81100b9c722ea41b7f5",
+    "size": 830,
+    "type": "image/png"
+  },
+  "/platform-icons/playcanvas.png": {
+    "key": "mendao/public/0a927004b91800e9625edfb3a96f37aa85c449aa0c087dd507136a6c00663d2c/platform-icons/playcanvas.png",
+    "sha256": "0a927004b91800e9625edfb3a96f37aa85c449aa0c087dd507136a6c00663d2c",
+    "size": 1456,
+    "type": "image/png"
+  },
+  "/platform-icons/qwen.png": {
+    "key": "mendao/public/cd9390bc4209c319121d111f3a1f535b3c7dd909b8f860d41acc9744138d58df/platform-icons/qwen.png",
+    "sha256": "cd9390bc4209c319121d111f3a1f535b3c7dd909b8f860d41acc9744138d58df",
+    "size": 1658,
+    "type": "image/png"
+  },
+  "/platform-icons/recraft.png": {
+    "key": "mendao/public/1236aa59603ef5a46d0e7ddbc32cdad7cbb2cd991221ae7cd6c24ec54d9e95fd/platform-icons/recraft.png",
+    "sha256": "1236aa59603ef5a46d0e7ddbc32cdad7cbb2cd991221ae7cd6c24ec54d9e95fd",
+    "size": 414,
+    "type": "image/png"
+  },
+  "/platform-icons/runway.png": {
+    "key": "mendao/public/f545e0e706d0c6be0e8602a8e8d685d4f43ab72880bd5e6a234916e765ff2b70/platform-icons/runway.png",
+    "sha256": "f545e0e706d0c6be0e8602a8e8d685d4f43ab72880bd5e6a234916e765ff2b70",
+    "size": 4846,
+    "type": "image/png"
+  },
+  "/platform-icons/scenario.png": {
+    "key": "mendao/public/a61e52236f746e79af2733872be85a0d54dc282cfccdd21310ea8da366c5a9a0/platform-icons/scenario.png",
+    "sha256": "a61e52236f746e79af2733872be85a0d54dc282cfccdd21310ea8da366c5a9a0",
+    "size": 549,
+    "type": "image/png"
+  }
+}
