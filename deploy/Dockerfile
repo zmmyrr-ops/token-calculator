@@ -7,12 +7,14 @@ RUN npm ci --ignore-scripts --no-audit --no-fund
 COPY . .
 RUN npm run assets && npm run build && VITE_BASE_PATH=/staging/ npm run build -w frontend -- --outDir dist-staging
 
-FROM nginx:1.28-alpine AS frontend
-COPY --from=build /app/frontend/dist /usr/share/nginx/html
-COPY --from=build /app/frontend/dist-staging /usr/share/nginx/html/staging
-COPY deploy/nginx-container.conf /etc/nginx/conf.d/default.conf
+FROM build AS frontend-assets
 ARG OSS_PUBLIC_ASSETS=false
-RUN if [ "$OSS_PUBLIC_ASSETS" = true ]; then for base in /usr/share/nginx/html /usr/share/nginx/html/staging; do rm -rf "$base/ai-eyes-art" "$base/persona-avatars" "$base/guide-images" "$base/platform-icons"; done; fi
+RUN if [ "$OSS_PUBLIC_ASSETS" = true ]; then for base in /app/frontend/dist /app/frontend/dist-staging; do rm -rf "$base/ai-eyes-art" "$base/persona-avatars" "$base/guide-images" "$base/platform-icons"; done; fi
+
+FROM nginx:1.28-alpine AS frontend
+COPY --from=frontend-assets /app/frontend/dist /usr/share/nginx/html
+COPY --from=frontend-assets /app/frontend/dist-staging /usr/share/nginx/html/staging
+COPY deploy/nginx-container.conf /etc/nginx/conf.d/default.conf
 EXPOSE 80
 
 FROM node:24.19.0-bookworm-slim AS backend

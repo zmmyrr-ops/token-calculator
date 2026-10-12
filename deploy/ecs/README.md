@@ -55,3 +55,26 @@ CI 成功、测试与生产上线、首次备份与回退结果以实际运行�
 - 通过原部署脚本发布 staging，验证首页、学习中心、画像、后台初始 HTML 标题；随后用生产部署密钥提升同一镜像。两环境数据库备份及容器健康检查通过。
 - 线上首页、/learn、/ai-eyes 返回 HTTP 200 且标题包含「学习用途」；实际浏览器刷新 /ai-eyes 后标题正确。
 - 可通过原生产发布流程回退到上一版本 `397ed891259378d2a4c5c266b60872444c319521`。
+
+## 2026-10-12 磁盘治理与 OSS 公共资源
+
+- 清理前根盘 96%（可用 1.7 GiB）；98 个 Mendao 镜像累计约 14 GB。定向清理 92 个过期标签后降至 61%（可用约 15 GiB），未触碰其他项目、运行容器或数据库。
+- `/opt/mendao/cleanup.py` 默认只打印计划，`--apply` 执行。保留生产/测试当前及上一版本、所有容器引用的版本、最新三个版本；仅删除 `mendao-frontend` / `mendao-backend` 的 SHA 标签，不使用 force/prune、不删除卷。失去全部镜像的过期版本同时移除 verified 记录。部署成功后自动执行，使用同一部署锁；清理失败不回滚已健康的应用。
+- OSS 使用已有私有 Bucket `tanhaodian-private-wulanchabu`，地域 `oss-cn-wulanchabu`，本站独立前缀 `mendao/public/`。不修改桶 ACL，不访问其他项目对象。
+- 136 个公开图片（101,735,491 bytes）迁移：ai-eyes-art、persona-avatars、guide-images、platform-icons。对象键包含 SHA256，上传后逐一下载验证长度和 SHA256；原网页 URL 不变。后端只代理编译期清单中的图片，通过 HTTPS 内网端点签名请求，不向浏览器返回签名或密钥，无桶列表/任意对象访问入口。浏览器缓存 1 小时；失败返回不可缓存的 502。
+- 服务端凭据在各环境 storage/oss-public-assets.json，属主 1000:1000、权限 0600，字段 bucket/region/internal/accessKeyId/accessKeySecret。不要提交或输出该文件。复用已有服务器凭据；若后续拆分 RAM 权限，只需授予该前缀读取权限给运行服务，上传工具另用写权限。
+- CI 前端镜像指定 `--build-arg OSS_PUBLIC_ASSETS=true`，在复制到最终运行镜像之前排除上述目录，避免生产和 staging 重复打包。默认本地构建仍包含图片，方便离线开发。
+- 所有新版镜像在切换容器前运行 verify-public-assets.mjs，检查清单内每个对象的长度和摘要元数据；缺配置、缺对象、权限失败则停止部署。旧回滚镜像没有检查器，使用原本内置图片。
+
+### 更新图片的流程
+
+1. 编辑 frontend/public 对应目录，执行 `node scripts/prepare-public-assets.mjs`，提交资源和 backend/src/content/public-assets.json。
+2. **发布前**将该次资源和清单上传到服务器临时目录，执行 `OSS_SDK_PATH=/opt/food-trend-radar/app/node_modules/ali-oss /opt/food-trend-radar/node/bin/node scripts/upload-public-assets.mjs <服务端配置文件> <清单文件> <public目录>`。上传工具依赖已安装的 ali-oss SDK；运行服务不依赖该 SDK。
+3. 仅在全部下载摘要验证成功后发布应用。新图未上传时，部署预检会失败并保留旧服务。新增不同资源目录需要同时更新清单生成器、后端允许路径、Nginx 路由和 Docker 排除规则。
+4. 不直接删除旧 OSS 对象：回滚版本可能仍引用它们。本地原始美术资源保留在仓库，旧镜像中的资源也保留用于回退；此次增量镜像仍继承旧基础层，完全清洁构建后才会从新镜像底层省去约 200 MB 的重复资源。
+
+### 本次发布验证
+
+- 应用版本 `2d42a24a231784ef9de9815696f50f93c6ec793a`；本地 npm run check 通过（131 项单测）、后端构建通过。本次手动增量发布，提交跳过 GitHub CI。
+- 测试环境通过原部署脚本、OSS 136 项预检、136 张图片经网站 HTTP 下载的 SHA256 校验；生产提升同一套镜像。回退版本 `68b752fe13a2d294c052ce868debf3b83e3bb98f` 保留内置资源。
+- OSS 签名实现参考：https://www.alibabacloud.com/help/en/oss/developer-reference/include-signatures-in-the-authorization-header 。
