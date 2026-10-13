@@ -98,3 +98,19 @@
 本次应急发布核对依赖、锁文件及部署配置相对上一生产版本均无变化；上传本地同提交构建的 backend/dist、前端生产/测试 index 与 assets，基于服务器已有 `3b424127adf5c702ecf144d86be5d947c497ca37` 镜像进行离线 COPY 构建，其余静态资源沿用该版本。传输包 SHA256：`b5e395165486af68f9c786b609993b30740da9dccda83688200faf8a475b06eb`。
 
 通过原发布脚本依次部署 staging 和 production，均完成数据库备份与健康检查；生产提升的是测试环境验证的同一组镜像。线上核验第一页+第二页 36 条、站内文章和模型与工程分类均按首次发布时间倒序，三篇新文章位于最前。此应急方式仅适用于本次依赖与静态资源未变的更新，不替换常规 CI/CD 流程。
+
+## 2026-10-13 抓取修复与内容补充
+
+生产排查发现：robots.txt 未放行 /api/v1/library/，而 React 学习中心和工具目录依赖该公开接口；/learn?page=2 和 /tools?page=2 被共享 SEO 判为无效分页，初始快照也未生成独立分页内容。已同步修复客户端元数据与服务端快照，保持 18 条/页、canonical 自指、过滤结果 noindex、越界页 404。
+
+sitemap 新增学习/工具/模型后续分页；教程 lastmod 来自历史记录中的实际发布/导入时间，不使用服务启动时间。公共 HTML 和 sitemap 可通过 ETag 重验证。百度队列先处理入口页、教程，再处理工具和模型，保留原每日额度和重试策略；不重置已接收记录。检查时百度实际已接收 40 条，436 条仍排队，接收不等于索引。
+
+新增原创中文教程（通过一次性种子导入后台，不覆盖编辑后的内容）：
+- /learn/godot-ai-debugging-workflow：最小复现、日志证据、信号重复调用排查、五项回归和交接记录。
+- /learn/ai-3d-game-asset-checklist：静态资产体检、尺寸原点、减面与材质、碰撞、设备 A/B 验收及交付清单。
+
+文章引用 Godot / Blender 官方资料，清楚区分实践建议与实际测试结果，没有编造性能数据。
+
+验证：npm run check 通过，133 项单测；桌面及手机 SEO/学习中心浏览器测试共 8 项通过；生产和 staging 前端、后端构建通过。应用提交 5519be75c46a439da478162b0014363d5fe5cf41，使用现有增量镜像发布流程，本次 GitHub CI 跳过。
+
+后续收录诊断应使用 Search Console 的 URL 检查/网页索引报告和百度资源平台，不能仅用 site: 结果推断全部收录数。当前修复不构成排名、收录数量或时间保证。Google 官方排查说明：https://developers.google.com/search/docs/crawling-indexing/troubleshoot-crawling-errors 。
