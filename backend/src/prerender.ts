@@ -31,17 +31,17 @@ const sections = (items: { title: string; body: string; code?:string; language?:
     .join("");
 const cards = (items: { url: string; title: string; summary?: string }[]) =>
   `<ul>${items.map((x) => `<li>${link(x.url, x.title)}${x.summary ? paragraph(x.summary) : ""}</li>`).join("")}</ul>`;
-const knowledgeLinks = (d: Content) =>
+const knowledgeLinks = (d: Content, page?: number) =>
   cards(
-    [...d.knowledge].sort(newestLessonsFirst).map((x) => ({
+    [...d.knowledge].sort(newestLessonsFirst).slice(page ? (page - 1) * 18 : 0, page ? page * 18 : undefined).map((x) => ({
       url: "/learn/" + x.slug,
       title: x.title,
       summary: x.summary,
     })),
   );
-const resourceLinks = (d: Content) =>
+const resourceLinks = (d: Content, page?: number) =>
   cards(
-    d.resources.map((x) => ({
+    d.resources.slice(page ? (page - 1) * 18 : 0, page ? page * 18 : undefined).map((x) => ({
       url: "/tools/" + x.id,
       title: x.name,
       summary: x.summary,
@@ -77,8 +77,8 @@ function pageBody(route: string, d: Content, news: NewsArticle[], page = 1) {
   if (route === "/")
     return `<h1>AI门道｜看懂 AI，用出门道。</h1>${paragraph("AI 门道面向独立创作者，提供 AI 资讯、工具导航、知识教程与词元预算工具。")}<h2>AI 实时资讯</h2>${newsLinks(news.slice(0, 6))}<h2>学习与实践</h2>${knowledgeLinks(d)}<h2>模型与工具</h2>${resourceLinks(d)}${link("/models", "浏览全部大模型")} · ${link("/calculators", "实用工具")}`;
   if (route === "/learn")
-    return `<h1>AI 学习中心</h1>${paragraph("按入门与选型、游戏开发、图像与3D、视频与音频、智能体与自动化、模型与工程六个主题学习。站内文章提供示例与检查方法，外部资料保留原文入口。")} ${knowledgeLinks(d)}<h2>应用场景</h2>${cards(d.scenarios.map((s) => ({ url: "/scenarios/" + s.id, title: s.name, summary: s.summary })))}`;
-  if (route === "/tools") return `<h1>AI 工具与平台</h1>${resourceLinks(d)}`;
+    return `<h1>AI 学习中心</h1>${paragraph("按入门与选型、游戏开发、图像与3D、视频与音频、智能体与自动化、模型与工程六个主题学习。站内文章提供示例与检查方法，外部资料保留原文入口。")} ${knowledgeLinks(d, page)}${pages("/learn", page, Math.ceil(d.knowledge.length / 18))}<h2>应用场景</h2>${cards(d.scenarios.map((s) => ({ url: "/scenarios/" + s.id, title: s.name, summary: s.summary })))}`;
+  if (route === "/tools") return `<h1>AI 工具与平台</h1>${resourceLinks(d, page)}${pages("/tools", page, Math.ceil(d.resources.length / 18))}`;
   if (route === "/models")
     return `<h1>大模型目录${page > 1 ? " · 第 " + page + " 页" : ""}</h1>${cards(d.catalog.models.slice((page - 1) * 24, page * 24).map((m) => ({ url: "/models/" + m.id, title: m.name, summary: m.description })))}${pages("/models", page, Math.ceil(d.catalog.models.length / 24))}`;
   if (route === "/news")
@@ -159,6 +159,8 @@ export class PublicSnapshots {
     }
     for (const [route, count] of [
       ["/models", Math.ceil(d.catalog.models.length / 24)],
+      ["/learn", Math.ceil(d.knowledge.length / 18)],
+      ["/tools", Math.ceil(d.resources.length / 18)],
       ["/news", Math.ceil(news.length / 18)],
     ] as const) {
       for (let page = 2; page <= count; page++)
@@ -232,7 +234,7 @@ export class PublicSnapshots {
       return { status: 200, html: this.empty, noindex: true };
     const query = u.searchParams;
     const pn = Number(query.get("page") || 1);
-    const paginated = ["/models", "/news"].includes(p);
+    const paginated = ["/models", "/news", "/learn", "/tools"].includes(p);
     const invalid =
       query.has("page") &&
       (!paginated ||
@@ -265,6 +267,7 @@ export class PublicSnapshots {
       const r = this.get(req.originalUrl);
       if (r.location) return res.redirect(r.status, r.location);
       res.set("X-Prerender", "published-snapshot");
+      if (!r.noindex && r.status === 200) res.set("Cache-Control", "public, max-age=0, must-revalidate");
       if (r.noindex) res.set("X-Robots-Tag", "noindex");
       res.status(r.status).type("html").send(r.html);
     });

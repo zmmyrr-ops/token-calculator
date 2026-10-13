@@ -1,3 +1,5 @@
+import { seedOctoberArticles } from "./learning-october";
+import { sitemapXml } from "./sitemap";
 import { publicAssetsRouter } from "./public-assets";
 import { seedDepthArticles } from "./learning-depth";
 import {
@@ -22,7 +24,7 @@ import { initEyes, eyesRouter, pruneEyes } from "./ai-eyes";
 import { initPersonas, personasRouter } from "./personas";
 import { miniSettings, requireMiniModule } from "./mini-settings";
 import { PublicSnapshots } from "./prerender";
-import { BaiduService, baiduCandidates } from "./baidu";
+import { BaiduService } from "./baidu";
 import {
   expandContent,
   simplifyStarterPresentation,
@@ -70,6 +72,7 @@ expandGameContent(store);
 upgradeGameWorkshops(store);
 upgradeLearningContent(store);
 seedDepthArticles(store);
+seedOctoberArticles(store);
 await initializeAdmin(store);
 initCommunity(store);
 initPersonas(store);
@@ -421,16 +424,11 @@ app.get("/robots.txt", (_req, res) =>
   res
     .type("text/plain")
     .send(
-      `User-agent: *\nAllow: /\nDisallow: /staging/\nDisallow: /admin\nDisallow: /api/\nAllow: /api/v1/bootstrap\nAllow: /api/v1/catalog\nAllow: /api/v1/news\nSitemap: ${site.url}/sitemap.xml\n`,
+      `User-agent: *\nAllow: /\nDisallow: /staging/\nDisallow: /admin\nDisallow: /api/\nAllow: /api/v1/bootstrap\nAllow: /api/v1/catalog\nAllow: /api/v1/news\nAllow: /api/v1/library/\nSitemap: ${site.url}/sitemap.xml\n`,
     ),
 );
 app.get("/sitemap.xml", (_req, res) => {
-  const routes = baiduCandidates(store);
-  res
-    .type("application/xml")
-    .send(
-      `<?xml version="1.0" encoding="UTF-8"?><urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">${routes.map((route) => `<url><loc>${route.url.replaceAll("&", "&amp;").replaceAll("<", "&lt;").replaceAll(">", "&gt;")}</loc></url>`).join("")}</urlset>`,
-    );
+  res.type("application/xml").set("Cache-Control", "public, max-age=0, must-revalidate").send(sitemapXml(store));
 });
 const snapshots = new PublicSnapshots(store);
 app.use(eyesPages(store));

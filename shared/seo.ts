@@ -169,7 +169,7 @@ export function resolveSeo(pathname: string, search: string, data: Content) {
     known = true;
   }
   const pageNumber = Number(query.get("page") || 1);
-  const paginated = ["/models", "/news", "/forum"].includes(path);
+  const paginated = ["/models", "/news", "/forum", "/learn", "/tools"].includes(path);
   const invalidPage =
     query.has("page") &&
     (!paginated ||

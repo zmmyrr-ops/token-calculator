@@ -287,7 +287,7 @@ export class BaiduService {
     if (size <= 0) throw new CmsError(429, "今日提交额度已用完，次日自动继续");
     const rows = this.store.db
       .prepare(
-        "SELECT * FROM baidu_queue WHERE state IN ('pending','failed') AND attempts<5 AND next_at<=? ORDER BY updated_at,url LIMIT ?",
+        "SELECT * FROM baidu_queue WHERE state IN ('pending','failed') AND attempts<5 AND next_at<=? ORDER BY CASE WHEN url LIKE '%/learn/%' THEN 1 WHEN url LIKE '%/tools/%' THEN 2 WHEN url LIKE '%/models/%' THEN 3 ELSE 0 END,updated_at DESC,url LIMIT ?",
       )
       .all(Date.now(), size) as Row[];
     if (!rows.length) return { message: "没有待提交的新链接", accepted: 0 };

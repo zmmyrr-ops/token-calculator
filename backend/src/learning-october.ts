@@ -1,0 +1,39 @@
+import { ContentDatabase } from "./database";
+import { knowledgeSchema } from "../../shared/cms";
+import { octoberArticles } from "./content/learning-october";
+
+/** Add once; never replace edited drafts or republish withdrawn content. */
+export function seedOctoberArticles(store: ContentDatabase) {
+  const key = "learningOctober20261013";
+  if (store.meta(key)) return;
+  store.transaction(() => {
+    let position = Number(
+      store.db
+        .prepare("SELECT COALESCE(MAX(position),0) n FROM documents")
+        .get()!.n,
+    );
+    const added: string[] = [];
+    for (const item of octoberArticles) {
+      const article = knowledgeSchema.parse(item);
+      const raw = JSON.stringify(article),
+        at = new Date().toISOString();
+      const result = store.db
+        .prepare("INSERT OR IGNORE INTO documents VALUES(?,?,?,?,?,?,?)")
+        .run("knowledge", article.slug, raw, raw, 1, ++position, at);
+      if (result.changes) {
+        added.push(article.slug);
+        store.db
+          .prepare(
+            "INSERT INTO history(kind,entity_id,action,actor,payload,at) VALUES('knowledge',?,'import','learning-october-20261013',?,?)",
+          )
+          .run(article.slug, raw, at);
+      }
+    }
+    store.setMeta(key, { added });
+    if (added.length)
+      store.setMeta(
+        "contentVersion",
+        (store.meta<number>("contentVersion") || 0) + 1,
+      );
+  });
+}

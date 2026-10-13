@@ -60,3 +60,15 @@ test("portrait landing has public HTML while personal results stay private",asyn
  await page.getByRole('link',{name:'查看完整教程 →'}).click();await expect(page.getByRole('heading',{level:1})).toContainText('AI眼里的你怎么测');
  await expect(page.getByRole('link',{name:'打开配套工具 →'})).toBeVisible();
 });
+
+test("library second pages stay indexable after JavaScript renders", async ({page,request})=>{
+ for(const route of ['/learn','/tools']){
+  const response=await request.get(route+'?page=2');expect(response.status()).toBe(200);
+  const html=await response.text();expect(html).toContain('content="index, follow"');expect(html).toContain('https://ruming.top'+route+'?page=2');
+  await page.goto(route+'?page=2');
+  await expect(page.locator('meta[name="robots"]')).toHaveAttribute('content','index, follow');
+  await expect(page.locator('link[rel="canonical"]')).toHaveAttribute('href','https://ruming.top'+route+'?page=2');
+  await expect(page).toHaveTitle(/第 2 页/);
+ }
+ expect(await (await request.get('/robots.txt')).text()).toContain('Allow: /api/v1/library/');
+});
