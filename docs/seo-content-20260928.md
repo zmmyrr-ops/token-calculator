@@ -114,3 +114,17 @@ sitemap 新增学习/工具/模型后续分页；教程 lastmod 来自历史记�
 验证：npm run check 通过，133 项单测；桌面及手机 SEO/学习中心浏览器测试共 8 项通过；生产和 staging 前端、后端构建通过。应用提交 5519be75c46a439da478162b0014363d5fe5cf41，使用现有增量镜像发布流程，本次 GitHub CI 跳过。
 
 后续收录诊断应使用 Search Console 的 URL 检查/网页索引报告和百度资源平台，不能仅用 site: 结果推断全部收录数。当前修复不构成排名、收录数量或时间保证。Google 官方排查说明：https://developers.google.com/search/docs/crawling-indexing/troubleshoot-crawling-errors 。
+
+## 2026-10-27 通用 AI 文章
+
+新增 6 篇面向普通用户的原创练习文章，每篇约 900 中文字符（正文和模板），包含明确任务、失败情况、验收方法、可复制模板和站内延伸阅读：
+- ai-prompt-beginner-workshop：提示词六要素与通知写作练习。
+- ai-conversation-handoff-guide：多轮对话整理和新会话交接。
+- ai-answer-fact-check-guide：数字、引用、日期及口径核验。
+- ai-document-summary-workshop：长文摘要的提取、归纳和对照。
+- ai-meeting-notes-action-items：会议决定、建议、待确认与任务分工。
+- ai-learning-plan-self-test：诊断、短练习、反馈及复测。
+
+内容保存在 backend/src/content/learning-general.json，通过 seedGeneralArticles 一次性导入 CMS；不覆盖已有草稿，不重新发布已撤回或删除内容。发布时间取实际导入时间；沿用 sitemap、Article 元数据、相关学习链接和百度队列机制，不制造访问或收录记录。文中练习为原创教学示例；官方资料作为延伸依据，不声称不同平台的固定额度或功能始终相同。
+
+版本 ba00a522237d8555ccaa654d3d061df39776f225：npm run check 通过（133 项单测），后端构建通过；另验证 6 篇内容在 CMS、HTML 快照、sitemap、内部链接中存在，重复导入不改变内容版本。使用现有测试环境→生产环境增量发布流程，此次跳过 GitHub CI。
