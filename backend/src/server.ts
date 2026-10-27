@@ -1,3 +1,4 @@
+import { seedGeneralArticles } from "./learning-general";
 import { seedOctoberArticles } from "./learning-october";
 import { sitemapXml } from "./sitemap";
 import { publicAssetsRouter } from "./public-assets";
@@ -73,6 +74,7 @@ upgradeGameWorkshops(store);
 upgradeLearningContent(store);
 seedDepthArticles(store);
 seedOctoberArticles(store);
+seedGeneralArticles(store);
 await initializeAdmin(store);
 initCommunity(store);
 initPersonas(store);
