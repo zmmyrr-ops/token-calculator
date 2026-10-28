@@ -1,3 +1,4 @@
+import { seedDeepSeekFishArticles } from "./learning-deepseek-fish";
 import { seedGeneralArticles } from "./learning-general";
 import { seedOctoberArticles } from "./learning-october";
 import { sitemapXml } from "./sitemap";
@@ -75,6 +76,7 @@ upgradeLearningContent(store);
 seedDepthArticles(store);
 seedOctoberArticles(store);
 seedGeneralArticles(store);
+seedDeepSeekFishArticles(store);
 await initializeAdmin(store);
 initCommunity(store);
 initPersonas(store);
