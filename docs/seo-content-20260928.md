@@ -128,3 +128,18 @@ sitemap 新增学习/工具/模型后续分页；教程 lastmod 来自历史记�
 内容保存在 backend/src/content/learning-general.json，通过 seedGeneralArticles 一次性导入 CMS；不覆盖已有草稿，不重新发布已撤回或删除内容。发布时间取实际导入时间；沿用 sitemap、Article 元数据、相关学习链接和百度队列机制，不制造访问或收录记录。文中练习为原创教学示例；官方资料作为延伸依据，不声称不同平台的固定额度或功能始终相同。
 
 版本 ba00a522237d8555ccaa654d3d061df39776f225：npm run check 通过（133 项单测），后端构建通过；另验证 6 篇内容在 CMS、HTML 快照、sitemap、内部链接中存在，重复导入不改变内容版本。使用现有测试环境→生产环境增量发布流程，此次跳过 GitHub CI。
+
+## 2026-10-28 DeepSeek 养鱼专题
+
+新增三篇原创中文整理文章，每篇约 1100–1200 中文字符：
+- deepseek-big-fish-explained：区分模型、官方 Harness 与社区扩展，提供人格练习及中文视频入口。
+- deepseek-fish-desktop-starter：按桌面/Web 入口整理安装、首次验收与故障记录。
+- deepseek-fish-memory-budget：可检查的记忆、主动触发与模型调用、三天观察和费用口径。
+
+资料于 2026-10-28 核对，引用 DeepSeek 官方仓库及 dsh-pet、dsh-fish-memory、dsh-speak-up 作者仓库；视频作为外链资源，不转载正文或素材。明确教程系依据文档整理，未声称本站安装实测，不使用未经核验的固定月费或热度数据。
+
+通过 learningDeepSeekFish20261028 一次性种子导入，不覆盖后台编辑或重新发布撤回内容。保留真实导入日期、相关文章及现有搜索提交机制。npm run check 通过（133 项单测），后端构建通过；另验证三篇导入幂等、完整 HTML 正文、结构化数据、sitemap 日期与站内链接。
+
+应用版本 f13dfb67532672a6f04c964a573ee0c948006027，沿用现有增量镜像发布流程，GitHub CI 本次跳过；依赖与前端资源未改变。
+
+发布后核验：staging 与 production 均健康，三篇线上页面返回正常且初始 HTML 包含正文和结构化数据，学习中心第一页可见，sitemap 包含实际 lastmod。搜索引擎是否索引仍需后续平台报告确认。
